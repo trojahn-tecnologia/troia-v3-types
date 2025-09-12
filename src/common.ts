@@ -1,47 +1,8 @@
 import { ObjectId } from 'mongodb';
 
-// Common types used across all modules
-
-// Legacy-compatible API response format
-export interface BaseApiResponse<T = any> {
-  success: boolean;
-  data: T;
-  message?: string;
-  type?: 'success' | 'error' | 'warning' | 'info';
-  position?: 'center-top' | 'center-bottom' | 'top-right' | 'bottom-right';
-  action?: 'reload' | 'logout' | 'redirect' | 'refresh';
-}
-
-// Legacy exception format for error handling
-export interface ApiException {
-  error: string;
-  message?: string;
-  code: number;
-  params?: Record<string, any> | any[] | string;
-  type: 'error' | 'warning' | 'info';
-  position: string;
-  action?: string;
-}
-
-export interface PaginatedApiResponse<T = any> {
-  success: boolean;
-  data: {
-    items: T[];
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
-  message?: string;
-}
-
-export interface PaginationQuery {
-  page?: number;
-  limit?: number;
-  search?: string;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
-}
+// ============================================================
+// BASE DOCUMENT TYPES
+// ============================================================
 
 export interface BaseDocument {
   _id?: ObjectId;
@@ -54,18 +15,15 @@ export interface TenantAwareDocument extends BaseDocument {
   companyId: ObjectId;
 }
 
-export interface EntityParams {
-  id: string;
-}
+// Complete base document with all patterns
+export interface FullBaseDocument extends BaseDocument, SoftDeletable {}
 
-export interface SearchQuery extends PaginationQuery {
-  filters?: Record<string, any>;
-}
+// Multi-tenant aware document with full audit trail
+export interface FullTenantDocument extends TenantAwareDocument, SoftDeletable {}
 
-// Status types used across modules
-export type ActiveStatus = 'active' | 'inactive';
-export type ExtendedStatus = 'active' | 'inactive' | 'pending' | 'suspended' | 'error';
-export type CallStatus = 'open' | 'waiting' | 'closed' | 'transferred';
+// ============================================================
+// COMMON PATTERNS
+// ============================================================
 
 // Soft delete pattern
 export interface SoftDeletable {
@@ -78,13 +36,10 @@ export interface Auditable {
   updatedAt?: Date;
 }
 
-// Complete base document with all patterns
-export interface FullBaseDocument extends BaseDocument, SoftDeletable {}
+// ============================================================
+// ADDRESS TYPE (GLOBAL)
+// ============================================================
 
-// Multi-tenant aware document with full audit trail
-export interface FullTenantDocument extends TenantAwareDocument, SoftDeletable {}
-
-// Address type used across modules
 export interface Address {
   street: string;
   number: string;
@@ -96,7 +51,129 @@ export interface Address {
   country: string;
 }
 
-// Request context
+// ============================================================
+// API RESPONSE TYPES
+// ============================================================
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  message?: string;
+  errors?: any[];
+  pagination?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export interface PaginatedResponse<T> extends ApiResponse<T[]> {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export interface ApiError {
+  message: string;
+  status: number;
+  errors?: any[];
+}
+
+// ============================================================
+// QUERY & PAGINATION TYPES
+// ============================================================
+
+export interface PaginationOptions {
+  page: number;
+  limit: number;
+}
+
+export interface SortOptions {
+  field: string;
+  direction: 'asc' | 'desc';
+}
+
+export interface FilterOptions {
+  search?: string;
+  status?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  [key: string]: any;
+}
+
+export interface QueryOptions {
+  filters?: FilterOptions;
+  sort?: SortOptions;
+  pagination?: PaginationOptions;
+}
+
+export interface PaginationQuery {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface SearchQuery extends PaginationQuery {
+  filters?: Record<string, any>;
+}
+
+// ============================================================
+// FORM TYPES
+// ============================================================
+
+export interface FormFieldError {
+  message: string;
+}
+
+export interface FormErrors {
+  [key: string]: FormFieldError | undefined;
+}
+
+export interface FormState {
+  isSubmitting: boolean;
+  isDirty: boolean;
+  errors: FormErrors;
+}
+
+// ============================================================
+// NOTIFICATION TYPES
+// ============================================================
+
+export interface Notification {
+  id: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  title: string;
+  message: string;
+  duration?: number;
+  action?: {
+    label: string;
+    handler: () => void;
+  };
+}
+
+// ============================================================
+// STATUS TYPES
+// ============================================================
+
+export type EntityStatus = 'active' | 'inactive' | 'blocked';
+export type ActiveStatus = 'active' | 'inactive';
+export type ExtendedStatus = 'active' | 'inactive' | 'pending' | 'suspended' | 'error';
+
+// ============================================================
+// UTILITY TYPES
+// ============================================================
+
+export interface EntityParams {
+  id: string;
+}
+
 export interface RequestContext {
   appId: ObjectId;
   companyId?: ObjectId;
