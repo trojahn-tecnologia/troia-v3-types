@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { TenantAwareDocument, FullTenantDocument, ActiveStatus } from './common';
+import { TenantAwareDocument, FullTenantDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from "./common";
 export interface User extends FullTenantDocument {
     email: string;
     firstName: string;
@@ -220,3 +220,16 @@ export interface UserAnalytics {
     }[];
 }
 export type UserStatus = ActiveStatus;
+export interface UserQuery extends PaginationQuery {
+    status?: ActiveStatus;
+    role?: string;
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    companyId?: string;
+}
+export type UserResponse = Omit<User, 'security'>;
+export interface UserListResponse extends ListResponse<UserResponse> {
+}
+export interface UserQueryOptions extends GenericQueryOptions<UserQuery> {
+}

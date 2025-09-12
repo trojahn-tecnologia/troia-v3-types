@@ -118,3 +118,24 @@ export interface RequestContext {
     companyId?: ObjectId;
     userId?: ObjectId;
 }
+export interface GenericQueryOptions<T> extends PaginationQuery {
+    filters?: Partial<T>;
+}
+export interface ListResponse<T> {
+    items: T[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+}
+export type MongoFilter<T = Record<string, any>> = Record<string, any>;
+export interface MongoSortConfig {
+    [key: string]: 1 | -1;
+}
+export interface MongoQueryOptions {
+    filter: MongoFilter;
+    sort?: MongoSortConfig;
+    skip?: number;
+    limit?: number;
+    projection?: Record<string, 0 | 1>;
+}
