@@ -1,4 +1,4 @@
-import { FullBaseDocument, ActiveStatus } from './common';
+import { FullBaseDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from "./common";
 export interface App extends FullBaseDocument {
     name: string;
     logo: string;
@@ -30,3 +30,13 @@ export interface UpdateAppRequest {
     modules?: string[];
 }
 export type AppStatus = ActiveStatus;
+export interface AppQuery extends PaginationQuery {
+    status?: ActiveStatus;
+    name?: string;
+    domains?: string[];
+}
+export type AppResponse = App;
+export interface AppListResponse extends ListResponse<AppResponse> {
+}
+export interface AppQueryOptions extends GenericQueryOptions<AppQuery> {
+}

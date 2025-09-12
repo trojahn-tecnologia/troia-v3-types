@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { TenantAwareDocument, FullTenantDocument, ActiveStatus, Address } from './common';
+import { TenantAwareDocument, FullTenantDocument, ActiveStatus, Address, PaginationQuery, GenericQueryOptions, ListResponse } from "./common";
 
 export interface Company extends FullTenantDocument {
   name: string;
@@ -38,3 +38,28 @@ export interface UpdateCompanyRequest {
 }
 
 export type CompanyStatus = ActiveStatus;
+// ============================================================
+// COMPANY SPECIFIC QUERY & RESPONSE TYPES
+// ============================================================
+
+// Company query with specific filters
+export interface CompanyQuery extends PaginationQuery {
+  status?: ActiveStatus;
+  name?: string;
+  email?: string;
+}
+
+// Company response (same as Company for now, but prepared for future changes)
+export type CompanyResponse = Company;
+
+// Company list response using generic
+export interface CompanyListResponse extends ListResponse<CompanyResponse> {}
+
+// Company query options using generic
+export interface CompanyQueryOptions extends GenericQueryOptions<CompanyQuery> {}
+
+// Special response for company registration (company + user)
+export interface CompanyRegistrationResponse {
+  company: CompanyResponse;
+  user: any; // Will be UserResponse when we import it
+}

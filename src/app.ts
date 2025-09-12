@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { FullBaseDocument, ActiveStatus } from './common';
+import { FullBaseDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from "./common";
 
 export interface App extends FullBaseDocument {
   name: string;
@@ -36,3 +36,22 @@ export interface UpdateAppRequest {
 }
 
 export type AppStatus = ActiveStatus;
+// ============================================================
+// APP SPECIFIC QUERY & RESPONSE TYPES
+// ============================================================
+
+// App query with specific filters
+export interface AppQuery extends PaginationQuery {
+  status?: ActiveStatus;
+  name?: string;
+  domains?: string[];
+}
+
+// App response (same as App for now, but prepared for future changes)
+export type AppResponse = App;
+
+// App list response using generic
+export interface AppListResponse extends ListResponse<AppResponse> {}
+
+// App query options using generic
+export interface AppQueryOptions extends GenericQueryOptions<AppQuery> {}

@@ -1,4 +1,4 @@
-import { FullTenantDocument, ActiveStatus, Address } from './common';
+import { FullTenantDocument, ActiveStatus, Address, PaginationQuery, GenericQueryOptions, ListResponse } from "./common";
 export interface Company extends FullTenantDocument {
     name: string;
     email: string;
@@ -31,3 +31,17 @@ export interface UpdateCompanyRequest {
     address?: Partial<Address>;
 }
 export type CompanyStatus = ActiveStatus;
+export interface CompanyQuery extends PaginationQuery {
+    status?: ActiveStatus;
+    name?: string;
+    email?: string;
+}
+export type CompanyResponse = Company;
+export interface CompanyListResponse extends ListResponse<CompanyResponse> {
+}
+export interface CompanyQueryOptions extends GenericQueryOptions<CompanyQuery> {
+}
+export interface CompanyRegistrationResponse {
+    company: CompanyResponse;
+    user: any;
+}
