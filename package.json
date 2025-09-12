@@ -1,0 +1,32 @@
+{
+  "name": "@troia-v3/types",
+  "version": "1.1.0",
+  "description": "Shared TypeScript types for TROIA V3 Frontend and Backend",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "troia",
+    "types",
+    "typescript",
+    "shared"
+  ],
+  "author": "TROIA Development Team",
+  "license": "PRIVATE",
+  "private": true,
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "mongodb": "^6.19.0"
+  }
+}
