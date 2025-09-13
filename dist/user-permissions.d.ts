@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { ModulePermission } from './modules';
-export interface UserPermissions {
+export interface UserModulePermissions {
     level: ObjectId;
     permissions: Record<string, ModulePermission>;
 }
