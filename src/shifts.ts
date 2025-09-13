@@ -10,9 +10,12 @@ export interface Shift {
   _id: ObjectId;
   name: string;
   description?: string;
+  teamId?: ObjectId; // Optional team assignment
   schedule: ShiftSchedule;
   assignments: ShiftAssignment[];
   assignmentConfig: AssignmentConfig;
+  userAvailability: UserAvailability[]; // User availability within this shift
+  workloadConfig?: WorkloadConfig; // Workload limits for this shift
   companyId: ObjectId;
   appId: ObjectId;
   status: ActiveStatus;
@@ -63,7 +66,7 @@ export interface ShiftAssignment {
 }
 
 export interface UserAvailability {
-  _id: ObjectId;
+  _id?: ObjectId;
   userId: ObjectId;
   currentStatus: 'available' | 'busy' | 'away' | 'offline';
   currentShift?: {
@@ -79,9 +82,21 @@ export interface UserAvailability {
   };
   lastActivity: Date;
   lastAssignment: Date;
-  companyId: ObjectId;
-  appId: ObjectId;
+  companyId?: ObjectId;
+  appId?: ObjectId;
   updatedAt: Date;
+}
+
+// Workload configuration for shift limits
+export interface WorkloadConfig {
+  maxConcurrentAssignments: number;
+  maxDailyAssignments: number;
+  priorityWeights: {
+    chat: number;
+    lead: number;
+    ticket: number;
+  };
+  overrideOnUrgent: boolean;
 }
 
 // ============================================================================
@@ -92,6 +107,7 @@ export interface UserAvailability {
 export interface ShiftQuery extends PaginationQuery {
   status?: ActiveStatus;
   name?: string;
+  teamId?: string;
   scheduleType?: 'fixed' | 'rotating' | 'on_demand';
 }
 
@@ -121,15 +137,21 @@ export interface UserAvailabilityQueryOptions extends GenericQueryOptions<UserAv
 export interface CreateShiftRequest {
   name: string;
   description?: string;
+  teamId?: string;
   schedule: ShiftSchedule;
   assignmentConfig: AssignmentConfig;
+  userAvailability?: UserAvailability[];
+  workloadConfig?: WorkloadConfig;
 }
 
 export interface UpdateShiftRequest {
   name?: string;
   description?: string;
+  teamId?: string;
   schedule?: ShiftSchedule;
   assignmentConfig?: AssignmentConfig;
+  userAvailability?: UserAvailability[];
+  workloadConfig?: WorkloadConfig;
   status?: ActiveStatus;
 }
 
