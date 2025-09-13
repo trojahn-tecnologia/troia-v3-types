@@ -177,3 +177,36 @@ export interface AssignmentResult {
   userId: string | null;
   reason?: string;
 }
+
+// Testing and Manual Assignment
+export interface TestAssignmentRequest {
+  channelId: string;
+  resourceType: 'customer' | 'lead' | 'project' | 'document' | 'ticket';
+  resourceId: string;
+  priority?: number;
+  metadata?: Record<string, any>;
+}
+
+export interface TestAssignmentResponse {
+  success: boolean;
+  assignedTo: AssignmentResult;
+  message: string;
+  executedAt: Date;
+  details?: Record<string, any>;
+}
+
+export interface ManualAssignRequest {
+  channelId: string;
+  resourceType: 'customer' | 'lead' | 'project' | 'document' | 'ticket';
+  resourceId: string;
+  userId: string;
+  priority?: number;
+  notes?: string;
+}
+
+export interface ManualAssignResponse {
+  success: boolean;
+  assignmentId: string;
+  message: string;
+  assignedAt: Date;
+}
