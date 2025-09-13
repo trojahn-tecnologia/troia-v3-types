@@ -4,6 +4,9 @@ export interface BaseDocument {
     createdAt: Date;
     updatedAt?: Date;
 }
+export interface AppAwareDocument extends BaseDocument {
+    appId: ObjectId;
+}
 export interface TenantAwareDocument extends BaseDocument {
     appId: ObjectId;
     companyId: ObjectId;

@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
-import { TenantAwareDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
-export interface Plan extends TenantAwareDocument {
+import { AppAwareDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
+export interface Plan extends AppAwareDocument {
     _id: ObjectId;
     name: string;
     description: string;
