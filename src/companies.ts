@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { TenantAwareDocument, FullTenantDocument, ActiveStatus, Address, PaginationQuery, GenericQueryOptions, ListResponse } from "./common";
+import { AssignmentConfig } from './assignment';
 
 export interface Company extends FullTenantDocument {
   name: string;
@@ -9,6 +10,7 @@ export interface Company extends FullTenantDocument {
   logo?: string;
   status: ActiveStatus;
   address: Address;
+  defaultAssignmentConfig?: AssignmentConfig;
 }
 
 
@@ -35,6 +37,12 @@ export interface UpdateCompanyRequest {
   logo?: string;
   status?: ActiveStatus;
   address?: Partial<Address>;
+  defaultAssignmentConfig?: AssignmentConfig;
+}
+
+// Assignment configuration specific request
+export interface UpdateCompanyAssignmentConfigRequest {
+  defaultAssignmentConfig: AssignmentConfig;
 }
 
 export type CompanyStatus = ActiveStatus;
