@@ -1,0 +1,64 @@
+import { ObjectId } from 'mongodb';
+import { TenantAwareDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
+
+export interface Plan extends TenantAwareDocument {
+  _id: ObjectId;
+  name: string; // "Básico", "Pro", "Enterprise"
+  description: string;
+  price: {
+    monthly: number;
+    yearly: number;
+    currency: string;
+  };
+  modules: PlanModule[]; // Módulos liberados neste plano
+  limits: PlanLimits; // ✅ Simplificado
+  status: ActiveStatus;
+}
+
+export interface PlanModule {
+  moduleId: ObjectId; // Referência à collection modules
+  limit: number; // ✅ Apenas um número simples
+}
+
+// ✅ Limits como Record simples
+export type PlanLimits = Record<string, number>; // { users: 100, crm: 100, channels: 50, chat: 1000 }
+
+// Generic + Specific Pattern
+export interface PlanQuery extends PaginationQuery {
+  status?: ActiveStatus;
+  name?: string;
+  priceRange?: {
+    min?: number;
+    max?: number;
+  };
+}
+
+export type PlanResponse = Plan;
+export interface PlanListResponse extends ListResponse<PlanResponse> {}
+export interface PlanQueryOptions extends GenericQueryOptions<PlanQuery> {}
+
+// Request types
+export interface CreatePlanRequest {
+  name: string;
+  description: string;
+  price: {
+    monthly: number;
+    yearly: number;
+    currency: string;
+  };
+  modules: PlanModule[];
+  limits: PlanLimits;
+}
+
+export interface UpdatePlanRequest {
+  name?: string;
+  description?: string;
+  price?: {
+    monthly?: number;
+    yearly?: number;
+    currency?: string;
+  };
+  modules?: PlanModule[];
+  limits?: PlanLimits;
+  status?: ActiveStatus;
+}
