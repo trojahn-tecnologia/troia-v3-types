@@ -1,4 +1,5 @@
 import { FullTenantDocument, ActiveStatus, Address, PaginationQuery, GenericQueryOptions, ListResponse } from "./common";
+import { AssignmentConfig } from './assignment';
 export interface Company extends FullTenantDocument {
     name: string;
     email: string;
@@ -7,6 +8,7 @@ export interface Company extends FullTenantDocument {
     logo?: string;
     status: ActiveStatus;
     address: Address;
+    defaultAssignmentConfig?: AssignmentConfig;
 }
 export interface CreateCompanyRequest {
     name: string;
@@ -29,6 +31,10 @@ export interface UpdateCompanyRequest {
     logo?: string;
     status?: ActiveStatus;
     address?: Partial<Address>;
+    defaultAssignmentConfig?: AssignmentConfig;
+}
+export interface UpdateCompanyAssignmentConfigRequest {
+    defaultAssignmentConfig: AssignmentConfig;
 }
 export type CompanyStatus = ActiveStatus;
 export interface CompanyQuery extends PaginationQuery {
