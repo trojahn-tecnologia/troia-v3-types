@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { ModulePermission } from './modules';
 
 // Estrutura simplificada de permissões do usuário
-export interface UserPermissions {
+export interface UserModulePermissions {
   level: ObjectId; // Referência ao Level
   permissions: Record<string, ModulePermission>; // Permissões individuais por módulo
 }

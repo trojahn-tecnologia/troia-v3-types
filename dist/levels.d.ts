@@ -1,0 +1,30 @@
+import { ObjectId } from 'mongodb';
+import { FullTenantDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
+import { ModulePermission } from './modules';
+export interface Level extends FullTenantDocument {
+    _id: ObjectId;
+    name: string;
+    description: string;
+    permissions: Record<string, ModulePermission>;
+    status: ActiveStatus;
+}
+export interface LevelQuery extends PaginationQuery {
+    status?: ActiveStatus;
+    name?: string;
+}
+export type LevelResponse = Level;
+export interface LevelListResponse extends ListResponse<LevelResponse> {
+}
+export interface LevelQueryOptions extends GenericQueryOptions<LevelQuery> {
+}
+export interface CreateLevelRequest {
+    name: string;
+    description: string;
+    permissions: Record<string, ModulePermission>;
+}
+export interface UpdateLevelRequest {
+    name?: string;
+    description?: string;
+    permissions?: Record<string, ModulePermission>;
+    status?: ActiveStatus;
+}

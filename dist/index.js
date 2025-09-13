@@ -20,3 +20,8 @@ __exportStar(require("./common"), exports);
 __exportStar(require("./app"), exports);
 __exportStar(require("./companies"), exports);
 __exportStar(require("./user"), exports);
+__exportStar(require("./modules"), exports);
+__exportStar(require("./plans"), exports);
+__exportStar(require("./levels"), exports);
+__exportStar(require("./company-plans"), exports);
+__exportStar(require("./user-permissions"), exports);
