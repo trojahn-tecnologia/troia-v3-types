@@ -16,7 +16,7 @@ export interface Plan extends AppAwareDocument {
 }
 
 export interface PlanModule {
-  moduleId: ObjectId; // Referência à collection modules
+  moduleId: string; // Nome do módulo: "users", "crm", "chat", etc.
   limit: number; // ✅ Apenas um número simples
 }
 
