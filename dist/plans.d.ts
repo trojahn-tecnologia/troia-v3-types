@@ -14,7 +14,7 @@ export interface Plan extends AppAwareDocument {
     status: ActiveStatus;
 }
 export interface PlanModule {
-    moduleId: ObjectId;
+    moduleId: string;
     limit: number;
 }
 export type PlanLimits = Record<string, number>;
