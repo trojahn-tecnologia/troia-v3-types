@@ -8,20 +8,12 @@ export interface User extends FullTenantDocument {
     avatar?: string;
     phone?: string;
     status: ActiveStatus;
-    role: UserRole;
+    levelId?: ObjectId;
     preferences: UserPreferences;
     security: UserSecurity;
     permissions: UserPermissions;
     lastLoginAt?: Date;
     lastActivityAt?: Date;
-}
-export interface UserRole {
-    _id?: ObjectId;
-    name: string;
-    level: number;
-    permissions: string[];
-    isSystem: boolean;
-    isDefault: boolean;
 }
 export interface UserPreferences {
     theme: 'light' | 'dark' | 'auto';
@@ -108,7 +100,7 @@ export interface UserInvitation extends TenantAwareDocument {
     email: string;
     firstName: string;
     lastName: string;
-    role: string;
+    levelId?: ObjectId;
     invitedBy: ObjectId;
     status: 'pending' | 'accepted' | 'declined' | 'expired';
     token: string;
@@ -122,7 +114,7 @@ export interface CreateUserRequest {
     lastName: string;
     password?: string;
     phone?: string;
-    role: string;
+    levelId?: string;
     preferences?: Partial<UserPreferences>;
     sendInvite?: boolean;
 }
@@ -132,14 +124,14 @@ export interface UpdateUserRequest {
     phone?: string;
     avatar?: string;
     status?: ActiveStatus;
-    role?: string;
+    levelId?: string;
     preferences?: Partial<UserPreferences>;
 }
 export interface CreateUserInvitationRequest {
     email: string;
     firstName: string;
     lastName: string;
-    role: string;
+    levelId?: string;
     message?: string;
     expiresIn?: number;
 }
@@ -222,7 +214,7 @@ export interface UserAnalytics {
 export type UserStatus = ActiveStatus;
 export interface UserQuery extends PaginationQuery {
     status?: ActiveStatus;
-    role?: string;
+    levelId?: string;
     email?: string;
     firstName?: string;
     lastName?: string;

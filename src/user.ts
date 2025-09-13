@@ -9,7 +9,7 @@ export interface User extends FullTenantDocument {
   avatar?: string;
   phone?: string;
   status: ActiveStatus;
-  role: UserRole;
+  levelId?: ObjectId; // Referência para o nível do usuário (hierarquia)
   preferences: UserPreferences;
   security: UserSecurity;
   permissions: UserPermissions;
@@ -17,14 +17,7 @@ export interface User extends FullTenantDocument {
   lastActivityAt?: Date;
 }
 
-export interface UserRole {
-  _id?: ObjectId;
-  name: string;
-  level: number;
-  permissions: string[];
-  isSystem: boolean;
-  isDefault: boolean;
-}
+// UserRole removido - agora usamos apenas levelId + permissions individuais
 
 
 
@@ -123,7 +116,7 @@ export interface UserInvitation extends TenantAwareDocument {
   email: string;
   firstName: string;
   lastName: string;
-  role: string;
+  levelId?: ObjectId; // Nível que será atribuído ao usuário quando aceitar o convite
   invitedBy: ObjectId;
   status: 'pending' | 'accepted' | 'declined' | 'expired';
   token: string;
@@ -138,7 +131,7 @@ export interface CreateUserRequest {
   lastName: string;
   password?: string;
   phone?: string;
-  role: string;
+  levelId?: string; // ID do nível (será convertido para ObjectId no backend)
   preferences?: Partial<UserPreferences>;
   sendInvite?: boolean;
 }
@@ -149,7 +142,7 @@ export interface UpdateUserRequest {
   phone?: string;
   avatar?: string;
   status?: ActiveStatus;
-  role?: string;
+  levelId?: string; // ID do nível (será convertido para ObjectId no backend)
   preferences?: Partial<UserPreferences>;
 }
 
@@ -157,7 +150,7 @@ export interface CreateUserInvitationRequest {
   email: string;
   firstName: string;
   lastName: string;
-  role: string;
+  levelId?: string; // ID do nível (será convertido para ObjectId no backend)
   message?: string;
   expiresIn?: number;
 }
@@ -258,7 +251,7 @@ export type UserStatus = ActiveStatus;
 // User query with specific filters
 export interface UserQuery extends PaginationQuery {
   status?: ActiveStatus;
-  role?: string;
+  levelId?: string; // Filtrar por nível
   email?: string;
   firstName?: string;
   lastName?: string;
