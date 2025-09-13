@@ -15,3 +15,4 @@ export * from './user-permissions';
 export * from './teams';
 export * from './channels';
 export * from './shifts';
+export * from './company-integrations';
