@@ -1,0 +1,182 @@
+import { ObjectId } from 'mongodb';
+import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
+import { AssignmentConfig } from './channels';
+
+// ============================================================================
+// SHIFTS TYPES
+// ============================================================================
+
+export interface Shift {
+  _id: ObjectId;
+  name: string;
+  description?: string;
+  schedule: ShiftSchedule;
+  assignments: ShiftAssignment[];
+  assignmentConfig: AssignmentConfig;
+  companyId: ObjectId;
+  appId: ObjectId;
+  status: ActiveStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ShiftSchedule {
+  type: 'fixed' | 'rotating' | 'on_demand';
+  overlapMinutes: number; // Default: 15 min transition overlap
+  transitionStrategy: 'immediate' | 'finish_current' | 'overlap';
+
+  fixedSchedule?: {
+    weekdays: number[]; // [1,2,3,4,5] = Mon-Fri
+    startTime: string;  // "08:00"
+    endTime: string;    // "18:00"
+    timezone: string;   // "America/Sao_Paulo"
+  };
+
+  rotatingSchedule?: {
+    rotationDays: number; // Every X days
+    shifts: Array<{
+      weekdays: number[];
+      startTime: string;
+      endTime: string;
+    }>;
+  };
+
+  onDemandSchedule?: {
+    minUsers: number; // Minimum users that should be available
+    maxUsers: number; // Maximum users simultaneously
+  };
+}
+
+export interface ShiftAssignment {
+  userId: ObjectId;
+  role: 'primary' | 'backup';
+  priority: number; // 1=highest priority within role
+  customSchedule?: {
+    startDate: Date;
+    endDate?: Date;
+    weekdays?: number[];
+    startTime?: string;
+    endTime?: string;
+  };
+  status: 'active' | 'inactive' | 'vacation' | 'sick_leave';
+  assignedAt: Date;
+}
+
+export interface UserAvailability {
+  _id: ObjectId;
+  userId: ObjectId;
+  currentStatus: 'available' | 'busy' | 'away' | 'offline';
+  currentShift?: {
+    shiftId: ObjectId;
+    startedAt: Date;
+    expectedEndAt: Date;
+  };
+  currentWorkload: {
+    activeChats: number;
+    activeLeads: number;
+    activeTickets: number;
+    totalScore: number; // Weighted workload score
+  };
+  lastActivity: Date;
+  lastAssignment: Date;
+  companyId: ObjectId;
+  appId: ObjectId;
+  updatedAt: Date;
+}
+
+// ============================================================================
+// REQUEST/RESPONSE TYPES
+// ============================================================================
+
+// Generic Query Types
+export interface ShiftQuery extends PaginationQuery {
+  status?: ActiveStatus;
+  name?: string;
+  scheduleType?: 'fixed' | 'rotating' | 'on_demand';
+}
+
+export interface UserAvailabilityQuery extends PaginationQuery {
+  userId?: string;
+  currentStatus?: 'available' | 'busy' | 'away' | 'offline';
+  hasCurrentShift?: boolean;
+}
+
+// Response Types
+export type ShiftResponse = Omit<Shift, never>;
+export type UserAvailabilityResponse = Omit<UserAvailability, never>;
+
+// List Response Types
+export interface ShiftListResponse extends ListResponse<ShiftResponse> {}
+export interface UserAvailabilityListResponse extends ListResponse<UserAvailabilityResponse> {}
+
+// Query Options Types
+export interface ShiftQueryOptions extends GenericQueryOptions<ShiftQuery> {}
+export interface UserAvailabilityQueryOptions extends GenericQueryOptions<UserAvailabilityQuery> {}
+
+// ============================================================================
+// SPECIFIC REQUEST TYPES
+// ============================================================================
+
+// Shift Requests
+export interface CreateShiftRequest {
+  name: string;
+  description?: string;
+  schedule: ShiftSchedule;
+  assignmentConfig: AssignmentConfig;
+}
+
+export interface UpdateShiftRequest {
+  name?: string;
+  description?: string;
+  schedule?: ShiftSchedule;
+  assignmentConfig?: AssignmentConfig;
+  status?: ActiveStatus;
+}
+
+// Shift Assignment Requests
+export interface CreateShiftAssignmentRequest {
+  userId: string;
+  role: 'primary' | 'backup';
+  priority?: number;
+  customSchedule?: {
+    startDate: Date;
+    endDate?: Date;
+    weekdays?: number[];
+    startTime?: string;
+    endTime?: string;
+  };
+}
+
+export interface UpdateShiftAssignmentRequest {
+  role?: 'primary' | 'backup';
+  priority?: number;
+  customSchedule?: {
+    startDate: Date;
+    endDate?: Date;
+    weekdays?: number[];
+    startTime?: string;
+    endTime?: string;
+  };
+  status?: 'active' | 'inactive' | 'vacation' | 'sick_leave';
+}
+
+// User Availability Requests
+export interface UpdateUserAvailabilityRequest {
+  currentStatus: 'available' | 'busy' | 'away' | 'offline';
+  currentWorkload?: {
+    activeChats: number;
+    activeLeads: number;
+    activeTickets: number;
+    totalScore: number;
+  };
+}
+
+// Bulk Operations
+export interface BulkAssignUsersToShiftRequest {
+  shiftId: string;
+  userAssignments: Array<{
+    userId: string;
+    role: 'primary' | 'backup';
+    priority?: number;
+  }>;
+}
