@@ -72,7 +72,7 @@ export interface LotteryConfig {
 }
 
 // ============================================================================
-// PROVIDER & INTEGRATION TYPES
+// PROVIDER TYPES (CompanyIntegration defined in company-integrations.ts)
 // ============================================================================
 
 export interface Provider {
@@ -81,19 +81,6 @@ export interface Provider {
   categories: string[];
   capabilities: string[];
   status: ActiveStatus;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface CompanyIntegration {
-  _id: ObjectId;
-  companyId: ObjectId;
-  appId: ObjectId;
-  providerId: ObjectId;
-  config: Record<string, any>;
-  status: 'active' | 'inactive' | 'error' | 'pending';
-  lastSync?: Date;
-  lastError?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -115,11 +102,7 @@ export interface Channel {
 // REQUEST/RESPONSE TYPES
 // ============================================================================
 
-// Generic Query Types
-export interface CompanyIntegrationQuery extends PaginationQuery {
-  providerId?: string;
-  status?: 'active' | 'inactive' | 'error' | 'pending';
-}
+// Generic Query Types - CompanyIntegrationQuery defined in company-integrations.ts
 
 export interface ChannelQuery extends PaginationQuery {
   integrationId?: string;
@@ -129,34 +112,20 @@ export interface ChannelQuery extends PaginationQuery {
 
 // Response Types
 export type ProviderResponse = Omit<Provider, never>;
-export type CompanyIntegrationResponse = Omit<CompanyIntegration, never>;
 export type ChannelResponse = Omit<Channel, never>;
 
 // List Response Types
 export interface ProviderListResponse extends ListResponse<ProviderResponse> {}
-export interface CompanyIntegrationListResponse extends ListResponse<CompanyIntegrationResponse> {}
 export interface ChannelListResponse extends ListResponse<ChannelResponse> {}
 
 // Query Options Types
-export interface CompanyIntegrationQueryOptions extends GenericQueryOptions<CompanyIntegrationQuery> {}
 export interface ChannelQueryOptions extends GenericQueryOptions<ChannelQuery> {}
 
 // ============================================================================
 // SPECIFIC REQUEST TYPES
 // ============================================================================
 
-// Company Integration Requests
-export interface CreateCompanyIntegrationRequest {
-  providerId: string;
-  config: Record<string, any>;
-}
-
-export interface UpdateCompanyIntegrationRequest {
-  config?: Record<string, any>;
-  status?: 'active' | 'inactive' | 'error' | 'pending';
-}
-
-// Channel Requests
+// Channel Requests (CompanyIntegration requests defined in company-integrations.ts)
 export interface CreateChannelRequest {
   name: string;
   integrationId: string;

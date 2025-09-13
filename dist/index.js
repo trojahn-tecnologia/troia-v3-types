@@ -25,3 +25,8 @@ __exportStar(require("./plans"), exports);
 __exportStar(require("./levels"), exports);
 __exportStar(require("./company-plans"), exports);
 __exportStar(require("./user-permissions"), exports);
+// Business modules
+__exportStar(require("./teams"), exports);
+__exportStar(require("./channels"), exports);
+__exportStar(require("./shifts"), exports);
+__exportStar(require("./company-integrations"), exports);

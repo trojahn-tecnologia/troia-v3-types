@@ -7,3 +7,7 @@ export * from './plans';
 export * from './levels';
 export * from './company-plans';
 export * from './user-permissions';
+export * from './teams';
+export * from './channels';
+export * from './shifts';
+export * from './company-integrations';
