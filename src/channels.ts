@@ -1,14 +1,18 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
 
+// Import assignment types from dedicated assignment module
+import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryConfig } from './assignment';
+
 // ============================================================================
-// ASSIGNMENT CONFIGURATION TYPES
+// CHANNEL-SPECIFIC ASSIGNMENT TYPES
 // ============================================================================
 
-export interface AssignmentConfig {
+// Channel-specific assignment config extends core assignment config
+export interface ChannelAssignmentConfig extends CoreAssignmentConfig {
   strategy: 'manual' | 'rule' | 'lottery' | 'none';
   rules?: AssignmentRule[];
-  lotteryConfig?: LotteryConfig;
+  lotteryConfig?: ChannelLotteryConfig;
 }
 
 export interface AssignmentRule {
@@ -30,7 +34,8 @@ export interface RuleAction {
   userId?: string;
 }
 
-export interface LotteryConfig {
+// Channel-specific lottery config extends core lottery config
+export interface ChannelLotteryConfig extends CoreLotteryConfig {
   type: 'random' | 'availability' | 'workload' | 'last_interaction' | 'fixed_operator' | 'shift' | 'none';
   scope: 'team' | 'user' | 'both';
   eligibleTeams?: string[];
@@ -90,7 +95,7 @@ export interface Channel {
   name: string;
   integrationId: ObjectId;
   identifier: string;
-  assignmentConfig: AssignmentConfig;
+  assignmentConfig: ChannelAssignmentConfig;
   companyId: ObjectId;
   appId: ObjectId;
   status: ActiveStatus;
@@ -130,18 +135,18 @@ export interface CreateChannelRequest {
   name: string;
   integrationId: string;
   identifier: string;
-  assignmentConfig: AssignmentConfig;
+  assignmentConfig: ChannelAssignmentConfig;
 }
 
 export interface UpdateChannelRequest {
   name?: string;
   identifier?: string;
-  assignmentConfig?: AssignmentConfig;
+  assignmentConfig?: ChannelAssignmentConfig;
   status?: ActiveStatus;
 }
 
-// Assignment Result
-export interface AssignmentResult {
+// Channel Assignment Result (simpler version for channels)
+export interface ChannelAssignmentResult {
   teamId: string | null;
   userId: string | null;
   reason?: string;
@@ -158,7 +163,7 @@ export interface TestAssignmentRequest {
 
 export interface TestAssignmentResponse {
   success: boolean;
-  assignedTo: AssignmentResult;
+  assignedTo: ChannelAssignmentResult;
   message: string;
   executedAt: Date;
   details?: Record<string, any>;

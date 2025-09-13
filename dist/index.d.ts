@@ -11,3 +11,4 @@ export * from './teams';
 export * from './channels';
 export * from './shifts';
 export * from './company-integrations';
+export * from './assignment';

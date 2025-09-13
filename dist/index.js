@@ -30,3 +30,4 @@ __exportStar(require("./teams"), exports);
 __exportStar(require("./channels"), exports);
 __exportStar(require("./shifts"), exports);
 __exportStar(require("./company-integrations"), exports);
+__exportStar(require("./assignment"), exports);

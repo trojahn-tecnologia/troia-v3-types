@@ -1,9 +1,10 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
-export interface AssignmentConfig {
+import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryConfig } from './assignment';
+export interface ChannelAssignmentConfig extends CoreAssignmentConfig {
     strategy: 'manual' | 'rule' | 'lottery' | 'none';
     rules?: AssignmentRule[];
-    lotteryConfig?: LotteryConfig;
+    lotteryConfig?: ChannelLotteryConfig;
 }
 export interface AssignmentRule {
     condition: RuleCondition;
@@ -21,7 +22,7 @@ export interface RuleAction {
     teamId?: string;
     userId?: string;
 }
-export interface LotteryConfig {
+export interface ChannelLotteryConfig extends CoreLotteryConfig {
     type: 'random' | 'availability' | 'workload' | 'last_interaction' | 'fixed_operator' | 'shift' | 'none';
     scope: 'team' | 'user' | 'both';
     eligibleTeams?: string[];
@@ -68,7 +69,7 @@ export interface Channel {
     name: string;
     integrationId: ObjectId;
     identifier: string;
-    assignmentConfig: AssignmentConfig;
+    assignmentConfig: ChannelAssignmentConfig;
     companyId: ObjectId;
     appId: ObjectId;
     status: ActiveStatus;
@@ -92,15 +93,15 @@ export interface CreateChannelRequest {
     name: string;
     integrationId: string;
     identifier: string;
-    assignmentConfig: AssignmentConfig;
+    assignmentConfig: ChannelAssignmentConfig;
 }
 export interface UpdateChannelRequest {
     name?: string;
     identifier?: string;
-    assignmentConfig?: AssignmentConfig;
+    assignmentConfig?: ChannelAssignmentConfig;
     status?: ActiveStatus;
 }
-export interface AssignmentResult {
+export interface ChannelAssignmentResult {
     teamId: string | null;
     userId: string | null;
     reason?: string;
@@ -114,7 +115,7 @@ export interface TestAssignmentRequest {
 }
 export interface TestAssignmentResponse {
     success: boolean;
-    assignedTo: AssignmentResult;
+    assignedTo: ChannelAssignmentResult;
     message: string;
     executedAt: Date;
     details?: Record<string, any>;

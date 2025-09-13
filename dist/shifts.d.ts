@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
-import { AssignmentConfig } from './channels';
+import { AssignmentConfig } from './assignment';
 export interface Shift {
     _id: ObjectId;
     name: string;

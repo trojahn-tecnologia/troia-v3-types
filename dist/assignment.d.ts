@@ -1,0 +1,191 @@
+import { ObjectId } from 'mongodb';
+import { PaginationQuery, ListResponse } from './common';
+export interface Assignment {
+    _id: ObjectId;
+    resourceType: string;
+    resourceId: string;
+    assignedTo: ObjectId;
+    assignedBy?: ObjectId;
+    teamId?: ObjectId;
+    channelId?: ObjectId;
+    shiftId?: ObjectId;
+    assignmentType: AssignmentType;
+    assignmentStrategy: AssignmentStrategy;
+    priority?: number;
+    status: AssignmentStatus;
+    assignedAt: Date;
+    completedAt?: Date;
+    metadata?: Record<string, any>;
+    companyId: ObjectId;
+    appId: ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
+}
+export type AssignmentType = 'manual' | 'automatic' | 'lottery' | 'rule_based';
+export type AssignmentStrategy = 'round_robin' | 'least_busy' | 'priority_based' | 'random' | 'shift_lottery' | 'availability_based' | 'skill_based' | 'geographic' | 'manual_override';
+export type AssignmentStatus = 'pending' | 'assigned' | 'accepted' | 'rejected' | 'completed' | 'cancelled';
+export interface AssignmentConfig {
+    enabled: boolean;
+    defaultStrategy: AssignmentStrategy;
+    fallbackStrategy?: AssignmentStrategy;
+    maxRetries?: number;
+    retryDelay?: number;
+    timeoutMinutes?: number;
+    autoAccept?: boolean;
+    requireConfirmation?: boolean;
+    notifyOnAssignment?: boolean;
+    escalationRules?: EscalationRule[];
+    workloadLimits?: WorkloadLimit[];
+}
+export interface EscalationRule {
+    condition: 'timeout' | 'rejection' | 'no_available_users';
+    action: 'reassign' | 'notify_manager' | 'queue' | 'escalate_priority';
+    targetStrategy?: AssignmentStrategy;
+    delayMinutes?: number;
+    maxEscalations?: number;
+}
+export interface WorkloadLimit {
+    resourceType: string;
+    maxConcurrent?: number;
+    maxDaily?: number;
+    maxWeekly?: number;
+    priority?: number;
+}
+export interface CreateAssignmentRequest {
+    resourceType: string;
+    resourceId: string;
+    assignmentType?: AssignmentType;
+    assignmentStrategy?: AssignmentStrategy;
+    priority?: number;
+    teamId?: string;
+    channelId?: string;
+    shiftId?: string;
+    specificUserId?: string;
+    metadata?: Record<string, any>;
+    requireConfirmation?: boolean;
+    timeoutMinutes?: number;
+}
+export interface AssignmentCriteria {
+    resourceType: string;
+    priority?: number;
+    requiredSkills?: string[];
+    preferredUsers?: string[];
+    excludeUsers?: string[];
+    teamIds?: string[];
+    shiftIds?: string[];
+    channelIds?: string[];
+    timeSlot?: {
+        startTime: Date;
+        endTime: Date;
+    };
+    geographic?: {
+        region?: string;
+        timezone?: string;
+    };
+}
+export interface BulkAssignmentRequest {
+    assignments: CreateAssignmentRequest[];
+    globalStrategy?: AssignmentStrategy;
+    maintainBalance?: boolean;
+}
+export type AssignmentResponse = Omit<Assignment, 'metadata'> & {
+    assignedToUser?: {
+        _id: ObjectId;
+        name: string;
+        email: string;
+    };
+    assignedByUser?: {
+        _id: ObjectId;
+        name: string;
+        email: string;
+    };
+};
+export interface AssignmentResult {
+    success: boolean;
+    assignment?: AssignmentResponse;
+    assignedUserId?: string;
+    message: string;
+    fallbackUsed?: boolean;
+    escalated?: boolean;
+    retryCount?: number;
+}
+export interface BulkAssignmentResult {
+    success: boolean;
+    successCount: number;
+    failureCount: number;
+    results: AssignmentResult[];
+    errors: string[];
+}
+export interface AssignmentQuery extends PaginationQuery {
+    status?: AssignmentStatus;
+    assignmentType?: AssignmentType;
+    assignmentStrategy?: AssignmentStrategy;
+    resourceType?: string;
+    assignedTo?: string;
+    assignedBy?: string;
+    teamId?: string;
+    channelId?: string;
+    shiftId?: string;
+    priority?: number;
+    dateFrom?: string;
+    dateTo?: string;
+}
+export interface AssignmentListResponse extends ListResponse<AssignmentResponse> {
+}
+export interface AssignmentStats {
+    totalAssignments: number;
+    completedAssignments: number;
+    pendingAssignments: number;
+    averageCompletionTime: number;
+    assignmentsByStrategy: Record<AssignmentStrategy, number>;
+    assignmentsByStatus: Record<AssignmentStatus, number>;
+    topPerformers: {
+        userId: ObjectId;
+        userName: string;
+        completedCount: number;
+        averageTime: number;
+    }[];
+}
+export interface UserWorkload {
+    userId: ObjectId;
+    currentAssignments: number;
+    dailyAssignments: number;
+    weeklyAssignments: number;
+    averageCompletionTime: number;
+    lastAssignmentAt?: Date;
+}
+export interface LotteryConfig {
+    enabled: boolean;
+    algorithm: LotteryAlgorithm;
+    weights?: LotteryWeights;
+    exclusions?: LotteryExclusions;
+    maxParticipants?: number;
+    cooldownMinutes?: number;
+}
+export type LotteryAlgorithm = 'pure_random' | 'weighted_random' | 'least_recent' | 'priority_weighted' | 'skill_weighted' | 'availability_weighted';
+export interface LotteryWeights {
+    priority?: number;
+    skill?: number;
+    availability?: number;
+    lastAssignment?: number;
+    performance?: number;
+}
+export interface LotteryExclusions {
+    recentlyAssigned?: number;
+    maxConcurrent?: number;
+    unavailableStatus?: boolean;
+    outsideShift?: boolean;
+}
+export interface LotteryResult {
+    selectedUserId: string;
+    participants: LotteryParticipant[];
+    algorithm: LotteryAlgorithm;
+    metadata: Record<string, any>;
+}
+export interface LotteryParticipant {
+    userId: string;
+    weight: number;
+    score: number;
+    selected: boolean;
+    exclusionReason?: string;
+}
