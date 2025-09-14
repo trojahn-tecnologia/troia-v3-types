@@ -1,4 +1,4 @@
-import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
+import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
 
 /**
  * App Integrations Types (Core System Level)
@@ -7,7 +7,7 @@ import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from
 
 // Generic Query Pattern
 export interface AppIntegrationQuery extends PaginationQuery {
-  status?: ActiveStatus;
+  status?: ExtendedStatus;
   providerId?: string;
   isDefault?: boolean;
 }

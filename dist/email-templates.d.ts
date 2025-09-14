@@ -30,17 +30,8 @@ export interface EmailTemplateResponse {
         primaryColor?: string;
         secondaryColor?: string;
         logoUrl?: string;
-        favicon?: string;
-        footer?: string;
         companyName?: string;
-        websiteUrl?: string;
-        supportEmail?: string;
-        socialLinks?: {
-            facebook?: string;
-            twitter?: string;
-            linkedin?: string;
-            instagram?: string;
-        };
+        footerText?: string;
     };
     createdAt: string;
     updatedAt: string;
@@ -50,7 +41,7 @@ export interface EmailTemplateListResponse extends ListResponse<EmailTemplateRes
 export interface EmailTemplateQueryOptions extends GenericQueryOptions<EmailTemplateQuery> {
 }
 export interface CreateEmailTemplateRequest {
-    type: string;
+    templateType: string;
     subject: string;
     htmlContent: string;
     textContent?: string;
@@ -58,23 +49,14 @@ export interface CreateEmailTemplateRequest {
     description?: string;
     isActive?: boolean;
     isDefault?: boolean;
-    requiredVariables: string[];
+    requiredVariables?: string[];
     optionalVariables?: string[];
     brandingConfig?: {
         primaryColor?: string;
         secondaryColor?: string;
         logoUrl?: string;
-        favicon?: string;
-        footer?: string;
         companyName?: string;
-        websiteUrl?: string;
-        supportEmail?: string;
-        socialLinks?: {
-            facebook?: string;
-            twitter?: string;
-            linkedin?: string;
-            instagram?: string;
-        };
+        footerText?: string;
     };
 }
 export interface UpdateEmailTemplateRequest {
@@ -91,17 +73,8 @@ export interface UpdateEmailTemplateRequest {
         primaryColor?: string;
         secondaryColor?: string;
         logoUrl?: string;
-        favicon?: string;
-        footer?: string;
         companyName?: string;
-        websiteUrl?: string;
-        supportEmail?: string;
-        socialLinks?: {
-            facebook?: string;
-            twitter?: string;
-            linkedin?: string;
-            instagram?: string;
-        };
+        footerText?: string;
     };
 }
 export interface RenderTemplateRequest {

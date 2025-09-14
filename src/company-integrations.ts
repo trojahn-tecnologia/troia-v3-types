@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { PaginationQuery, ListResponse, ActiveStatus } from './common';
+import { PaginationQuery, ListResponse, ExtendedStatus } from './common';
 
 // Base CompanyIntegration interface
 export interface CompanyIntegration {
@@ -11,7 +11,7 @@ export interface CompanyIntegration {
   description?: string;
   config: IntegrationConfig;
   credentials: IntegrationCredentials;
-  status: ActiveStatus;
+  status: ExtendedStatus;
   lastSyncAt?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -67,7 +67,7 @@ export interface IntegrationCredentials {
 // Request/Response types following Generic + Specific pattern
 export interface CompanyIntegrationQuery extends PaginationQuery {
   providerId?: string;
-  status?: ActiveStatus;
+  status?: ExtendedStatus;
   name?: string;
 }
 
@@ -80,7 +80,7 @@ export interface CompanyIntegrationResponse {
   name: string;
   description?: string;
   config: IntegrationConfig;
-  status: ActiveStatus;
+  status: ExtendedStatus;
   capabilities: string[];
   providerName: string;
   lastSyncAt?: string;
@@ -104,7 +104,7 @@ export interface UpdateCompanyIntegrationRequest {
   description?: string;
   config?: Partial<IntegrationConfig>;
   credentials?: Partial<IntegrationCredentials>;
-  status?: ActiveStatus;
+  status?: ExtendedStatus;
 }
 
 // Integration test types
@@ -138,6 +138,6 @@ export interface SyncIntegrationResponse {
 
 // Query and list types
 export interface CompanyIntegrationQuery extends PaginationQuery {
-  status?: ActiveStatus;
+  status?: ExtendedStatus;
   providerId?: string;
 }
