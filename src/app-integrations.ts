@@ -18,6 +18,7 @@ export interface AppIntegrationResponse {
   appId: string;
   providerId: string;
   name: string;
+  config: Record<string, any>;
   status: 'active' | 'inactive' | 'error' | 'pending';
   isDefault: boolean;
   capabilities: string[];
@@ -44,6 +45,8 @@ export interface UpdateAppIntegrationRequest {
   config?: Record<string, any>;
   status?: 'active' | 'inactive' | 'error' | 'pending';
   isDefault?: boolean;
+  lastSync?: string;
+  lastError?: string;
 }
 
 // Test Integration Request
