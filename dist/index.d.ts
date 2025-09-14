@@ -12,3 +12,4 @@ export * from './channels';
 export * from './shifts';
 export * from './company-integrations';
 export * from './assignment';
+export * from './app-integrations';
