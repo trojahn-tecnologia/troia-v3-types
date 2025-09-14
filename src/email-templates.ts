@@ -56,7 +56,7 @@ export interface EmailTemplateQueryOptions extends GenericQueryOptions<EmailTemp
 
 // Request Types
 export interface CreateEmailTemplateRequest {
-  templateType: string;
+  type: string;
   subject: string;
   htmlContent: string;
   textContent?: string;

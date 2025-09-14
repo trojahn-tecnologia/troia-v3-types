@@ -50,7 +50,7 @@ export interface EmailTemplateListResponse extends ListResponse<EmailTemplateRes
 export interface EmailTemplateQueryOptions extends GenericQueryOptions<EmailTemplateQuery> {
 }
 export interface CreateEmailTemplateRequest {
-    templateType: string;
+    type: string;
     subject: string;
     htmlContent: string;
     textContent?: string;
