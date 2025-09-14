@@ -32,3 +32,4 @@ __exportStar(require("./shifts"), exports);
 __exportStar(require("./company-integrations"), exports);
 __exportStar(require("./assignment"), exports);
 __exportStar(require("./app-integrations"), exports);
+__exportStar(require("./email-templates"), exports);
