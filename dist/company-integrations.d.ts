@@ -44,7 +44,21 @@ export interface CompanyIntegrationQuery extends PaginationQuery {
     status?: ActiveStatus;
     name?: string;
 }
-export type CompanyIntegrationResponse = Omit<CompanyIntegration, 'credentials'>;
+export interface CompanyIntegrationResponse {
+    _id: string;
+    companyId: string;
+    appId: string;
+    providerId: string;
+    name: string;
+    description?: string;
+    config: IntegrationConfig;
+    status: ActiveStatus;
+    capabilities: string[];
+    providerName: string;
+    lastSyncAt?: string;
+    createdAt: string;
+    updatedAt: string;
+}
 export interface CompanyIntegrationListResponse extends ListResponse<CompanyIntegrationResponse> {
 }
 export interface CreateCompanyIntegrationRequest {
@@ -83,4 +97,8 @@ export interface SyncIntegrationResponse {
     errorCount: number;
     message: string;
     syncedAt: Date;
+}
+export interface CompanyIntegrationQuery extends PaginationQuery {
+    status?: ActiveStatus;
+    providerId?: string;
 }
