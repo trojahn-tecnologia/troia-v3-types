@@ -112,7 +112,7 @@ export interface UpdateCompanyIntegrationRequest {
 // Integration test types
 export interface TestIntegrationRequest {
   integrationId: string;
-  testType: 'connection' | 'send_message' | 'webhook';
+  testType: 'connection' | 'send_message' | 'send_webhook';
   testData?: Record<string, any>;
 }
 
