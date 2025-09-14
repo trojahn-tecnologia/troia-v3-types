@@ -1,10 +1,10 @@
-import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
+import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
 /**
  * App Integrations Types (Core System Level)
  * Used for system-level integrations like password reset email, system notifications, etc.
  */
 export interface AppIntegrationQuery extends PaginationQuery {
-    status?: ActiveStatus;
+    status?: ExtendedStatus;
     providerId?: string;
     isDefault?: boolean;
 }

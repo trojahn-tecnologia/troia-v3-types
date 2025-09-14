@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { PaginationQuery, ListResponse, ActiveStatus } from './common';
+import { PaginationQuery, ListResponse, ExtendedStatus } from './common';
 export interface CompanyIntegration {
     _id: ObjectId;
     companyId: ObjectId;
@@ -9,7 +9,7 @@ export interface CompanyIntegration {
     description?: string;
     config: IntegrationConfig;
     credentials: IntegrationCredentials;
-    status: ActiveStatus;
+    status: ExtendedStatus;
     lastSyncAt?: Date;
     createdAt: Date;
     updatedAt: Date;
@@ -41,7 +41,7 @@ export interface IntegrationCredentials {
 }
 export interface CompanyIntegrationQuery extends PaginationQuery {
     providerId?: string;
-    status?: ActiveStatus;
+    status?: ExtendedStatus;
     name?: string;
 }
 export interface CompanyIntegrationResponse {
@@ -52,7 +52,7 @@ export interface CompanyIntegrationResponse {
     name: string;
     description?: string;
     config: IntegrationConfig;
-    status: ActiveStatus;
+    status: ExtendedStatus;
     capabilities: string[];
     providerName: string;
     lastSyncAt?: string;
@@ -73,7 +73,7 @@ export interface UpdateCompanyIntegrationRequest {
     description?: string;
     config?: Partial<IntegrationConfig>;
     credentials?: Partial<IntegrationCredentials>;
-    status?: ActiveStatus;
+    status?: ExtendedStatus;
 }
 export interface TestIntegrationRequest {
     integrationId: string;
@@ -99,6 +99,6 @@ export interface SyncIntegrationResponse {
     syncedAt: Date;
 }
 export interface CompanyIntegrationQuery extends PaginationQuery {
-    status?: ActiveStatus;
+    status?: ExtendedStatus;
     providerId?: string;
 }

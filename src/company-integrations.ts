@@ -84,6 +84,7 @@ export interface CompanyIntegrationResponse {
   capabilities: string[];
   providerName: string;
   lastSyncAt?: string;
+  lastError?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -105,6 +106,7 @@ export interface UpdateCompanyIntegrationRequest {
   config?: Partial<IntegrationConfig>;
   credentials?: Partial<IntegrationCredentials>;
   status?: ExtendedStatus;
+  lastError?: string;
 }
 
 // Integration test types
