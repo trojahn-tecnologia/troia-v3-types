@@ -1,4 +1,5 @@
 import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
+import { CreateProviderIntegrationRequest } from './providers';
 /**
  * App Integrations Types (Core System Level)
  * Used for system-level integrations like password reset email, system notifications, etc.
@@ -27,6 +28,9 @@ export interface AppIntegrationListResponse extends ListResponse<AppIntegrationR
 }
 export interface AppIntegrationQueryOptions extends GenericQueryOptions<AppIntegrationQuery> {
 }
+export type CreateAppIntegrationTypedRequest = CreateProviderIntegrationRequest & {
+    isDefault?: boolean;
+};
 export interface CreateAppIntegrationRequest {
     providerId: string;
     name: string;

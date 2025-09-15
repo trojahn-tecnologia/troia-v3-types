@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, ExtendedStatus } from './common';
+import { ProviderCredentials, CreateProviderIntegrationRequest } from './providers';
 export interface CompanyIntegration {
     _id: ObjectId;
     companyId: ObjectId;
@@ -15,29 +16,9 @@ export interface CompanyIntegration {
     updatedAt: Date;
 }
 export interface IntegrationConfig {
-    whatsappBusinessAccountId?: string;
-    phoneNumberId?: string;
-    webhookToken?: string;
-    pageId?: string;
-    appSecret?: string;
-    smtpHost?: string;
-    smtpPort?: number;
-    smtpSecure?: boolean;
-    imapHost?: string;
-    imapPort?: number;
-    botToken?: string;
-    instagramBusinessAccountId?: string;
-    customFields?: Record<string, any>;
+    [key: string]: any;
 }
-export interface IntegrationCredentials {
-    accessToken?: string;
-    refreshToken?: string;
-    expiresAt?: Date;
-    apiKey?: string;
-    apiSecret?: string;
-    username?: string;
-    password?: string;
-    customAuth?: Record<string, any>;
+export interface IntegrationCredentials extends ProviderCredentials {
 }
 export interface CompanyIntegrationQuery extends PaginationQuery {
     providerId?: string;
@@ -62,6 +43,7 @@ export interface CompanyIntegrationResponse {
 }
 export interface CompanyIntegrationListResponse extends ListResponse<CompanyIntegrationResponse> {
 }
+export type CreateCompanyIntegrationTypedRequest = CreateProviderIntegrationRequest;
 export interface CreateCompanyIntegrationRequest {
     providerId: string;
     name: string;
