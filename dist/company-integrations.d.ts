@@ -56,6 +56,7 @@ export interface CompanyIntegrationResponse {
     capabilities: string[];
     providerName: string;
     lastSyncAt?: string;
+    lastError?: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -74,10 +75,11 @@ export interface UpdateCompanyIntegrationRequest {
     config?: Partial<IntegrationConfig>;
     credentials?: Partial<IntegrationCredentials>;
     status?: ExtendedStatus;
+    lastError?: string;
 }
 export interface TestIntegrationRequest {
     integrationId: string;
-    testType: 'connection' | 'send_message' | 'webhook';
+    testType: 'connection' | 'send_message' | 'send_webhook';
     testData?: Record<string, any>;
 }
 export interface TestIntegrationResponse {
