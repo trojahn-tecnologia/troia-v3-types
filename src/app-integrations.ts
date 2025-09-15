@@ -1,4 +1,5 @@
 import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
+import { ProviderConfig, CreateProviderIntegrationRequest, ProviderId } from './providers';
 
 /**
  * App Integrations Types (Core System Level)
@@ -32,7 +33,16 @@ export interface AppIntegrationResponse {
 export interface AppIntegrationListResponse extends ListResponse<AppIntegrationResponse> {}
 export interface AppIntegrationQueryOptions extends GenericQueryOptions<AppIntegrationQuery> {}
 
-// Request Types
+// ============================================================================
+// APP-SPECIFIC TYPED REQUESTS (Using shared provider types)
+// ============================================================================
+
+// Type-safe requests using shared provider configurations
+export type CreateAppIntegrationTypedRequest = CreateProviderIntegrationRequest & {
+  isDefault?: boolean;
+};
+
+// Legacy generic request for backward compatibility
 export interface CreateAppIntegrationRequest {
   providerId: string;
   name: string;

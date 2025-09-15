@@ -19,3 +19,6 @@ export * from './company-integrations';
 export * from './assignment';
 export * from './app-integrations';
 export * from './email-templates';
+
+// Provider system (shared between app & company integrations)
+export * from './providers';

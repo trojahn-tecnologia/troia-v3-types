@@ -1,5 +1,24 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, ExtendedStatus } from './common';
+import {
+  SmtpConfig,
+  SendGridConfig,
+  WhatsAppConfig,
+  FacebookMessengerConfig,
+  TelegramConfig,
+  TwilioSmsConfig,
+  WebhookConfig,
+  ProviderConfig,
+  ProviderCredentials,
+  ProviderId,
+  CreateSmtpIntegrationRequest,
+  CreateSendGridIntegrationRequest,
+  CreateWhatsAppIntegrationRequest,
+  CreateFacebookMessengerIntegrationRequest,
+  CreateTelegramIntegrationRequest,
+  CreateWebhookIntegrationRequest,
+  CreateProviderIntegrationRequest
+} from './providers';
 
 // Base CompanyIntegration interface
 export interface CompanyIntegration {
@@ -18,71 +37,6 @@ export interface CompanyIntegration {
 }
 
 // ============================================================================
-// PROVIDER-SPECIFIC CONFIGURATIONS (Type-Safe)
-// ============================================================================
-
-export interface SmtpConfig {
-  host: string;
-  port: number;
-  username: string;
-  password: string;
-  secure: boolean;
-  from: string;
-}
-
-export interface SendGridConfig {
-  apiKey: string;
-  fromEmail: string;
-  fromName?: string;
-}
-
-export interface WhatsAppConfig {
-  whatsappBusinessAccountId: string;
-  phoneNumberId: string;
-  webhookToken?: string;
-}
-
-export interface FacebookMessengerConfig {
-  pageId: string;
-  appSecret: string;
-  webhookToken?: string;
-}
-
-export interface TelegramConfig {
-  botToken: string;
-  webhookUrl?: string;
-}
-
-export interface TwilioSmsConfig {
-  accountSid: string;
-  authToken: string;
-  fromNumber: string;
-}
-
-export interface WebhookConfig {
-  url: string;
-  method: 'GET' | 'POST' | 'PUT' | 'PATCH';
-  headers?: Record<string, string>;
-  authentication?: {
-    type: 'bearer' | 'basic' | 'api_key';
-    token: string;
-  };
-}
-
-// ============================================================================
-// UNION TYPE FOR TYPE-SAFE PROVIDER CONFIGS
-// ============================================================================
-
-export type ProviderConfig =
-  | SmtpConfig
-  | SendGridConfig
-  | WhatsAppConfig
-  | FacebookMessengerConfig
-  | TelegramConfig
-  | TwilioSmsConfig
-  | WebhookConfig;
-
-// ============================================================================
 // LEGACY GENERIC CONFIG (For backward compatibility)
 // ============================================================================
 
@@ -91,24 +45,8 @@ export interface IntegrationConfig {
   [key: string]: any;
 }
 
-// Integration credentials (encrypted in database)
-export interface IntegrationCredentials {
-  // Common OAuth fields
-  accessToken?: string;
-  refreshToken?: string;
-  expiresAt?: Date;
-
-  // API Key authentication
-  apiKey?: string;
-  apiSecret?: string;
-
-  // Basic authentication
-  username?: string;
-  password?: string;
-
-  // Custom authentication
-  customAuth?: Record<string, any>;
-}
+// Integration credentials (encrypted in database) - using shared type from providers
+export interface IntegrationCredentials extends ProviderCredentials {}
 
 // Request/Response types following Generic + Specific pattern
 export interface CompanyIntegrationQuery extends PaginationQuery {
@@ -138,68 +76,11 @@ export interface CompanyIntegrationResponse {
 export interface CompanyIntegrationListResponse extends ListResponse<CompanyIntegrationResponse> {}
 
 // ============================================================================
-// PROVIDER-SPECIFIC REQUEST TYPES (Type-Safe)
+// COMPANY-SPECIFIC TYPED REQUESTS (Using shared provider types)
 // ============================================================================
 
-export interface CreateSmtpIntegrationRequest {
-  providerId: 'email-smtp';
-  name: string;
-  description?: string;
-  config: SmtpConfig;
-  credentials?: IntegrationCredentials;
-}
-
-export interface CreateSendGridIntegrationRequest {
-  providerId: 'email-sendgrid';
-  name: string;
-  description?: string;
-  config: SendGridConfig;
-  credentials?: IntegrationCredentials;
-}
-
-export interface CreateWhatsAppIntegrationRequest {
-  providerId: 'whatsapp-business';
-  name: string;
-  description?: string;
-  config: WhatsAppConfig;
-  credentials: IntegrationCredentials;
-}
-
-export interface CreateFacebookMessengerIntegrationRequest {
-  providerId: 'facebook-messenger';
-  name: string;
-  description?: string;
-  config: FacebookMessengerConfig;
-  credentials: IntegrationCredentials;
-}
-
-export interface CreateTelegramIntegrationRequest {
-  providerId: 'telegram-bot';
-  name: string;
-  description?: string;
-  config: TelegramConfig;
-  credentials?: IntegrationCredentials;
-}
-
-export interface CreateWebhookIntegrationRequest {
-  providerId: 'api-webhook';
-  name: string;
-  description?: string;
-  config: WebhookConfig;
-  credentials?: IntegrationCredentials;
-}
-
-// ============================================================================
-// UNION TYPE FOR TYPE-SAFE CREATE REQUESTS
-// ============================================================================
-
-export type CreateCompanyIntegrationTypedRequest =
-  | CreateSmtpIntegrationRequest
-  | CreateSendGridIntegrationRequest
-  | CreateWhatsAppIntegrationRequest
-  | CreateFacebookMessengerIntegrationRequest
-  | CreateTelegramIntegrationRequest
-  | CreateWebhookIntegrationRequest;
+// Re-export shared typed requests for company integrations
+export type CreateCompanyIntegrationTypedRequest = CreateProviderIntegrationRequest;
 
 // ============================================================================
 // LEGACY GENERIC REQUEST (For backward compatibility)
