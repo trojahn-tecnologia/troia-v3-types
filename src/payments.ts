@@ -1,0 +1,619 @@
+/**
+ * Payment Provider System Types
+ * Universal payment processing interfaces for TROIA V3
+ */
+
+import { PaginationQuery, ListResponse, GenericQueryOptions } from './common';
+
+// ================================
+// CORE ENUMS
+// ================================
+
+export enum PaymentMethod {
+  CREDIT_CARD = 'CREDIT_CARD',
+  DEBIT_CARD = 'DEBIT_CARD',
+  PIX = 'PIX',
+  BOLETO = 'BOLETO',
+  TED = 'TED',
+  BANK_TRANSFER = 'BANK_TRANSFER',
+  CRYPTO = 'CRYPTO'
+}
+
+export enum PaymentCapability {
+  // Payment Methods
+  CREDIT_CARD = 'credit_card',
+  DEBIT_CARD = 'debit_card',
+  PIX = 'pix',
+  BOLETO = 'boleto',
+  TED = 'ted',
+  BANK_TRANSFER = 'bank_transfer',
+  CRYPTO = 'crypto',
+
+  // Customer Management
+  CUSTOMER_CREATION = 'customer_creation',
+  CUSTOMER_UPDATE = 'customer_update',
+  CUSTOMER_DELETION = 'customer_deletion',
+
+  // Tokenization
+  TOKENIZATION = 'tokenization',
+  TOKEN_UPDATE = 'token_update',
+  TOKEN_DELETION = 'token_deletion',
+
+  // Advanced Features
+  INSTALLMENTS = 'installments',
+  RECURRING_PAYMENTS = 'recurring_payments',
+  SUBSCRIPTIONS = 'subscriptions',
+  REFUNDS = 'refunds',
+  SPLIT_PAYMENTS = 'split_payments',
+  WEBHOOKS = 'webhooks',
+  ANTI_FRAUD = 'anti_fraud',
+  CHARGEBACK_PROTECTION = 'chargeback_protection',
+
+  // Integrations
+  POS_INTEGRATION = 'pos_integration',
+  MOBILE_PAYMENTS = 'mobile_payments',
+  QR_CODE_GENERATION = 'qr_code_generation'
+}
+
+export enum RecurringStrategy {
+  TOKENIZATION = 'tokenization',  // Internal cron jobs
+  SUBSCRIPTION = 'subscription'   // Provider native subscriptions
+}
+
+export enum BillingCycle {
+  WEEKLY = 'WEEKLY',
+  BIWEEKLY = 'BIWEEKLY',
+  MONTHLY = 'MONTHLY',
+  QUARTERLY = 'QUARTERLY',
+  SEMIANNUALLY = 'SEMIANNUALLY',
+  YEARLY = 'YEARLY'
+}
+
+export enum PaymentStatus {
+  PENDING = 'PENDING',
+  PROCESSING = 'PROCESSING',
+  CONFIRMED = 'CONFIRMED',
+  RECEIVED = 'RECEIVED',
+  FAILED = 'FAILED',
+  CANCELLED = 'CANCELLED',
+  REFUNDED = 'REFUNDED',
+  OVERDUE = 'OVERDUE'
+}
+
+export enum SubscriptionStatus {
+  ACTIVE = 'ACTIVE',
+  PAUSED = 'PAUSED',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
+  OVERDUE = 'OVERDUE',
+  TRIAL = 'TRIAL'
+}
+
+// ================================
+// CORE DATA STRUCTURES
+// ================================
+
+export interface AddressData {
+  street: string;
+  number: string;
+  complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+}
+
+export interface CustomerData {
+  name: string;
+  email: string;
+  document: string;
+  documentType: 'CPF' | 'CNPJ';
+  phone?: string;
+  birthDate?: string;
+  address?: AddressData;
+  company?: string;
+  providerCustomerId?: string;
+  externalReference?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface CardData {
+  holderName: string;
+  number: string;
+  expiryMonth: string;
+  expiryYear: string;
+  ccv: string;
+  holderDocument?: string;
+  address?: AddressData;
+  phone?: string;
+  email?: string;
+}
+
+// ================================
+// UNIVERSAL PAYMENT DATA
+// ================================
+
+export interface UniversalPaymentData {
+  amount: number;
+  currency: string;
+  description: string;
+  paymentMethod: PaymentMethod;
+  dueDate?: string;
+  externalReference?: string;
+  metadata?: Record<string, any>;
+
+  // Customer data (provider decides if creates or uses inline)
+  customer: CustomerData;
+
+  // Method-specific data
+  creditCard?: CreditCardData;
+  pix?: PIXSpecificData;
+  boleto?: BoletoSpecificData;
+  installments?: number;
+}
+
+export interface CreditCardData {
+  holderName: string;
+  number: string;
+  expiryMonth: string;
+  expiryYear: string;
+  ccv: string;
+  holderDocument?: string;
+}
+
+export interface PIXSpecificData {
+  expirationMinutes?: number;
+  pixKey?: string;
+}
+
+export interface BoletoSpecificData {
+  dueDate: string;
+  fine?: FineData;
+  interest?: InterestData;
+  discount?: DiscountData;
+}
+
+export interface FineData {
+  value: number;
+  type: 'FIXED' | 'PERCENTAGE';
+}
+
+export interface InterestData {
+  value: number;
+  type: 'PERCENTAGE';
+}
+
+export interface DiscountData {
+  value: number;
+  type: 'FIXED' | 'PERCENTAGE';
+  dueDateLimitDays: number;
+}
+
+// ================================
+// PAYMENT RESPONSES
+// ================================
+
+export interface PaymentResponse {
+  paymentId: string;
+  customerId?: string;
+  amount: number;
+  currency: string;
+  status: PaymentStatus;
+  paymentMethod: PaymentMethod;
+
+  // Method-specific responses
+  pix?: PIXResponse;
+  boleto?: BoletoResponse;
+  creditCard?: CreditCardResponse;
+
+  externalReference?: string;
+  createdAt: string;
+  metadata?: Record<string, any>;
+  providerData?: any;
+}
+
+export interface PIXResponse {
+  qrCodeBase64?: string;
+  qrCodeText?: string;
+  pixKey?: string;
+  expirationDate?: string;
+}
+
+export interface BoletoResponse {
+  boletoUrl?: string;
+  digitableLine?: string;
+  barcode?: string;
+  expirationDate?: string;
+}
+
+export interface CreditCardResponse {
+  authorizationCode?: string;
+  installments?: number;
+  maskedNumber?: string;
+  transactionId?: string;
+}
+
+// ================================
+// CUSTOMER MANAGEMENT
+// ================================
+
+export interface CustomerResponse {
+  id: string;
+  externalReference?: string;
+  name: string;
+  email: string;
+  phone?: string;
+  document: string;
+  documentType: 'CPF' | 'CNPJ';
+  status: 'ACTIVE' | 'INACTIVE' | 'BLOCKED';
+  createdAt: string;
+  updatedAt: string;
+  providerData?: any;
+}
+
+export interface CustomerListResponse extends ListResponse<CustomerResponse> {}
+
+export interface CustomerFilters {
+  name?: string;
+  email?: string;
+  document?: string;
+  status?: string;
+}
+
+export interface CustomerQuery extends PaginationQuery {
+  filters?: CustomerFilters;
+}
+
+// ================================
+// TOKENIZATION
+// ================================
+
+export interface TokenResponse {
+  tokenId: string;
+  customerId: string;
+  maskedNumber: string;
+  brand: string;
+  holderName: string;
+  expiryMonth: string;
+  expiryYear: string;
+  status: 'ACTIVE' | 'EXPIRED' | 'BLOCKED';
+  createdAt: string;
+  providerData?: any;
+}
+
+export interface TokenListResponse {
+  tokens: TokenResponse[];
+  totalCount: number;
+}
+
+export interface TokenPaymentData {
+  amount: number;
+  currency: string;
+  description: string;
+  installments?: number;
+  dueDate?: string;
+  externalReference?: string;
+  metadata?: Record<string, any>;
+}
+
+// ================================
+// SUBSCRIPTIONS
+// ================================
+
+export interface SubscriptionData {
+  customerId: string;
+  paymentMethod: PaymentMethod;
+  amount: number;
+  currency: string;
+  cycle: BillingCycle;
+  description: string;
+
+  // Timing
+  startDate?: string;
+  nextDueDate?: string;
+  endDate?: string;
+  maxPayments?: number;
+
+  // Trial
+  trialPeriodDays?: number;
+
+  // Payment method specific
+  tokenId?: string;
+
+  // Metadata
+  externalReference?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface SubscriptionResponse {
+  subscriptionId: string;
+  customerId: string;
+  amount: number;
+  currency: string;
+  cycle: BillingCycle;
+  status: SubscriptionStatus;
+  paymentMethod: PaymentMethod;
+
+  // Dates
+  createdAt: string;
+  startDate: string;
+  nextDueDate: string;
+  endDate?: string;
+
+  // Counters
+  totalPayments: number;
+  successfulPayments: number;
+  failedPayments: number;
+
+  // Trial info
+  trialPeriodDays?: number;
+  isInTrial: boolean;
+
+  externalReference?: string;
+  providerData?: any;
+}
+
+export interface SubscriptionPaymentListResponse {
+  subscriptionId: string;
+  payments: {
+    paymentId: string;
+    amount: number;
+    status: PaymentStatus;
+    dueDate: string;
+    paymentDate?: string;
+    cycle: BillingCycle;
+    createdAt: string;
+  }[];
+  totalCount: number;
+  hasMore: boolean;
+}
+
+// ================================
+// RECURRING PAYMENT MANAGEMENT
+// ================================
+
+export interface RecurringPaymentSetup {
+  strategy: RecurringStrategy;
+  customerId: string;
+  paymentMethod: PaymentMethod;
+  amount: number;
+  currency: string;
+  cycle: BillingCycle;
+  description: string;
+
+  // Strategy-specific configs
+  tokenization?: {
+    tokenId: string;
+    cronExpression: string;
+    maxRetries: number;
+  };
+
+  subscription?: {
+    trialPeriodDays?: number;
+    maxPayments?: number;
+    endDate?: string;
+  };
+
+  externalReference?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface RecurringSetupResponse {
+  setupId: string;
+  strategy: RecurringStrategy;
+  status: 'ACTIVE' | 'SCHEDULED' | 'PAUSED' | 'FAILED';
+  managedBy: 'INTERNAL_CRON' | 'PROVIDER_NATIVE';
+  nextExecutionDate?: string;
+  providerData?: any;
+}
+
+export interface TokenizationSetupResponse {
+  setupId: string;
+  customerId: string;
+  tokenId: string;
+  strategy: RecurringStrategy;
+  cronExpression: string;
+  nextExecutionDate: string;
+  managedBy: 'INTERNAL_CRON';
+  providerData: any;
+}
+
+// ================================
+// WEBHOOKS
+// ================================
+
+export interface WebhookResponse {
+  eventType: string;
+  paymentId?: string;
+  subscriptionId?: string;
+  customerId?: string;
+  status?: PaymentStatus;
+  amount?: number;
+  metadata?: Record<string, any>;
+  providerData?: any;
+}
+
+// ================================
+// GENERAL RESPONSES
+// ================================
+
+export interface CancelResponse {
+  success: boolean;
+  paymentId: string;
+  status: PaymentStatus;
+  cancelledAt: string;
+  reason?: string;
+}
+
+export interface RefundResponse {
+  refundId: string;
+  paymentId: string;
+  amount: number;
+  status: 'PENDING' | 'COMPLETED' | 'FAILED';
+  refundedAt: string;
+  reason?: string;
+}
+
+export interface CancelSubscriptionResponse {
+  subscriptionId: string;
+  status: SubscriptionStatus;
+  cancelledAt: string;
+  reason?: string;
+}
+
+// ================================
+// FILTERS AND QUERIES
+// ================================
+
+export interface PaymentFilters {
+  status?: PaymentStatus;
+  paymentMethod?: PaymentMethod;
+  customerId?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  amountFrom?: number;
+  amountTo?: number;
+}
+
+export interface PaymentQuery extends PaginationQuery {
+  filters?: PaymentFilters;
+}
+
+export interface PaymentListResponse extends ListResponse<PaymentResponse> {}
+
+export interface PaymentDetails extends PaymentResponse {
+  events: {
+    eventType: string;
+    timestamp: string;
+    description: string;
+    metadata?: Record<string, any>;
+  }[];
+}
+
+// ================================
+// PROVIDER CONFIGURATION
+// ================================
+
+export interface ProviderConfig {
+  apiKey: string;
+  baseUrl: string;
+  webhookSecret?: string;
+  environment: 'sandbox' | 'production';
+  merchantId?: string;
+  publicKey?: string;
+  secretKey?: string;
+  customSettings?: Record<string, any>;
+
+  // Metadata
+  configSource?: 'app' | 'company';
+  appId?: string;
+  companyId?: string;
+  accountStatus?: 'pending' | 'approved' | 'rejected';
+}
+
+// ================================
+// INTEGRATION CONFIGURATIONS
+// ================================
+
+export interface RecurringPaymentConfig {
+  enabled: boolean;
+  strategy: RecurringStrategy;
+
+  // For TOKENIZATION strategy
+  tokenization?: {
+    enableAutoBilling: boolean;
+    cronSchedule: string;
+    retryAttempts: number;
+    retryIntervalHours: number;
+    failureNotifications: NotificationConfig;
+  };
+
+  // For SUBSCRIPTION strategy
+  subscription?: {
+    enableNativeSubscriptions: boolean;
+    defaultCycle: BillingCycle;
+    supportedCycles: BillingCycle[];
+    allowTrialPeriods: boolean;
+    trialPeriodDays?: number;
+    failureNotifications: NotificationConfig;
+  };
+
+  // Webhooks
+  webhooks: {
+    enabled: boolean;
+    notificationEmails: string[];
+    slackWebhook?: string;
+  };
+}
+
+export interface NotificationConfig {
+  enableEmailAlerts: boolean;
+  enableSlackAlerts: boolean;
+  escalationEmails: string[];
+  maxFailuresBeforeEscalation: number;
+}
+
+// ================================
+// CRON JOB SYSTEM
+// ================================
+
+export interface TokenizedSubscription {
+  id: string;
+  appId: string;
+  companyId: string;
+  customerId: string; // ID in provider
+  tokenId: string;    // Card token
+  providerId: string;
+  amount: number;
+  currency: string;
+  cycle: BillingCycle;
+  description: string;
+
+  // Scheduling
+  nextChargeDate: Date;
+  cronExpression: string;
+
+  // Status & retry
+  status: 'ACTIVE' | 'PAUSED' | 'FAILED' | 'CANCELLED';
+  failureCount: number;
+  maxFailures: number;
+  lastAttemptAt?: Date;
+  lastSuccessAt?: Date;
+
+  // Config
+  retryIntervalHours: number;
+
+  externalReference?: string;
+  metadata?: Record<string, any>;
+}
+
+// ================================
+// PAYMENT CONTEXTS
+// ================================
+
+export interface PaymentContext {
+  type: 'APP_SUBSCRIPTION' | 'COMPANY_SUBSCRIPTION' | 'ORDER_PAYMENT' | 'CUSTOM';
+  entityId: string;        // app/company/order ID
+  customerId: string;      // Who pays
+  providerId: string;      // Which provider to use
+  metadata: Record<string, any>; // Context-specific data
+}
+
+// ================================
+// ERROR HANDLING
+// ================================
+
+export interface PaymentError {
+  code: string;
+  message: string;
+  details?: Record<string, any>;
+  provider?: string;
+  paymentId?: string;
+}
+
+export interface ValidationResult {
+  isValid: boolean;
+  issues: string[];
+  currentEnvironment?: 'sandbox' | 'production';
+}
