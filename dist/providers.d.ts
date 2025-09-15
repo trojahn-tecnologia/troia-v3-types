@@ -82,6 +82,9 @@ export declare enum ProviderId {
     INSTAGRAM_MESSAGING = "instagram-messaging",
     LINKEDIN_MESSAGING = "linkedin-messaging",
     TIKTOK_MESSAGING = "tiktok-messaging",
+    PAYMENT_ASAAS = "payment-asaas",
+    PAYMENT_STRIPE = "payment-stripe",
+    PAYMENT_PAYPAL = "payment-paypal",
     WEBSITE_CHAT = "website-chat",
     API_WEBHOOK = "api-webhook"
 }
@@ -101,6 +104,11 @@ export declare enum ProviderCapability {
     TRACK_OPENS = "track_opens",
     TRACK_CLICKS = "track_clicks",
     SCHEDULE_MESSAGE = "schedule_message",
+    PROCESS_PAYMENT = "process_payment",
+    PROCESS_SUBSCRIPTION = "process_subscription",
+    TOKENIZE_CARD = "tokenize_card",
+    REFUND_PAYMENT = "refund_payment",
+    CANCEL_SUBSCRIPTION = "cancel_subscription",
     CREATE_CONTACT = "create_contact",
     UPDATE_CONTACT = "update_contact",
     CREATE_LIST = "create_list",

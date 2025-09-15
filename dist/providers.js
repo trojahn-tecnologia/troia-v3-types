@@ -19,6 +19,10 @@ var ProviderId;
     ProviderId["INSTAGRAM_MESSAGING"] = "instagram-messaging";
     ProviderId["LINKEDIN_MESSAGING"] = "linkedin-messaging";
     ProviderId["TIKTOK_MESSAGING"] = "tiktok-messaging";
+    // Payment Providers
+    ProviderId["PAYMENT_ASAAS"] = "payment-asaas";
+    ProviderId["PAYMENT_STRIPE"] = "payment-stripe";
+    ProviderId["PAYMENT_PAYPAL"] = "payment-paypal";
     // Web/API Providers
     ProviderId["WEBSITE_CHAT"] = "website-chat";
     ProviderId["API_WEBHOOK"] = "api-webhook";
@@ -47,6 +51,12 @@ var ProviderCapability;
     ProviderCapability["TRACK_OPENS"] = "track_opens";
     ProviderCapability["TRACK_CLICKS"] = "track_clicks";
     ProviderCapability["SCHEDULE_MESSAGE"] = "schedule_message";
+    // Payment capabilities
+    ProviderCapability["PROCESS_PAYMENT"] = "process_payment";
+    ProviderCapability["PROCESS_SUBSCRIPTION"] = "process_subscription";
+    ProviderCapability["TOKENIZE_CARD"] = "tokenize_card";
+    ProviderCapability["REFUND_PAYMENT"] = "refund_payment";
+    ProviderCapability["CANCEL_SUBSCRIPTION"] = "cancel_subscription";
     // CRM capabilities
     ProviderCapability["CREATE_CONTACT"] = "create_contact";
     ProviderCapability["UPDATE_CONTACT"] = "update_contact";

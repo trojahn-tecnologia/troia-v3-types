@@ -137,6 +137,11 @@ export enum ProviderId {
   LINKEDIN_MESSAGING = 'linkedin-messaging',
   TIKTOK_MESSAGING = 'tiktok-messaging',
 
+  // Payment Providers
+  PAYMENT_ASAAS = 'payment-asaas',
+  PAYMENT_STRIPE = 'payment-stripe',
+  PAYMENT_PAYPAL = 'payment-paypal',
+
   // Web/API Providers
   WEBSITE_CHAT = 'website-chat',
   API_WEBHOOK = 'api-webhook'
@@ -169,6 +174,13 @@ export enum ProviderCapability {
   TRACK_OPENS = 'track_opens',
   TRACK_CLICKS = 'track_clicks',
   SCHEDULE_MESSAGE = 'schedule_message',
+
+  // Payment capabilities
+  PROCESS_PAYMENT = 'process_payment',
+  PROCESS_SUBSCRIPTION = 'process_subscription',
+  TOKENIZE_CARD = 'tokenize_card',
+  REFUND_PAYMENT = 'refund_payment',
+  CANCEL_SUBSCRIPTION = 'cancel_subscription',
 
   // CRM capabilities
   CREATE_CONTACT = 'create_contact',

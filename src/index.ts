@@ -25,3 +25,4 @@ export * from './providers';
 
 // Payment system
 export * from './payments';
+export * from './saved-cards';
