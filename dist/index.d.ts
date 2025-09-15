@@ -15,3 +15,4 @@ export * from './assignment';
 export * from './app-integrations';
 export * from './email-templates';
 export * from './providers';
+export * from './payments';

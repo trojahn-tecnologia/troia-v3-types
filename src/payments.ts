@@ -60,7 +60,7 @@ export enum RecurringStrategy {
   SUBSCRIPTION = 'subscription'   // Provider native subscriptions
 }
 
-export enum BillingCycle {
+export enum PaymentBillingCycle {
   WEEKLY = 'WEEKLY',
   BIWEEKLY = 'BIWEEKLY',
   MONTHLY = 'MONTHLY',
@@ -306,7 +306,7 @@ export interface SubscriptionData {
   paymentMethod: PaymentMethod;
   amount: number;
   currency: string;
-  cycle: BillingCycle;
+  cycle: PaymentBillingCycle;
   description: string;
 
   // Timing
@@ -331,7 +331,7 @@ export interface SubscriptionResponse {
   customerId: string;
   amount: number;
   currency: string;
-  cycle: BillingCycle;
+  cycle: PaymentBillingCycle;
   status: SubscriptionStatus;
   paymentMethod: PaymentMethod;
 
@@ -362,7 +362,7 @@ export interface SubscriptionPaymentListResponse {
     status: PaymentStatus;
     dueDate: string;
     paymentDate?: string;
-    cycle: BillingCycle;
+    cycle: PaymentBillingCycle;
     createdAt: string;
   }[];
   totalCount: number;
@@ -379,7 +379,7 @@ export interface RecurringPaymentSetup {
   paymentMethod: PaymentMethod;
   amount: number;
   currency: string;
-  cycle: BillingCycle;
+  cycle: PaymentBillingCycle;
   description: string;
 
   // Strategy-specific configs
@@ -495,7 +495,7 @@ export interface PaymentDetails extends PaymentResponse {
 // PROVIDER CONFIGURATION
 // ================================
 
-export interface ProviderConfig {
+export interface PaymentProviderConfig {
   apiKey: string;
   baseUrl: string;
   webhookSecret?: string;
@@ -532,8 +532,8 @@ export interface RecurringPaymentConfig {
   // For SUBSCRIPTION strategy
   subscription?: {
     enableNativeSubscriptions: boolean;
-    defaultCycle: BillingCycle;
-    supportedCycles: BillingCycle[];
+    defaultCycle: PaymentBillingCycle;
+    supportedCycles: PaymentBillingCycle[];
     allowTrialPeriods: boolean;
     trialPeriodDays?: number;
     failureNotifications: NotificationConfig;
@@ -567,7 +567,7 @@ export interface TokenizedSubscription {
   providerId: string;
   amount: number;
   currency: string;
-  cycle: BillingCycle;
+  cycle: PaymentBillingCycle;
   description: string;
 
   // Scheduling

@@ -22,3 +22,6 @@ export * from './email-templates';
 
 // Provider system (shared between app & company integrations)
 export * from './providers';
+
+// Payment system
+export * from './payments';

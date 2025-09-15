@@ -4,7 +4,7 @@
  * Universal payment processing interfaces for TROIA V3
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubscriptionStatus = exports.PaymentStatus = exports.BillingCycle = exports.RecurringStrategy = exports.PaymentCapability = exports.PaymentMethod = void 0;
+exports.SubscriptionStatus = exports.PaymentStatus = exports.PaymentBillingCycle = exports.RecurringStrategy = exports.PaymentCapability = exports.PaymentMethod = void 0;
 // ================================
 // CORE ENUMS
 // ================================
@@ -55,15 +55,15 @@ var RecurringStrategy;
     RecurringStrategy["TOKENIZATION"] = "tokenization";
     RecurringStrategy["SUBSCRIPTION"] = "subscription"; // Provider native subscriptions
 })(RecurringStrategy || (exports.RecurringStrategy = RecurringStrategy = {}));
-var BillingCycle;
-(function (BillingCycle) {
-    BillingCycle["WEEKLY"] = "WEEKLY";
-    BillingCycle["BIWEEKLY"] = "BIWEEKLY";
-    BillingCycle["MONTHLY"] = "MONTHLY";
-    BillingCycle["QUARTERLY"] = "QUARTERLY";
-    BillingCycle["SEMIANNUALLY"] = "SEMIANNUALLY";
-    BillingCycle["YEARLY"] = "YEARLY";
-})(BillingCycle || (exports.BillingCycle = BillingCycle = {}));
+var PaymentBillingCycle;
+(function (PaymentBillingCycle) {
+    PaymentBillingCycle["WEEKLY"] = "WEEKLY";
+    PaymentBillingCycle["BIWEEKLY"] = "BIWEEKLY";
+    PaymentBillingCycle["MONTHLY"] = "MONTHLY";
+    PaymentBillingCycle["QUARTERLY"] = "QUARTERLY";
+    PaymentBillingCycle["SEMIANNUALLY"] = "SEMIANNUALLY";
+    PaymentBillingCycle["YEARLY"] = "YEARLY";
+})(PaymentBillingCycle || (exports.PaymentBillingCycle = PaymentBillingCycle = {}));
 var PaymentStatus;
 (function (PaymentStatus) {
     PaymentStatus["PENDING"] = "PENDING";

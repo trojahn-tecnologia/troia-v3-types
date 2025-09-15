@@ -42,7 +42,7 @@ export declare enum RecurringStrategy {
     TOKENIZATION = "tokenization",// Internal cron jobs
     SUBSCRIPTION = "subscription"
 }
-export declare enum BillingCycle {
+export declare enum PaymentBillingCycle {
     WEEKLY = "WEEKLY",
     BIWEEKLY = "BIWEEKLY",
     MONTHLY = "MONTHLY",
@@ -234,7 +234,7 @@ export interface SubscriptionData {
     paymentMethod: PaymentMethod;
     amount: number;
     currency: string;
-    cycle: BillingCycle;
+    cycle: PaymentBillingCycle;
     description: string;
     startDate?: string;
     nextDueDate?: string;
@@ -250,7 +250,7 @@ export interface SubscriptionResponse {
     customerId: string;
     amount: number;
     currency: string;
-    cycle: BillingCycle;
+    cycle: PaymentBillingCycle;
     status: SubscriptionStatus;
     paymentMethod: PaymentMethod;
     createdAt: string;
@@ -273,7 +273,7 @@ export interface SubscriptionPaymentListResponse {
         status: PaymentStatus;
         dueDate: string;
         paymentDate?: string;
-        cycle: BillingCycle;
+        cycle: PaymentBillingCycle;
         createdAt: string;
     }[];
     totalCount: number;
@@ -285,7 +285,7 @@ export interface RecurringPaymentSetup {
     paymentMethod: PaymentMethod;
     amount: number;
     currency: string;
-    cycle: BillingCycle;
+    cycle: PaymentBillingCycle;
     description: string;
     tokenization?: {
         tokenId: string;
@@ -371,7 +371,7 @@ export interface PaymentDetails extends PaymentResponse {
         metadata?: Record<string, any>;
     }[];
 }
-export interface ProviderConfig {
+export interface PaymentProviderConfig {
     apiKey: string;
     baseUrl: string;
     webhookSecret?: string;
@@ -397,8 +397,8 @@ export interface RecurringPaymentConfig {
     };
     subscription?: {
         enableNativeSubscriptions: boolean;
-        defaultCycle: BillingCycle;
-        supportedCycles: BillingCycle[];
+        defaultCycle: PaymentBillingCycle;
+        supportedCycles: PaymentBillingCycle[];
         allowTrialPeriods: boolean;
         trialPeriodDays?: number;
         failureNotifications: NotificationConfig;
@@ -424,7 +424,7 @@ export interface TokenizedSubscription {
     providerId: string;
     amount: number;
     currency: string;
-    cycle: BillingCycle;
+    cycle: PaymentBillingCycle;
     description: string;
     nextChargeDate: Date;
     cronExpression: string;
