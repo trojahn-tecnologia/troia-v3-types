@@ -562,9 +562,16 @@ export interface TokenizedSubscription {
   id: string;
   appId: string;
   companyId: string;
-  customerId: string; // ID in provider
-  tokenId: string;    // Card token
-  providerId: string;
+
+  // NEW: Support for saved cards integration
+  userId?: string;           // User who owns the subscription
+  savedCardId?: string;      // Reference to saved card
+
+  // LEGACY: Direct tokenization (for backward compatibility)
+  customerId?: string;       // ID in provider (optional now)
+  tokenId?: string;          // Card token (optional now)
+  providerId?: string;       // Provider ID (optional now)
+
   amount: number;
   currency: string;
   cycle: PaymentBillingCycle;
@@ -575,7 +582,7 @@ export interface TokenizedSubscription {
   cronExpression: string;
 
   // Status & retry
-  status: 'ACTIVE' | 'PAUSED' | 'FAILED' | 'CANCELLED';
+  status: 'ACTIVE' | 'PAUSED' | 'FAILED' | 'CANCELLED' | 'EXPIRED';
   failureCount: number;
   maxFailures: number;
   lastAttemptAt?: Date;
@@ -586,6 +593,45 @@ export interface TokenizedSubscription {
 
   externalReference?: string;
   metadata?: Record<string, any>;
+}
+
+// NEW: Request interfaces for creating subscriptions with saved cards
+export interface CreateSubscriptionWithSavedCardRequest {
+  userId: string;
+  savedCardId: string;
+  amount: number;
+  currency: string;
+  cycle: PaymentBillingCycle;
+  description: string;
+  cronExpression?: string;
+  maxFailures?: number;
+  retryIntervalHours?: number;
+  externalReference?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface CreateSubscriptionResponse {
+  id: string;
+  status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
+  nextChargeDate: string;
+  message: string;
+  subscription: TokenizedSubscription;
+}
+
+export interface UpdateSubscriptionCardRequest {
+  newSavedCardId: string;
+  reason?: string;
+}
+
+export interface SubscriptionStats {
+  total: number;
+  active: number;
+  paused: number;
+  failed: number;
+  cancelled: number;
+  expired: number;
+  totalMonthlyRevenue: number;
+  avgFailureRate: number;
 }
 
 // ================================
