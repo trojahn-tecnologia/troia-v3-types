@@ -156,9 +156,9 @@ export interface UniversalPaymentData {
 export interface CreditCardData {
   holderName: string;
   number: string;
-  expiryMonth: string;
-  expiryYear: string;
-  ccv: string;
+  expiryMonth: number;
+  expiryYear: number;
+  cvv: string;
   holderDocument?: string;
 }
 

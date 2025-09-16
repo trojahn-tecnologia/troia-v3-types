@@ -119,9 +119,9 @@ export interface UniversalPaymentData {
 export interface CreditCardData {
     holderName: string;
     number: string;
-    expiryMonth: string;
-    expiryYear: string;
-    ccv: string;
+    expiryMonth: number;
+    expiryYear: number;
+    cvv: string;
     holderDocument?: string;
 }
 export interface PIXSpecificData {
@@ -415,15 +415,24 @@ export interface NotificationConfig {
     escalationEmails: string[];
     maxFailuresBeforeEscalation: number;
 }
+export declare enum SubscriptionContext {
+    APP_PLAN = "app_plan",// Company subscribes to App plan
+    COMPANY_SERVICE = "company_service"
+}
 export interface TokenizedSubscription {
     id: string;
     appId: string;
     companyId: string;
+    context: SubscriptionContext;
+    contextId: string;
+    contextType?: string;
     userId?: string;
     savedCardId?: string;
     customerId?: string;
     tokenId?: string;
     providerId?: string;
+    planId?: string;
+    serviceId?: string;
     amount: number;
     currency: string;
     cycle: PaymentBillingCycle;
@@ -442,6 +451,8 @@ export interface TokenizedSubscription {
 export interface CreateSubscriptionWithSavedCardRequest {
     userId: string;
     savedCardId: string;
+    planId?: string;
+    serviceId?: string;
     amount: number;
     currency: string;
     cycle: PaymentBillingCycle;
@@ -455,9 +466,11 @@ export interface CreateSubscriptionWithSavedCardRequest {
 export interface CreateSubscriptionResponse {
     id: string;
     status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
+    context: SubscriptionContext;
+    contextEntity?: any;
     nextChargeDate: string;
     message: string;
-    subscription: TokenizedSubscription;
+    subscription?: TokenizedSubscription;
 }
 export interface UpdateSubscriptionCardRequest {
     newSavedCardId: string;
@@ -472,6 +485,77 @@ export interface SubscriptionStats {
     expired: number;
     totalMonthlyRevenue: number;
     avgFailureRate: number;
+}
+export interface CompanyService {
+    id: string;
+    companyId: string;
+    appId: string;
+    name: string;
+    type: string;
+    price: number;
+    currency: string;
+    billingCycle: PaymentBillingCycle;
+    description: string;
+    status: 'active' | 'inactive' | 'draft';
+    features?: string[];
+    terms?: string;
+    createdAt: Date;
+    updatedAt: Date;
+    metadata?: Record<string, any>;
+}
+export interface CreateCompanyServiceRequest {
+    name: string;
+    type: string;
+    price: number;
+    currency?: string;
+    billingCycle: PaymentBillingCycle;
+    description: string;
+    features?: string[];
+    terms?: string;
+    metadata?: Record<string, any>;
+}
+export interface CompanyServiceResponse {
+    id: string;
+    companyId: string;
+    appId: string;
+    name: string;
+    type: string;
+    price: number;
+    currency: string;
+    billingCycle: PaymentBillingCycle;
+    description: string;
+    status: 'active' | 'inactive' | 'draft';
+    features?: string[];
+    terms?: string;
+    createdAt: string;
+    updatedAt: string;
+    metadata?: Record<string, any>;
+}
+export interface CompanyServiceQuery extends PaginationQuery {
+    filters?: {
+        type?: string;
+        status?: string;
+        priceFrom?: number;
+        priceTo?: number;
+    };
+}
+export interface CompanyServiceListResponse extends ListResponse<CompanyServiceResponse> {
+}
+export interface CompanyServiceActivation {
+    id: string;
+    serviceId: string;
+    companyId: string;
+    subscriptionId: string;
+    customerCompanyId?: string;
+    customerUserId?: string;
+    status: 'active' | 'inactive' | 'expired';
+    activatedAt: Date;
+    expiresAt?: Date;
+    deactivatedAt?: Date;
+    reason?: string;
+    createdAt: Date;
+    updatedAt: Date;
+    metadata?: Record<string, any>;
 }
 export interface PaymentContext {
     type: 'APP_SUBSCRIPTION' | 'COMPANY_SUBSCRIPTION' | 'ORDER_PAYMENT' | 'CUSTOM';

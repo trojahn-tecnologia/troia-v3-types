@@ -4,7 +4,7 @@
  * Universal payment processing interfaces for TROIA V3
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubscriptionStatus = exports.PaymentStatus = exports.PaymentBillingCycle = exports.RecurringStrategy = exports.PaymentCapability = exports.PaymentMethod = void 0;
+exports.SubscriptionContext = exports.SubscriptionStatus = exports.PaymentStatus = exports.PaymentBillingCycle = exports.RecurringStrategy = exports.PaymentCapability = exports.PaymentMethod = void 0;
 // ================================
 // CORE ENUMS
 // ================================
@@ -84,3 +84,11 @@ var SubscriptionStatus;
     SubscriptionStatus["OVERDUE"] = "OVERDUE";
     SubscriptionStatus["TRIAL"] = "TRIAL";
 })(SubscriptionStatus || (exports.SubscriptionStatus = SubscriptionStatus = {}));
+// ================================
+// CRON JOB SYSTEM - GENERIC CONTEXTS
+// ================================
+var SubscriptionContext;
+(function (SubscriptionContext) {
+    SubscriptionContext["APP_PLAN"] = "app_plan";
+    SubscriptionContext["COMPANY_SERVICE"] = "company_service"; // Customer subscribes to Company service
+})(SubscriptionContext || (exports.SubscriptionContext = SubscriptionContext = {}));
