@@ -42,9 +42,11 @@ export interface SaveCardResponse {
     message: string;
 }
 export interface SavedCardsQuery extends PaginationQuery {
-    isActive?: boolean;
-    brand?: string;
-    providerId?: string;
+    filters?: {
+        isActive?: boolean;
+        brand?: string;
+        providerId?: string;
+    };
 }
 export interface SavedCardsListResponse extends ListResponse<SavedCardResponse> {
 }

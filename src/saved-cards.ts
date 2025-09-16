@@ -78,9 +78,11 @@ export interface SaveCardResponse {
 // ================================
 
 export interface SavedCardsQuery extends PaginationQuery {
-  isActive?: boolean;     // Filter by active/inactive
-  brand?: string;         // Filter by card brand
-  providerId?: string;    // Filter by provider
+  filters?: {
+    isActive?: boolean;     // Filter by active/inactive
+    brand?: string;         // Filter by card brand
+    providerId?: string;    // Filter by provider
+  };
 }
 
 export interface SavedCardsListResponse extends ListResponse<SavedCardResponse> {}
