@@ -77,6 +77,7 @@ export interface GmailConfig {
   fromEmail: string;
 }
 
+
 // ============================================================================
 // UNION TYPE FOR ALL PROVIDER CONFIGS
 // ============================================================================
@@ -124,11 +125,13 @@ export enum ProviderId {
   // Email Providers
   EMAIL_SMTP = 'email-smtp',
   EMAIL_SENDGRID = 'email-sendgrid',
+  EMAIL_SES = 'email-ses',
   GMAIL_API = 'gmail-api',
 
   // Messaging Providers
   WHATSAPP_BUSINESS = 'whatsapp-business',
   FACEBOOK_MESSENGER = 'facebook-messenger',
+  INSTAGRAM_DIRECT = 'instagram-direct',
   TELEGRAM_BOT = 'telegram-bot',
   SMS_TWILIO = 'sms-twilio',
 
@@ -136,14 +139,17 @@ export enum ProviderId {
   INSTAGRAM_MESSAGING = 'instagram-messaging',
   LINKEDIN_MESSAGING = 'linkedin-messaging',
   TIKTOK_MESSAGING = 'tiktok-messaging',
+  TIKTOK_BUSINESS = 'tiktok-business',
 
   // Payment Providers
   PAYMENT_ASAAS = 'payment-asaas',
   PAYMENT_STRIPE = 'payment-stripe',
   PAYMENT_PAYPAL = 'payment-paypal',
+  PAYMENT_MERCADOPAGO = 'payment-mercadopago',
 
   // Web/API Providers
   WEBSITE_CHAT = 'website-chat',
+  WEBSITE_WIDGET = 'website-widget',
   API_WEBHOOK = 'api-webhook'
 }
 
@@ -187,16 +193,42 @@ export enum ProviderCapability {
   UPDATE_CONTACT = 'update_contact',
   CREATE_LIST = 'create_list',
   SEND_BULK = 'send_bulk',
+  BULK_SEND = 'bulk_send',
 
   // Webhook capabilities
   CREATE_WEBHOOK = 'create_webhook',
   RECEIVE_WEBHOOK = 'receive_webhook',
   VERIFY_WEBHOOK = 'verify_webhook',
+  SEND_WEBHOOK = 'send_webhook',
 
   // Form capabilities
   CREATE_FORM = 'create_form',
   SUBMIT_FORM = 'submit_form',
   CREATE_SURVEY = 'create_survey',
+  RECEIVE_FORM = 'receive_form',
+
+  // Widget capabilities
+  CREATE_WIDGET = 'create_widget',
+  TRACK_VISITOR = 'track_visitor',
+  LIVE_CHAT = 'live_chat',
+
+  // API capabilities
+  REST_API = 'rest_api',
+  GRAPHQL = 'graphql',
+
+  // Media capabilities
+  SEND_MEDIA = 'send_media',
+  RECEIVE_MEDIA = 'receive_media',
+
+  // Analytics capabilities
+  GET_INSIGHTS = 'get_insights',
+  TRACK_OPEN = 'track_open',
+
+  // Bot capabilities
+  CREATE_BOT = 'create_bot',
+
+  // Page management
+  MANAGE_PAGE = 'manage_page',
 
   // Account management
   MANAGE_ACCOUNT = 'manage_account'

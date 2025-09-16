@@ -9,22 +9,27 @@ var ProviderId;
     // Email Providers
     ProviderId["EMAIL_SMTP"] = "email-smtp";
     ProviderId["EMAIL_SENDGRID"] = "email-sendgrid";
+    ProviderId["EMAIL_SES"] = "email-ses";
     ProviderId["GMAIL_API"] = "gmail-api";
     // Messaging Providers
     ProviderId["WHATSAPP_BUSINESS"] = "whatsapp-business";
     ProviderId["FACEBOOK_MESSENGER"] = "facebook-messenger";
+    ProviderId["INSTAGRAM_DIRECT"] = "instagram-direct";
     ProviderId["TELEGRAM_BOT"] = "telegram-bot";
     ProviderId["SMS_TWILIO"] = "sms-twilio";
     // Social Media Providers
     ProviderId["INSTAGRAM_MESSAGING"] = "instagram-messaging";
     ProviderId["LINKEDIN_MESSAGING"] = "linkedin-messaging";
     ProviderId["TIKTOK_MESSAGING"] = "tiktok-messaging";
+    ProviderId["TIKTOK_BUSINESS"] = "tiktok-business";
     // Payment Providers
     ProviderId["PAYMENT_ASAAS"] = "payment-asaas";
     ProviderId["PAYMENT_STRIPE"] = "payment-stripe";
     ProviderId["PAYMENT_PAYPAL"] = "payment-paypal";
+    ProviderId["PAYMENT_MERCADOPAGO"] = "payment-mercadopago";
     // Web/API Providers
     ProviderId["WEBSITE_CHAT"] = "website-chat";
+    ProviderId["WEBSITE_WIDGET"] = "website-widget";
     ProviderId["API_WEBHOOK"] = "api-webhook";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
@@ -62,14 +67,34 @@ var ProviderCapability;
     ProviderCapability["UPDATE_CONTACT"] = "update_contact";
     ProviderCapability["CREATE_LIST"] = "create_list";
     ProviderCapability["SEND_BULK"] = "send_bulk";
+    ProviderCapability["BULK_SEND"] = "bulk_send";
     // Webhook capabilities
     ProviderCapability["CREATE_WEBHOOK"] = "create_webhook";
     ProviderCapability["RECEIVE_WEBHOOK"] = "receive_webhook";
     ProviderCapability["VERIFY_WEBHOOK"] = "verify_webhook";
+    ProviderCapability["SEND_WEBHOOK"] = "send_webhook";
     // Form capabilities
     ProviderCapability["CREATE_FORM"] = "create_form";
     ProviderCapability["SUBMIT_FORM"] = "submit_form";
     ProviderCapability["CREATE_SURVEY"] = "create_survey";
+    ProviderCapability["RECEIVE_FORM"] = "receive_form";
+    // Widget capabilities
+    ProviderCapability["CREATE_WIDGET"] = "create_widget";
+    ProviderCapability["TRACK_VISITOR"] = "track_visitor";
+    ProviderCapability["LIVE_CHAT"] = "live_chat";
+    // API capabilities
+    ProviderCapability["REST_API"] = "rest_api";
+    ProviderCapability["GRAPHQL"] = "graphql";
+    // Media capabilities
+    ProviderCapability["SEND_MEDIA"] = "send_media";
+    ProviderCapability["RECEIVE_MEDIA"] = "receive_media";
+    // Analytics capabilities
+    ProviderCapability["GET_INSIGHTS"] = "get_insights";
+    ProviderCapability["TRACK_OPEN"] = "track_open";
+    // Bot capabilities
+    ProviderCapability["CREATE_BOT"] = "create_bot";
+    // Page management
+    ProviderCapability["MANAGE_PAGE"] = "manage_page";
     // Account management
     ProviderCapability["MANAGE_ACCOUNT"] = "manage_account";
 })(ProviderCapability || (exports.ProviderCapability = ProviderCapability = {}));
