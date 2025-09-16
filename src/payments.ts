@@ -555,13 +555,23 @@ export interface NotificationConfig {
 }
 
 // ================================
-// CRON JOB SYSTEM
+// CRON JOB SYSTEM - GENERIC CONTEXTS
 // ================================
+
+export enum SubscriptionContext {
+  APP_PLAN = 'app_plan',           // Company subscribes to App plan
+  COMPANY_SERVICE = 'company_service' // Customer subscribes to Company service
+}
 
 export interface TokenizedSubscription {
   id: string;
   appId: string;
   companyId: string;
+
+  // 🔥 NEW: Generic context support for multiple subscription types
+  context: SubscriptionContext;    // Defines the subscription type
+  contextId: string;               // ID of the entity (planId, serviceId, etc)
+  contextType?: string;            // Cache of type (basic, premium, consultoria, etc)
 
   // NEW: Support for saved cards integration
   userId?: string;           // User who owns the subscription
@@ -571,6 +581,10 @@ export interface TokenizedSubscription {
   customerId?: string;       // ID in provider (optional now)
   tokenId?: string;          // Card token (optional now)
   providerId?: string;       // Provider ID (optional now)
+
+  // 🔥 COMPATIBILITY: Specific context fields
+  planId?: string;           // For APP_PLAN context (backward compatibility)
+  serviceId?: string;        // For COMPANY_SERVICE context (future)
 
   amount: number;
   currency: string;
@@ -595,10 +609,15 @@ export interface TokenizedSubscription {
   metadata?: Record<string, any>;
 }
 
-// NEW: Request interfaces for creating subscriptions with saved cards
+// 🔥 NEW: Generic subscription request interfaces
 export interface CreateSubscriptionWithSavedCardRequest {
   userId: string;
   savedCardId: string;
+
+  // 🔥 CONTEXT: Either planId OR serviceId must be provided
+  planId?: string;           // For APP_PLAN context
+  serviceId?: string;        // For COMPANY_SERVICE context
+
   amount: number;
   currency: string;
   cycle: PaymentBillingCycle;
@@ -613,9 +632,11 @@ export interface CreateSubscriptionWithSavedCardRequest {
 export interface CreateSubscriptionResponse {
   id: string;
   status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
+  context: SubscriptionContext;
+  contextEntity?: any;       // Plan or Service data
   nextChargeDate: string;
   message: string;
-  subscription: TokenizedSubscription;
+  subscription?: TokenizedSubscription;
 }
 
 export interface UpdateSubscriptionCardRequest {
@@ -632,6 +653,87 @@ export interface SubscriptionStats {
   expired: number;
   totalMonthlyRevenue: number;
   avgFailureRate: number;
+}
+
+// ================================
+// COMPANY SERVICES - FUTURE FEATURE
+// ================================
+
+export interface CompanyService {
+  id: string;
+  companyId: string;
+  appId: string;
+  name: string;
+  type: string;              // 'consultoria', 'auditoria', 'treinamento', etc
+  price: number;
+  currency: string;
+  billingCycle: PaymentBillingCycle;
+  description: string;
+  status: 'active' | 'inactive' | 'draft';
+  features?: string[];       // Optional service features
+  terms?: string;           // Terms and conditions
+  createdAt: Date;
+  updatedAt: Date;
+  metadata?: Record<string, any>;
+}
+
+export interface CreateCompanyServiceRequest {
+  name: string;
+  type: string;
+  price: number;
+  currency?: string;
+  billingCycle: PaymentBillingCycle;
+  description: string;
+  features?: string[];
+  terms?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface CompanyServiceResponse {
+  id: string;
+  companyId: string;
+  appId: string;
+  name: string;
+  type: string;
+  price: number;
+  currency: string;
+  billingCycle: PaymentBillingCycle;
+  description: string;
+  status: 'active' | 'inactive' | 'draft';
+  features?: string[];
+  terms?: string;
+  createdAt: string;
+  updatedAt: string;
+  metadata?: Record<string, any>;
+}
+
+export interface CompanyServiceQuery extends PaginationQuery {
+  filters?: {
+    type?: string;
+    status?: string;
+    priceFrom?: number;
+    priceTo?: number;
+  };
+}
+
+export interface CompanyServiceListResponse extends ListResponse<CompanyServiceResponse> {}
+
+// Service activation tracking
+export interface CompanyServiceActivation {
+  id: string;
+  serviceId: string;
+  companyId: string;           // Company offering the service
+  subscriptionId: string;      // Related subscription
+  customerCompanyId?: string;  // Company that subscribed to the service
+  customerUserId?: string;     // User that subscribed
+  status: 'active' | 'inactive' | 'expired';
+  activatedAt: Date;
+  expiresAt?: Date;
+  deactivatedAt?: Date;
+  reason?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  metadata?: Record<string, any>;
 }
 
 // ================================

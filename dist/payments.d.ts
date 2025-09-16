@@ -419,16 +419,18 @@ export interface TokenizedSubscription {
     id: string;
     appId: string;
     companyId: string;
-    customerId: string;
-    tokenId: string;
-    providerId: string;
+    userId?: string;
+    savedCardId?: string;
+    customerId?: string;
+    tokenId?: string;
+    providerId?: string;
     amount: number;
     currency: string;
     cycle: PaymentBillingCycle;
     description: string;
     nextChargeDate: Date;
     cronExpression: string;
-    status: 'ACTIVE' | 'PAUSED' | 'FAILED' | 'CANCELLED';
+    status: 'ACTIVE' | 'PAUSED' | 'FAILED' | 'CANCELLED' | 'EXPIRED';
     failureCount: number;
     maxFailures: number;
     lastAttemptAt?: Date;
@@ -436,6 +438,40 @@ export interface TokenizedSubscription {
     retryIntervalHours: number;
     externalReference?: string;
     metadata?: Record<string, any>;
+}
+export interface CreateSubscriptionWithSavedCardRequest {
+    userId: string;
+    savedCardId: string;
+    amount: number;
+    currency: string;
+    cycle: PaymentBillingCycle;
+    description: string;
+    cronExpression?: string;
+    maxFailures?: number;
+    retryIntervalHours?: number;
+    externalReference?: string;
+    metadata?: Record<string, any>;
+}
+export interface CreateSubscriptionResponse {
+    id: string;
+    status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
+    nextChargeDate: string;
+    message: string;
+    subscription: TokenizedSubscription;
+}
+export interface UpdateSubscriptionCardRequest {
+    newSavedCardId: string;
+    reason?: string;
+}
+export interface SubscriptionStats {
+    total: number;
+    active: number;
+    paused: number;
+    failed: number;
+    cancelled: number;
+    expired: number;
+    totalMonthlyRevenue: number;
+    avgFailureRate: number;
 }
 export interface PaymentContext {
     type: 'APP_SUBSCRIPTION' | 'COMPANY_SUBSCRIPTION' | 'ORDER_PAYMENT' | 'CUSTOM';
