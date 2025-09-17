@@ -29,3 +29,8 @@ export * from './communications';
 // Payment system
 export * from './payments';
 export * from './saved-cards';
+
+// Customer service modules
+export * from './contacts';
+export * from './customers';
+export * from './leads';
