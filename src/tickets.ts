@@ -5,6 +5,7 @@ export interface Ticket {
   companyId: string;
 
   // Core ticket data
+  ticketNumber: string;  // Auto-generated: TCK-YYYY-NNNNNN
   title: string;
   description?: string;
   status: 'open' | 'pending' | 'resolved' | 'closed' | 'canceled';

@@ -1,8 +1,9 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse } from './common';
+export type AssignmentResourceType = 'ticket' | 'conversation' | 'call' | 'chat' | 'lead' | 'contact' | 'customer';
 export interface Assignment {
     _id: ObjectId;
-    resourceType: string;
+    resourceType: AssignmentResourceType;
     resourceId: string;
     assignedTo: ObjectId;
     assignedBy?: ObjectId;
@@ -11,7 +12,7 @@ export interface Assignment {
     shiftId?: ObjectId;
     assignmentType: AssignmentType;
     assignmentStrategy: AssignmentStrategy;
-    priority?: number;
+    priority?: 'low' | 'medium' | 'high' | 'urgent';
     status: AssignmentStatus;
     assignedAt: Date;
     completedAt?: Date;
@@ -45,18 +46,18 @@ export interface EscalationRule {
     maxEscalations?: number;
 }
 export interface WorkloadLimit {
-    resourceType: string;
+    resourceType: AssignmentResourceType;
     maxConcurrent?: number;
     maxDaily?: number;
     maxWeekly?: number;
-    priority?: number;
+    priority?: 'low' | 'medium' | 'high' | 'urgent';
 }
 export interface CreateAssignmentRequest {
-    resourceType: string;
+    resourceType: AssignmentResourceType;
     resourceId: string;
     assignmentType?: AssignmentType;
     assignmentStrategy?: AssignmentStrategy;
-    priority?: number;
+    priority?: 'low' | 'medium' | 'high' | 'urgent';
     teamId?: string;
     channelId?: string;
     shiftId?: string;
@@ -66,8 +67,8 @@ export interface CreateAssignmentRequest {
     timeoutMinutes?: number;
 }
 export interface AssignmentCriteria {
-    resourceType: string;
-    priority?: number;
+    resourceType: AssignmentResourceType;
+    priority?: 'low' | 'medium' | 'high' | 'urgent';
     requiredSkills?: string[];
     preferredUsers?: string[];
     excludeUsers?: string[];
@@ -120,13 +121,13 @@ export interface AssignmentQuery extends PaginationQuery {
     status?: AssignmentStatus;
     assignmentType?: AssignmentType;
     assignmentStrategy?: AssignmentStrategy;
-    resourceType?: string;
+    resourceType?: AssignmentResourceType;
     assignedTo?: string;
     assignedBy?: string;
     teamId?: string;
     channelId?: string;
     shiftId?: string;
-    priority?: number;
+    priority?: 'low' | 'medium' | 'high' | 'urgent';
     dateFrom?: string;
     dateTo?: string;
 }
