@@ -124,6 +124,7 @@ export interface AssignTicketRequest {
   assigneeId?: string;
   teamId?: string;
   assignmentType?: string;
+  reason?: string;
 }
 
 // Ticket resolution
