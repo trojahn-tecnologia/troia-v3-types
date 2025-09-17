@@ -100,6 +100,7 @@ export interface AssignTicketRequest {
     assigneeId?: string;
     teamId?: string;
     assignmentType?: string;
+    reason?: string;
 }
 export interface ResolveTicketRequest {
     resolutionSummary: string;

@@ -5,9 +5,11 @@ import { PaginationQuery, ListResponse } from './common';
 // ASSIGNMENT CORE INTERFACES
 // ============================================================================
 
+export type AssignmentResourceType = 'ticket' | 'conversation' | 'call' | 'chat' | 'lead' | 'contact' | 'customer';
+
 export interface Assignment {
   _id: ObjectId;
-  resourceType: string; // 'ticket', 'call', 'chat', etc.
+  resourceType: AssignmentResourceType;
   resourceId: string;
   assignedTo: ObjectId; // userId
   assignedBy?: ObjectId; // userId who made the assignment
@@ -16,7 +18,7 @@ export interface Assignment {
   shiftId?: ObjectId; // shift context if applicable
   assignmentType: AssignmentType;
   assignmentStrategy: AssignmentStrategy;
-  priority?: number; // 1 (highest) to 10 (lowest)
+  priority?: 'low' | 'medium' | 'high' | 'urgent'; // String priority following project standard
   status: AssignmentStatus;
   assignedAt: Date;
   completedAt?: Date;
@@ -69,11 +71,11 @@ export interface EscalationRule {
 }
 
 export interface WorkloadLimit {
-  resourceType: string;
+  resourceType: AssignmentResourceType;
   maxConcurrent?: number;
   maxDaily?: number;
   maxWeekly?: number;
-  priority?: number; // Higher priority assignments bypass limits
+  priority?: 'low' | 'medium' | 'high' | 'urgent'; // Higher priority assignments bypass limits
 }
 
 // ============================================================================
@@ -81,11 +83,11 @@ export interface WorkloadLimit {
 // ============================================================================
 
 export interface CreateAssignmentRequest {
-  resourceType: string;
+  resourceType: AssignmentResourceType;
   resourceId: string;
   assignmentType?: AssignmentType;
   assignmentStrategy?: AssignmentStrategy;
-  priority?: number;
+  priority?: 'low' | 'medium' | 'high' | 'urgent';
   teamId?: string;
   channelId?: string;
   shiftId?: string;
@@ -96,8 +98,8 @@ export interface CreateAssignmentRequest {
 }
 
 export interface AssignmentCriteria {
-  resourceType: string;
-  priority?: number;
+  resourceType: AssignmentResourceType;
+  priority?: 'low' | 'medium' | 'high' | 'urgent';
   requiredSkills?: string[];
   preferredUsers?: string[];
   excludeUsers?: string[];
@@ -163,13 +165,13 @@ export interface AssignmentQuery extends PaginationQuery {
   status?: AssignmentStatus;
   assignmentType?: AssignmentType;
   assignmentStrategy?: AssignmentStrategy;
-  resourceType?: string;
+  resourceType?: AssignmentResourceType;
   assignedTo?: string;
   assignedBy?: string;
   teamId?: string;
   channelId?: string;
   shiftId?: string;
-  priority?: number;
+  priority?: 'low' | 'medium' | 'high' | 'urgent';
   dateFrom?: string;
   dateTo?: string;
 }
@@ -226,7 +228,7 @@ export type LotteryAlgorithm =
   | 'availability_weighted';
 
 export interface LotteryWeights {
-  priority?: number; // 0-1
+  priority?: number; // 0-1 (priority weight in lottery)
   skill?: number; // 0-1
   availability?: number; // 0-1
   lastAssignment?: number; // 0-1 (weight for time since last assignment)
