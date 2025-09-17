@@ -48,7 +48,17 @@ export interface AppQuery extends PaginationQuery {
 }
 
 // App response (same as App for now, but prepared for future changes)
-export type AppResponse = App;
+export interface AppResponse {
+  id: string;
+  name: string;
+  logo: string;
+  status: ActiveStatus;
+  themes: AppTheme[];
+  domains: string[];
+  modules: string[];
+  createdAt: string;
+  updatedAt: string;
+}
 
 // App list response using generic
 export interface AppListResponse extends ListResponse<AppResponse> {}

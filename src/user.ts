@@ -259,7 +259,25 @@ export interface UserQuery extends PaginationQuery {
 }
 
 // User response (without sensitive data)
-export type UserResponse = Omit<User, 'security'>;
+export interface UserResponse {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  avatar?: string;
+  phone?: string;
+  companyId: string;
+  appId: string;
+  status: ActiveStatus;
+  levelId?: string;
+  preferences: UserPreferences;
+  permissions: UserPermissions;
+  lastLoginAt?: string;
+  lastActivityAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 // User list response using generic
 export interface UserListResponse extends ListResponse<UserResponse> {}

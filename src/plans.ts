@@ -33,7 +33,22 @@ export interface PlanQuery extends PaginationQuery {
   };
 }
 
-export type PlanResponse = Plan;
+export interface PlanResponse {
+  id: string;
+  name: string;
+  description: string;
+  price: {
+    monthly: number;
+    yearly: number;
+    currency: string;
+  };
+  modules: PlanModule[];
+  limits: PlanLimits;
+  appId: string;
+  status: ActiveStatus;
+  createdAt: string;
+  updatedAt: string;
+}
 export interface PlanListResponse extends ListResponse<PlanResponse> {}
 export interface PlanQueryOptions extends GenericQueryOptions<PlanQuery> {}
 

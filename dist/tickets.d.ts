@@ -2,6 +2,7 @@ export interface Ticket {
     _id?: string;
     appId: string;
     companyId: string;
+    ticketNumber: string;
     title: string;
     description?: string;
     status: 'open' | 'pending' | 'resolved' | 'closed' | 'canceled';
