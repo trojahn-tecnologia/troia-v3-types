@@ -40,3 +40,7 @@ __exportStar(require("./communications"), exports);
 // Payment system
 __exportStar(require("./payments"), exports);
 __exportStar(require("./saved-cards"), exports);
+// Customer service modules
+__exportStar(require("./contacts"), exports);
+__exportStar(require("./customers"), exports);
+__exportStar(require("./leads"), exports);

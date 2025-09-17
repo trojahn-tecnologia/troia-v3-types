@@ -1,5 +1,5 @@
 // Customer Types - Multi-domain support
-export interface Address {
+export interface CustomerAddress {
   street: string;
   number: string;
   complement?: string;
@@ -30,7 +30,7 @@ export interface Customer {
   contacts: string[];
 
   // Additional information
-  address?: Address;
+  address?: CustomerAddress;
   website?: string;
   status: 'active' | 'inactive';
 
@@ -47,7 +47,7 @@ export interface CreateCustomerRequest {
   domains?: string[];
   segment: string;
   contacts?: string[];
-  address?: Address;
+  address?: CustomerAddress;
   website?: string;
   status?: 'active' | 'inactive';
 }
@@ -61,16 +61,16 @@ export interface UpdateCustomerRequest {
   domains?: string[];
   segment?: string;
   contacts?: string[];
-  address?: Address;
+  address?: CustomerAddress;
   website?: string;
   status?: 'active' | 'inactive';
 }
 
-export interface CustomerResponse extends Omit<Customer, '_id'> {
+export interface CustomerServiceResponse extends Omit<Customer, '_id'> {
   id: string;
 }
 
-export interface CustomerQuery extends PaginationQuery {
+export interface CustomerServiceQuery extends PaginationQuery {
   filters?: {
     name?: string;
     document?: string;
@@ -82,7 +82,7 @@ export interface CustomerQuery extends PaginationQuery {
   };
 }
 
-export interface CustomerListResponse extends ListResponse<CustomerResponse> {}
+export interface CustomerServiceListResponse extends ListResponse<CustomerServiceResponse> {}
 
 // Import types
 import { PaginationQuery, ListResponse } from './common';

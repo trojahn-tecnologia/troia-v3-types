@@ -34,3 +34,9 @@ export * from './saved-cards';
 export * from './contacts';
 export * from './customers';
 export * from './leads';
+
+// Phase 2: Advanced customer service modules
+export * from './tickets';
+export * from './conversations';
+export * from './conversation-messages';
+export * from './activities';

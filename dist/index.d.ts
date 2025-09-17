@@ -18,3 +18,6 @@ export * from './providers';
 export * from './communications';
 export * from './payments';
 export * from './saved-cards';
+export * from './contacts';
+export * from './customers';
+export * from './leads';

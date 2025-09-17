@@ -1,0 +1,172 @@
+// Conversation Types - Sistema multi-canal de conversas
+export interface Conversation {
+  _id?: string;
+  appId: string;
+  companyId: string;
+
+  // Core conversation data
+  subject?: string;
+  status: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+  priority: 'low' | 'normal' | 'high' | 'urgent';
+
+  // Multi-channel support
+  channelId: string;          // Channel where conversation happens
+  channelType: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+
+  // External provider integration
+  providerConversationId?: string; // External conversation ID
+  source: string;                  // Universal source identifier
+
+  // Participants
+  customerId?: string;
+  contactId?: string;
+
+  // Lead/Ticket integration
+  leadId?: string;            // Associated lead
+  ticketId?: string;          // Associated ticket
+
+  // Assignment system integration
+  assigneeId?: string;        // User responsible
+  teamId?: string;           // Team responsible
+  assignmentType?: string;    // Type of assignment
+  assignedAt?: string;
+  assignedBy?: string;
+
+  // Conversation metrics
+  messageCount: number;
+  lastMessageAt?: string;
+  lastMessageFromCustomer?: string;
+  lastMessageFromAgent?: string;
+
+  // Response time tracking
+  firstResponseTime?: number;  // Minutes to first response
+  averageResponseTime?: number; // Average response time
+
+  // Tags and categories
+  tags: string[];
+  category?: string;
+
+  // Metadata
+  metadata?: Record<string, any>; // Channel-specific metadata
+
+  // Dates
+  startedAt: string;
+  endedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateConversationRequest {
+  subject?: string;
+  priority?: 'low' | 'normal' | 'high' | 'urgent';
+  channelId: string;
+  channelType: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+  providerConversationId?: string;
+  source: string;
+  customerId?: string;
+  contactId?: string;
+  leadId?: string;
+  ticketId?: string;
+  assigneeId?: string;
+  teamId?: string;
+  tags?: string[];
+  category?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface UpdateConversationRequest {
+  subject?: string;
+  status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+  priority?: 'low' | 'normal' | 'high' | 'urgent';
+  customerId?: string;
+  contactId?: string;
+  leadId?: string;
+  ticketId?: string;
+  assigneeId?: string;
+  teamId?: string;
+  tags?: string[];
+  category?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface ConversationResponse extends Omit<Conversation, '_id'> {
+  id: string;
+}
+
+export interface ConversationQuery extends PaginationQuery {
+  filters?: {
+    subject?: string;
+    status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+    priority?: 'low' | 'normal' | 'high' | 'urgent';
+    channelId?: string;
+    channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+    source?: string;
+    customerId?: string;
+    contactId?: string;
+    leadId?: string;
+    ticketId?: string;
+    assigneeId?: string;
+    teamId?: string;
+    category?: string;
+    tags?: string[];
+    hasUnreadMessages?: boolean;
+    createdFrom?: string;
+    createdTo?: string;
+    lastMessageFrom?: string;
+    lastMessageTo?: string;
+  };
+}
+
+export interface ConversationListResponse extends ListResponse<ConversationResponse> {}
+
+// Conversation assignment
+export interface AssignConversationRequest {
+  assigneeId?: string;
+  teamId?: string;
+  assignmentType?: string;
+}
+
+// Conversation transfer
+export interface TransferConversationRequest {
+  fromAssigneeId?: string;
+  toAssigneeId?: string;
+  fromTeamId?: string;
+  toTeamId?: string;
+  reason?: string;
+  notes?: string;
+}
+
+// Close conversation
+export interface CloseConversationRequest {
+  reason?: string;
+  notes?: string;
+  rating?: number; // Customer satisfaction rating
+}
+
+// Conversation statistics
+export interface ConversationStats {
+  total: number;
+  byStatus: Record<string, number>;
+  byChannel: Record<string, number>;
+  byPriority: Record<string, number>;
+  averageResponseTime: number;
+  totalUnread: number;
+}
+
+// Bulk operations
+export interface BulkConversationOperationRequest {
+  conversationIds: string[];
+  operation: 'assign' | 'transfer' | 'close' | 'addTag' | 'removeTag' | 'changeStatus' | 'changePriority';
+  data?: {
+    assigneeId?: string;
+    teamId?: string;
+    status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+    priority?: 'low' | 'normal' | 'high' | 'urgent';
+    tag?: string;
+    reason?: string;
+    notes?: string;
+  };
+}
+
+// Import types
+import { PaginationQuery, ListResponse } from './common';
