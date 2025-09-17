@@ -42,7 +42,20 @@ export interface CompanyQuery extends PaginationQuery {
     name?: string;
     email?: string;
 }
-export type CompanyResponse = Company;
+export interface CompanyResponse {
+    id: string;
+    name: string;
+    email: string;
+    phone?: string;
+    website?: string;
+    logo?: string;
+    appId: string;
+    status: ActiveStatus;
+    address: Address;
+    defaultAssignmentConfig?: AssignmentConfig;
+    createdAt: string;
+    updatedAt: string;
+}
 export interface CompanyListResponse extends ListResponse<CompanyResponse> {
 }
 export interface CompanyQueryOptions extends GenericQueryOptions<CompanyQuery> {

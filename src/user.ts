@@ -171,7 +171,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  user: Omit<User, 'security'>;
+  user: UserResponse;
   token: string;
   refreshToken?: string;
   expiresAt: Date;

@@ -12,7 +12,17 @@ export interface LevelQuery extends PaginationQuery {
     status?: ActiveStatus;
     name?: string;
 }
-export type LevelResponse = Level;
+export interface LevelResponse {
+    id: string;
+    name: string;
+    description: string;
+    permissions: Record<string, ModulePermission>;
+    companyId: string;
+    appId: string;
+    status: ActiveStatus;
+    createdAt: string;
+    updatedAt: string;
+}
 export interface LevelListResponse extends ListResponse<LevelResponse> {
 }
 export interface LevelQueryOptions extends GenericQueryOptions<LevelQuery> {
