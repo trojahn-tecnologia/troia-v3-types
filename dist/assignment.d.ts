@@ -122,6 +122,7 @@ export interface AssignmentQuery extends PaginationQuery {
     assignmentType?: AssignmentType;
     assignmentStrategy?: AssignmentStrategy;
     resourceType?: AssignmentResourceType;
+    resourceId?: string;
     assignedTo?: string;
     assignedBy?: string;
     teamId?: string;

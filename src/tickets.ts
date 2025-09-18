@@ -76,6 +76,8 @@ export interface UpdateTicketRequest {
   title?: string;
   description?: string;
   status?: 'open' | 'pending' | 'resolved' | 'closed' | 'canceled';
+  statusReason?: string;
+  resolution?: string;
   priority?: 'low' | 'medium' | 'high' | 'urgent';
   category?: string;
   tags?: string[];
