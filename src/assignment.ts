@@ -126,18 +126,19 @@ export interface BulkAssignmentRequest {
 // ASSIGNMENT RESPONSES
 // ============================================================================
 
-export type AssignmentResponse = Omit<Assignment, 'metadata'> & {
+export interface AssignmentResponse extends Omit<Assignment, '_id' | 'metadata'> {
+  id: string;
   assignedToUser?: {
-    _id: ObjectId;
+    id: string;
     name: string;
     email: string;
   };
   assignedByUser?: {
-    _id: ObjectId;
+    id: string;
     name: string;
     email: string;
   };
-};
+}
 
 export interface AssignmentResult {
   success: boolean;
