@@ -149,7 +149,7 @@ export interface LoginRequest {
     twoFactorCode?: string;
 }
 export interface LoginResponse {
-    user: Omit<User, 'security'>;
+    user: UserResponse;
     token: string;
     refreshToken?: string;
     expiresAt: Date;
