@@ -117,7 +117,7 @@ export interface ChannelQuery extends PaginationQuery {
 
 // Response Types
 export type ProviderResponse = Omit<Provider, never>;
-export type ChannelResponse = Omit<Channel, never>;
+export type ChannelResponse = Omit<Channel, '_id'> & { id: string };
 
 // List Response Types
 export interface ProviderListResponse extends ListResponse<ProviderResponse> {}
