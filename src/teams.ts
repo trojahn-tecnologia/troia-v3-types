@@ -65,9 +65,40 @@ export interface TeamResourceQuery extends PaginationQuery {
 }
 
 // Response Types
-export type TeamResponse = Omit<Team, never>;
-export type TeamUserResponse = Omit<TeamUser, never>;
-export type TeamResourceResponse = Omit<TeamResource, never>;
+export interface TeamResponse {
+  id: string;
+  name: string;
+  description: string;
+  companyId: string;
+  appId: string;
+  status: ActiveStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TeamUserResponse {
+  id: string;
+  teamId: string;
+  userId: string;
+  role: 'member' | 'leader' | 'manager';
+  priority: number;
+  companyId: string;
+  appId: string;
+  status: ActiveStatus;
+  joinedAt: string;
+}
+
+export interface TeamResourceResponse {
+  id: string;
+  teamId: string;
+  resourceType: 'customer' | 'lead' | 'project' | 'document' | 'ticket';
+  resourceId: string;
+  assignedAt: string;
+  assignedBy: string;
+  companyId: string;
+  appId: string;
+  status: ActiveStatus;
+}
 
 // List Response Types
 export interface TeamListResponse extends ListResponse<TeamResponse> {}

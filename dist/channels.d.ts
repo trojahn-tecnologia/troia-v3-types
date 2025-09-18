@@ -82,7 +82,9 @@ export interface ChannelQuery extends PaginationQuery {
     status?: ActiveStatus;
 }
 export type ProviderResponse = Omit<Provider, never>;
-export type ChannelResponse = Omit<Channel, never>;
+export type ChannelResponse = Omit<Channel, '_id'> & {
+    id: string;
+};
 export interface ProviderListResponse extends ListResponse<ProviderResponse> {
 }
 export interface ChannelListResponse extends ListResponse<ChannelResponse> {
