@@ -8,7 +8,7 @@ import { PaginationQuery, ListResponse } from './common';
 export type AssignmentResourceType = 'ticket' | 'conversation' | 'call' | 'chat' | 'lead' | 'contact' | 'customer';
 
 export interface Assignment {
-  _id: ObjectId;
+  id: string;
   resourceType: AssignmentResourceType;
   resourceId: string;
   assignedTo: ObjectId; // userId

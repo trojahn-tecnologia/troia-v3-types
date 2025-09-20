@@ -3,7 +3,7 @@ import { FullTenantDocument, ActiveStatus, PaginationQuery, GenericQueryOptions,
 import { ModulePermission } from './modules';
 
 export interface Level extends FullTenantDocument {
-  _id: ObjectId;
+  id: string;
   name: string; // "Administrador", "Gerente", "Operador"
   description: string;
   permissions: Record<string, ModulePermission>; // moduleId -> permissions

@@ -81,7 +81,7 @@ export interface ChannelLotteryConfig extends CoreLotteryConfig {
 // ============================================================================
 
 export interface Provider {
-  _id: ObjectId;
+  id: string;
   name: string;
   categories: string[];
   capabilities: string[];
@@ -91,7 +91,7 @@ export interface Provider {
 }
 
 export interface Channel {
-  _id: ObjectId;
+  id: string;
   name: string;
   integrationId: ObjectId;
   identifier: string;

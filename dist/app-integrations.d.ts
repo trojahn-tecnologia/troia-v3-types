@@ -10,7 +10,7 @@ export interface AppIntegrationQuery extends PaginationQuery {
     isDefault?: boolean;
 }
 export interface AppIntegrationResponse {
-    _id: string;
+    id: string;
     appId: string;
     providerId: string;
     name: string;

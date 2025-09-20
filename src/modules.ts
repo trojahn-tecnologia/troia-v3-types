@@ -6,7 +6,7 @@ export type PermissionAction = 'create' | 'read' | 'update' | 'delete' | 'export
 export type PermissionScope = 'all' | 'own' | 'team';
 
 export interface Module extends AppAwareDocument {
-  _id: ObjectId;
+  id: string;
   name: string; // "users", "crm", "teams", "chat", "reports"
   displayName: string; // "Usuários", "CRM", "Equipes", "Chat", "Relatórios"
   description: string;

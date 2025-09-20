@@ -12,7 +12,7 @@ export interface EmailTemplateQuery extends PaginationQuery {
     isDefault?: boolean;
 }
 export interface EmailTemplateResponse {
-    _id: string;
+    id: string;
     appId: string;
     companyId?: string;
     templateType: string;

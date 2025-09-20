@@ -22,7 +22,7 @@ import {
 
 // Base CompanyIntegration interface
 export interface CompanyIntegration {
-  _id: ObjectId;
+  id: string;
   companyId: ObjectId;
   appId: ObjectId;
   providerId: string; // Reference to provider in utils/providers.ts

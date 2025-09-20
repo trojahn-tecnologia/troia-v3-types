@@ -7,7 +7,7 @@ import { AssignmentConfig } from './assignment';
 // ============================================================================
 
 export interface Shift {
-  _id: ObjectId;
+  id: string;
   name: string;
   description?: string;
   teamId?: ObjectId; // Optional team assignment
@@ -66,7 +66,7 @@ export interface ShiftAssignment {
 }
 
 export interface UserAvailability {
-  _id?: ObjectId;
+  id?: string;
   userId: ObjectId;
   currentStatus: 'available' | 'busy' | 'away' | 'offline';
   currentShift?: {

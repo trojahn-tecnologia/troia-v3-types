@@ -6,7 +6,7 @@ import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from
 // ============================================================================
 
 export interface Team {
-  _id: ObjectId;
+  id: string;
   name: string;
   description: string;
   companyId: ObjectId;
@@ -17,7 +17,7 @@ export interface Team {
 }
 
 export interface TeamUser {
-  _id: ObjectId;
+  id: string;
   teamId: ObjectId;
   userId: ObjectId;
   role: 'member' | 'leader' | 'manager';
@@ -29,7 +29,7 @@ export interface TeamUser {
 }
 
 export interface TeamResource {
-  _id: ObjectId;
+  id: string;
   teamId: ObjectId;
   resourceType: 'customer' | 'lead' | 'project' | 'document' | 'ticket';
   resourceId: ObjectId;
