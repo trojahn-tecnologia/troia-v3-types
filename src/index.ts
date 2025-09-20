@@ -15,6 +15,7 @@ export * from './user-permissions';
 export * from './teams';
 export * from './channels';
 export * from './shifts';
+export * from './skills';
 export * from './company-integrations';
 export * from './assignment';
 export * from './app-integrations';
