@@ -36,6 +36,10 @@ export interface Contact {
   // Relationships
   customerId?: string;
 
+  // Assignment system integration
+  assigneeId?: string;
+  teamId?: string;
+
   createdAt: string;
   updatedAt: string;
 }
@@ -46,6 +50,8 @@ export interface CreateContactRequest {
   tags?: string[];
   identifiers: Partial<ContactIdentifiers>;
   customerId?: string;
+  assigneeId?: string;
+  teamId?: string;
 }
 
 export interface UpdateContactRequest {
@@ -54,6 +60,8 @@ export interface UpdateContactRequest {
   tags?: string[];
   identifiers?: Partial<ContactIdentifiers>;
   customerId?: string;
+  assigneeId?: string;
+  teamId?: string;
 }
 
 export interface ContactResponse extends Omit<Contact, '_id'> {
@@ -71,6 +79,8 @@ export interface ContactQuery extends PaginationQuery {
     telegramId?: string;
     customerId?: string;
     tags?: string[];
+    assigneeId?: string;
+    teamId?: string;
   };
 }
 

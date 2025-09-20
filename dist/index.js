@@ -29,6 +29,7 @@ __exportStar(require("./user-permissions"), exports);
 __exportStar(require("./teams"), exports);
 __exportStar(require("./channels"), exports);
 __exportStar(require("./shifts"), exports);
+__exportStar(require("./skills"), exports);
 __exportStar(require("./company-integrations"), exports);
 __exportStar(require("./assignment"), exports);
 __exportStar(require("./app-integrations"), exports);
