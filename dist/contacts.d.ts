@@ -3,6 +3,7 @@ export interface ContactIdentifiers {
     phone: string[];
     whatsapp: Array<{
         phone: string;
+        lid?: string;
     }>;
     instagram: Array<{
         username: string;
