@@ -59,6 +59,7 @@ export interface CompanyQuery extends PaginationQuery {
 
 // Company response (same as Company for now, but prepared for future changes)
 export interface CompanyResponse {
+  id: string;
   name: string;
   email: string;
   phone?: string;

@@ -16,6 +16,7 @@ export interface LevelQuery extends PaginationQuery {
 }
 
 export interface LevelResponse {
+  id: string;
   name: string;
   description: string;
   permissions: Record<string, ModulePermission>;

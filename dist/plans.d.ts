@@ -25,6 +25,7 @@ export interface PlanQuery extends PaginationQuery {
     };
 }
 export interface PlanResponse {
+    id: string;
     name: string;
     description: string;
     price: {

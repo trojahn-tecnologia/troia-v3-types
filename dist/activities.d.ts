@@ -1,4 +1,5 @@
 export interface Activity {
+    id: string;
     appId: string;
     companyId: string;
     type: ActivityType;
@@ -29,6 +30,7 @@ export type ActivityCategory = 'contact' | 'customer' | 'lead' | 'ticket' | 'con
 export type EntityType = 'contact' | 'customer' | 'lead' | 'ticket' | 'conversation' | 'message' | 'user' | 'team' | 'assignment' | 'plan' | 'integration' | 'workflow' | 'report';
 export type ActorType = 'user' | 'system' | 'bot' | 'webhook' | 'cron' | 'api' | 'integration';
 export interface RelatedEntity {
+    id: string;
     type: EntityType;
     name?: string;
 }

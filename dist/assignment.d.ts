@@ -89,6 +89,7 @@ export interface BulkAssignmentRequest {
     maintainBalance?: boolean;
 }
 export interface AssignmentResponse extends Omit<Assignment, '_id' | 'metadata'> {
+    id: string;
     assignedToUser?: {
         name: string;
         email: string;

@@ -25,6 +25,7 @@ export interface CompanyIntegrationQuery extends PaginationQuery {
     name?: string;
 }
 export interface CompanyIntegrationResponse {
+    id: string;
     companyId: string;
     appId: string;
     providerId: string;

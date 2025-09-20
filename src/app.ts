@@ -49,6 +49,7 @@ export interface AppQuery extends PaginationQuery {
 
 // App response (same as App for now, but prepared for future changes)
 export interface AppResponse {
+  id: string;
   name: string;
   logo: string;
   status: ActiveStatus;

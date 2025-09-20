@@ -1,6 +1,7 @@
 // Activity Types - Sistema de atividades e logs do sistema
 
 export interface Activity {
+  id: string;
   appId: string;
   companyId: string;
 
@@ -95,6 +96,7 @@ export type ActorType =
   | 'integration'; // External integration
 
 export interface RelatedEntity {
+  id: string;
   type: EntityType;
   name?: string;
 }
