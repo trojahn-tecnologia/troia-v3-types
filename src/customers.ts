@@ -76,6 +76,8 @@ export interface UpdateCustomerRequest {
 
 export type CustomerResponse = Customer;
 
+export type CustomerServiceResponse = CustomerResponse;
+
 export interface CustomerServiceQuery extends PaginationQuery {
   filters?: {
     name?: string;
@@ -91,6 +93,8 @@ export interface CustomerServiceQuery extends PaginationQuery {
 }
 
 export interface CustomerListResponse extends ListResponse<CustomerResponse> {}
+
+export interface CustomerServiceListResponse extends ListResponse<CustomerServiceResponse> {}
 
 // Import types
 import { PaginationQuery, ListResponse } from './common';

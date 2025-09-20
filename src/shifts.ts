@@ -118,9 +118,11 @@ export interface UserAvailabilityQuery extends PaginationQuery {
 
 // Response Types
 export interface ShiftResponse extends Omit<Shift, '_id'> {
+  id: string;
 }
 
 export interface UserAvailabilityResponse extends Omit<UserAvailability, '_id'> {
+  id: string;
 }
 
 // List Response Types

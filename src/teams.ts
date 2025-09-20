@@ -63,12 +63,15 @@ export interface TeamResourceQuery extends PaginationQuery {
 
 // Response Types
 export interface TeamResponse extends Omit<Team, '_id'> {
+  id: string;
 }
 
 export interface TeamUserResponse extends Omit<TeamUser, '_id'> {
+  id: string;
 }
 
 export interface TeamResourceResponse extends Omit<TeamResource, '_id'> {
+  id: string;
 }
 
 // List Response Types

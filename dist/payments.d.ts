@@ -462,6 +462,7 @@ export interface CreateSubscriptionWithSavedCardRequest {
     metadata?: Record<string, any>;
 }
 export interface CreateSubscriptionResponse {
+    id: string;
     status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
     context: SubscriptionContext;
     contextEntity?: any;

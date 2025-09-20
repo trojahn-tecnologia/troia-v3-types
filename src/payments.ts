@@ -628,6 +628,7 @@ export interface CreateSubscriptionWithSavedCardRequest {
 }
 
 export interface CreateSubscriptionResponse {
+  id: string;
   status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
   context: SubscriptionContext;
   contextEntity?: any;       // Plan or Service data

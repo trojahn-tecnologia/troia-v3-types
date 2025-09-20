@@ -1,5 +1,6 @@
 import { PaginationQuery, ListResponse } from './common';
 export interface SavedCard {
+    id: string;
     userId: string;
     appId: string;
     companyId: string;

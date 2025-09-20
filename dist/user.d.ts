@@ -220,6 +220,7 @@ export interface UserQuery extends PaginationQuery {
     companyId?: string;
 }
 export interface UserResponse {
+    id: string;
     email: string;
     firstName: string;
     lastName: string;

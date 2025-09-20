@@ -259,6 +259,7 @@ export interface UserQuery extends PaginationQuery {
 
 // User response (without sensitive data)
 export interface UserResponse {
+  id: string;
   email: string;
   firstName: string;
   lastName: string;

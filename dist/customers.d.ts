@@ -59,6 +59,7 @@ export interface UpdateCustomerRequest {
     status?: 'active' | 'inactive';
 }
 export type CustomerResponse = Customer;
+export type CustomerServiceResponse = CustomerResponse;
 export interface CustomerServiceQuery extends PaginationQuery {
     filters?: {
         name?: string;
@@ -73,5 +74,7 @@ export interface CustomerServiceQuery extends PaginationQuery {
     };
 }
 export interface CustomerListResponse extends ListResponse<CustomerResponse> {
+}
+export interface CustomerServiceListResponse extends ListResponse<CustomerServiceResponse> {
 }
 import { PaginationQuery, ListResponse } from './common';
