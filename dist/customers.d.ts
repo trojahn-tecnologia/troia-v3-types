@@ -20,6 +20,8 @@ export interface Customer {
     domains: string[];
     segment: string;
     contacts: string[];
+    assigneeId?: string;
+    teamId?: string;
     address?: CustomerAddress;
     website?: string;
     status: 'active' | 'inactive';
@@ -35,6 +37,8 @@ export interface CreateCustomerRequest {
     domains?: string[];
     segment: string;
     contacts?: string[];
+    assigneeId?: string;
+    teamId?: string;
     address?: CustomerAddress;
     website?: string;
     status?: 'active' | 'inactive';
@@ -48,6 +52,8 @@ export interface UpdateCustomerRequest {
     domains?: string[];
     segment?: string;
     contacts?: string[];
+    assigneeId?: string;
+    teamId?: string;
     address?: CustomerAddress;
     website?: string;
     status?: 'active' | 'inactive';
@@ -64,6 +70,8 @@ export interface CustomerServiceQuery extends PaginationQuery {
         segment?: string;
         status?: 'active' | 'inactive';
         tags?: string[];
+        assigneeId?: string;
+        teamId?: string;
     };
 }
 export interface CustomerServiceListResponse extends ListResponse<CustomerServiceResponse> {
