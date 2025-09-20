@@ -563,6 +563,7 @@ export enum SubscriptionContext {
 }
 
 export interface TokenizedSubscription {
+  id: string;
   appId: string;
   companyId: string;
 

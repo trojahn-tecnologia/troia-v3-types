@@ -1,5 +1,6 @@
 // Conversation Types - Sistema multi-canal de conversas
 export interface Conversation {
+  id: string;
   appId: string;
   companyId: string;
 

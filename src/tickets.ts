@@ -1,5 +1,6 @@
 // Ticket Types - Sistema de atendimento com SLA
 export interface Ticket {
+  id: string;
   appId: string;
   companyId: string;
 

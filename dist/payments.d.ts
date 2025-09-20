@@ -419,6 +419,7 @@ export declare enum SubscriptionContext {
     COMPANY_SERVICE = "company_service"
 }
 export interface TokenizedSubscription {
+    id: string;
     appId: string;
     companyId: string;
     context: SubscriptionContext;

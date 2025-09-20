@@ -1,4 +1,5 @@
 export interface Conversation {
+    id: string;
     appId: string;
     companyId: string;
     subject?: string;

@@ -1,4 +1,5 @@
 export interface Ticket {
+    id: string;
     appId: string;
     companyId: string;
     ticketNumber: string;
