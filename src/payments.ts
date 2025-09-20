@@ -239,6 +239,7 @@ export interface CreditCardResponse {
 // ================================
 
 export interface PaymentCustomerResponse {
+  id: string;
   externalReference?: string;
   name: string;
   email: string;
