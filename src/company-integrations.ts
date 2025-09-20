@@ -57,7 +57,7 @@ export interface CompanyIntegrationQuery extends PaginationQuery {
 
 // Company Integration Response (without credentials, with provider info)
 export interface CompanyIntegrationResponse {
-  _id: string;
+  id: string;
   companyId: string;
   appId: string;
   providerId: string;

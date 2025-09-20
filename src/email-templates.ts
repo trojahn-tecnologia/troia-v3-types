@@ -17,7 +17,7 @@ export interface EmailTemplateQuery extends PaginationQuery {
 
 // Response Types
 export interface EmailTemplateResponse {
-  _id: string;
+  id: string;
   appId: string;
   companyId?: string;
   templateType: string;

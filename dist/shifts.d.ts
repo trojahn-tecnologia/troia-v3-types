@@ -96,8 +96,12 @@ export interface UserAvailabilityQuery extends PaginationQuery {
     currentStatus?: 'available' | 'busy' | 'away' | 'offline';
     hasCurrentShift?: boolean;
 }
-export type ShiftResponse = Omit<Shift, never>;
-export type UserAvailabilityResponse = Omit<UserAvailability, never>;
+export interface ShiftResponse extends Omit<Shift, '_id'> {
+    id: string;
+}
+export interface UserAvailabilityResponse extends Omit<UserAvailability, '_id'> {
+    id: string;
+}
 export interface ShiftListResponse extends ListResponse<ShiftResponse> {
 }
 export interface UserAvailabilityListResponse extends ListResponse<UserAvailabilityResponse> {
