@@ -1,5 +1,4 @@
 export interface Ticket {
-    _id?: string;
     appId: string;
     companyId: string;
     ticketNumber: string;
@@ -71,9 +70,7 @@ export interface UpdateTicketRequest {
     resolutionSummary?: string;
     customerSatisfaction?: number;
 }
-export interface TicketResponse extends Omit<Ticket, '_id'> {
-    id: string;
-}
+export type TicketResponse = Ticket;
 export interface TicketQuery extends PaginationQuery {
     filters?: {
         title?: string;

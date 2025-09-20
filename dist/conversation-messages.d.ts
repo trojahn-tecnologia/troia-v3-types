@@ -70,7 +70,7 @@ export interface SystemContent {
 }
 export type MessageContent = TextContent | ImageContent | VideoContent | AudioContent | DocumentContent | LocationContent | ContactContent | LinkContent | ReactionContent | SystemContent;
 export interface ConversationMessage {
-    _id?: string;
+    id: string;
     appId: string;
     companyId: string;
     conversationId: string;
@@ -134,9 +134,7 @@ export interface UpdateConversationMessageRequest {
     failedReason?: string;
     internalNote?: string;
 }
-export interface ConversationMessageResponse extends Omit<ConversationMessage, '_id'> {
-    id: string;
-}
+export type ConversationMessageResponse = ConversationMessage;
 export interface ConversationMessageQuery extends PaginationQuery {
     conversationId?: string;
     filters?: {

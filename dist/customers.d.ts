@@ -9,7 +9,7 @@ export interface CustomerAddress {
     country: string;
 }
 export interface Customer {
-    _id?: string;
+    id: string;
     appId: string;
     companyId: string;
     name: string;
@@ -58,9 +58,7 @@ export interface UpdateCustomerRequest {
     website?: string;
     status?: 'active' | 'inactive';
 }
-export interface CustomerServiceResponse extends Omit<Customer, '_id'> {
-    id: string;
-}
+export type CustomerResponse = Customer;
 export interface CustomerServiceQuery extends PaginationQuery {
     filters?: {
         name?: string;
@@ -74,6 +72,6 @@ export interface CustomerServiceQuery extends PaginationQuery {
         teamId?: string;
     };
 }
-export interface CustomerServiceListResponse extends ListResponse<CustomerServiceResponse> {
+export interface CustomerListResponse extends ListResponse<CustomerResponse> {
 }
 import { PaginationQuery, ListResponse } from './common';

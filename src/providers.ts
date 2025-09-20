@@ -37,7 +37,6 @@ export interface TelegramConfig {
 }
 
 export interface TwilioSmsConfig {
-  accountSid: string;
   authToken: string;
   fromNumber: string;
 }

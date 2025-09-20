@@ -2,7 +2,6 @@ import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, ExtendedStatus } from './common';
 import { ProviderCredentials, CreateProviderIntegrationRequest } from './providers';
 export interface CompanyIntegration {
-    _id: ObjectId;
     companyId: ObjectId;
     appId: ObjectId;
     providerId: string;
@@ -26,7 +25,6 @@ export interface CompanyIntegrationQuery extends PaginationQuery {
     name?: string;
 }
 export interface CompanyIntegrationResponse {
-    id: string;
     companyId: string;
     appId: string;
     providerId: string;

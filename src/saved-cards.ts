@@ -9,7 +9,6 @@ import { PaginationQuery, ListResponse } from './common';
 // ================================
 
 export interface SavedCard {
-  id: string;
   userId: string;
   appId: string;
   companyId: string;
@@ -133,7 +132,6 @@ export interface PaymentWithCardResponse {
 
   // Saved card info (if card was saved)
   savedCard?: {
-    id: string;
     nickname?: string;
     isDefault: boolean;
   };

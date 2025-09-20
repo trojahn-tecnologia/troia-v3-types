@@ -11,7 +11,7 @@ export interface CustomerAddress {
 }
 
 export interface Customer {
-  _id?: string;
+  id: string;
   appId: string;
   companyId: string;
 
@@ -74,9 +74,7 @@ export interface UpdateCustomerRequest {
   status?: 'active' | 'inactive';
 }
 
-export interface CustomerServiceResponse extends Omit<Customer, '_id'> {
-  id: string;
-}
+export type CustomerResponse = Customer;
 
 export interface CustomerServiceQuery extends PaginationQuery {
   filters?: {
@@ -92,7 +90,7 @@ export interface CustomerServiceQuery extends PaginationQuery {
   };
 }
 
-export interface CustomerServiceListResponse extends ListResponse<CustomerServiceResponse> {}
+export interface CustomerListResponse extends ListResponse<CustomerResponse> {}
 
 // Import types
 import { PaginationQuery, ListResponse } from './common';

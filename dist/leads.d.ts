@@ -1,5 +1,5 @@
 export interface Lead {
-    _id?: string;
+    id: string;
     appId: string;
     companyId: string;
     contactId: string;
@@ -68,9 +68,7 @@ export interface UpdateLeadRequest {
     lastFollowUpAt?: string;
     lastStepAt?: string;
 }
-export interface LeadResponse extends Omit<Lead, '_id'> {
-    id: string;
-}
+export type LeadResponse = Lead;
 export interface LeadQuery extends PaginationQuery {
     filters?: {
         contactId?: string;

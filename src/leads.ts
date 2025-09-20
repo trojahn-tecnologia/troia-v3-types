@@ -1,6 +1,6 @@
 // Lead Types - Sales system with universal source
 export interface Lead {
-  _id?: string;
+  id: string;
   appId: string;
   companyId: string;
 
@@ -91,9 +91,7 @@ export interface UpdateLeadRequest {
   lastStepAt?: string;
 }
 
-export interface LeadResponse extends Omit<Lead, '_id'> {
-  id: string;
-}
+export type LeadResponse = Lead;
 
 export interface LeadQuery extends PaginationQuery {
   filters?: {

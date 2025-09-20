@@ -6,7 +6,6 @@ import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from
 // ============================================================================
 
 export interface Team {
-  id: string;
   name: string;
   description: string;
   companyId: ObjectId;
@@ -17,7 +16,6 @@ export interface Team {
 }
 
 export interface TeamUser {
-  id: string;
   teamId: ObjectId;
   userId: ObjectId;
   role: 'member' | 'leader' | 'manager';
@@ -29,7 +27,6 @@ export interface TeamUser {
 }
 
 export interface TeamResource {
-  id: string;
   teamId: ObjectId;
   resourceType: 'customer' | 'lead' | 'project' | 'document' | 'ticket';
   resourceId: ObjectId;
@@ -66,15 +63,12 @@ export interface TeamResourceQuery extends PaginationQuery {
 
 // Response Types
 export interface TeamResponse extends Omit<Team, '_id'> {
-  id: string;
 }
 
 export interface TeamUserResponse extends Omit<TeamUser, '_id'> {
-  id: string;
 }
 
 export interface TeamResourceResponse extends Omit<TeamResource, '_id'> {
-  id: string;
 }
 
 // List Response Types

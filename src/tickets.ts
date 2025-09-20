@@ -1,6 +1,5 @@
 // Ticket Types - Sistema de atendimento com SLA
 export interface Ticket {
-  _id?: string;
   appId: string;
   companyId: string;
 
@@ -92,9 +91,7 @@ export interface UpdateTicketRequest {
   customerSatisfaction?: number;
 }
 
-export interface TicketResponse extends Omit<Ticket, '_id'> {
-  id: string;
-}
+export type TicketResponse = Ticket;
 
 export interface TicketQuery extends PaginationQuery {
   filters?: {

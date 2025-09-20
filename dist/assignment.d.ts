@@ -2,7 +2,6 @@ import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse } from './common';
 export type AssignmentResourceType = 'ticket' | 'conversation' | 'call' | 'chat' | 'lead' | 'contact' | 'customer';
 export interface Assignment {
-    _id: ObjectId;
     resourceType: AssignmentResourceType;
     resourceId: string;
     assignedTo: ObjectId;
@@ -90,14 +89,11 @@ export interface BulkAssignmentRequest {
     maintainBalance?: boolean;
 }
 export interface AssignmentResponse extends Omit<Assignment, '_id' | 'metadata'> {
-    id: string;
     assignedToUser?: {
-        id: string;
         name: string;
         email: string;
     };
     assignedByUser?: {
-        id: string;
         name: string;
         email: string;
     };

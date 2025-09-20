@@ -10,7 +10,6 @@ export interface AppIntegrationQuery extends PaginationQuery {
     isDefault?: boolean;
 }
 export interface AppIntegrationResponse {
-    id: string;
     appId: string;
     providerId: string;
     name: string;
@@ -50,7 +49,6 @@ export interface TestAppIntegrationRequest {
     testData: Record<string, any>;
 }
 export interface ProviderDefinitionResponse {
-    id: string;
     name: string;
     capabilities: string[];
     categories: string[];

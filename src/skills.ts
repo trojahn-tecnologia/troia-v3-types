@@ -11,7 +11,7 @@ export type SkillLevel = 'basic' | 'intermediate' | 'advanced' | 'expert';
 // ============================================================================
 
 export interface Skill {
-  _id: string;
+  id: string;
   name: string;
   description?: string;
   category: string;
@@ -23,9 +23,7 @@ export interface Skill {
   updatedAt: Date;
 }
 
-export interface SkillResponse extends Omit<Skill, '_id'> {
-  id: string;
-}
+export type SkillResponse = Skill;
 
 // ============================================================================
 // SKILLS REQUEST TYPES
@@ -64,7 +62,7 @@ export interface SkillListResponse extends ListResponse<SkillResponse> {}
 // ============================================================================
 
 export interface UserSkill {
-  _id: string;
+  id: string;
   userId: string;
   skillId: string;
   level: SkillLevel;
@@ -77,9 +75,7 @@ export interface UserSkill {
   assignedAt: Date;
 }
 
-export interface UserSkillResponse extends Omit<UserSkill, '_id'> {
-  id: string;
-}
+export type UserSkillResponse = UserSkill;
 
 // ============================================================================
 // USER-SKILLS REQUEST TYPES

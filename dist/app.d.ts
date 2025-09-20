@@ -36,7 +36,6 @@ export interface AppQuery extends PaginationQuery {
     domains?: string[];
 }
 export interface AppResponse {
-    id: string;
     name: string;
     logo: string;
     status: ActiveStatus;

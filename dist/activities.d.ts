@@ -1,5 +1,4 @@
 export interface Activity {
-    _id?: string;
     appId: string;
     companyId: string;
     type: ActivityType;
@@ -31,7 +30,6 @@ export type EntityType = 'contact' | 'customer' | 'lead' | 'ticket' | 'conversat
 export type ActorType = 'user' | 'system' | 'bot' | 'webhook' | 'cron' | 'api' | 'integration';
 export interface RelatedEntity {
     type: EntityType;
-    id: string;
     name?: string;
 }
 export interface CreateActivityRequest {
@@ -65,9 +63,7 @@ export interface UpdateActivityRequest {
     isVisible?: boolean;
     isInternal?: boolean;
 }
-export interface ActivityResponse extends Omit<Activity, '_id'> {
-    id: string;
-}
+export type ActivityResponse = Activity;
 export interface ActivityQuery extends PaginationQuery {
     filters?: {
         type?: ActivityType[];

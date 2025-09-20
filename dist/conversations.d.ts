@@ -1,5 +1,4 @@
 export interface Conversation {
-    _id?: string;
     appId: string;
     companyId: string;
     subject?: string;
@@ -63,9 +62,7 @@ export interface UpdateConversationRequest {
     category?: string;
     metadata?: Record<string, any>;
 }
-export interface ConversationResponse extends Omit<Conversation, '_id'> {
-    id: string;
-}
+export type ConversationResponse = Conversation;
 export interface ConversationQuery extends PaginationQuery {
     filters?: {
         subject?: string;

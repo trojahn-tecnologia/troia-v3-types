@@ -2,7 +2,6 @@ import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
 import { AssignmentConfig } from './assignment';
 export interface Shift {
-    _id: ObjectId;
     name: string;
     description?: string;
     teamId?: ObjectId;
@@ -55,7 +54,7 @@ export interface ShiftAssignment {
     assignedAt: Date;
 }
 export interface UserAvailability {
-    _id?: ObjectId;
+    id?: string;
     userId: ObjectId;
     currentStatus: 'available' | 'busy' | 'away' | 'offline';
     currentShift?: {
@@ -97,10 +96,8 @@ export interface UserAvailabilityQuery extends PaginationQuery {
     hasCurrentShift?: boolean;
 }
 export interface ShiftResponse extends Omit<Shift, '_id'> {
-    id: string;
 }
 export interface UserAvailabilityResponse extends Omit<UserAvailability, '_id'> {
-    id: string;
 }
 export interface ShiftListResponse extends ListResponse<ShiftResponse> {
 }

@@ -22,7 +22,6 @@ import {
 
 // Base CompanyIntegration interface
 export interface CompanyIntegration {
-  id: string;
   companyId: ObjectId;
   appId: ObjectId;
   providerId: string; // Reference to provider in utils/providers.ts
@@ -57,7 +56,6 @@ export interface CompanyIntegrationQuery extends PaginationQuery {
 
 // Company Integration Response (without credentials, with provider info)
 export interface CompanyIntegrationResponse {
-  id: string;
   companyId: string;
   appId: string;
   providerId: string;

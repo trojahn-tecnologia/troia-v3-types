@@ -64,7 +64,6 @@ export interface UserTwoFactor {
     lastUsedAt?: Date;
 }
 export interface UserSession {
-    id: string;
     token: string;
     userAgent: string;
     ipAddress: string;
@@ -221,7 +220,6 @@ export interface UserQuery extends PaginationQuery {
     companyId?: string;
 }
 export interface UserResponse {
-    id: string;
     email: string;
     firstName: string;
     lastName: string;

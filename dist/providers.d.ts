@@ -26,7 +26,6 @@ export interface TelegramConfig {
     webhookUrl?: string;
 }
 export interface TwilioSmsConfig {
-    accountSid: string;
     authToken: string;
     fromNumber: string;
 }

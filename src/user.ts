@@ -76,7 +76,6 @@ export interface UserTwoFactor {
 }
 
 export interface UserSession {
-  id: string;
   token: string;
   userAgent: string;
   ipAddress: string;
@@ -260,7 +259,6 @@ export interface UserQuery extends PaginationQuery {
 
 // User response (without sensitive data)
 export interface UserResponse {
-  id: string;
   email: string;
   firstName: string;
   lastName: string;

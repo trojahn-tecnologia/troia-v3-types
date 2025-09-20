@@ -180,8 +180,7 @@ export interface CreditCardResponse {
     maskedNumber?: string;
     transactionId?: string;
 }
-export interface CustomerResponse {
-    id: string;
+export interface PaymentCustomerResponse {
     externalReference?: string;
     name: string;
     email: string;
@@ -193,7 +192,7 @@ export interface CustomerResponse {
     updatedAt: string;
     providerData?: any;
 }
-export interface CustomerListResponse extends ListResponse<CustomerResponse> {
+export interface PaymentCustomerListResponse extends ListResponse<PaymentCustomerResponse> {
 }
 export interface CustomerFilters {
     name?: string;
@@ -201,7 +200,7 @@ export interface CustomerFilters {
     document?: string;
     status?: string;
 }
-export interface CustomerQuery extends PaginationQuery {
+export interface PaymentCustomerQuery extends PaginationQuery {
     filters?: CustomerFilters;
 }
 export interface TokenResponse {
@@ -420,7 +419,6 @@ export declare enum SubscriptionContext {
     COMPANY_SERVICE = "company_service"
 }
 export interface TokenizedSubscription {
-    id: string;
     appId: string;
     companyId: string;
     context: SubscriptionContext;
@@ -464,7 +462,6 @@ export interface CreateSubscriptionWithSavedCardRequest {
     metadata?: Record<string, any>;
 }
 export interface CreateSubscriptionResponse {
-    id: string;
     status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
     context: SubscriptionContext;
     contextEntity?: any;
@@ -487,7 +484,6 @@ export interface SubscriptionStats {
     avgFailureRate: number;
 }
 export interface CompanyService {
-    id: string;
     companyId: string;
     appId: string;
     name: string;
@@ -515,7 +511,6 @@ export interface CreateCompanyServiceRequest {
     metadata?: Record<string, any>;
 }
 export interface CompanyServiceResponse {
-    id: string;
     companyId: string;
     appId: string;
     name: string;
@@ -542,7 +537,6 @@ export interface CompanyServiceQuery extends PaginationQuery {
 export interface CompanyServiceListResponse extends ListResponse<CompanyServiceResponse> {
 }
 export interface CompanyServiceActivation {
-    id: string;
     serviceId: string;
     companyId: string;
     subscriptionId: string;

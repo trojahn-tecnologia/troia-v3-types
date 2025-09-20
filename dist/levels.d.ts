@@ -1,8 +1,6 @@
-import { ObjectId } from 'mongodb';
 import { FullTenantDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
 import { ModulePermission } from './modules';
 export interface Level extends FullTenantDocument {
-    _id: ObjectId;
     name: string;
     description: string;
     permissions: Record<string, ModulePermission>;
@@ -13,7 +11,6 @@ export interface LevelQuery extends PaginationQuery {
     name?: string;
 }
 export interface LevelResponse {
-    id: string;
     name: string;
     description: string;
     permissions: Record<string, ModulePermission>;

@@ -95,7 +95,7 @@ export type MessageContent =
 
 // Main ConversationMessage interface
 export interface ConversationMessage {
-  _id?: string;
+  id: string;
   appId: string;
   companyId: string;
   conversationId: string;
@@ -183,9 +183,7 @@ export interface UpdateConversationMessageRequest {
   internalNote?: string;
 }
 
-export interface ConversationMessageResponse extends Omit<ConversationMessage, '_id'> {
-  id: string;
-}
+export type ConversationMessageResponse = ConversationMessage;
 
 export interface ConversationMessageQuery extends PaginationQuery {
   conversationId?: string;

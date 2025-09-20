@@ -1,6 +1,5 @@
 // Conversation Types - Sistema multi-canal de conversas
 export interface Conversation {
-  _id?: string;
   appId: string;
   companyId: string;
 
@@ -89,9 +88,7 @@ export interface UpdateConversationRequest {
   metadata?: Record<string, any>;
 }
 
-export interface ConversationResponse extends Omit<Conversation, '_id'> {
-  id: string;
-}
+export type ConversationResponse = Conversation;
 
 export interface ConversationQuery extends PaginationQuery {
   filters?: {

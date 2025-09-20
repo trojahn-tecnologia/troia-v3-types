@@ -1,7 +1,7 @@
 import { PaginationQuery, ListResponse, ActiveStatus } from './common';
 export type SkillLevel = 'basic' | 'intermediate' | 'advanced' | 'expert';
 export interface Skill {
-    _id: string;
+    id: string;
     name: string;
     description?: string;
     category: string;
@@ -12,9 +12,7 @@ export interface Skill {
     createdAt: Date;
     updatedAt: Date;
 }
-export interface SkillResponse extends Omit<Skill, '_id'> {
-    id: string;
-}
+export type SkillResponse = Skill;
 export interface CreateSkillRequest {
     name: string;
     description?: string;
@@ -37,7 +35,7 @@ export interface SkillQuery extends PaginationQuery {
 export interface SkillListResponse extends ListResponse<SkillResponse> {
 }
 export interface UserSkill {
-    _id: string;
+    id: string;
     userId: string;
     skillId: string;
     level: SkillLevel;
@@ -49,9 +47,7 @@ export interface UserSkill {
     status: ActiveStatus;
     assignedAt: Date;
 }
-export interface UserSkillResponse extends Omit<UserSkill, '_id'> {
-    id: string;
-}
+export type UserSkillResponse = UserSkill;
 export interface CreateUserSkillRequest {
     userId: string;
     skillId: string;

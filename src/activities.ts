@@ -1,7 +1,6 @@
 // Activity Types - Sistema de atividades e logs do sistema
 
 export interface Activity {
-  _id?: string;
   appId: string;
   companyId: string;
 
@@ -97,7 +96,6 @@ export type ActorType =
 
 export interface RelatedEntity {
   type: EntityType;
-  id: string;
   name?: string;
 }
 
@@ -134,9 +132,7 @@ export interface UpdateActivityRequest {
   isInternal?: boolean;
 }
 
-export interface ActivityResponse extends Omit<Activity, '_id'> {
-  id: string;
-}
+export type ActivityResponse = Activity;
 
 export interface ActivityQuery extends PaginationQuery {
   filters?: {

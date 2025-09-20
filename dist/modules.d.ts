@@ -1,10 +1,8 @@
-import { ObjectId } from 'mongodb';
 import { AppAwareDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
 export type ModuleCategory = 'core' | 'business' | 'integration' | 'analytics';
 export type PermissionAction = 'create' | 'read' | 'update' | 'delete' | 'export' | 'import' | 'attend' | 'assign';
 export type PermissionScope = 'all' | 'own' | 'team';
 export interface Module extends AppAwareDocument {
-    _id: ObjectId;
     name: string;
     displayName: string;
     description: string;

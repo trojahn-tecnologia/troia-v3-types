@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
 export interface Team {
-    _id: ObjectId;
     name: string;
     description: string;
     companyId: ObjectId;
@@ -11,7 +10,6 @@ export interface Team {
     updatedAt: Date;
 }
 export interface TeamUser {
-    _id: ObjectId;
     teamId: ObjectId;
     userId: ObjectId;
     role: 'member' | 'leader' | 'manager';
@@ -22,7 +20,6 @@ export interface TeamUser {
     joinedAt: Date;
 }
 export interface TeamResource {
-    _id: ObjectId;
     teamId: ObjectId;
     resourceType: 'customer' | 'lead' | 'project' | 'document' | 'ticket';
     resourceId: ObjectId;
@@ -49,13 +46,10 @@ export interface TeamResourceQuery extends PaginationQuery {
     status?: ActiveStatus;
 }
 export interface TeamResponse extends Omit<Team, '_id'> {
-    id: string;
 }
 export interface TeamUserResponse extends Omit<TeamUser, '_id'> {
-    id: string;
 }
 export interface TeamResourceResponse extends Omit<TeamResource, '_id'> {
-    id: string;
 }
 export interface TeamListResponse extends ListResponse<TeamResponse> {
 }

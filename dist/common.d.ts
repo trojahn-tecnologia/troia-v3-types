@@ -100,7 +100,6 @@ export interface FormState {
     errors: FormErrors;
 }
 export interface Notification {
-    id: string;
     type: 'success' | 'error' | 'warning' | 'info';
     title: string;
     message: string;
@@ -114,7 +113,6 @@ export type EntityStatus = 'active' | 'inactive' | 'blocked';
 export type ActiveStatus = 'active' | 'inactive';
 export type ExtendedStatus = 'active' | 'inactive' | 'pending' | 'suspended' | 'error';
 export interface EntityParams {
-    id: string;
 }
 export interface RequestContext {
     appId: ObjectId;

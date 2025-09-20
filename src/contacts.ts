@@ -3,25 +3,21 @@ export interface ContactIdentifiers {
   email: string[];
   phone: string[];
   whatsapp: Array<{
-    lid: string;
     phone: string;
   }>;
   instagram: Array<{
-    id: string;
     username: string;
   }>;
   facebook: Array<{
-    id: string;
     username: string;
   }>;
   telegram: Array<{
-    id: string;
     username?: string;
   }>;
 }
 
 export interface Contact {
-  _id?: string;
+  id: string;
   appId: string;
   companyId: string;
 
@@ -64,9 +60,7 @@ export interface UpdateContactRequest {
   teamId?: string;
 }
 
-export interface ContactResponse extends Omit<Contact, '_id'> {
-  id: string;
-}
+export type ContactResponse = Contact;
 
 export interface ContactQuery extends PaginationQuery {
   filters?: {

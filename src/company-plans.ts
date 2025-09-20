@@ -5,7 +5,6 @@ export type CompanyPlanStatus = 'active' | 'suspended' | 'cancelled' | 'expired'
 export type BillingCycle = 'monthly' | 'yearly';
 
 export interface CompanyPlan extends FullTenantDocument {
-  id: string;
   planId: ObjectId; // Referência ao Plan
   startDate: Date;
   endDate?: Date;

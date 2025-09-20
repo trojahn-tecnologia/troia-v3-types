@@ -238,8 +238,7 @@ export interface CreditCardResponse {
 // CUSTOMER MANAGEMENT
 // ================================
 
-export interface CustomerResponse {
-  id: string;
+export interface PaymentCustomerResponse {
   externalReference?: string;
   name: string;
   email: string;
@@ -252,7 +251,7 @@ export interface CustomerResponse {
   providerData?: any;
 }
 
-export interface CustomerListResponse extends ListResponse<CustomerResponse> {}
+export interface PaymentCustomerListResponse extends ListResponse<PaymentCustomerResponse> {}
 
 export interface CustomerFilters {
   name?: string;
@@ -261,7 +260,7 @@ export interface CustomerFilters {
   status?: string;
 }
 
-export interface CustomerQuery extends PaginationQuery {
+export interface PaymentCustomerQuery extends PaginationQuery {
   filters?: CustomerFilters;
 }
 
@@ -564,7 +563,6 @@ export enum SubscriptionContext {
 }
 
 export interface TokenizedSubscription {
-  id: string;
   appId: string;
   companyId: string;
 
@@ -630,7 +628,6 @@ export interface CreateSubscriptionWithSavedCardRequest {
 }
 
 export interface CreateSubscriptionResponse {
-  id: string;
   status: 'ACTIVE' | 'SCHEDULED' | 'FAILED';
   context: SubscriptionContext;
   contextEntity?: any;       // Plan or Service data
@@ -660,7 +657,6 @@ export interface SubscriptionStats {
 // ================================
 
 export interface CompanyService {
-  id: string;
   companyId: string;
   appId: string;
   name: string;
@@ -690,7 +686,6 @@ export interface CreateCompanyServiceRequest {
 }
 
 export interface CompanyServiceResponse {
-  id: string;
   companyId: string;
   appId: string;
   name: string;
@@ -720,7 +715,6 @@ export interface CompanyServiceListResponse extends ListResponse<CompanyServiceR
 
 // Service activation tracking
 export interface CompanyServiceActivation {
-  id: string;
   serviceId: string;
   companyId: string;           // Company offering the service
   subscriptionId: string;      // Related subscription

@@ -15,7 +15,6 @@ export interface AppIntegrationQuery extends PaginationQuery {
 
 // Response Types
 export interface AppIntegrationResponse {
-  id: string;
   appId: string;
   providerId: string;
   name: string;
@@ -67,7 +66,6 @@ export interface TestAppIntegrationRequest {
 
 // Available Providers Response
 export interface ProviderDefinitionResponse {
-  id: string;
   name: string;
   capabilities: string[];
   categories: string[];

@@ -3,7 +3,6 @@ import { FullTenantDocument, PaginationQuery, GenericQueryOptions, ListResponse 
 export type CompanyPlanStatus = 'active' | 'suspended' | 'cancelled' | 'expired';
 export type BillingCycle = 'monthly' | 'yearly';
 export interface CompanyPlan extends FullTenantDocument {
-    _id: ObjectId;
     planId: ObjectId;
     startDate: Date;
     endDate?: Date;

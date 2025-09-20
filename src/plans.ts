@@ -2,7 +2,6 @@ import { ObjectId } from 'mongodb';
 import { AppAwareDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
 
 export interface Plan extends AppAwareDocument {
-  id: string;
   name: string; // "Básico", "Pro", "Enterprise"
   description: string;
   price: {
@@ -34,7 +33,6 @@ export interface PlanQuery extends PaginationQuery {
 }
 
 export interface PlanResponse {
-  id: string;
   name: string;
   description: string;
   price: {

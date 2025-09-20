@@ -151,7 +151,6 @@ export interface FormState {
 // ============================================================
 
 export interface Notification {
-  id: string;
   type: 'success' | 'error' | 'warning' | 'info';
   title: string;
   message: string;
@@ -175,7 +174,6 @@ export type ExtendedStatus = 'active' | 'inactive' | 'pending' | 'suspended' | '
 // ============================================================
 
 export interface EntityParams {
-  id: string;
 }
 
 export interface RequestContext {

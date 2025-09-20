@@ -43,7 +43,6 @@ export interface CompanyQuery extends PaginationQuery {
     email?: string;
 }
 export interface CompanyResponse {
-    id: string;
     name: string;
     email: string;
     phone?: string;
