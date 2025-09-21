@@ -35,6 +35,8 @@ export interface CompanyIntegrationResponse {
     status: ExtendedStatus;
     capabilities: string[];
     providerName: string;
+    resourceType?: string;
+    resourceId?: string;
     lastSyncAt?: string;
     lastError?: string;
     createdAt: string;
@@ -56,6 +58,8 @@ export interface UpdateCompanyIntegrationRequest {
     config?: Partial<IntegrationConfig>;
     credentials?: Partial<IntegrationCredentials>;
     status?: ExtendedStatus;
+    resourceType?: string;
+    resourceId?: string;
     lastError?: string;
 }
 export interface TestIntegrationRequest {

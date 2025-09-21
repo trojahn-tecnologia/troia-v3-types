@@ -174,7 +174,6 @@ export interface LoginResponse {
   token: string;
   refreshToken?: string;
   expiresAt: Date;
-  permissions: string[];
   requiresTwoFactor?: boolean;
 }
 
