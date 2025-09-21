@@ -91,7 +91,7 @@ export interface Provider {
 
 export interface Channel {
   name: string;
-  integrationId: ObjectId;
+  integrationId: ObjectId;    // Reference to the automatically created integration
   identifier: string;
   assignmentConfig: ChannelAssignmentConfig;
   companyId: ObjectId;
@@ -131,9 +131,15 @@ export interface ChannelQueryOptions extends GenericQueryOptions<ChannelQuery> {
 // Channel Requests (CompanyIntegration requests defined in company-integrations.ts)
 export interface CreateChannelRequest {
   name: string;
-  integrationId: string;
   identifier: string;
   assignmentConfig: ChannelAssignmentConfig;
+
+  // Provider integration fields - will create integration automatically
+  providerId: string;
+  config: Record<string, any>;
+  credentials: Record<string, any>;
+  integrationName?: string;    // Optional name for the integration (defaults to channel name)
+  integrationDescription?: string;
 }
 
 export interface UpdateChannelRequest {
