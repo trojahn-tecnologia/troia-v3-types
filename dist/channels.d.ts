@@ -91,9 +91,13 @@ export interface ChannelQueryOptions extends GenericQueryOptions<ChannelQuery> {
 }
 export interface CreateChannelRequest {
     name: string;
-    integrationId: string;
     identifier: string;
     assignmentConfig: ChannelAssignmentConfig;
+    providerId: string;
+    config: Record<string, any>;
+    credentials: Record<string, any>;
+    integrationName?: string;
+    integrationDescription?: string;
 }
 export interface UpdateChannelRequest {
     name?: string;

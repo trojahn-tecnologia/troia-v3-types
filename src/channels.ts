@@ -142,6 +142,14 @@ export interface CreateChannelRequest {
   integrationDescription?: string;
 }
 
+// Internal type for repository that expects integrationId
+export interface CreateChannelRepositoryRequest {
+  name: string;
+  identifier: string;
+  assignmentConfig: ChannelAssignmentConfig;
+  integrationId: string;
+}
+
 export interface UpdateChannelRequest {
   name?: string;
   identifier?: string;
