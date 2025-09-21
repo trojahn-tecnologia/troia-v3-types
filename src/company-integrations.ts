@@ -66,6 +66,8 @@ export interface CompanyIntegrationResponse {
   status: ExtendedStatus;
   capabilities: string[];
   providerName: string;
+  resourceType?: string;    // Resource type ('channel', 'service', etc.)
+  resourceId?: string;      // Resource ID (channel ID, service ID, etc.)
   lastSyncAt?: string;
   lastError?: string;
   createdAt: string;
@@ -99,6 +101,8 @@ export interface UpdateCompanyIntegrationRequest {
   config?: Partial<IntegrationConfig>;
   credentials?: Partial<IntegrationCredentials>;
   status?: ExtendedStatus;
+  resourceType?: string;      // Resource type ('channel', 'service', etc.)
+  resourceId?: string;        // Resource ID (channel ID, service ID, etc.)
   lastError?: string;
 }
 

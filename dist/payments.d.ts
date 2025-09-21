@@ -181,6 +181,7 @@ export interface CreditCardResponse {
     transactionId?: string;
 }
 export interface PaymentCustomerResponse {
+    id: string;
     externalReference?: string;
     name: string;
     email: string;
