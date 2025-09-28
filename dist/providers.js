@@ -17,6 +17,7 @@ var ProviderId;
     ProviderId["INSTAGRAM_DIRECT"] = "instagram-direct";
     ProviderId["TELEGRAM_BOT"] = "telegram-bot";
     ProviderId["SMS_TWILIO"] = "sms-twilio";
+    ProviderId["GATEWAY_WHATSAPP"] = "gateway-whatsapp";
     // Social Media Providers
     ProviderId["INSTAGRAM_MESSAGING"] = "instagram-messaging";
     ProviderId["LINKEDIN_MESSAGING"] = "linkedin-messaging";
@@ -43,6 +44,11 @@ var ProviderCapability;
     // Messaging capabilities
     ProviderCapability["SEND_MESSAGE"] = "send_message";
     ProviderCapability["RECEIVE_MESSAGE"] = "receive_message";
+    ProviderCapability["SEND_MEDIA"] = "send_media";
+    ProviderCapability["RECEIVE_MEDIA"] = "receive_media";
+    ProviderCapability["SEND_LOCATION"] = "send_location";
+    ProviderCapability["SEND_CONTACT"] = "send_contact";
+    ProviderCapability["SEND_REACTION"] = "send_reaction";
     ProviderCapability["SEND_ATTACHMENT"] = "send_attachment";
     ProviderCapability["RECEIVE_ATTACHMENT"] = "receive_attachment";
     // Social media capabilities
@@ -85,9 +91,6 @@ var ProviderCapability;
     // API capabilities
     ProviderCapability["REST_API"] = "rest_api";
     ProviderCapability["GRAPHQL"] = "graphql";
-    // Media capabilities
-    ProviderCapability["SEND_MEDIA"] = "send_media";
-    ProviderCapability["RECEIVE_MEDIA"] = "receive_media";
     // Analytics capabilities
     ProviderCapability["GET_INSIGHTS"] = "get_insights";
     ProviderCapability["TRACK_OPEN"] = "track_open";

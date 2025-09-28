@@ -70,6 +70,12 @@ export interface CompanyIntegrationResponse {
   resourceId?: string;      // Resource ID (channel ID, service ID, etc.)
   lastSyncAt?: string;
   lastError?: string;
+
+  // Instance management fields (for providers like Gateway)
+  instanceKey?: string;      // Key da instância no provider
+  instanceToken?: string;    // Token da instância no provider
+  instanceData?: any;        // Dados completos da instância
+
   createdAt: string;
   updatedAt: string;
 }
@@ -104,6 +110,11 @@ export interface UpdateCompanyIntegrationRequest {
   resourceType?: string;      // Resource type ('channel', 'service', etc.)
   resourceId?: string;        // Resource ID (channel ID, service ID, etc.)
   lastError?: string;
+
+  // Instance management fields (for providers like Gateway)
+  instanceKey?: string;      // Key da instância no provider
+  instanceToken?: string;    // Token da instância no provider
+  instanceData?: any;        // Dados completos da instância
 }
 
 // Integration test types

@@ -76,6 +76,15 @@ export interface GmailConfig {
   fromEmail: string;
 }
 
+export interface GatewayConfig {
+  gatewayUrl: string;           // URL do Gateway (ex: http://localhost:3003)
+  instanceKey: string;          // Chave da instância no Gateway
+  instanceToken: string;        // Token da instância no Gateway
+  apiKey?: string;              // Token de autenticação opcional
+  webhookPath?: string;         // Path customizado para webhook
+  timeout?: number;             // Timeout para requests (padrão: 10000ms)
+}
+
 
 // ============================================================================
 // UNION TYPE FOR ALL PROVIDER CONFIGS
@@ -92,7 +101,8 @@ export type ProviderConfig =
   | InstagramConfig
   | LinkedInConfig
   | TikTokConfig
-  | GmailConfig;
+  | GmailConfig
+  | GatewayConfig;
 
 // ============================================================================
 // PROVIDER CREDENTIALS (OAuth tokens, etc.)
@@ -133,6 +143,7 @@ export enum ProviderId {
   INSTAGRAM_DIRECT = 'instagram-direct',
   TELEGRAM_BOT = 'telegram-bot',
   SMS_TWILIO = 'sms-twilio',
+  GATEWAY_WHATSAPP = 'gateway-whatsapp',
 
   // Social Media Providers
   INSTAGRAM_MESSAGING = 'instagram-messaging',
@@ -164,6 +175,11 @@ export enum ProviderCapability {
   // Messaging capabilities
   SEND_MESSAGE = 'send_message',
   RECEIVE_MESSAGE = 'receive_message',
+  SEND_MEDIA = 'send_media',
+  RECEIVE_MEDIA = 'receive_media',
+  SEND_LOCATION = 'send_location',
+  SEND_CONTACT = 'send_contact',
+  SEND_REACTION = 'send_reaction',
   SEND_ATTACHMENT = 'send_attachment',
   RECEIVE_ATTACHMENT = 'receive_attachment',
 
@@ -214,10 +230,6 @@ export enum ProviderCapability {
   // API capabilities
   REST_API = 'rest_api',
   GRAPHQL = 'graphql',
-
-  // Media capabilities
-  SEND_MEDIA = 'send_media',
-  RECEIVE_MEDIA = 'receive_media',
 
   // Analytics capabilities
   GET_INSIGHTS = 'get_insights',
@@ -278,6 +290,12 @@ export interface CreateWebhookIntegrationRequest extends BaseIntegrationRequest 
   credentials?: ProviderCredentials;
 }
 
+export interface CreateGatewayIntegrationRequest extends BaseIntegrationRequest {
+  providerId: ProviderId.GATEWAY_WHATSAPP;
+  config: GatewayConfig;
+  credentials?: ProviderCredentials;
+}
+
 // ============================================================================
 // UNION TYPE FOR TYPED INTEGRATION REQUESTS
 // ============================================================================
@@ -288,7 +306,8 @@ export type CreateProviderIntegrationRequest =
   | CreateWhatsAppIntegrationRequest
   | CreateFacebookMessengerIntegrationRequest
   | CreateTelegramIntegrationRequest
-  | CreateWebhookIntegrationRequest;
+  | CreateWebhookIntegrationRequest
+  | CreateGatewayIntegrationRequest;
 
 // ============================================================================
 // LEGACY GENERIC CONFIG (For non-typed providers)

@@ -39,6 +39,9 @@ export interface CompanyIntegrationResponse {
     resourceId?: string;
     lastSyncAt?: string;
     lastError?: string;
+    instanceKey?: string;
+    instanceToken?: string;
+    instanceData?: any;
     createdAt: string;
     updatedAt: string;
 }
@@ -61,6 +64,9 @@ export interface UpdateCompanyIntegrationRequest {
     resourceType?: string;
     resourceId?: string;
     lastError?: string;
+    instanceKey?: string;
+    instanceToken?: string;
+    instanceData?: any;
 }
 export interface TestIntegrationRequest {
     integrationId: string;

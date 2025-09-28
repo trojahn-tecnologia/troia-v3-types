@@ -24,10 +24,27 @@ export interface EmailAttachment {
 
 export interface MessageData {
   to: string;
-  message: string;
-  type?: 'text' | 'media';
+  message?: string;
+  type?: 'text' | 'media' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'contacts' | 'reaction';
   mediaUrl?: string;
-  mediaType?: 'image' | 'video' | 'audio' | 'document';
+  mediaType?: 'image' | 'video' | 'audio' | 'document' | 'sticker';
+  filename?: string;
+  location?: {
+    latitude: number;
+    longitude: number;
+    name?: string;
+    address?: string;
+  };
+  contact?: {
+    name: string;
+    phone?: string;
+    email?: string;
+    vcard?: string;
+  };
+  reaction?: {
+    emoji: string;
+    targetMessageId: string;
+  };
 }
 
 export interface WebhookData {

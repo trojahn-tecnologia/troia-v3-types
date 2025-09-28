@@ -23,6 +23,7 @@ export * from './email-templates';
 
 // Provider system (shared between app & company integrations)
 export * from './providers';
+export * from './gateway';
 
 // Communication system
 export * from './communications';

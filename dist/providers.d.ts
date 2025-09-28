@@ -59,7 +59,15 @@ export interface GmailConfig {
     refreshToken: string;
     fromEmail: string;
 }
-export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig;
+export interface GatewayConfig {
+    gatewayUrl: string;
+    instanceKey: string;
+    instanceToken: string;
+    apiKey?: string;
+    webhookPath?: string;
+    timeout?: number;
+}
+export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig;
 export interface ProviderCredentials {
     accessToken?: string;
     refreshToken?: string;
@@ -80,6 +88,7 @@ export declare enum ProviderId {
     INSTAGRAM_DIRECT = "instagram-direct",
     TELEGRAM_BOT = "telegram-bot",
     SMS_TWILIO = "sms-twilio",
+    GATEWAY_WHATSAPP = "gateway-whatsapp",
     INSTAGRAM_MESSAGING = "instagram-messaging",
     LINKEDIN_MESSAGING = "linkedin-messaging",
     TIKTOK_MESSAGING = "tiktok-messaging",
@@ -97,6 +106,11 @@ export declare enum ProviderCapability {
     RECEIVE_EMAIL = "receive_email",
     SEND_MESSAGE = "send_message",
     RECEIVE_MESSAGE = "receive_message",
+    SEND_MEDIA = "send_media",
+    RECEIVE_MEDIA = "receive_media",
+    SEND_LOCATION = "send_location",
+    SEND_CONTACT = "send_contact",
+    SEND_REACTION = "send_reaction",
     SEND_ATTACHMENT = "send_attachment",
     RECEIVE_ATTACHMENT = "receive_attachment",
     CREATE_POST = "create_post",
@@ -131,8 +145,6 @@ export declare enum ProviderCapability {
     LIVE_CHAT = "live_chat",
     REST_API = "rest_api",
     GRAPHQL = "graphql",
-    SEND_MEDIA = "send_media",
-    RECEIVE_MEDIA = "receive_media",
     GET_INSIGHTS = "get_insights",
     TRACK_OPEN = "track_open",
     CREATE_BOT = "create_bot",
@@ -173,7 +185,12 @@ export interface CreateWebhookIntegrationRequest extends BaseIntegrationRequest 
     config: WebhookConfig;
     credentials?: ProviderCredentials;
 }
-export type CreateProviderIntegrationRequest = CreateSmtpIntegrationRequest | CreateSendGridIntegrationRequest | CreateWhatsAppIntegrationRequest | CreateFacebookMessengerIntegrationRequest | CreateTelegramIntegrationRequest | CreateWebhookIntegrationRequest;
+export interface CreateGatewayIntegrationRequest extends BaseIntegrationRequest {
+    providerId: ProviderId.GATEWAY_WHATSAPP;
+    config: GatewayConfig;
+    credentials?: ProviderCredentials;
+}
+export type CreateProviderIntegrationRequest = CreateSmtpIntegrationRequest | CreateSendGridIntegrationRequest | CreateWhatsAppIntegrationRequest | CreateFacebookMessengerIntegrationRequest | CreateTelegramIntegrationRequest | CreateWebhookIntegrationRequest | CreateGatewayIntegrationRequest;
 export interface GenericProviderConfig {
     [key: string]: any;
 }

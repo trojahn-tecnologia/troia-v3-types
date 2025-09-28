@@ -99,6 +99,12 @@ export interface CreateChannelRequest {
     integrationName?: string;
     integrationDescription?: string;
 }
+export interface CreateChannelRepositoryRequest {
+    name: string;
+    identifier: string;
+    assignmentConfig: ChannelAssignmentConfig;
+    integrationId: string;
+}
 export interface UpdateChannelRequest {
     name?: string;
     identifier?: string;

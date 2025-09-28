@@ -36,6 +36,7 @@ __exportStar(require("./app-integrations"), exports);
 __exportStar(require("./email-templates"), exports);
 // Provider system (shared between app & company integrations)
 __exportStar(require("./providers"), exports);
+__exportStar(require("./gateway"), exports);
 // Communication system
 __exportStar(require("./communications"), exports);
 // Payment system
