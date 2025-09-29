@@ -6,7 +6,6 @@ export interface Conversation {
     status: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
     priority: 'low' | 'normal' | 'high' | 'urgent';
     channelId: string;
-    channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
     providerConversationId?: string;
     source: string;
     customerId?: string;
@@ -36,7 +35,6 @@ export interface CreateConversationRequest {
     subject?: string;
     priority?: 'low' | 'normal' | 'high' | 'urgent';
     channelId: string;
-    channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
     providerConversationId?: string;
     source: string;
     customerId?: string;
