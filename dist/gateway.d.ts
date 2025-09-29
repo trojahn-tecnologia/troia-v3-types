@@ -46,10 +46,6 @@ export interface GatewayEventData {
     message?: string;
     messageType?: 'text' | 'image' | 'audio' | 'video' | 'document' | 'sticker' | 'location' | 'contact' | 'reaction' | 'poll' | 'buttons' | 'list' | 'unknown';
     media?: MediaData;
-    /** @deprecated Use media.url instead */
-    mediaUrl?: string;
-    /** @deprecated Use media.type instead */
-    mediaType?: 'image' | 'video' | 'audio' | 'document' | 'sticker';
     location?: {
         latitude: number;
         longitude: number;

@@ -2,6 +2,7 @@
  * Communication Types
  * Types for email, messaging, and webhook communications
  */
+import { MediaData } from './gateway';
 export interface EmailData {
     to: string | string[];
     from?: string;
@@ -23,8 +24,12 @@ export interface MessageData {
     to: string;
     message?: string;
     type?: 'text' | 'media' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'contacts' | 'reaction';
+    media?: MediaData;
+    /** @deprecated Use media.url instead */
     mediaUrl?: string;
+    /** @deprecated Use media.type instead */
     mediaType?: 'image' | 'video' | 'audio' | 'document' | 'sticker';
+    /** @deprecated Use media.filename instead */
     filename?: string;
     location?: {
         latitude: number;

@@ -11,7 +11,7 @@ export interface Conversation {
 
   // Multi-channel support
   channelId: string;          // Channel where conversation happens
-  channelType: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+  channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook'; // Optional - derived from integration.provider
 
   // External provider integration
   providerConversationId?: string; // External conversation ID
@@ -60,7 +60,7 @@ export interface CreateConversationRequest {
   subject?: string;
   priority?: 'low' | 'normal' | 'high' | 'urgent';
   channelId: string;
-  channelType: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+  channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook'; // Optional - derived from integration.provider
   providerConversationId?: string;
   source: string;
   customerId?: string;

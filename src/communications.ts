@@ -2,6 +2,7 @@
  * Communication Types
  * Types for email, messaging, and webhook communications
  */
+import { MediaData } from './gateway';
 
 export interface EmailData {
   to: string | string[];
@@ -20,42 +21,6 @@ export interface EmailAttachment {
   path?: string;
   contentType?: string;
   encoding?: string;
-}
-
-/**
- * Structured Media Data Object
- * Enhanced media object with comprehensive metadata
- */
-export interface MediaData {
-  /** Final URL of the media (S3, CDN, or other permanent storage) */
-  url: string;
-
-  /** Type of media content */
-  type: 'image' | 'video' | 'audio' | 'document' | 'sticker';
-
-  /** Original filename or generated name */
-  filename?: string;
-
-  /** File size in bytes */
-  size?: number;
-
-  /** MIME type (image/jpeg, video/mp4, etc.) */
-  mimeType?: string;
-
-  /** Width in pixels (for images/videos) */
-  width?: number;
-
-  /** Height in pixels (for images/videos) */
-  height?: number;
-
-  /** Duration in seconds (for audio/video) */
-  duration?: number;
-
-  /** Caption or description */
-  caption?: string;
-
-  /** Whether content is animated (for stickers) */
-  isAnimated?: boolean;
 }
 
 export interface MessageData {
