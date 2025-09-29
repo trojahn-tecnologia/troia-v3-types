@@ -4,6 +4,44 @@
 // ============================================================================
 
 /**
+ * Structured Media Data Object
+ * Enhanced media object with comprehensive metadata
+ *
+ * @since v2.1.0 - Replaces simple mediaUrl/mediaType pattern
+ */
+export interface MediaData {
+  /** Final URL of the media (S3, CDN, or other permanent storage) */
+  url: string;
+
+  /** Type of media content */
+  type: 'image' | 'video' | 'audio' | 'document' | 'sticker';
+
+  /** Original filename or generated name */
+  filename?: string;
+
+  /** File size in bytes */
+  size?: number;
+
+  /** MIME type (image/jpeg, video/mp4, etc.) */
+  mimeType?: string;
+
+  /** Width in pixels (for images/videos) */
+  width?: number;
+
+  /** Height in pixels (for images/videos) */
+  height?: number;
+
+  /** Duration in seconds (for audio/video) */
+  duration?: number;
+
+  /** Caption or description */
+  caption?: string;
+
+  /** Whether content is animated (for stickers) */
+  isAnimated?: boolean;
+}
+
+/**
  * Gateway Webhook Payload structure
  * This is the payload format that the Gateway sends to the Backend
  */
@@ -23,11 +61,10 @@ export interface GatewayEventData {
   from?: string;
   to?: string;
   message?: string;
-  messageType?: 'text' | 'image' | 'audio' | 'video' | 'document' | 'location' | 'contact' | 'reaction' | 'unknown';
+  messageType?: 'text' | 'image' | 'audio' | 'video' | 'document' | 'sticker' | 'location' | 'contact' | 'reaction' | 'poll' | 'buttons' | 'list' | 'unknown';
 
-  // Media data
-  mediaUrl?: string;
-  mediaType?: string;
+  // ✅ Structured media object
+  media?: MediaData;
 
   // Location data
   location?: {
@@ -35,6 +72,8 @@ export interface GatewayEventData {
     longitude: number;
     name?: string;
     address?: string;
+    url?: string;
+    comment?: string;
   };
 
   // Contact data
@@ -47,6 +86,14 @@ export interface GatewayEventData {
   reaction?: {
     emoji: string;
     targetMessageId: string;
+    targetRemoteJid?: string;
+  };
+
+  // Quoted message data
+  quoted?: {
+    messageId: string;
+    participant: string;
+    content: string;
   };
 
   // Status data (when event = 'status')
