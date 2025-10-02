@@ -93,6 +93,8 @@ export interface Channel {
   name: string;
   integrationId: ObjectId;    // Reference to the automatically created integration
   identifier: string;
+  instanceKey?: string;       // For Gateway providers
+  instanceToken?: string;     // For Gateway providers
   assignmentConfig: ChannelAssignmentConfig;
   companyId: ObjectId;
   appId: ObjectId;
