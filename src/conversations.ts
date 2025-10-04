@@ -8,7 +8,7 @@ export interface Conversation {
   subject?: string;
   status: 'waiting' | 'active' | 'closed';
   priority: 'low' | 'normal' | 'high' | 'urgent';
-  closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'other';
+  closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
   closeNotes?: string;
 
   // Multi-channel support
@@ -106,7 +106,7 @@ export interface UpdateConversationRequest {
   subject?: string;
   status?: 'waiting' | 'active' | 'closed';
   priority?: 'low' | 'normal' | 'high' | 'urgent';
-  closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'other';
+  closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
   closeNotes?: string;
   customerId?: string;
 

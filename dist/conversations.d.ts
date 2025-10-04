@@ -3,8 +3,10 @@ export interface Conversation {
     appId: string;
     companyId: string;
     subject?: string;
-    status: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+    status: 'waiting' | 'active' | 'closed';
     priority: 'low' | 'normal' | 'high' | 'urgent';
+    closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'other';
+    closeNotes?: string;
     channelId: string;
     providerConversationId?: string;
     source: string;
@@ -68,8 +70,10 @@ export interface CreateConversationRequest {
 }
 export interface UpdateConversationRequest {
     subject?: string;
-    status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+    status?: 'waiting' | 'active' | 'closed';
     priority?: 'low' | 'normal' | 'high' | 'urgent';
+    closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'other';
+    closeNotes?: string;
     customerId?: string;
     contact?: {
         id: string;
@@ -93,7 +97,7 @@ export type ConversationResponse = Conversation;
 export interface ConversationQuery extends PaginationQuery {
     filters?: {
         subject?: string;
-        status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+        status?: 'waiting' | 'active' | 'closed';
         priority?: 'low' | 'normal' | 'high' | 'urgent';
         channelId?: string;
         channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
@@ -148,7 +152,7 @@ export interface BulkConversationOperationRequest {
     data?: {
         assigneeId?: string;
         teamId?: string;
-        status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
+        status?: 'waiting' | 'active' | 'closed';
         priority?: 'low' | 'normal' | 'high' | 'urgent';
         tag?: string;
         reason?: string;
