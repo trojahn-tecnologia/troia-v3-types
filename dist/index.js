@@ -41,6 +41,8 @@ __exportStar(require("./gateway"), exports);
 __exportStar(require("./validation"), exports);
 // Communication system
 __exportStar(require("./communications"), exports);
+// Socket.IO Events (shared between Frontend & Backend)
+__exportStar(require("./socket-events"), exports);
 // Payment system
 __exportStar(require("./payments"), exports);
 __exportStar(require("./saved-cards"), exports);

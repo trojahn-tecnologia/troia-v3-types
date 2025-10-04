@@ -19,6 +19,7 @@ export * from './providers';
 export * from './gateway';
 export * from './validation';
 export * from './communications';
+export * from './socket-events';
 export * from './payments';
 export * from './saved-cards';
 export * from './contacts';
