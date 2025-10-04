@@ -64,6 +64,15 @@ export interface Conversation {
   // Metadata
   metadata?: Record<string, any>; // Channel-specific metadata
 
+  // ✅ Unread tracking per user (Arch 3.4)
+  unreadTracking?: {
+    [userId: string]: {
+      count: number;
+      lastResetAt: string;
+      autoResetOnOpen: boolean;
+    }
+  };
+
   // Dates
   startedAt: string;
   endedAt?: string;
