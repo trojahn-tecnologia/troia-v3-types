@@ -9,7 +9,16 @@ export interface Conversation {
     providerConversationId?: string;
     source: string;
     customerId?: string;
-    contactId?: string;
+    contact?: {
+        id: string;
+        name: string;
+        picture?: string;
+    };
+    group?: {
+        id: string;
+        name: string;
+        picture?: string;
+    };
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;
@@ -18,6 +27,7 @@ export interface Conversation {
     assignedAt?: string;
     assignedBy?: string;
     messageCount: number;
+    lastMessage?: string;
     lastMessageAt?: string;
     lastMessageFromCustomer?: string;
     lastMessageFromAgent?: string;
@@ -38,7 +48,16 @@ export interface CreateConversationRequest {
     providerConversationId?: string;
     source: string;
     customerId?: string;
-    contactId?: string;
+    contact?: {
+        id: string;
+        name: string;
+        picture?: string;
+    };
+    group?: {
+        id: string;
+        name: string;
+        picture?: string;
+    };
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;
@@ -52,7 +71,16 @@ export interface UpdateConversationRequest {
     status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
     priority?: 'low' | 'normal' | 'high' | 'urgent';
     customerId?: string;
-    contactId?: string;
+    contact?: {
+        id: string;
+        name: string;
+        picture?: string;
+    };
+    group?: {
+        id: string;
+        name: string;
+        picture?: string;
+    };
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;
@@ -74,6 +102,7 @@ export interface ConversationQuery extends PaginationQuery {
         contactId?: string;
         leadId?: string;
         ticketId?: string;
+        groupId?: string;
         assigneeId?: string;
         teamId?: string;
         category?: string;

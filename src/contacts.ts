@@ -1,20 +1,21 @@
 // Contact Types - Multi-channel identifier support
 export interface ContactIdentifiers {
+  // Generic identifiers (fallback for all providers)
   email: string[];
   phone: string[];
-  whatsapp: Array<{
-    phone: string;
-    lid?: string;
-  }>;
-  instagram: Array<{
-    username: string;
-  }>;
-  facebook: Array<{
-    username: string;
-  }>;
-  telegram: Array<{
-    username?: string;
-  }>;
+
+  // Provider-specific identifiers (arrays of strings)
+  // WhatsApp: ["5547991236370@s.whatsapp.net", "213782781983172@lid", "+5547991236370"]
+  whatsapp: string[];
+
+  // Instagram: ["username", "17841401234567890"]
+  instagram: string[];
+
+  // Facebook: ["username", "fb_id_123456"]
+  facebook: string[];
+
+  // Telegram: ["@username", "123456789"]
+  telegram: string[];
 }
 
 export interface Contact {

@@ -60,10 +60,6 @@ export interface GmailConfig {
     fromEmail: string;
 }
 export interface GatewayConfig {
-    gatewayUrl: string;
-    instanceKey: string;
-    instanceToken: string;
-    apiKey?: string;
     webhookPath?: string;
     timeout?: number;
 }

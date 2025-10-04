@@ -25,8 +25,14 @@ export * from './email-templates';
 export * from './providers';
 export * from './gateway';
 
+// Validation utilities (shared between Gateway & Backend)
+export * from './validation';
+
 // Communication system
 export * from './communications';
+
+// Socket.IO Events (shared between Frontend & Backend)
+export * from './socket-events';
 
 // Payment system
 export * from './payments';
@@ -42,3 +48,7 @@ export * from './tickets';
 export * from './conversations';
 export * from './conversation-messages';
 export * from './activities';
+
+// Group conversation support
+export * from './groups';
+export * from './group-participants';

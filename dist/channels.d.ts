@@ -67,6 +67,8 @@ export interface Channel {
     name: string;
     integrationId: ObjectId;
     identifier: string;
+    instanceKey?: string;
+    instanceToken?: string;
     assignmentConfig: ChannelAssignmentConfig;
     companyId: ObjectId;
     appId: ObjectId;

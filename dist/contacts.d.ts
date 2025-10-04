@@ -1,19 +1,10 @@
 export interface ContactIdentifiers {
     email: string[];
     phone: string[];
-    whatsapp: Array<{
-        phone: string;
-        lid?: string;
-    }>;
-    instagram: Array<{
-        username: string;
-    }>;
-    facebook: Array<{
-        username: string;
-    }>;
-    telegram: Array<{
-        username?: string;
-    }>;
+    whatsapp: string[];
+    instagram: string[];
+    facebook: string[];
+    telegram: string[];
 }
 export interface Contact {
     id: string;

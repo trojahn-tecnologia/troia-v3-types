@@ -77,10 +77,7 @@ export interface GmailConfig {
 }
 
 export interface GatewayConfig {
-  gatewayUrl: string;           // URL do Gateway (ex: http://localhost:3003)
-  instanceKey: string;          // Chave da instância no Gateway
-  instanceToken: string;        // Token da instância no Gateway
-  apiKey?: string;              // Token de autenticação opcional
+  // ✅ CONFIGURAÇÕES OPCIONAIS (gatewayUrl vem do .env, credenciais geradas pelo backend)
   webhookPath?: string;         // Path customizado para webhook
   timeout?: number;             // Timeout para requests (padrão: 10000ms)
 }

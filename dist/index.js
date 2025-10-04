@@ -37,6 +37,8 @@ __exportStar(require("./email-templates"), exports);
 // Provider system (shared between app & company integrations)
 __exportStar(require("./providers"), exports);
 __exportStar(require("./gateway"), exports);
+// Validation utilities (shared between Gateway & Backend)
+__exportStar(require("./validation"), exports);
 // Communication system
 __exportStar(require("./communications"), exports);
 // Payment system
@@ -51,3 +53,6 @@ __exportStar(require("./tickets"), exports);
 __exportStar(require("./conversations"), exports);
 __exportStar(require("./conversation-messages"), exports);
 __exportStar(require("./activities"), exports);
+// Group conversation support
+__exportStar(require("./groups"), exports);
+__exportStar(require("./group-participants"), exports);

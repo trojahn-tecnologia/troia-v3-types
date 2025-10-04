@@ -18,7 +18,20 @@ export interface Conversation {
 
   // Participants
   customerId?: string;
-  contactId?: string;
+
+  // ✅ Denormalized contact data (single source of truth)
+  contact?: {
+    id: string;         // Contact ID
+    name: string;       // Contact name
+    picture?: string;   // Contact avatar URL
+  };
+
+  // ✅ Denormalized group data (single source of truth)
+  group?: {
+    id: string;         // Group ID
+    name: string;       // Group name
+    picture?: string;   // Group avatar URL
+  };
 
   // Lead/Ticket integration
   leadId?: string;            // Associated lead
@@ -33,6 +46,7 @@ export interface Conversation {
 
   // Conversation metrics
   messageCount: number;
+  lastMessage?: string;        // ✅ Preview of last message (100 chars max)
   lastMessageAt?: string;
   lastMessageFromCustomer?: string;
   lastMessageFromAgent?: string;
@@ -62,7 +76,21 @@ export interface CreateConversationRequest {
   providerConversationId?: string;
   source: string;
   customerId?: string;
-  contactId?: string;
+
+  // ✅ Denormalized contact data (replaces contactId)
+  contact?: {
+    id: string;
+    name: string;
+    picture?: string;
+  };
+
+  // ✅ Denormalized group data (replaces groupId)
+  group?: {
+    id: string;
+    name: string;
+    picture?: string;
+  };
+
   leadId?: string;
   ticketId?: string;
   assigneeId?: string;
@@ -77,7 +105,21 @@ export interface UpdateConversationRequest {
   status?: 'open' | 'active' | 'waiting' | 'resolved' | 'closed';
   priority?: 'low' | 'normal' | 'high' | 'urgent';
   customerId?: string;
-  contactId?: string;
+
+  // ✅ Denormalized contact data (replaces contactId)
+  contact?: {
+    id: string;
+    name: string;
+    picture?: string;
+  };
+
+  // ✅ Denormalized group data (replaces groupId)
+  group?: {
+    id: string;
+    name: string;
+    picture?: string;
+  };
+
   leadId?: string;
   ticketId?: string;
   assigneeId?: string;
@@ -98,9 +140,10 @@ export interface ConversationQuery extends PaginationQuery {
     channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
     source?: string;
     customerId?: string;
-    contactId?: string;
+    contactId?: string;  // ✅ Filter by contact.id
     leadId?: string;
     ticketId?: string;
+    groupId?: string;    // ✅ Filter by group.id
     assigneeId?: string;
     teamId?: string;
     category?: string;

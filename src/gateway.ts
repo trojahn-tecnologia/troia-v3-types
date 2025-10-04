@@ -42,6 +42,55 @@ export interface MediaData {
 }
 
 /**
+ * Message Sender Information
+ * Structured sender data (contact or business account)
+ *
+ * @since v2.2.0 - Structured sender information with profile data
+ */
+export interface MessageSender {
+  /** WhatsApp identifier (JID or LID) - OBRIGATÓRIO */
+  id: string;
+
+  /** Display name from WhatsApp profile */
+  name?: string;
+
+  /** Phone number (DDI+DDD+NUMBER) - OPCIONAL (não existe em LID) */
+  phone?: string;
+
+  /** Profile picture URL (high resolution preferred) */
+  picture?: string;
+
+  /** Business account indicator */
+  isBusinessAccount?: boolean;
+}
+
+/**
+ * Group Information
+ * Structured group data when message is from a group
+ *
+ * @since v2.2.0 - Group conversation support
+ */
+export interface MessageGroup {
+  /** Group JID - OBRIGATÓRIO */
+  id: string;
+
+  /** Group name/subject */
+  name?: string;
+
+  /** Group profile picture URL */
+  picture?: string;
+
+  /** Group description */
+  description?: string;
+
+  /** Group owner JID */
+  owner?: string;
+
+  /** Total participants count */
+  participantCount?: number;
+}
+
+/**
  * Gateway Webhook Payload structure
  * This is the payload format that the Gateway sends to the Backend
  */
@@ -54,14 +103,21 @@ export interface GatewayWebhookPayload {
 /**
  * Gateway Event Data
  * Data structure for different types of events from Gateway
+ *
+ * @since v2.2.0 - Updated with structured sender and group support
  */
 export interface GatewayEventData {
-  // Message data (when event = 'message')
+  // Message identification
   messageId?: string;
-  from?: string;
-  to?: string;
+  to?: string;  // Recipient (empresa/bot number)
   message?: string;
   messageType?: 'text' | 'image' | 'audio' | 'video' | 'document' | 'sticker' | 'location' | 'contact' | 'reaction' | 'poll' | 'buttons' | 'list' | 'unknown';
+
+  // ✅ Structured sender information (NUNCA string)
+  from?: MessageSender;
+
+  // ✅ Group context (APENAS quando mensagem é de grupo)
+  group?: MessageGroup;
 
   // ✅ Structured media object
   media?: MediaData;
@@ -108,7 +164,7 @@ export interface GatewayEventData {
   errorCode?: string;
 
   // Common fields
-  timestamp: string;
+  timestamp: string;  // ISO 8601 format
   metadata?: {
     originalPayload?: any;
     [key: string]: any;
