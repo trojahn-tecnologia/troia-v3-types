@@ -74,6 +74,7 @@ export interface Conversation {
 export interface CreateConversationRequest {
   subject?: string;
   priority?: 'low' | 'normal' | 'high' | 'urgent';
+  status?: 'waiting' | 'active' | 'closed';
   channelId: string;
   providerConversationId?: string;
   source: string;
