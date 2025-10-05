@@ -13,6 +13,9 @@ export const SOCKET_EVENTS = {
   CONVERSATION_MESSAGE: 'conversation:message',
   CONVERSATION_UPDATED: 'conversation:updated',
   CONVERSATION_DELETED: 'conversation:deleted',
+  CONVERSATION_OPEN: 'conversation:open',               // ✅ Arch 3.4: User opens conversation
+  CONVERSATION_UNREAD_RESET: 'conversation:unread-reset', // ✅ Arch 3.4: Unread counter reset
+  CONVERSATION_ERROR: 'conversation:error',             // ✅ Arch 3.4: Error in conversation operations
 
   // Message Events
   MESSAGE_DELIVERED: 'message:delivered',
@@ -154,6 +157,32 @@ export interface AssignmentUpdatedEvent {
   };
 }
 
+/**
+ * Conversation Open Event (Arch 3.4)
+ * Client-to-Server: User opens a conversation
+ */
+export interface ConversationOpenEvent {
+  conversationId: string;
+}
+
+/**
+ * Conversation Unread Reset Event (Arch 3.4)
+ * Server-to-Client: Confirms unread counter has been reset
+ */
+export interface ConversationUnreadResetEvent {
+  conversationId: string;
+  unreadCount: number;
+}
+
+/**
+ * Conversation Error Event (Arch 3.4)
+ * Server-to-Client: Error during conversation operations
+ */
+export interface ConversationErrorEvent {
+  message: string;
+  error?: string;
+}
+
 // ============================================================================
 // SOCKET EVENT MAP (For Type-Safe Emit/On)
 // ============================================================================
@@ -163,6 +192,9 @@ export interface SocketEventMap {
   [SOCKET_EVENTS.CONVERSATION_MESSAGE]: ConversationMessageEvent;
   [SOCKET_EVENTS.CONVERSATION_UPDATED]: ConversationUpdatedEvent;
   [SOCKET_EVENTS.CONVERSATION_DELETED]: ConversationDeletedEvent;
+  [SOCKET_EVENTS.CONVERSATION_OPEN]: ConversationOpenEvent;               // ✅ Arch 3.4
+  [SOCKET_EVENTS.CONVERSATION_UNREAD_RESET]: ConversationUnreadResetEvent; // ✅ Arch 3.4
+  [SOCKET_EVENTS.CONVERSATION_ERROR]: ConversationErrorEvent;             // ✅ Arch 3.4
 
   // Message Events
   [SOCKET_EVENTS.MESSAGE_DELIVERED]: MessageDeliveredEvent;

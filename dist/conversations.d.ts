@@ -38,6 +38,13 @@ export interface Conversation {
     tags: string[];
     category?: string;
     metadata?: Record<string, any>;
+    unreadTracking?: {
+        [userId: string]: {
+            count: number;
+            lastResetAt: string;
+            autoResetOnOpen: boolean;
+        };
+    };
     startedAt: string;
     endedAt?: string;
     createdAt: string;

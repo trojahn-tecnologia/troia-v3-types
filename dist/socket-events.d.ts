@@ -7,6 +7,9 @@ export declare const SOCKET_EVENTS: {
     readonly CONVERSATION_MESSAGE: "conversation:message";
     readonly CONVERSATION_UPDATED: "conversation:updated";
     readonly CONVERSATION_DELETED: "conversation:deleted";
+    readonly CONVERSATION_OPEN: "conversation:open";
+    readonly CONVERSATION_UNREAD_RESET: "conversation:unread-reset";
+    readonly CONVERSATION_ERROR: "conversation:error";
     readonly MESSAGE_DELIVERED: "message:delivered";
     readonly MESSAGE_READ: "message:read";
     readonly MESSAGE_DELETED: "message:deleted";
@@ -123,10 +126,36 @@ export interface AssignmentUpdatedEvent {
         priority?: string;
     };
 }
+/**
+ * Conversation Open Event (Arch 3.4)
+ * Client-to-Server: User opens a conversation
+ */
+export interface ConversationOpenEvent {
+    conversationId: string;
+}
+/**
+ * Conversation Unread Reset Event (Arch 3.4)
+ * Server-to-Client: Confirms unread counter has been reset
+ */
+export interface ConversationUnreadResetEvent {
+    conversationId: string;
+    unreadCount: number;
+}
+/**
+ * Conversation Error Event (Arch 3.4)
+ * Server-to-Client: Error during conversation operations
+ */
+export interface ConversationErrorEvent {
+    message: string;
+    error?: string;
+}
 export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_MESSAGE]: ConversationMessageEvent;
     [SOCKET_EVENTS.CONVERSATION_UPDATED]: ConversationUpdatedEvent;
     [SOCKET_EVENTS.CONVERSATION_DELETED]: ConversationDeletedEvent;
+    [SOCKET_EVENTS.CONVERSATION_OPEN]: ConversationOpenEvent;
+    [SOCKET_EVENTS.CONVERSATION_UNREAD_RESET]: ConversationUnreadResetEvent;
+    [SOCKET_EVENTS.CONVERSATION_ERROR]: ConversationErrorEvent;
     [SOCKET_EVENTS.MESSAGE_DELIVERED]: MessageDeliveredEvent;
     [SOCKET_EVENTS.MESSAGE_READ]: MessageReadEvent;
     [SOCKET_EVENTS.CHANNEL_QR]: ChannelQREvent;
