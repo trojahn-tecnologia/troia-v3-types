@@ -148,10 +148,11 @@ export type ConversationResponse = Conversation;
 export interface ConversationQuery extends PaginationQuery {
   filters?: {
     subject?: string;
-    status?: 'waiting' | 'active' | 'closed';
+    status?: 'waiting' | 'active' | 'closed' | Array<'waiting' | 'active' | 'closed'>;  // ✅ Aceita string ou array
     priority?: 'low' | 'normal' | 'high' | 'urgent';
     channelId?: string;
     channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+    conversationType?: 'individual' | 'group' | 'ai';  // ✅ Infinite scroll: filter by conversation type
     source?: string;
     customerId?: string;
     contactId?: string;  // ✅ Filter by contact.id

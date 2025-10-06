@@ -105,10 +105,11 @@ export type ConversationResponse = Conversation;
 export interface ConversationQuery extends PaginationQuery {
     filters?: {
         subject?: string;
-        status?: 'waiting' | 'active' | 'closed';
+        status?: 'waiting' | 'active' | 'closed' | Array<'waiting' | 'active' | 'closed'>;
         priority?: 'low' | 'normal' | 'high' | 'urgent';
         channelId?: string;
         channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+        conversationType?: 'individual' | 'group' | 'ai';
         source?: string;
         customerId?: string;
         contactId?: string;
