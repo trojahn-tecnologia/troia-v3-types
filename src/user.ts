@@ -5,7 +5,6 @@ export interface User extends FullTenantDocument {
   email: string;
   firstName: string;
   lastName: string;
-  fullName: string;
   avatar?: string;
   phone?: string;
   status: ActiveStatus;
@@ -262,7 +261,6 @@ export interface UserResponse {
   email: string;
   firstName: string;
   lastName: string;
-  fullName: string;
   avatar?: string;
   phone?: string;
   companyId: string;
