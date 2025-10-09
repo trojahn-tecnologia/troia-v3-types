@@ -13,6 +13,7 @@ export interface Conversation {
 
   // Multi-channel support
   channelId: string;          // Channel where conversation happens
+  conversationType?: 'individual' | 'group' | 'ai';  // ✅ Conversation type classification
 
   // External provider integration
   providerConversationId?: string; // External conversation ID
@@ -85,6 +86,7 @@ export interface CreateConversationRequest {
   priority?: 'low' | 'normal' | 'high' | 'urgent';
   status?: 'waiting' | 'active' | 'closed';
   channelId: string;
+  conversationType?: 'individual' | 'group' | 'ai';  // ✅ Conversation type classification
   providerConversationId?: string;
   source: string;
   customerId?: string;
@@ -116,6 +118,7 @@ export interface UpdateConversationRequest {
   subject?: string;
   status?: 'waiting' | 'active' | 'closed';
   priority?: 'low' | 'normal' | 'high' | 'urgent';
+  conversationType?: 'individual' | 'group' | 'ai';  // ✅ Conversation type classification
   closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
   closeNotes?: string;
   customerId?: string;
