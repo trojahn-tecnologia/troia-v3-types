@@ -33,6 +33,9 @@ exports.SOCKET_EVENTS = {
     ASSIGNMENT_CREATED: 'assignment:created',
     ASSIGNMENT_UPDATED: 'assignment:updated',
     ASSIGNMENT_COMPLETED: 'assignment:completed',
+    // Contact Events
+    CONTACT_IDENTIFIERS_SYNCED: 'contact:identifiers:synced',
+    CONTACT_SYNC_FAILED: 'contact:sync:failed',
 };
 // ============================================================================
 // ROOM PATTERNS

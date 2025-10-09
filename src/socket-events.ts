@@ -36,6 +36,10 @@ export const SOCKET_EVENTS = {
   ASSIGNMENT_CREATED: 'assignment:created',
   ASSIGNMENT_UPDATED: 'assignment:updated',
   ASSIGNMENT_COMPLETED: 'assignment:completed',
+
+  // Contact Events
+  CONTACT_IDENTIFIERS_SYNCED: 'contact:identifiers:synced',
+  CONTACT_SYNC_FAILED: 'contact:sync:failed',
 } as const;
 
 // Type for event names
@@ -183,6 +187,25 @@ export interface ConversationErrorEvent {
   error?: string;
 }
 
+/**
+ * Contact Identifiers Synced Event
+ * Server-to-Client: WhatsApp identifiers successfully synchronized
+ */
+export interface ContactIdentifiersSyncedPayload {
+  contactId: string;
+  identifiers: string[];
+  avatarUrl?: string;
+}
+
+/**
+ * Contact Sync Failed Event
+ * Server-to-Client: Failed to synchronize WhatsApp identifiers
+ */
+export interface ContactSyncFailedPayload {
+  contactId: string;
+  error: string;
+}
+
 // ============================================================================
 // SOCKET EVENT MAP (For Type-Safe Emit/On)
 // ============================================================================
@@ -210,6 +233,10 @@ export interface SocketEventMap {
   // Assignment Events
   [SOCKET_EVENTS.ASSIGNMENT_CREATED]: AssignmentCreatedEvent;
   [SOCKET_EVENTS.ASSIGNMENT_UPDATED]: AssignmentUpdatedEvent;
+
+  // Contact Events
+  [SOCKET_EVENTS.CONTACT_IDENTIFIERS_SYNCED]: ContactIdentifiersSyncedPayload;
+  [SOCKET_EVENTS.CONTACT_SYNC_FAILED]: ContactSyncFailedPayload;
 }
 
 // ============================================================================

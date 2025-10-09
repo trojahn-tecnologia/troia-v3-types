@@ -22,6 +22,8 @@ export declare const SOCKET_EVENTS: {
     readonly ASSIGNMENT_CREATED: "assignment:created";
     readonly ASSIGNMENT_UPDATED: "assignment:updated";
     readonly ASSIGNMENT_COMPLETED: "assignment:completed";
+    readonly CONTACT_IDENTIFIERS_SYNCED: "contact:identifiers:synced";
+    readonly CONTACT_SYNC_FAILED: "contact:sync:failed";
 };
 export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 /**
@@ -149,6 +151,23 @@ export interface ConversationErrorEvent {
     message: string;
     error?: string;
 }
+/**
+ * Contact Identifiers Synced Event
+ * Server-to-Client: WhatsApp identifiers successfully synchronized
+ */
+export interface ContactIdentifiersSyncedPayload {
+    contactId: string;
+    identifiers: string[];
+    avatarUrl?: string;
+}
+/**
+ * Contact Sync Failed Event
+ * Server-to-Client: Failed to synchronize WhatsApp identifiers
+ */
+export interface ContactSyncFailedPayload {
+    contactId: string;
+    error: string;
+}
 export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_MESSAGE]: ConversationMessageEvent;
     [SOCKET_EVENTS.CONVERSATION_UPDATED]: ConversationUpdatedEvent;
@@ -163,6 +182,8 @@ export interface SocketEventMap {
     [SOCKET_EVENTS.USER_TYPING]: UserTypingEvent;
     [SOCKET_EVENTS.ASSIGNMENT_CREATED]: AssignmentCreatedEvent;
     [SOCKET_EVENTS.ASSIGNMENT_UPDATED]: AssignmentUpdatedEvent;
+    [SOCKET_EVENTS.CONTACT_IDENTIFIERS_SYNCED]: ContactIdentifiersSyncedPayload;
+    [SOCKET_EVENTS.CONTACT_SYNC_FAILED]: ContactSyncFailedPayload;
 }
 export declare const SOCKET_ROOMS: {
     /**

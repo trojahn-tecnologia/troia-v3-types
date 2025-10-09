@@ -25,6 +25,9 @@ export * from './email-templates';
 export * from './providers';
 export * from './gateway';
 
+// Queue system (shared between Backend & Gateway)
+export * from './queue-jobs';
+
 // Validation utilities (shared between Gateway & Backend)
 export * from './validation';
 

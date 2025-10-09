@@ -17,6 +17,7 @@ export * from './app-integrations';
 export * from './email-templates';
 export * from './providers';
 export * from './gateway';
+export * from './queue-jobs';
 export * from './validation';
 export * from './communications';
 export * from './socket-events';
