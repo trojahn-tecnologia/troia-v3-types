@@ -110,6 +110,7 @@ export interface GatewayEventData {
   // Message identification
   messageId?: string;
   to?: string;  // Recipient (empresa/bot number)
+  fromMe?: boolean;  // ✅ Message direction: true = sent by us, false = received
   message?: string;
   messageType?: 'text' | 'image' | 'audio' | 'video' | 'document' | 'sticker' | 'location' | 'contact' | 'reaction' | 'poll' | 'buttons' | 'list' | 'unknown';
 

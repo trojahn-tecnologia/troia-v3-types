@@ -82,6 +82,7 @@ export interface GatewayWebhookPayload {
 export interface GatewayEventData {
     messageId?: string;
     to?: string;
+    fromMe?: boolean;
     message?: string;
     messageType?: 'text' | 'image' | 'audio' | 'video' | 'document' | 'sticker' | 'location' | 'contact' | 'reaction' | 'poll' | 'buttons' | 'list' | 'unknown';
     from?: MessageSender;
