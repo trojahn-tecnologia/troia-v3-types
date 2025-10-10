@@ -36,6 +36,12 @@ export interface Conversation {
     assignmentType?: string;
     assignedAt?: string;
     assignedBy?: string;
+    provider?: {
+        id: string;
+        name: string;
+        type: string;
+        logo?: string;
+    };
     messageCount: number;
     lastMessage?: string;
     lastMessageAt?: string;

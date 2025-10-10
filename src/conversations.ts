@@ -173,6 +173,7 @@ export interface ConversationQuery extends PaginationQuery {
     channelId?: string;
     channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
     conversationType?: 'individual' | 'group' | 'ai';  // ✅ Infinite scroll: filter by conversation type
+    providerId?: string;  // ✅ Filter by provider (via channel → integration → provider)
     source?: string;
     customerId?: string;
     contactId?: string;  // ✅ Filter by contact.id
