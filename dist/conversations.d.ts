@@ -16,6 +16,7 @@ export interface Conversation {
         id: string;
         name: string;
         picture?: string;
+        phone?: string;
     };
     group?: {
         id: string;
@@ -25,6 +26,12 @@ export interface Conversation {
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;
+    assignee?: {
+        id: string;
+        name: string;
+        email: string;
+        picture?: string;
+    };
     teamId?: string;
     assignmentType?: string;
     assignedAt?: string;
@@ -64,6 +71,7 @@ export interface CreateConversationRequest {
         id: string;
         name: string;
         picture?: string;
+        phone?: string;
     };
     group?: {
         id: string;
@@ -90,6 +98,7 @@ export interface UpdateConversationRequest {
         id: string;
         name: string;
         picture?: string;
+        phone?: string;
     };
     group?: {
         id: string;

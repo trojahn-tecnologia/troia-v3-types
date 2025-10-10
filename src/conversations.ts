@@ -54,6 +54,14 @@ export interface Conversation {
   assignedAt?: string;
   assignedBy?: string;
 
+  // Provider integration (via lookup)
+  provider?: {                // ✅ Populated provider data (via lookup, not stored)
+    id: string;
+    name: string;
+    type: string;
+    logo?: string;
+  };
+
   // Conversation metrics
   messageCount: number;
   lastMessage?: string;        // ✅ Preview of last message (100 chars max)
