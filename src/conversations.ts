@@ -27,6 +27,7 @@ export interface Conversation {
     id: string;         // Contact ID
     name: string;       // Contact name
     picture?: string;   // Contact avatar URL
+    phone?: string;     // Contact primary phone (denormalized for performance)
   };
 
   // ✅ Denormalized group data (single source of truth)
@@ -42,6 +43,12 @@ export interface Conversation {
 
   // Assignment system integration
   assigneeId?: string;        // User responsible
+  assignee?: {                // ✅ Populated assignee data (via aggregation, not stored)
+    id: string;
+    name: string;
+    email: string;
+    picture?: string;
+  };
   teamId?: string;           // Team responsible
   assignmentType?: string;    // Type of assignment
   assignedAt?: string;
@@ -96,6 +103,7 @@ export interface CreateConversationRequest {
     id: string;
     name: string;
     picture?: string;
+    phone?: string;  // Contact primary phone
   };
 
   // ✅ Denormalized group data (replaces groupId)
@@ -128,6 +136,7 @@ export interface UpdateConversationRequest {
     id: string;
     name: string;
     picture?: string;
+    phone?: string;  // Contact primary phone
   };
 
   // ✅ Denormalized group data (replaces groupId)
