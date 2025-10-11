@@ -56,6 +56,7 @@ export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 export interface ConversationMessageEvent {
   conversationId: string;
   messageId: string;
+  direction: 'inbound' | 'outbound';  // ✅ CRITICAL: Diferencia mensagens recebidas vs enviadas
   from?: {
     id: string;
     name: string;

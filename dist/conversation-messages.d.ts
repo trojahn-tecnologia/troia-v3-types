@@ -73,7 +73,7 @@ export interface Sender {
     id: string;
     name: string;
     picture?: string;
-    type: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+    type: 'contact' | 'user' | 'system' | 'bot' | 'ai';
 }
 export interface ConversationMessage {
     id: string;
@@ -83,11 +83,11 @@ export interface ConversationMessage {
     content: MessageContent[];
     plainText?: string;
     direction: 'inbound' | 'outbound';
-    messageType: 'user' | 'system' | 'bot' | 'ai_agent';
+    messageType: 'user' | 'system' | 'bot' | 'ai';
     sender?: Sender;
     senderId?: string;
     senderName?: string;
-    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -120,10 +120,10 @@ export interface CreateConversationMessageRequest {
     content: MessageContent[];
     plainText?: string;
     direction: 'inbound' | 'outbound';
-    messageType: 'user' | 'system' | 'bot' | 'ai_agent';
+    messageType: 'user' | 'system' | 'bot' | 'ai';
     senderId?: string;
     senderName?: string;
-    senderType: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+    senderType: 'contact' | 'user' | 'system' | 'bot' | 'ai';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -147,8 +147,8 @@ export interface ConversationMessageQuery extends PaginationQuery {
     conversationId?: string;
     filters?: {
         direction?: 'inbound' | 'outbound';
-        messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
-        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+        messageType?: 'user' | 'system' | 'bot' | 'ai';
+        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
         senderId?: string;
         status?: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';
         contentType?: 'text' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'link' | 'reaction' | 'system';
@@ -203,8 +203,8 @@ export interface MessageSearchRequest {
     conversationId?: string;
     filters?: {
         direction?: 'inbound' | 'outbound';
-        messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
-        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+        messageType?: 'user' | 'system' | 'bot' | 'ai';
+        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
         contentType?: string[];
         dateFrom?: string;
         dateTo?: string;
