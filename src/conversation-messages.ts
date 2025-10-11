@@ -98,7 +98,7 @@ export interface Sender {
   id: string;
   name: string;
   picture?: string;
-  type: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+  type: 'contact' | 'user' | 'system' | 'bot' | 'ai';
 }
 
 // Main ConversationMessage interface
@@ -114,7 +114,7 @@ export interface ConversationMessage {
 
   // Message metadata
   direction: 'inbound' | 'outbound';
-  messageType: 'user' | 'system' | 'bot' | 'ai_agent';
+  messageType: 'user' | 'system' | 'bot' | 'ai';
 
   // ✅ NEW: Unified sender object (populated via aggregation)
   sender?: Sender;
@@ -122,7 +122,7 @@ export interface ConversationMessage {
   // DEPRECATED: Legacy fields (kept for backward compatibility, will be removed in future)
   senderId?: string; // @deprecated Use sender.id instead
   senderName?: string; // @deprecated Use sender.name instead
-  senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent'; // @deprecated Use sender.type instead
+  senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai'; // @deprecated Use sender.type instead
 
   // External provider integration
   providerMessageId?: string; // External message ID
@@ -171,10 +171,10 @@ export interface CreateConversationMessageRequest {
   content: MessageContent[];
   plainText?: string;
   direction: 'inbound' | 'outbound';
-  messageType: 'user' | 'system' | 'bot' | 'ai_agent';
+  messageType: 'user' | 'system' | 'bot' | 'ai';
   senderId?: string; // Will be used to build sender object
   senderName?: string;
-  senderType: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+  senderType: 'contact' | 'user' | 'system' | 'bot' | 'ai';
   providerMessageId?: string;
   providerData?: Record<string, any>;
   replyToMessageId?: string;
@@ -201,8 +201,8 @@ export interface ConversationMessageQuery extends PaginationQuery {
   conversationId?: string;
   filters?: {
     direction?: 'inbound' | 'outbound';
-    messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
-    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+    messageType?: 'user' | 'system' | 'bot' | 'ai';
+    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
     senderId?: string;
     status?: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';
     contentType?: 'text' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'link' | 'reaction' | 'system';
@@ -267,8 +267,8 @@ export interface MessageSearchRequest {
   conversationId?: string;
   filters?: {
     direction?: 'inbound' | 'outbound';
-    messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
-    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
+    messageType?: 'user' | 'system' | 'bot' | 'ai';
+    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
     contentType?: string[];
     dateFrom?: string;
     dateTo?: string;

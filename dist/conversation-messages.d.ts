@@ -73,7 +73,7 @@ export interface Sender {
     id: string;
     name: string;
     picture?: string;
-    type: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
+    type: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
 }
 export interface ConversationMessage {
     id: string;
@@ -87,7 +87,7 @@ export interface ConversationMessage {
     sender?: Sender;
     senderId?: string;
     senderName?: string;
-    senderType?: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
+    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -123,7 +123,7 @@ export interface CreateConversationMessageRequest {
     messageType: 'user' | 'system' | 'bot' | 'ai_agent';
     senderId?: string;
     senderName?: string;
-    senderType: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
+    senderType: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -148,7 +148,7 @@ export interface ConversationMessageQuery extends PaginationQuery {
     filters?: {
         direction?: 'inbound' | 'outbound';
         messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
-        senderType?: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
+        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
         senderId?: string;
         status?: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';
         contentType?: 'text' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'link' | 'reaction' | 'system';
@@ -204,7 +204,7 @@ export interface MessageSearchRequest {
     filters?: {
         direction?: 'inbound' | 'outbound';
         messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
-        senderType?: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
+        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai_agent';
         contentType?: string[];
         dateFrom?: string;
         dateTo?: string;
