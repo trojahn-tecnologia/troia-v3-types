@@ -69,6 +69,12 @@ export interface SystemContent {
     details?: Record<string, any>;
 }
 export type MessageContent = TextContent | ImageContent | VideoContent | AudioContent | DocumentContent | LocationContent | ContactContent | LinkContent | ReactionContent | SystemContent;
+export interface Sender {
+    id: string;
+    name: string;
+    picture?: string;
+    type: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
+}
 export interface ConversationMessage {
     id: string;
     appId: string;
@@ -77,10 +83,11 @@ export interface ConversationMessage {
     content: MessageContent[];
     plainText?: string;
     direction: 'inbound' | 'outbound';
-    messageType: 'user' | 'agent' | 'system' | 'bot';
+    messageType: 'user' | 'system' | 'bot' | 'ai_agent';
+    sender?: Sender;
     senderId?: string;
     senderName?: string;
-    senderType: 'customer' | 'agent' | 'system' | 'bot';
+    senderType?: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -113,9 +120,10 @@ export interface CreateConversationMessageRequest {
     content: MessageContent[];
     plainText?: string;
     direction: 'inbound' | 'outbound';
-    messageType: 'user' | 'agent' | 'system' | 'bot';
+    messageType: 'user' | 'system' | 'bot' | 'ai_agent';
+    senderId?: string;
     senderName?: string;
-    senderType: 'customer' | 'agent' | 'system' | 'bot';
+    senderType: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -139,8 +147,8 @@ export interface ConversationMessageQuery extends PaginationQuery {
     conversationId?: string;
     filters?: {
         direction?: 'inbound' | 'outbound';
-        messageType?: 'user' | 'agent' | 'system' | 'bot';
-        senderType?: 'customer' | 'agent' | 'system' | 'bot';
+        messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
+        senderType?: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
         senderId?: string;
         status?: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';
         contentType?: 'text' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'link' | 'reaction' | 'system';
@@ -195,8 +203,8 @@ export interface MessageSearchRequest {
     conversationId?: string;
     filters?: {
         direction?: 'inbound' | 'outbound';
-        messageType?: 'user' | 'agent' | 'system' | 'bot';
-        senderType?: 'customer' | 'agent' | 'system' | 'bot';
+        messageType?: 'user' | 'system' | 'bot' | 'ai_agent';
+        senderType?: 'customer' | 'user' | 'system' | 'bot' | 'ai_agent';
         contentType?: string[];
         dateFrom?: string;
         dateTo?: string;
