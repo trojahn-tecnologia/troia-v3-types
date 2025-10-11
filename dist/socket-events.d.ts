@@ -33,6 +33,7 @@ export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 export interface ConversationMessageEvent {
     conversationId: string;
     messageId: string;
+    direction: 'inbound' | 'outbound';
     from?: {
         id: string;
         name: string;

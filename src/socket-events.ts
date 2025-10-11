@@ -68,6 +68,41 @@ export interface ConversationMessageEvent {
   timestamp?: string;
   contactId?: string;
   channelId?: string;
+
+  // ✅ Media metadata for real-time display
+  mediaUrl?: string;
+  mediaType?: string;
+  metadata?: {
+    width?: number;
+    height?: number;
+    size?: number;
+    mimeType?: string;
+    thumbnailUrl?: string;
+    duration?: number;
+    filename?: string;
+  };
+
+  // ✅ Location data
+  location?: {
+    latitude: number;
+    longitude: number;
+    address?: string;
+    name?: string;
+  };
+
+  // ✅ Contact data
+  contact?: {
+    name: string;
+    phone?: string;
+    email?: string;
+    vcard?: string;
+  };
+
+  // ✅ Reaction data
+  reaction?: {
+    emoji: string;
+    targetMessageId: string;
+  };
 }
 
 /**
