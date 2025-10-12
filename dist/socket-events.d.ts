@@ -45,6 +45,33 @@ export interface ConversationMessageEvent {
     timestamp?: string;
     contactId?: string;
     channelId?: string;
+    mediaUrl?: string;
+    mediaType?: string;
+    metadata?: {
+        width?: number;
+        height?: number;
+        size?: number;
+        mimeType?: string;
+        thumbnailUrl?: string;
+        duration?: number;
+        filename?: string;
+    };
+    location?: {
+        latitude: number;
+        longitude: number;
+        address?: string;
+        name?: string;
+    };
+    contact?: {
+        name: string;
+        phone?: string;
+        email?: string;
+        vcard?: string;
+    };
+    reaction?: {
+        emoji: string;
+        targetMessageId: string;
+    };
 }
 /**
  * Conversation Updated Event
