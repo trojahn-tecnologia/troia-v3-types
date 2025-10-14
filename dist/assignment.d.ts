@@ -1,6 +1,20 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse } from './common';
-export type AssignmentResourceType = 'ticket' | 'conversation' | 'call' | 'chat' | 'lead' | 'contact' | 'customer';
+/**
+ * Assignment Resource Types
+ *
+ * Tipos de recursos que podem ser atribuídos a usuários/equipes:
+ * - ticket: Tickets de suporte/atendimento
+ * - conversation: Conversas de chat (WhatsApp, Instagram, etc.)
+ * - call: Chamadas telefônicas
+ * - lead: Leads de vendas
+ * - contact: Contatos gerais
+ * - customer: Clientes cadastrados
+ *
+ * NOTA: 'chat' foi removido pois é redundante com 'conversation'
+ * NOTA: 'lead' foi adicionado para suportar módulo de leads futuro
+ */
+export type AssignmentResourceType = 'ticket' | 'conversation' | 'call' | 'lead' | 'contact' | 'customer';
 export interface Assignment {
     resourceType: AssignmentResourceType;
     resourceId: string;
