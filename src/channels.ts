@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
+import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
 
 // Import assignment types from dedicated assignment module
 import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryConfig } from './assignment';
@@ -84,7 +84,7 @@ export interface Provider {
   name: string;
   categories: string[];
   capabilities: string[];
-  status: ActiveStatus;
+  status: ExtendedStatus;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -98,7 +98,7 @@ export interface Channel {
   assignmentConfig: ChannelAssignmentConfig;
   companyId: ObjectId;
   appId: ObjectId;
-  status: ActiveStatus;
+  status: ExtendedStatus;     // 'active' | 'inactive' | 'pending' | 'suspended' | 'error'
   createdAt: Date;
   updatedAt: Date;
 }
@@ -112,7 +112,7 @@ export interface Channel {
 export interface ChannelQuery extends PaginationQuery {
   integrationId?: string;
   identifier?: string;
-  status?: ActiveStatus;
+  status?: ExtendedStatus;
 }
 
 // Response Types
@@ -156,7 +156,7 @@ export interface UpdateChannelRequest {
   name?: string;
   identifier?: string;
   assignmentConfig?: ChannelAssignmentConfig;
-  status?: ActiveStatus;
+  status?: ExtendedStatus;
 }
 
 // Channel Assignment Result (simpler version for channels)
