@@ -2,6 +2,17 @@ import { AppAwareDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, L
 export type ModuleCategory = 'core' | 'business' | 'integration' | 'analytics';
 export type PermissionAction = 'create' | 'read' | 'update' | 'delete' | 'export' | 'import' | 'attend' | 'assign';
 export type PermissionScope = 'all' | 'own' | 'team';
+/**
+ * Valid Module IDs - SINGLE SOURCE OF TRUTH
+ *
+ * This type defines ALL valid module identifiers used across the system.
+ * MUST be kept in sync between:
+ * - Frontend: Sidebar permission checks
+ * - Backend: requirePermission() middleware
+ *
+ * Adding a new module? Update this list first!
+ */
+export type ValidModuleId = 'app' | 'users' | 'user-permissions' | 'companies' | 'levels' | 'plans' | 'channels' | 'integrations' | 'company-integrations' | 'payments' | 'crm' | 'chat' | 'leads' | 'customers' | 'activities' | 'conversations' | 'conversation-messages' | 'tickets' | 'assignments' | 'contacts' | 'groups' | 'group-participants' | 'funnels' | 'funnel-steps' | 'products' | 'orders' | 'campaigns' | 'calendar' | 'calls' | 'reports' | 'knowledge' | 'company' | 'teams' | 'skills' | 'shifts' | 'services' | 'email-templates' | 'saved-cards';
 export interface Module extends AppAwareDocument {
     name: string;
     displayName: string;

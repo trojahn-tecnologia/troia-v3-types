@@ -52,6 +52,7 @@ __exportStar(require("./saved-cards"), exports);
 __exportStar(require("./contacts"), exports);
 __exportStar(require("./customers"), exports);
 __exportStar(require("./leads"), exports);
+__exportStar(require("./funnels"), exports);
 // Phase 2: Advanced customer service modules
 __exportStar(require("./tickets"), exports);
 __exportStar(require("./conversations"), exports);

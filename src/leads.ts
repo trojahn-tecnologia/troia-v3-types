@@ -36,6 +36,13 @@ export interface Lead {
   budget?: number;
   wonValue?: number;
 
+  // Business outcome
+  businessStatus?: 'pending' | 'won' | 'lost';
+  wonDate?: string;
+
+  // Activity tracking (calculated by backend)
+  activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
+
   // Control dates
   customerId?: string;        // Renamed from convertedToCustomerId
   convertedAt?: string;
@@ -84,6 +91,9 @@ export interface UpdateLeadRequest {
   teamId?: string;
   budget?: number;
   wonValue?: number;
+  businessStatus?: 'pending' | 'won' | 'lost';
+  wonDate?: string;
+  activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
   customerId?: string;
   lostReason?: string;
   lastInteractionAt?: string;

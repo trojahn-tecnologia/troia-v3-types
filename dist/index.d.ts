@@ -26,6 +26,7 @@ export * from './saved-cards';
 export * from './contacts';
 export * from './customers';
 export * from './leads';
+export * from './funnels';
 export * from './tickets';
 export * from './conversations';
 export * from './conversation-messages';

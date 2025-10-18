@@ -20,6 +20,9 @@ export interface Lead {
     assignedBy?: string;
     budget?: number;
     wonValue?: number;
+    businessStatus?: 'pending' | 'won' | 'lost';
+    wonDate?: string;
+    activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
     customerId?: string;
     convertedAt?: string;
     lostDate?: string;
@@ -62,6 +65,9 @@ export interface UpdateLeadRequest {
     teamId?: string;
     budget?: number;
     wonValue?: number;
+    businessStatus?: 'pending' | 'won' | 'lost';
+    wonDate?: string;
+    activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
     customerId?: string;
     lostReason?: string;
     lastInteractionAt?: string;

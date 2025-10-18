@@ -45,6 +45,7 @@ export * from './saved-cards';
 export * from './contacts';
 export * from './customers';
 export * from './leads';
+export * from './funnels';
 
 // Phase 2: Advanced customer service modules
 export * from './tickets';
