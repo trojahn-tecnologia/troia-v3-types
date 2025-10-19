@@ -108,7 +108,8 @@ export interface GatewayWebhookPayload {
  */
 export interface GatewayEventData {
   // Message identification
-  messageId?: string;
+  messageId?: string;  // MongoDB message ID
+  providerMessageId?: string;  // ✅ WhatsApp provider message ID (for correlation)
   to?: string;  // Recipient (empresa/bot number)
   fromMe?: boolean;  // ✅ Message direction: true = sent by us, false = received
   message?: string;

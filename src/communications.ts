@@ -26,6 +26,8 @@ export interface EmailAttachment {
 export interface MessageData {
   to: string;
   message?: string;
+  messageId?: string;  // ✅ MongoDB message ID for correlation
+  replyToMessageId?: string;  // ✅ ID of message being replied to (for quoted messages)
   type?: 'text' | 'media' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'contacts' | 'reaction';
 
   // ✅ Structured media object

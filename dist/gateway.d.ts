@@ -81,6 +81,7 @@ export interface GatewayWebhookPayload {
  */
 export interface GatewayEventData {
     messageId?: string;
+    providerMessageId?: string;
     to?: string;
     fromMe?: boolean;
     message?: string;

@@ -10,6 +10,7 @@ export declare const SOCKET_EVENTS: {
     readonly CONVERSATION_OPEN: "conversation:open";
     readonly CONVERSATION_UNREAD_RESET: "conversation:unread-reset";
     readonly CONVERSATION_ERROR: "conversation:error";
+    readonly MESSAGE_STATUS: "message:status";
     readonly MESSAGE_DELIVERED: "message:delivered";
     readonly MESSAGE_READ: "message:read";
     readonly MESSAGE_DELETED: "message:deleted";
@@ -93,6 +94,17 @@ export interface ConversationUpdatedEvent {
 export interface ConversationDeletedEvent {
     conversationId: string;
     deletedAt: string;
+}
+/**
+ * Message Status Event
+ * Generic status update for messages (sent, delivered, read, failed)
+ */
+export interface MessageStatusEvent {
+    messageId: string;
+    providerMessageId?: string;
+    conversationId?: string;
+    status: 'sent' | 'delivered' | 'read' | 'failed';
+    timestamp: Date;
 }
 /**
  * Message Delivered Event
@@ -203,6 +215,7 @@ export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_OPEN]: ConversationOpenEvent;
     [SOCKET_EVENTS.CONVERSATION_UNREAD_RESET]: ConversationUnreadResetEvent;
     [SOCKET_EVENTS.CONVERSATION_ERROR]: ConversationErrorEvent;
+    [SOCKET_EVENTS.MESSAGE_STATUS]: MessageStatusEvent;
     [SOCKET_EVENTS.MESSAGE_DELIVERED]: MessageDeliveredEvent;
     [SOCKET_EVENTS.MESSAGE_READ]: MessageReadEvent;
     [SOCKET_EVENTS.CHANNEL_QR]: ChannelQREvent;

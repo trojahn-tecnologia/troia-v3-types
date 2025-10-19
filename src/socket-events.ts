@@ -18,6 +18,7 @@ export const SOCKET_EVENTS = {
   CONVERSATION_ERROR: 'conversation:error',             // ✅ Arch 3.4: Error in conversation operations
 
   // Message Events
+  MESSAGE_STATUS: 'message:status',                 // ✅ Generic status update (sent, delivered, read, failed)
   MESSAGE_DELIVERED: 'message:delivered',
   MESSAGE_READ: 'message:read',
   MESSAGE_DELETED: 'message:deleted',
@@ -126,6 +127,18 @@ export interface ConversationUpdatedEvent {
 export interface ConversationDeletedEvent {
   conversationId: string;
   deletedAt: string;
+}
+
+/**
+ * Message Status Event
+ * Generic status update for messages (sent, delivered, read, failed)
+ */
+export interface MessageStatusEvent {
+  messageId: string;                    // MongoDB message ID
+  providerMessageId?: string;           // WhatsApp provider message ID
+  conversationId?: string;
+  status: 'sent' | 'delivered' | 'read' | 'failed';
+  timestamp: Date;
 }
 
 /**
@@ -256,6 +269,7 @@ export interface SocketEventMap {
   [SOCKET_EVENTS.CONVERSATION_ERROR]: ConversationErrorEvent;             // ✅ Arch 3.4
 
   // Message Events
+  [SOCKET_EVENTS.MESSAGE_STATUS]: MessageStatusEvent;           // ✅ Generic status event
   [SOCKET_EVENTS.MESSAGE_DELIVERED]: MessageDeliveredEvent;
   [SOCKET_EVENTS.MESSAGE_READ]: MessageReadEvent;
 
