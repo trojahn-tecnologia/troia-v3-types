@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from './common';
+import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
 import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryConfig } from './assignment';
 export interface ChannelAssignmentConfig extends CoreAssignmentConfig {
     strategy: 'manual' | 'rule' | 'lottery' | 'none';
@@ -59,7 +59,7 @@ export interface Provider {
     name: string;
     categories: string[];
     capabilities: string[];
-    status: ActiveStatus;
+    status: ExtendedStatus;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -72,14 +72,14 @@ export interface Channel {
     assignmentConfig: ChannelAssignmentConfig;
     companyId: ObjectId;
     appId: ObjectId;
-    status: ActiveStatus;
+    status: ExtendedStatus;
     createdAt: Date;
     updatedAt: Date;
 }
 export interface ChannelQuery extends PaginationQuery {
     integrationId?: string;
     identifier?: string;
-    status?: ActiveStatus;
+    status?: ExtendedStatus;
 }
 export type ProviderResponse = Omit<Provider, never>;
 export type ChannelResponse = Omit<Channel, '_id'> & {
@@ -111,7 +111,7 @@ export interface UpdateChannelRequest {
     name?: string;
     identifier?: string;
     assignmentConfig?: ChannelAssignmentConfig;
-    status?: ActiveStatus;
+    status?: ExtendedStatus;
 }
 export interface ChannelAssignmentResult {
     teamId: string | null;
