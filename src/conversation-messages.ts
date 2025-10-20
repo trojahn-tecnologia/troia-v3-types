@@ -238,8 +238,9 @@ export interface EditMessageRequest {
 }
 
 export interface ForwardMessageRequest {
-  conversationId: string; // Target conversation
   originalMessageId: string;
+  contactIds: string[]; // Backend busca/cria conversas para cada contato
+  channelId: string; // Canal pelo qual encaminhar
   additionalContent?: MessageContent[];
   internalNote?: string;
 }

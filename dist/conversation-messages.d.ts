@@ -93,6 +93,7 @@ export interface ConversationMessage {
     replyToMessageId?: string;
     reply?: Partial<ConversationMessage>;
     forwardedFromMessageId?: string;
+    forwarded?: Partial<ConversationMessage>;
     threadId?: string;
     status: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';
     deliveredAt?: string;
