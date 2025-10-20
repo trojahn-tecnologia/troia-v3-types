@@ -130,6 +130,7 @@ export interface ConversationMessage {
 
   // Message relationships
   replyToMessageId?: string; // Message this replies to
+  reply?: Partial<ConversationMessage>; // ✅ NOVO: Populated reply message via aggregation (partial to avoid circular reference)
   forwardedFromMessageId?: string; // Original message if forwarded
   threadId?: string; // For threaded conversations
 

@@ -91,6 +91,7 @@ export interface ConversationMessage {
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
+    reply?: Partial<ConversationMessage>;
     forwardedFromMessageId?: string;
     threadId?: string;
     status: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';

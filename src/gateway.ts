@@ -153,6 +153,7 @@ export interface GatewayEventData {
     participant: string;
     content: string;
   };
+  quotedMessageId?: string;  // ✅ NOVO: providerMessageId da mensagem quotada (stanzaId do WhatsApp)
 
   // Status data (when event = 'status')
   status?: 'sent' | 'delivered' | 'read' | 'failed';

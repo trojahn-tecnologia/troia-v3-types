@@ -24,6 +24,7 @@ export interface MessageData {
     to: string;
     message?: string;
     messageId?: string;
+    replyToMessageId?: string;
     type?: 'text' | 'media' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'contacts' | 'reaction';
     media?: MediaData;
     /** @deprecated Use media.url instead */
