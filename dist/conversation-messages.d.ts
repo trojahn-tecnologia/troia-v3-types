@@ -180,8 +180,9 @@ export interface EditMessageRequest {
     plainText?: string;
 }
 export interface ForwardMessageRequest {
-    conversationId: string;
     originalMessageId: string;
+    contactIds: string[];
+    channelId: string;
     additionalContent?: MessageContent[];
     internalNote?: string;
 }
