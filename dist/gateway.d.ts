@@ -111,6 +111,7 @@ export interface GatewayEventData {
         participant: string;
         content: string;
     };
+    quotedMessageId?: string;
     status?: 'sent' | 'delivered' | 'read' | 'failed';
     phoneNumber?: string;
     clientId?: string;
