@@ -182,7 +182,6 @@ export interface EditMessageRequest {
 export interface ForwardMessageRequest {
     originalMessageId: string;
     contactIds: string[];
-    channelId: string;
     additionalContent?: MessageContent[];
     internalNote?: string;
 }
