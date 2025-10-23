@@ -10,7 +10,13 @@ export interface Activity {
     entityName?: string;
     actorType: ActorType;
     actorId?: string;
-    actorName?: string;
+    actor?: {
+        id: string;
+        firstName: string;
+        lastName?: string;
+        picture?: string;
+        email: string;
+    };
     title: string;
     description?: string;
     summary?: string;
@@ -43,7 +49,6 @@ export interface CreateActivityRequest {
     entityName?: string;
     actorType: ActorType;
     actorId?: string;
-    actorName?: string;
     title: string;
     description?: string;
     summary?: string;
@@ -173,7 +178,6 @@ export interface ContactActivityData {
     action: 'created' | 'updated' | 'deleted' | 'merged';
     changes?: Record<string, any>;
     actorId?: string;
-    actorName?: string;
 }
 export interface LeadActivityData {
     leadId: string;
@@ -181,7 +185,6 @@ export interface LeadActivityData {
     action: 'created' | 'updated' | 'deleted' | 'assigned' | 'converted' | 'lost';
     changes?: Record<string, any>;
     actorId?: string;
-    actorName?: string;
 }
 export interface TicketActivityData {
     ticketId: string;
@@ -189,7 +192,6 @@ export interface TicketActivityData {
     action: 'created' | 'updated' | 'assigned' | 'resolved' | 'closed' | 'reopened';
     changes?: Record<string, any>;
     actorId?: string;
-    actorName?: string;
 }
 export interface ConversationActivityData {
     conversationId: string;
@@ -197,7 +199,6 @@ export interface ConversationActivityData {
     action: 'started' | 'assigned' | 'transferred' | 'closed' | 'reopened';
     changes?: Record<string, any>;
     actorId?: string;
-    actorName?: string;
 }
 export interface MessageActivityData {
     messageId: string;
@@ -205,6 +206,5 @@ export interface MessageActivityData {
     action: 'sent' | 'received' | 'read' | 'edited' | 'deleted' | 'reacted';
     content?: string;
     actorId?: string;
-    actorName?: string;
 }
 import { PaginationQuery, ListResponse } from './common';

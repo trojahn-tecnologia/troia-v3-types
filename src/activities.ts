@@ -18,7 +18,13 @@ export interface Activity {
   // Actor (who performed the action)
   actorType: ActorType;
   actorId?: string; // User ID if performed by user
-  actorName?: string; // For display purposes
+  actor?: {
+    id: string;
+    firstName: string;
+    lastName?: string;
+    picture?: string;
+    email: string;
+  }; // Populated via aggregation when actorType is 'user'
 
   // Activity details
   title: string;
@@ -99,6 +105,7 @@ export interface RelatedEntity {
   id: string;
   type: EntityType;
   name?: string;
+  picture?: string;  // User avatar quando type='user'
 }
 
 export interface CreateActivityRequest {
@@ -110,7 +117,6 @@ export interface CreateActivityRequest {
   entityName?: string;
   actorType: ActorType;
   actorId?: string;
-  actorName?: string;
   title: string;
   description?: string;
   summary?: string;
@@ -261,7 +267,6 @@ export interface ContactActivityData {
   action: 'created' | 'updated' | 'deleted' | 'merged';
   changes?: Record<string, any>;
   actorId?: string;
-  actorName?: string;
 }
 
 export interface LeadActivityData {
@@ -270,7 +275,6 @@ export interface LeadActivityData {
   action: 'created' | 'updated' | 'deleted' | 'assigned' | 'converted' | 'lost';
   changes?: Record<string, any>;
   actorId?: string;
-  actorName?: string;
 }
 
 export interface TicketActivityData {
@@ -279,7 +283,6 @@ export interface TicketActivityData {
   action: 'created' | 'updated' | 'assigned' | 'resolved' | 'closed' | 'reopened';
   changes?: Record<string, any>;
   actorId?: string;
-  actorName?: string;
 }
 
 export interface ConversationActivityData {
@@ -288,7 +291,6 @@ export interface ConversationActivityData {
   action: 'started' | 'assigned' | 'transferred' | 'closed' | 'reopened';
   changes?: Record<string, any>;
   actorId?: string;
-  actorName?: string;
 }
 
 export interface MessageActivityData {
@@ -297,7 +299,6 @@ export interface MessageActivityData {
   action: 'sent' | 'received' | 'read' | 'edited' | 'deleted' | 'reacted';
   content?: string;
   actorId?: string;
-  actorName?: string;
 }
 
 // Import types
