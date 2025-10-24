@@ -40,8 +40,11 @@ export interface Lead {
   businessStatus?: 'pending' | 'won' | 'lost';
   wonDate?: string;
 
-  // Activity tracking (calculated by backend)
-  activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
+  // Activity tracking (calculated by backend based on activities)
+  // no_activities: No activities registered (red/problem)
+  // overdue: Has pending activities past their occurredAt date (orange/warning)
+  // up_to_date: All activities completed or pending with future dates (green/success)
+  activityStatus?: 'no_activities' | 'overdue' | 'up_to_date';
 
   // Control dates
   customerId?: string;        // Renamed from convertedToCustomerId
@@ -93,7 +96,7 @@ export interface UpdateLeadRequest {
   wonValue?: number;
   businessStatus?: 'pending' | 'won' | 'lost';
   wonDate?: string;
-  activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
+  // activityStatus is calculated automatically by backend - not updatable
   customerId?: string;
   lostReason?: string;
   lastInteractionAt?: string;

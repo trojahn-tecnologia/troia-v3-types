@@ -22,7 +22,7 @@ export interface Lead {
     wonValue?: number;
     businessStatus?: 'pending' | 'won' | 'lost';
     wonDate?: string;
-    activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
+    activityStatus?: 'no_activities' | 'overdue' | 'up_to_date';
     customerId?: string;
     convertedAt?: string;
     lostDate?: string;
@@ -67,7 +67,6 @@ export interface UpdateLeadRequest {
     wonValue?: number;
     businessStatus?: 'pending' | 'won' | 'lost';
     wonDate?: string;
-    activityStatus?: 'none' | 'scheduled' | 'overdue' | 'completed';
     customerId?: string;
     lostReason?: string;
     lastInteractionAt?: string;

@@ -40,7 +40,7 @@ export interface Activity {
   relatedEntities?: RelatedEntity[];
 
   // Status and visibility
-  status: 'completed' | 'in_progress' | 'failed' | 'cancelled';
+  status: 'completed' | 'in_progress' | 'failed' | 'cancelled' | 'pending';
   isVisible: boolean; // Show in activity feeds
   isInternal: boolean; // Internal activity (not visible to customers)
 
@@ -124,6 +124,7 @@ export interface CreateActivityRequest {
   afterData?: Record<string, any>;
   metadata?: Record<string, any>;
   relatedEntities?: RelatedEntity[];
+  status?: 'completed' | 'in_progress' | 'failed' | 'cancelled' | 'pending';
   isVisible?: boolean;
   isInternal?: boolean;
   occurredAt?: string;
@@ -133,7 +134,7 @@ export interface UpdateActivityRequest {
   title?: string;
   description?: string;
   summary?: string;
-  status?: 'completed' | 'in_progress' | 'failed' | 'cancelled';
+  status?: 'completed' | 'in_progress' | 'failed' | 'cancelled' | 'pending';
   afterData?: Record<string, any>;
   metadata?: Record<string, any>;
   isVisible?: boolean;

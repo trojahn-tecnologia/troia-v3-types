@@ -24,7 +24,7 @@ export interface Activity {
     afterData?: Record<string, any>;
     metadata?: Record<string, any>;
     relatedEntities?: RelatedEntity[];
-    status: 'completed' | 'in_progress' | 'failed' | 'cancelled';
+    status: 'completed' | 'in_progress' | 'failed' | 'cancelled' | 'pending';
     isVisible: boolean;
     isInternal: boolean;
     occurredAt: string;
@@ -39,6 +39,7 @@ export interface RelatedEntity {
     id: string;
     type: EntityType;
     name?: string;
+    picture?: string;
 }
 export interface CreateActivityRequest {
     type: ActivityType;
@@ -56,6 +57,7 @@ export interface CreateActivityRequest {
     afterData?: Record<string, any>;
     metadata?: Record<string, any>;
     relatedEntities?: RelatedEntity[];
+    status?: 'completed' | 'in_progress' | 'failed' | 'cancelled' | 'pending';
     isVisible?: boolean;
     isInternal?: boolean;
     occurredAt?: string;
@@ -64,7 +66,7 @@ export interface UpdateActivityRequest {
     title?: string;
     description?: string;
     summary?: string;
-    status?: 'completed' | 'in_progress' | 'failed' | 'cancelled';
+    status?: 'completed' | 'in_progress' | 'failed' | 'cancelled' | 'pending';
     afterData?: Record<string, any>;
     metadata?: Record<string, any>;
     isVisible?: boolean;
