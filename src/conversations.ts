@@ -22,15 +22,19 @@ export interface Conversation {
   // Participants
   customerId?: string;
 
-  // ✅ Denormalized contact data (single source of truth)
+  // ✅ Relationship fields (ObjectIds - stored in database)
+  contactId?: string;  // Contact relationship (ObjectId)
+  groupId?: string;    // Group relationship (ObjectId)
+
+  // ✅ Populated via aggregation (not stored in database)
   contact?: {
     id: string;         // Contact ID
     name: string;       // Contact name
     picture?: string;   // Contact avatar URL
-    phone?: string;     // Contact primary phone (denormalized for performance)
+    phone?: string;     // Contact primary phone
   };
 
-  // ✅ Denormalized group data (single source of truth)
+  // ✅ Populated via aggregation (not stored in database)
   group?: {
     id: string;         // Group ID
     name: string;       // Group name
@@ -53,6 +57,10 @@ export interface Conversation {
   assignmentType?: string;    // Type of assignment
   assignedAt?: string;
   assignedBy?: string;
+
+  // ✅ AI Agent integration (defines if conversation is AI-powered)
+  agentId?: string;           // AI Agent ID (ObjectId) - if present, conversation is AI-powered
+  agentStatus?: 'active' | 'inactive' | 'paused'; // AI Agent status in this conversation
 
   // Provider integration (via lookup)
   provider?: {                // ✅ Populated provider data (via lookup, not stored)
@@ -106,25 +114,19 @@ export interface CreateConversationRequest {
   source: string;
   customerId?: string;
 
-  // ✅ Denormalized contact data (replaces contactId)
-  contact?: {
-    id: string;
-    name: string;
-    picture?: string;
-    phone?: string;  // Contact primary phone
-  };
-
-  // ✅ Denormalized group data (replaces groupId)
-  group?: {
-    id: string;
-    name: string;
-    picture?: string;
-  };
+  // ✅ Relationship fields (ObjectIds)
+  contactId?: string;  // Contact ID (ObjectId)
+  groupId?: string;    // Group ID (ObjectId)
 
   leadId?: string;
   ticketId?: string;
   assigneeId?: string;
   teamId?: string;
+
+  // ✅ AI Agent integration
+  agentId?: string;           // AI Agent ID (ObjectId)
+  agentStatus?: 'active' | 'inactive' | 'paused'; // AI Agent status
+
   tags?: string[];
   category?: string;
   metadata?: Record<string, any>;
@@ -139,20 +141,9 @@ export interface UpdateConversationRequest {
   closeNotes?: string;
   customerId?: string;
 
-  // ✅ Denormalized contact data (replaces contactId)
-  contact?: {
-    id: string;
-    name: string;
-    picture?: string;
-    phone?: string;  // Contact primary phone
-  };
-
-  // ✅ Denormalized group data (replaces groupId)
-  group?: {
-    id: string;
-    name: string;
-    picture?: string;
-  };
+  // ✅ Relationship fields (ObjectIds)
+  contactId?: string;  // Contact ID (ObjectId)
+  groupId?: string;    // Group ID (ObjectId)
 
   leadId?: string;
   ticketId?: string;
@@ -176,10 +167,10 @@ export interface ConversationQuery extends PaginationQuery {
     providerId?: string;  // ✅ Filter by provider (via channel → integration → provider)
     source?: string;
     customerId?: string;
-    contactId?: string;  // ✅ Filter by contact.id
+    contactId?: string;  // ✅ Filter by contactId (ObjectId)
     leadId?: string;
     ticketId?: string;
-    groupId?: string;    // ✅ Filter by group.id
+    groupId?: string;    // ✅ Filter by groupId (ObjectId)
     assigneeId?: string;
     teamId?: string;
     category?: string;

@@ -12,6 +12,8 @@ export interface Conversation {
     providerConversationId?: string;
     source: string;
     customerId?: string;
+    contactId?: string;
+    groupId?: string;
     contact?: {
         id: string;
         name: string;
@@ -36,6 +38,8 @@ export interface Conversation {
     assignmentType?: string;
     assignedAt?: string;
     assignedBy?: string;
+    agentId?: string;
+    agentStatus?: 'active' | 'inactive' | 'paused';
     provider?: {
         id: string;
         name: string;
@@ -73,21 +77,14 @@ export interface CreateConversationRequest {
     providerConversationId?: string;
     source: string;
     customerId?: string;
-    contact?: {
-        id: string;
-        name: string;
-        picture?: string;
-        phone?: string;
-    };
-    group?: {
-        id: string;
-        name: string;
-        picture?: string;
-    };
+    contactId?: string;
+    groupId?: string;
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;
     teamId?: string;
+    agentId?: string;
+    agentStatus?: 'active' | 'inactive' | 'paused';
     tags?: string[];
     category?: string;
     metadata?: Record<string, any>;
@@ -100,17 +97,8 @@ export interface UpdateConversationRequest {
     closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
     closeNotes?: string;
     customerId?: string;
-    contact?: {
-        id: string;
-        name: string;
-        picture?: string;
-        phone?: string;
-    };
-    group?: {
-        id: string;
-        name: string;
-        picture?: string;
-    };
+    contactId?: string;
+    groupId?: string;
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;

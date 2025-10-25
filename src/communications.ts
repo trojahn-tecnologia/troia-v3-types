@@ -3,6 +3,8 @@
  * Types for email, messaging, and webhook communications
  */
 import { MediaData } from './gateway';
+import { Contact } from './contacts';
+import { Group } from './groups';
 
 export interface EmailData {
   to: string | string[];
@@ -24,7 +26,10 @@ export interface EmailAttachment {
 }
 
 export interface MessageData {
-  to: string;
+  // ✅ Full objects for provider to extract identifiers
+  contact?: Contact;  // Full contact object - provider extracts identifiers[0]
+  group?: Group;      // Full group object - provider uses providerGroupId
+
   message?: string;
   messageId?: string;  // ✅ MongoDB message ID for correlation
   replyToMessageId?: string;  // ✅ ID of message being replied to (for quoted messages)
@@ -47,12 +52,15 @@ export interface MessageData {
     name?: string;
     address?: string;
   };
-  contact?: {
+
+  // ✅ Contact data for sending vCard (not the recipient!)
+  contactData?: {
     name: string;
     phone?: string;
     email?: string;
     vcard?: string;
   };
+
   reaction?: {
     emoji: string;
     targetMessageId: string;

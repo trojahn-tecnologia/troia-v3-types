@@ -3,6 +3,8 @@
  * Types for email, messaging, and webhook communications
  */
 import { MediaData } from './gateway';
+import { Contact } from './contacts';
+import { Group } from './groups';
 export interface EmailData {
     to: string | string[];
     from?: string;
@@ -21,7 +23,8 @@ export interface EmailAttachment {
     encoding?: string;
 }
 export interface MessageData {
-    to: string;
+    contact?: Contact;
+    group?: Group;
     message?: string;
     messageId?: string;
     replyToMessageId?: string;
@@ -39,7 +42,7 @@ export interface MessageData {
         name?: string;
         address?: string;
     };
-    contact?: {
+    contactData?: {
         name: string;
         phone?: string;
         email?: string;
