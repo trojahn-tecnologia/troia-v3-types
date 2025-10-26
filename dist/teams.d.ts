@@ -47,6 +47,11 @@ export interface TeamResourceQuery extends PaginationQuery {
 }
 export interface TeamResponse extends Omit<Team, '_id'> {
     id: string;
+    members?: Array<{
+        id: string;
+        name: string;
+        avatar?: string;
+    }>;
 }
 export interface TeamUserResponse extends Omit<TeamUser, '_id'> {
     id: string;

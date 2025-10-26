@@ -84,6 +84,11 @@ export interface ChannelQuery extends PaginationQuery {
 export type ProviderResponse = Omit<Provider, never>;
 export type ChannelResponse = Omit<Channel, '_id'> & {
     id: string;
+    members?: Array<{
+        id: string;
+        name: string;
+        avatar?: string;
+    }>;
 };
 export interface ProviderListResponse extends ListResponse<ProviderResponse> {
 }
