@@ -1,5 +1,5 @@
 import { AppAwareDocument, ActiveStatus, PaginationQuery, GenericQueryOptions, ListResponse } from './common';
-export type ModuleCategory = 'core' | 'business' | 'integration' | 'analytics';
+export type ModuleCategory = 'core' | 'business' | 'integration' | 'analytics' | 'automation' | 'marketing' | 'communication';
 export type PermissionAction = 'create' | 'read' | 'update' | 'delete' | 'export' | 'import' | 'attend' | 'assign';
 export type PermissionScope = 'all' | 'own' | 'team';
 /**
