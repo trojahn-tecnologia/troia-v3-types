@@ -59,6 +59,8 @@ __exportStar(require("./tickets"), exports);
 __exportStar(require("./conversations"), exports);
 __exportStar(require("./conversation-messages"), exports);
 __exportStar(require("./activities"), exports);
+// Calendar & Scheduling
+__exportStar(require("./calendar"), exports);
 // Group conversation support
 __exportStar(require("./groups"), exports);
 __exportStar(require("./group-participants"), exports);

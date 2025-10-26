@@ -54,6 +54,9 @@ export * from './conversations';
 export * from './conversation-messages';
 export * from './activities';
 
+// Calendar & Scheduling
+export * from './calendar';
+
 // Group conversation support
 export * from './groups';
 export * from './group-participants';
