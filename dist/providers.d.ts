@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 export interface SmtpConfig {
     host: string;
     port: number;
@@ -129,6 +130,7 @@ export declare enum ProviderCapability {
     CALENDAR_SYNC = "calendar_sync",
     CALENDAR_READ = "calendar_read",
     CALENDAR_WRITE = "calendar_write",
+    SYNC_DATA = "sync_data",// ✅ Provider supports data synchronization
     PROCESS_PAYMENT = "process_payment",
     PROCESS_SUBSCRIPTION = "process_subscription",
     TOKENIZE_CARD = "tokenize_card",
@@ -203,6 +205,25 @@ export interface CreateGoogleCalendarIntegrationRequest extends BaseIntegrationR
     credentials?: ProviderCredentials;
 }
 export type CreateProviderIntegrationRequest = CreateSmtpIntegrationRequest | CreateSendGridIntegrationRequest | CreateWhatsAppIntegrationRequest | CreateFacebookMessengerIntegrationRequest | CreateTelegramIntegrationRequest | CreateWebhookIntegrationRequest | CreateGatewayIntegrationRequest | CreateGoogleCalendarIntegrationRequest;
+export interface Provider {
+    _id?: ObjectId;
+    name: string;
+    type: string;
+    category: 'messaging' | 'payment' | 'email' | 'calendar' | 'storage' | 'social';
+    capabilities: ProviderCapability[];
+    syncInterval?: number;
+    isActive: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt?: Date;
+}
+export interface ProviderResponse extends Omit<Provider, '_id' | 'createdAt' | 'updatedAt' | 'deletedAt'> {
+    id: string;
+    syncInterval?: number;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt?: string;
+}
 export interface GenericProviderConfig {
     [key: string]: any;
 }

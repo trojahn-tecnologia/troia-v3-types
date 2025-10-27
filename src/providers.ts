@@ -350,7 +350,7 @@ export interface Provider {
   deletedAt?: Date;
 }
 
-export interface ProviderResponse extends Omit<Provider, '_id'> {
+export interface ProviderResponse extends Omit<Provider, '_id' | 'createdAt' | 'updatedAt' | 'deletedAt'> {
   id: string;
   syncInterval?: number;
   createdAt: string;

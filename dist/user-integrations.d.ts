@@ -51,7 +51,9 @@ export interface UserIntegration extends FullBaseDocument {
      */
     status: 'active' | 'inactive' | 'error' | 'pending' | 'expired';
     /** Última sincronização realizada */
-    lastSync?: Date;
+    lastSyncAt?: Date;
+    /** Override sync interval (in minutes) */
+    syncInterval?: number;
     /** Última mensagem de erro (se status = error) */
     lastError?: string;
 }

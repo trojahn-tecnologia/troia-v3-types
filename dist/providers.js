@@ -70,6 +70,8 @@ var ProviderCapability;
     ProviderCapability["CALENDAR_SYNC"] = "calendar_sync";
     ProviderCapability["CALENDAR_READ"] = "calendar_read";
     ProviderCapability["CALENDAR_WRITE"] = "calendar_write";
+    // Sync capabilities
+    ProviderCapability["SYNC_DATA"] = "sync_data";
     // Payment capabilities
     ProviderCapability["PROCESS_PAYMENT"] = "process_payment";
     ProviderCapability["PROCESS_SUBSCRIPTION"] = "process_subscription";

@@ -11,6 +11,7 @@ export interface CompanyIntegration {
     credentials: IntegrationCredentials;
     status: ExtendedStatus;
     lastSyncAt?: Date;
+    syncInterval?: number;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -38,6 +39,7 @@ export interface CompanyIntegrationResponse {
     resourceType?: string;
     resourceId?: string;
     lastSyncAt?: string;
+    syncInterval?: number;
     lastError?: string;
     instanceKey?: string;
     instanceToken?: string;
@@ -61,6 +63,8 @@ export interface UpdateCompanyIntegrationRequest {
     config?: Partial<IntegrationConfig>;
     credentials?: Partial<IntegrationCredentials>;
     status?: ExtendedStatus;
+    lastSyncAt?: string;
+    syncInterval?: number;
     resourceType?: string;
     resourceId?: string;
     lastError?: string;

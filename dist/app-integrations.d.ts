@@ -19,7 +19,8 @@ export interface AppIntegrationResponse {
     isDefault: boolean;
     capabilities: string[];
     providerName: string;
-    lastSync?: string;
+    lastSyncAt?: string;
+    syncInterval?: number;
     lastError?: string;
     createdAt: string;
     updatedAt: string;
@@ -42,7 +43,8 @@ export interface UpdateAppIntegrationRequest {
     config?: Record<string, any>;
     status?: 'active' | 'inactive' | 'error' | 'pending';
     isDefault?: boolean;
-    lastSync?: string;
+    lastSyncAt?: string;
+    syncInterval?: number;
     lastError?: string;
 }
 export interface TestAppIntegrationRequest {

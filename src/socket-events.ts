@@ -41,6 +41,12 @@ export const SOCKET_EVENTS = {
   // Contact Events
   CONTACT_IDENTIFIERS_SYNCED: 'contact:identifiers:synced',
   CONTACT_SYNC_FAILED: 'contact:sync:failed',
+
+  // Integration Sync Events
+  INTEGRATION_SYNC_STARTED: 'integration:sync-started',
+  INTEGRATION_SYNC_PROGRESS: 'integration:sync-progress',
+  INTEGRATION_SYNC_COMPLETED: 'integration:sync-completed',
+  INTEGRATION_SYNC_FAILED: 'integration:sync-failed',
 } as const;
 
 // Type for event names
@@ -255,6 +261,58 @@ export interface ContactSyncFailedPayload {
   error: string;
 }
 
+/**
+ * Integration Sync Started Event
+ * Server-to-Client: Integration sync process has started
+ */
+export interface IntegrationSyncStartedEvent {
+  integrationId: string;
+  integrationType: 'app' | 'company' | 'user';
+  providerType: string;
+  syncType: 'full' | 'incremental';
+  totalItems?: number; // Estimated total items if available
+  timestamp: string;
+}
+
+/**
+ * Integration Sync Progress Event
+ * Server-to-Client: Progress update during sync
+ */
+export interface IntegrationSyncProgressEvent {
+  integrationId: string;
+  integrationType: 'app' | 'company' | 'user';
+  currentItem: number;
+  totalItems: number;
+  itemType: 'event' | 'contact' | 'email' | 'task'; // Type of item being synced
+  message?: string; // Optional progress message (e.g., "Syncing event: Meeting with John")
+  timestamp: string;
+}
+
+/**
+ * Integration Sync Completed Event
+ * Server-to-Client: Sync process completed successfully
+ */
+export interface IntegrationSyncCompletedEvent {
+  integrationId: string;
+  integrationType: 'app' | 'company' | 'user';
+  itemsSynced: number;
+  duration: number; // Duration in milliseconds
+  success: boolean;
+  timestamp: string;
+}
+
+/**
+ * Integration Sync Failed Event
+ * Server-to-Client: Sync process failed with error
+ */
+export interface IntegrationSyncFailedEvent {
+  integrationId: string;
+  integrationType: 'app' | 'company' | 'user';
+  error: string;
+  itemsProcessed: number;
+  timestamp: string;
+}
+
 // ============================================================================
 // SOCKET EVENT MAP (For Type-Safe Emit/On)
 // ============================================================================
@@ -287,6 +345,12 @@ export interface SocketEventMap {
   // Contact Events
   [SOCKET_EVENTS.CONTACT_IDENTIFIERS_SYNCED]: ContactIdentifiersSyncedPayload;
   [SOCKET_EVENTS.CONTACT_SYNC_FAILED]: ContactSyncFailedPayload;
+
+  // Integration Sync Events
+  [SOCKET_EVENTS.INTEGRATION_SYNC_STARTED]: IntegrationSyncStartedEvent;
+  [SOCKET_EVENTS.INTEGRATION_SYNC_PROGRESS]: IntegrationSyncProgressEvent;
+  [SOCKET_EVENTS.INTEGRATION_SYNC_COMPLETED]: IntegrationSyncCompletedEvent;
+  [SOCKET_EVENTS.INTEGRATION_SYNC_FAILED]: IntegrationSyncFailedEvent;
 }
 
 // ============================================================================

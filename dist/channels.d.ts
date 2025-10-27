@@ -55,7 +55,7 @@ export interface ChannelLotteryConfig extends CoreLotteryConfig {
         fallbackToRandom: boolean;
     };
 }
-export interface Provider {
+export interface ChannelProvider {
     name: string;
     categories: string[];
     capabilities: string[];
@@ -81,7 +81,7 @@ export interface ChannelQuery extends PaginationQuery {
     identifier?: string;
     status?: ExtendedStatus;
 }
-export type ProviderResponse = Omit<Provider, never>;
+export type ChannelProviderResponse = Omit<ChannelProvider, never>;
 export type ChannelResponse = Omit<Channel, '_id'> & {
     id: string;
     members?: Array<{
@@ -90,7 +90,7 @@ export type ChannelResponse = Omit<Channel, '_id'> & {
         avatar?: string;
     }>;
 };
-export interface ProviderListResponse extends ListResponse<ProviderResponse> {
+export interface ChannelProviderListResponse extends ListResponse<ChannelProviderResponse> {
 }
 export interface ChannelListResponse extends ListResponse<ChannelResponse> {
 }

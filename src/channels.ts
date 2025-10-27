@@ -77,10 +77,10 @@ export interface ChannelLotteryConfig extends CoreLotteryConfig {
 }
 
 // ============================================================================
-// PROVIDER TYPES (CompanyIntegration defined in company-integrations.ts)
+// CHANNEL PROVIDER TYPES (CompanyIntegration defined in company-integrations.ts)
 // ============================================================================
 
-export interface Provider {
+export interface ChannelProvider {
   name: string;
   categories: string[];
   capabilities: string[];
@@ -116,14 +116,14 @@ export interface ChannelQuery extends PaginationQuery {
 }
 
 // Response Types
-export type ProviderResponse = Omit<Provider, never>;
+export type ChannelProviderResponse = Omit<ChannelProvider, never>;
 export type ChannelResponse = Omit<Channel, '_id'> & {
   id: string;
   members?: Array<{ id: string; name: string; avatar?: string }>;
 };
 
 // List Response Types
-export interface ProviderListResponse extends ListResponse<ProviderResponse> {}
+export interface ChannelProviderListResponse extends ListResponse<ChannelProviderResponse> {}
 export interface ChannelListResponse extends ListResponse<ChannelResponse> {}
 
 // Query Options Types
