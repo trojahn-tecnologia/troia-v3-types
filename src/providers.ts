@@ -82,6 +82,12 @@ export interface GatewayConfig {
   timeout?: number;             // Timeout para requests (padrão: 10000ms)
 }
 
+export interface GoogleCalendarConfig {
+  clientId: string;
+  clientSecret: string;
+  redirectUri?: string;         // OAuth redirect URI (auto-generated if not provided)
+}
+
 
 // ============================================================================
 // UNION TYPE FOR ALL PROVIDER CONFIGS
@@ -99,7 +105,8 @@ export type ProviderConfig =
   | LinkedInConfig
   | TikTokConfig
   | GmailConfig
-  | GatewayConfig;
+  | GatewayConfig
+  | GoogleCalendarConfig;
 
 // ============================================================================
 // PROVIDER CREDENTIALS (OAuth tokens, etc.)
@@ -154,6 +161,11 @@ export enum ProviderId {
   PAYMENT_PAYPAL = 'payment-paypal',
   PAYMENT_MERCADOPAGO = 'payment-mercadopago',
 
+  // Calendar Providers
+  GOOGLE_CALENDAR = 'google-calendar',
+  OUTLOOK_CALENDAR = 'outlook-calendar',
+  ICLOUD_CALENDAR = 'icloud-calendar',
+
   // Web/API Providers
   WEBSITE_CHAT = 'website-chat',
   WEBSITE_WIDGET = 'website-widget',
@@ -192,6 +204,11 @@ export enum ProviderCapability {
   TRACK_OPENS = 'track_opens',
   TRACK_CLICKS = 'track_clicks',
   SCHEDULE_MESSAGE = 'schedule_message',
+
+  // Calendar capabilities
+  CALENDAR_SYNC = 'calendar_sync',
+  CALENDAR_READ = 'calendar_read',
+  CALENDAR_WRITE = 'calendar_write',
 
   // Payment capabilities
   PROCESS_PAYMENT = 'process_payment',
@@ -293,6 +310,12 @@ export interface CreateGatewayIntegrationRequest extends BaseIntegrationRequest 
   credentials?: ProviderCredentials;
 }
 
+export interface CreateGoogleCalendarIntegrationRequest extends BaseIntegrationRequest {
+  providerId: ProviderId.GOOGLE_CALENDAR;
+  config: GoogleCalendarConfig;
+  credentials?: ProviderCredentials;
+}
+
 // ============================================================================
 // UNION TYPE FOR TYPED INTEGRATION REQUESTS
 // ============================================================================
@@ -304,7 +327,8 @@ export type CreateProviderIntegrationRequest =
   | CreateFacebookMessengerIntegrationRequest
   | CreateTelegramIntegrationRequest
   | CreateWebhookIntegrationRequest
-  | CreateGatewayIntegrationRequest;
+  | CreateGatewayIntegrationRequest
+  | CreateGoogleCalendarIntegrationRequest;
 
 // ============================================================================
 // LEGACY GENERIC CONFIG (For non-typed providers)
