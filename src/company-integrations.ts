@@ -31,6 +31,7 @@ export interface CompanyIntegration {
   credentials: IntegrationCredentials;
   status: ExtendedStatus;
   lastSyncAt?: Date;
+  syncInterval?: number;          // ✅ Override sync interval (in minutes)
   createdAt: Date;
   updatedAt: Date;
 }
@@ -69,6 +70,7 @@ export interface CompanyIntegrationResponse {
   resourceType?: string;    // Resource type ('channel', 'service', etc.)
   resourceId?: string;      // Resource ID (channel ID, service ID, etc.)
   lastSyncAt?: string;
+  syncInterval?: number;    // ✅ Override sync interval (in minutes)
   lastError?: string;
 
   // Instance management fields (for providers like Gateway)
@@ -107,6 +109,8 @@ export interface UpdateCompanyIntegrationRequest {
   config?: Partial<IntegrationConfig>;
   credentials?: Partial<IntegrationCredentials>;
   status?: ExtendedStatus;
+  lastSyncAt?: string;        // ✅ ISO 8601 timestamp
+  syncInterval?: number;      // ✅ Override sync interval (in minutes)
   resourceType?: string;      // Resource type ('channel', 'service', etc.)
   resourceId?: string;        // Resource ID (channel ID, service ID, etc.)
   lastError?: string;

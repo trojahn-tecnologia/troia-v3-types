@@ -210,6 +210,9 @@ export enum ProviderCapability {
   CALENDAR_READ = 'calendar_read',
   CALENDAR_WRITE = 'calendar_write',
 
+  // Sync capabilities
+  SYNC_DATA = 'sync_data',          // ✅ Provider supports data synchronization
+
   // Payment capabilities
   PROCESS_PAYMENT = 'process_payment',
   PROCESS_SUBSCRIPTION = 'process_subscription',
@@ -329,6 +332,31 @@ export type CreateProviderIntegrationRequest =
   | CreateWebhookIntegrationRequest
   | CreateGatewayIntegrationRequest
   | CreateGoogleCalendarIntegrationRequest;
+
+// ============================================================================
+// PROVIDER ENTITY (Database schema)
+// ============================================================================
+
+export interface Provider {
+  _id?: ObjectId;
+  name: string;                     // Ex: "Google Calendar", "Outlook Calendar"
+  type: string;                     // Ex: "google_calendar", "outlook_calendar"
+  category: 'messaging' | 'payment' | 'email' | 'calendar' | 'storage' | 'social';
+  capabilities: ProviderCapability[];
+  syncInterval?: number;            // ✅ Sync interval in minutes (for SYNC_DATA capability)
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date;
+}
+
+export interface ProviderResponse extends Omit<Provider, '_id'> {
+  id: string;
+  syncInterval?: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
+}
 
 // ============================================================================
 // LEGACY GENERIC CONFIG (For non-typed providers)

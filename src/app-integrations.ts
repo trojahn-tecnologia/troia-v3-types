@@ -24,7 +24,8 @@ export interface AppIntegrationResponse {
   isDefault: boolean;
   capabilities: string[];
   providerName: string;
-  lastSync?: string;
+  lastSyncAt?: string;            // ✅ ISO 8601 timestamp of last sync
+  syncInterval?: number;          // ✅ Override sync interval (in minutes)
   lastError?: string;
   createdAt: string;
   updatedAt: string;
@@ -55,7 +56,8 @@ export interface UpdateAppIntegrationRequest {
   config?: Record<string, any>;
   status?: 'active' | 'inactive' | 'error' | 'pending';
   isDefault?: boolean;
-  lastSync?: string;
+  lastSyncAt?: string;            // ✅ ISO 8601 timestamp
+  syncInterval?: number;          // ✅ Override sync interval (in minutes)
   lastError?: string;
 }
 

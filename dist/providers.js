@@ -28,6 +28,10 @@ var ProviderId;
     ProviderId["PAYMENT_STRIPE"] = "payment-stripe";
     ProviderId["PAYMENT_PAYPAL"] = "payment-paypal";
     ProviderId["PAYMENT_MERCADOPAGO"] = "payment-mercadopago";
+    // Calendar Providers
+    ProviderId["GOOGLE_CALENDAR"] = "google-calendar";
+    ProviderId["OUTLOOK_CALENDAR"] = "outlook-calendar";
+    ProviderId["ICLOUD_CALENDAR"] = "icloud-calendar";
     // Web/API Providers
     ProviderId["WEBSITE_CHAT"] = "website-chat";
     ProviderId["WEBSITE_WIDGET"] = "website-widget";
@@ -62,6 +66,10 @@ var ProviderCapability;
     ProviderCapability["TRACK_OPENS"] = "track_opens";
     ProviderCapability["TRACK_CLICKS"] = "track_clicks";
     ProviderCapability["SCHEDULE_MESSAGE"] = "schedule_message";
+    // Calendar capabilities
+    ProviderCapability["CALENDAR_SYNC"] = "calendar_sync";
+    ProviderCapability["CALENDAR_READ"] = "calendar_read";
+    ProviderCapability["CALENDAR_WRITE"] = "calendar_write";
     // Payment capabilities
     ProviderCapability["PROCESS_PAYMENT"] = "process_payment";
     ProviderCapability["PROCESS_SUBSCRIPTION"] = "process_subscription";

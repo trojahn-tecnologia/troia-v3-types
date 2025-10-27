@@ -63,7 +63,12 @@ export interface GatewayConfig {
     webhookPath?: string;
     timeout?: number;
 }
-export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig;
+export interface GoogleCalendarConfig {
+    clientId: string;
+    clientSecret: string;
+    redirectUri?: string;
+}
+export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig;
 export interface ProviderCredentials {
     accessToken?: string;
     refreshToken?: string;
@@ -93,6 +98,9 @@ export declare enum ProviderId {
     PAYMENT_STRIPE = "payment-stripe",
     PAYMENT_PAYPAL = "payment-paypal",
     PAYMENT_MERCADOPAGO = "payment-mercadopago",
+    GOOGLE_CALENDAR = "google-calendar",
+    OUTLOOK_CALENDAR = "outlook-calendar",
+    ICLOUD_CALENDAR = "icloud-calendar",
     WEBSITE_CHAT = "website-chat",
     WEBSITE_WIDGET = "website-widget",
     API_WEBHOOK = "api-webhook"
@@ -118,6 +126,9 @@ export declare enum ProviderCapability {
     TRACK_OPENS = "track_opens",
     TRACK_CLICKS = "track_clicks",
     SCHEDULE_MESSAGE = "schedule_message",
+    CALENDAR_SYNC = "calendar_sync",
+    CALENDAR_READ = "calendar_read",
+    CALENDAR_WRITE = "calendar_write",
     PROCESS_PAYMENT = "process_payment",
     PROCESS_SUBSCRIPTION = "process_subscription",
     TOKENIZE_CARD = "tokenize_card",
@@ -186,7 +197,12 @@ export interface CreateGatewayIntegrationRequest extends BaseIntegrationRequest 
     config: GatewayConfig;
     credentials?: ProviderCredentials;
 }
-export type CreateProviderIntegrationRequest = CreateSmtpIntegrationRequest | CreateSendGridIntegrationRequest | CreateWhatsAppIntegrationRequest | CreateFacebookMessengerIntegrationRequest | CreateTelegramIntegrationRequest | CreateWebhookIntegrationRequest | CreateGatewayIntegrationRequest;
+export interface CreateGoogleCalendarIntegrationRequest extends BaseIntegrationRequest {
+    providerId: ProviderId.GOOGLE_CALENDAR;
+    config: GoogleCalendarConfig;
+    credentials?: ProviderCredentials;
+}
+export type CreateProviderIntegrationRequest = CreateSmtpIntegrationRequest | CreateSendGridIntegrationRequest | CreateWhatsAppIntegrationRequest | CreateFacebookMessengerIntegrationRequest | CreateTelegramIntegrationRequest | CreateWebhookIntegrationRequest | CreateGatewayIntegrationRequest | CreateGoogleCalendarIntegrationRequest;
 export interface GenericProviderConfig {
     [key: string]: any;
 }
