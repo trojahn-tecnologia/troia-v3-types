@@ -25,6 +25,10 @@ export declare const SOCKET_EVENTS: {
     readonly ASSIGNMENT_COMPLETED: "assignment:completed";
     readonly CONTACT_IDENTIFIERS_SYNCED: "contact:identifiers:synced";
     readonly CONTACT_SYNC_FAILED: "contact:sync:failed";
+    readonly INTEGRATION_SYNC_STARTED: "integration:sync-started";
+    readonly INTEGRATION_SYNC_PROGRESS: "integration:sync-progress";
+    readonly INTEGRATION_SYNC_COMPLETED: "integration:sync-completed";
+    readonly INTEGRATION_SYNC_FAILED: "integration:sync-failed";
 };
 export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 /**
@@ -208,6 +212,54 @@ export interface ContactSyncFailedPayload {
     contactId: string;
     error: string;
 }
+/**
+ * Integration Sync Started Event
+ * Server-to-Client: Integration sync process has started
+ */
+export interface IntegrationSyncStartedEvent {
+    integrationId: string;
+    integrationType: 'app' | 'company' | 'user';
+    providerType: string;
+    syncType: 'full' | 'incremental';
+    totalItems?: number;
+    timestamp: string;
+}
+/**
+ * Integration Sync Progress Event
+ * Server-to-Client: Progress update during sync
+ */
+export interface IntegrationSyncProgressEvent {
+    integrationId: string;
+    integrationType: 'app' | 'company' | 'user';
+    currentItem: number;
+    totalItems: number;
+    itemType: 'event' | 'contact' | 'email' | 'task';
+    message?: string;
+    timestamp: string;
+}
+/**
+ * Integration Sync Completed Event
+ * Server-to-Client: Sync process completed successfully
+ */
+export interface IntegrationSyncCompletedEvent {
+    integrationId: string;
+    integrationType: 'app' | 'company' | 'user';
+    itemsSynced: number;
+    duration: number;
+    success: boolean;
+    timestamp: string;
+}
+/**
+ * Integration Sync Failed Event
+ * Server-to-Client: Sync process failed with error
+ */
+export interface IntegrationSyncFailedEvent {
+    integrationId: string;
+    integrationType: 'app' | 'company' | 'user';
+    error: string;
+    itemsProcessed: number;
+    timestamp: string;
+}
 export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_MESSAGE]: ConversationMessageEvent;
     [SOCKET_EVENTS.CONVERSATION_UPDATED]: ConversationUpdatedEvent;
@@ -225,6 +277,10 @@ export interface SocketEventMap {
     [SOCKET_EVENTS.ASSIGNMENT_UPDATED]: AssignmentUpdatedEvent;
     [SOCKET_EVENTS.CONTACT_IDENTIFIERS_SYNCED]: ContactIdentifiersSyncedPayload;
     [SOCKET_EVENTS.CONTACT_SYNC_FAILED]: ContactSyncFailedPayload;
+    [SOCKET_EVENTS.INTEGRATION_SYNC_STARTED]: IntegrationSyncStartedEvent;
+    [SOCKET_EVENTS.INTEGRATION_SYNC_PROGRESS]: IntegrationSyncProgressEvent;
+    [SOCKET_EVENTS.INTEGRATION_SYNC_COMPLETED]: IntegrationSyncCompletedEvent;
+    [SOCKET_EVENTS.INTEGRATION_SYNC_FAILED]: IntegrationSyncFailedEvent;
 }
 export declare const SOCKET_ROOMS: {
     /**

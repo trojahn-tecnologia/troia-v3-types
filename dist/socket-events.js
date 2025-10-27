@@ -37,6 +37,11 @@ exports.SOCKET_EVENTS = {
     // Contact Events
     CONTACT_IDENTIFIERS_SYNCED: 'contact:identifiers:synced',
     CONTACT_SYNC_FAILED: 'contact:sync:failed',
+    // Integration Sync Events
+    INTEGRATION_SYNC_STARTED: 'integration:sync-started',
+    INTEGRATION_SYNC_PROGRESS: 'integration:sync-progress',
+    INTEGRATION_SYNC_COMPLETED: 'integration:sync-completed',
+    INTEGRATION_SYNC_FAILED: 'integration:sync-failed',
 };
 // ============================================================================
 // ROOM PATTERNS
