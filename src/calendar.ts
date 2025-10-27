@@ -125,10 +125,15 @@ export interface CreateCalendarEventRequest {
     link?: string;
   };
 
-  // Providers to sync (optional on creation)
-  syncToProviders?: Array<{
+  // MULTI-PROVIDER SYNC (same as CalendarEvent)
+  providerSync?: Array<{
     integrationId: string;
     providerId: string;
+    providerEventId?: string;         // Optional (filled after creating in provider)
+    syncStatus: 'pending' | 'synced' | 'failed';
+    lastSyncAt?: string;              // ISO 8601
+    syncError?: string;
+    metadata?: Record<string, any>;
   }>;
 }
 
