@@ -58,17 +58,31 @@ export interface UserIntegration extends FullBaseDocument {
    * - inactive: Desativada pelo usuário
    * - error: Erro na integração (ex: token expirado)
    * - expired: Token expirado, precisa re-autorizar
+   * - auth_failed: Falha de autenticação OAuth (401/token revoked)
+   * - disconnected: Desconectada manualmente pelo usuário
    */
-  status: 'active' | 'inactive' | 'error' | 'pending' | 'expired';
+  status: 'active' | 'inactive' | 'error' | 'pending' | 'expired' | 'auth_failed' | 'disconnected';
 
   /** Última sincronização realizada */
   lastSyncAt?: Date;
+
+  /** Última tentativa de sincronização (mesmo que falhe) */
+  lastSyncAttemptAt?: Date;
+
+  /** Contador de tentativas de sync falhas consecutivas */
+  failedSyncAttempts?: number;
 
   /** Override sync interval (in minutes) */
   syncInterval?: number;
 
   /** Última mensagem de erro (se status = error) */
   lastError?: string;
+
+  /** Data em que a autenticação falhou (se status = auth_failed) */
+  authFailedAt?: Date;
+
+  /** Razão da falha de autenticação */
+  authFailureReason?: string;
 }
 
 /**
@@ -102,7 +116,7 @@ export interface UserIntegrationQuery {
   providerId?: string;
 
   /** Filtrar por status */
-  status?: 'active' | 'inactive' | 'error' | 'pending' | 'expired';
+  status?: 'active' | 'inactive' | 'error' | 'pending' | 'expired' | 'auth_failed' | 'disconnected';
 }
 
 /**
@@ -161,3 +175,36 @@ export interface OAuthTokens {
   /** Scopes autorizados */
   scope: string;
 }
+
+/**
+ * Provider Auth Error - Erro de autenticação do provider
+ * Utilizado para comunicar falhas de OAuth entre provider e módulo
+ */
+export interface ProviderAuthError {
+  /** HTTP status code (geralmente 401) */
+  code: number;
+
+  /** Status textual (ex: UNAUTHENTICATED) */
+  status: string;
+
+  /** Mensagem de erro detalhada */
+  message: string;
+
+  /** Timestamp do erro */
+  timestamp: Date;
+
+  /** Dados adicionais do erro (opcional) */
+  details?: Record<string, any>;
+}
+
+/**
+ * Auth Error Callback - Função de callback para falhas de autenticação
+ * Provider chama este callback quando detecta erro 401/token revoked
+ *
+ * @param integrationId - ID da user-integration afetada
+ * @param error - Detalhes do erro de autenticação
+ */
+export type AuthErrorCallback = (
+  integrationId: string,
+  error: ProviderAuthError
+) => Promise<void>;
