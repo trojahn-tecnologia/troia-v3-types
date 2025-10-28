@@ -259,7 +259,10 @@ export enum ProviderCapability {
   MANAGE_PAGE = 'manage_page',
 
   // Account management
-  MANAGE_ACCOUNT = 'manage_account'
+  MANAGE_ACCOUNT = 'manage_account',
+
+  // AI Capabilities
+  GENERATE_EMBEDDING = 'generate_embedding'
 }
 
 // ============================================================================

@@ -18,7 +18,7 @@ export interface CalendarEvent extends FullBaseDocument {
   summary: string;                   // Event title
   description?: string;              // Detailed description
   location?: string;                 // Physical or virtual location
-  colorId?: string;                  // Event color (ID)
+  colorId?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';  // Google Calendar color ID
 
   // Timing - Supports timed events OR all-day events
   startTime: string;                 // ISO 8601 dateTime OR date (YYYY-MM-DD)
@@ -94,7 +94,7 @@ export interface CreateCalendarEventRequest {
   summary: string;
   description?: string;
   location?: string;
-  colorId?: string;
+  colorId?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';  // Google Calendar color ID
   startTime: string;
   endTime: string;
   timeZone?: string;

@@ -13,7 +13,7 @@ export interface CalendarEvent extends FullBaseDocument {
     summary: string;
     description?: string;
     location?: string;
-    colorId?: string;
+    colorId?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';
     startTime: string;
     endTime: string;
     timeZone: string;
@@ -71,7 +71,7 @@ export interface CreateCalendarEventRequest {
     summary: string;
     description?: string;
     location?: string;
-    colorId?: string;
+    colorId?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';
     startTime: string;
     endTime: string;
     timeZone?: string;
@@ -97,9 +97,14 @@ export interface CreateCalendarEventRequest {
         provider: 'google_meet' | 'zoom' | 'teams' | 'custom';
         link?: string;
     };
-    syncToProviders?: Array<{
+    providerSync?: Array<{
         integrationId: string;
         providerId: string;
+        providerEventId?: string;
+        syncStatus: 'pending' | 'synced' | 'failed';
+        lastSyncAt?: string;
+        syncError?: string;
+        metadata?: Record<string, any>;
     }>;
 }
 /**

@@ -25,6 +25,7 @@ export * from './email-templates';
 // Provider system (shared between app & company integrations)
 export * from './providers';
 export * from './gateway';
+export * from './ai';
 
 // Queue system (shared between Backend & Gateway)
 export * from './queue-jobs';
