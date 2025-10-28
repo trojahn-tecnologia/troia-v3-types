@@ -79,6 +79,7 @@ export interface CreateCalendarEventRequest {
     recurrence?: string[];
     transparency?: 'opaque' | 'transparent';
     visibility?: 'default' | 'public' | 'private' | 'confidential';
+    status?: 'confirmed' | 'tentative' | 'cancelled';
     attendees?: Array<{
         contactId?: string;
         userId?: string;

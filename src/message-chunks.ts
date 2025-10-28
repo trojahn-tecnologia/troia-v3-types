@@ -94,3 +94,55 @@ export interface SemanticSearchQuery {
   minScore?: number;                // Score mínimo para retornar (padrão: 0.7)
   conversationId?: string;          // Filtrar por conversa específica
 }
+
+/**
+ * TEMPORAL CHUNKING - Agregação de mensagens por tempo/sender
+ * Diferente de MessageChunk (que divide mensagens longas)
+ */
+
+/**
+ * TemporalChunk - Agrupamento temporal de mensagens para RAG
+ */
+export interface TemporalChunk {
+  _id?: ObjectId;
+  text: string;                     // Texto agregado de múltiplas mensagens
+  messageIds: ObjectId[];           // IDs das mensagens agregadas
+  messageCount: number;             // Quantidade de mensagens no chunk
+  conversationId: ObjectId;         // Conversa original
+  
+  // Sender info
+  sender: {
+    id: string;
+    type: 'agent' | 'customer';
+  };
+  
+  // Temporal boundaries
+  startTimestamp: Date;             // Primeira mensagem do chunk
+  endTimestamp: Date;               // Última mensagem do chunk
+  
+  // Embedding (gerado quando >= 50 palavras)
+  embedding?: number[];             // Array de 1536 números (OpenAI text-embedding-3-small)
+  
+  // Multi-tenant
+  appId: ObjectId;
+  companyId: ObjectId;
+  
+  // Timestamps
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+/**
+ * Response type para API (Temporal Chunks)
+ */
+export interface TemporalChunkResponse extends Omit<TemporalChunk, '_id' | 'messageIds' | 'conversationId' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'startTimestamp' | 'endTimestamp'> {
+  id: string;
+  messageIds: string[];
+  conversationId: string;
+  appId: string;
+  companyId: string;
+  startTimestamp: string;
+  endTimestamp: string;
+  createdAt: string;
+  updatedAt: string;
+}

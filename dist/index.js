@@ -65,3 +65,5 @@ __exportStar(require("./calendar"), exports);
 // Group conversation support
 __exportStar(require("./groups"), exports);
 __exportStar(require("./group-participants"), exports);
+// RAG/Vector Search support
+__exportStar(require("./message-chunks"), exports);
