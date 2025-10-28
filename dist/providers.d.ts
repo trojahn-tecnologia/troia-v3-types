@@ -158,7 +158,8 @@ export declare enum ProviderCapability {
     TRACK_OPEN = "track_open",
     CREATE_BOT = "create_bot",
     MANAGE_PAGE = "manage_page",
-    MANAGE_ACCOUNT = "manage_account"
+    MANAGE_ACCOUNT = "manage_account",
+    GENERATE_EMBEDDING = "generate_embedding"
 }
 export interface BaseIntegrationRequest {
     name: string;

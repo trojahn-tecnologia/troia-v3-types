@@ -110,4 +110,6 @@ var ProviderCapability;
     ProviderCapability["MANAGE_PAGE"] = "manage_page";
     // Account management
     ProviderCapability["MANAGE_ACCOUNT"] = "manage_account";
+    // AI Capabilities
+    ProviderCapability["GENERATE_EMBEDDING"] = "generate_embedding";
 })(ProviderCapability || (exports.ProviderCapability = ProviderCapability = {}));

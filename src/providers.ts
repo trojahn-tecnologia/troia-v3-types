@@ -169,7 +169,10 @@ export enum ProviderId {
   // Web/API Providers
   WEBSITE_CHAT = 'website-chat',
   WEBSITE_WIDGET = 'website-widget',
-  API_WEBHOOK = 'api-webhook'
+  API_WEBHOOK = 'api-webhook',
+
+  // AI Providers
+  AI_OPENAI = 'ai-openai'
 }
 
 // ============================================================================

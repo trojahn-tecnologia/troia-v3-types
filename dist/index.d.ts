@@ -18,6 +18,7 @@ export * from './user-integrations';
 export * from './email-templates';
 export * from './providers';
 export * from './gateway';
+export * from './ai';
 export * from './queue-jobs';
 export * from './validation';
 export * from './communications';
