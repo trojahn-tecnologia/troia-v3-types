@@ -36,6 +36,8 @@ var ProviderId;
     ProviderId["WEBSITE_CHAT"] = "website-chat";
     ProviderId["WEBSITE_WIDGET"] = "website-widget";
     ProviderId["API_WEBHOOK"] = "api-webhook";
+    // AI Providers
+    ProviderId["AI_OPENAI"] = "ai-openai";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
 // PROVIDER CAPABILITIES (Centralized)

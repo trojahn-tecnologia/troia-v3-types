@@ -120,9 +120,15 @@ export interface CreateCalendarEventRequest {
     }>;
   };
 
+  // Conference/Video Call Creation (ONLY on create)
+  createConference?: boolean;          // If true, create video conference link
+  conferenceProviderId?: string;       // Integration ID to use for creating conference
+
+  // Conference Data (readonly - populated by provider)
   conferenceData?: {
     provider: 'google_meet' | 'zoom' | 'teams' | 'custom';
     link?: string;
+    meetingId?: string;
   };
 
   // MULTI-PROVIDER SYNC (same as CalendarEvent)
@@ -139,8 +145,9 @@ export interface CreateCalendarEventRequest {
 
 /**
  * Update Calendar Event Request
+ * ⚠️ conferenceData, createConference, conferenceProviderId are NOT editable (only on create)
  */
-export interface UpdateCalendarEventRequest extends Partial<CreateCalendarEventRequest> {
+export interface UpdateCalendarEventRequest extends Omit<Partial<CreateCalendarEventRequest>, 'conferenceData' | 'createConference' | 'conferenceProviderId'> {
   status?: 'confirmed' | 'tentative' | 'cancelled';
 }
 

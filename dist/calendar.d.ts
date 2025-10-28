@@ -93,9 +93,12 @@ export interface CreateCalendarEventRequest {
             minutes: number;
         }>;
     };
+    createConference?: boolean;
+    conferenceProviderId?: string;
     conferenceData?: {
         provider: 'google_meet' | 'zoom' | 'teams' | 'custom';
         link?: string;
+        meetingId?: string;
     };
     providerSync?: Array<{
         integrationId: string;
@@ -109,8 +112,9 @@ export interface CreateCalendarEventRequest {
 }
 /**
  * Update Calendar Event Request
+ * ⚠️ conferenceData, createConference, conferenceProviderId are NOT editable (only on create)
  */
-export interface UpdateCalendarEventRequest extends Partial<CreateCalendarEventRequest> {
+export interface UpdateCalendarEventRequest extends Omit<Partial<CreateCalendarEventRequest>, 'conferenceData' | 'createConference' | 'conferenceProviderId'> {
     status?: 'confirmed' | 'tentative' | 'cancelled';
 }
 /**

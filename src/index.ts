@@ -61,3 +61,6 @@ export * from './calendar';
 // Group conversation support
 export * from './groups';
 export * from './group-participants';
+
+// RAG/Vector Search support
+export * from './message-chunks';

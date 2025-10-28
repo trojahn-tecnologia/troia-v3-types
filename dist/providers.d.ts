@@ -104,7 +104,8 @@ export declare enum ProviderId {
     ICLOUD_CALENDAR = "icloud-calendar",
     WEBSITE_CHAT = "website-chat",
     WEBSITE_WIDGET = "website-widget",
-    API_WEBHOOK = "api-webhook"
+    API_WEBHOOK = "api-webhook",
+    AI_OPENAI = "ai-openai"
 }
 export declare enum ProviderCapability {
     SEND_EMAIL = "send_email",
