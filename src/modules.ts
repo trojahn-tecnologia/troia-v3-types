@@ -59,7 +59,8 @@ export type ValidModuleId =
   | 'shifts'
   | 'services'
   | 'email-templates'
-  | 'saved-cards';
+  | 'saved-cards'
+  | 'agents';
 
 export interface Module extends AppAwareDocument {
   name: string; // "users", "crm", "teams", "chat", "reports"

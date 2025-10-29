@@ -68,3 +68,8 @@ export * from './message-chunks';
 // Marketing modules
 export * from './templates';
 export * from './campaigns';
+
+// AI Agents modules (Phase 1)
+export * from './ai-agents';
+export * from './escalation-rules';
+export * from './custom-actions';
