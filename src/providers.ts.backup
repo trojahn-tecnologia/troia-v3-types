@@ -37,7 +37,6 @@ export interface TelegramConfig {
 }
 
 export interface TwilioSmsConfig {
-  accountSid: string;          // ✅ Twilio Account SID
   authToken: string;
   fromNumber: string;
 }
@@ -89,19 +88,6 @@ export interface GoogleCalendarConfig {
   redirectUri?: string;         // OAuth redirect URI (auto-generated if not provided)
 }
 
-export interface FirebaseConfig {
-  projectId: string;
-  privateKey: string;
-  clientEmail: string;
-  databaseUrl?: string;
-}
-
-export interface OneSignalConfig {
-  appId: string;
-  apiKey: string;
-  userAuthKey?: string;
-}
-
 
 // ============================================================================
 // UNION TYPE FOR ALL PROVIDER CONFIGS
@@ -120,9 +106,7 @@ export type ProviderConfig =
   | TikTokConfig
   | GmailConfig
   | GatewayConfig
-  | GoogleCalendarConfig
-  | FirebaseConfig
-  | OneSignalConfig;
+  | GoogleCalendarConfig;
 
 // ============================================================================
 // PROVIDER CREDENTIALS (OAuth tokens, etc.)
@@ -163,8 +147,6 @@ export enum ProviderId {
   INSTAGRAM_DIRECT = 'instagram-direct',
   TELEGRAM_BOT = 'telegram-bot',
   SMS_TWILIO = 'sms-twilio',
-  PUSH_FIREBASE = 'push-firebase',
-  PUSH_ONESIGNAL = 'push-onesignal',
   GATEWAY_WHATSAPP = 'gateway-whatsapp',
 
   // Social Media Providers
@@ -213,10 +195,6 @@ export enum ProviderCapability {
   SEND_REACTION = 'send_reaction',
   SEND_ATTACHMENT = 'send_attachment',
   RECEIVE_ATTACHMENT = 'receive_attachment',
-
-  // Notification capabilities
-  SEND_SMS = 'send_sms',
-  SEND_PUSH = 'send_push',
 
   // Social media capabilities
   CREATE_POST = 'create_post',

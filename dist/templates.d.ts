@@ -198,7 +198,6 @@ export interface TemplateResponse extends Omit<Template, '_id' | 'appId' | 'comp
 export interface CreateTemplateRequest {
     name: string;
     description?: string;
-    providerId: string;
     channelId: string;
     providerConfig: TemplateProviderConfig;
     variables: TemplateVariable[];
