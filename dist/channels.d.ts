@@ -98,7 +98,7 @@ export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 
     }>;
     config?: Record<string, any>;
     qrCode?: string;
-    qrCodeExpires?: string;
+    qrCodeExpires?: number;
 };
 export interface ChannelProviderListResponse extends ListResponse<ChannelProviderResponse> {
 }

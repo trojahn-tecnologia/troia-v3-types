@@ -74,7 +74,7 @@ export interface ChannelDeliveryStatus {
 /**
  * Entidade de notificação (Database schema)
  */
-export interface Notification {
+export interface SystemNotification {
     _id?: ObjectId;
     appId: ObjectId;
     companyId: ObjectId;
@@ -111,12 +111,12 @@ export interface CreateNotificationRequest {
     channels?: NotificationChannel[];
     actionUrl?: string;
     actionLabel?: string;
-    expiresAt?: Date;
+    expiresAt?: string;
 }
 /**
  * Response de notificação (API)
  */
-export interface NotificationResponse extends Omit<Notification, '_id' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'readAt' | 'archivedAt' | 'expiresAt'> {
+export interface NotificationResponse extends Omit<SystemNotification, '_id' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'readAt' | 'archivedAt' | 'expiresAt'> {
     id: string;
     appId: string;
     companyId: string;
@@ -153,7 +153,7 @@ export interface NotificationQuery {
 /**
  * Request para marcar notificação como lida
  */
-export interface MarkAsReadRequest {
+export interface MarkNotificationsAsReadRequest {
     notificationIds: string[];
 }
 /**

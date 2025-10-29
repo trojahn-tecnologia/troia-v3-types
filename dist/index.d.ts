@@ -33,6 +33,7 @@ export * from './tickets';
 export * from './conversations';
 export * from './conversation-messages';
 export * from './activities';
+export * from './notifications';
 export * from './calendar';
 export * from './groups';
 export * from './group-participants';

@@ -129,7 +129,7 @@ export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 
   members?: Array<{ id: string; name: string; avatar?: string }>;
   config?: Record<string, any>;  // Widget configuration (optional, for website-widget provider)
   qrCode?: string;            // QR Code for gateway providers
-  qrCodeExpires?: string;     // QR Code expiration
+  qrCodeExpires?: number;     // QR Code expiration timestamp (Unix timestamp in seconds)
 };
 
 

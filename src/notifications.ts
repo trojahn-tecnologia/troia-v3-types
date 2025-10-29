@@ -103,7 +103,7 @@ export interface ChannelDeliveryStatus {
 /**
  * Entidade de notificação (Database schema)
  */
-export interface Notification {
+export interface SystemNotification {
   _id?: ObjectId;
   appId: ObjectId;
   companyId: ObjectId;
@@ -155,13 +155,13 @@ export interface CreateNotificationRequest {
   channels?: NotificationChannel[];         // Se não informado, usa preferências do user
   actionUrl?: string;
   actionLabel?: string;
-  expiresAt?: Date;
+  expiresAt?: string;                        // ISO date string from client
 }
 
 /**
  * Response de notificação (API)
  */
-export interface NotificationResponse extends Omit<Notification, '_id' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'readAt' | 'archivedAt' | 'expiresAt'> {
+export interface NotificationResponse extends Omit<SystemNotification, '_id' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'readAt' | 'archivedAt' | 'expiresAt'> {
   id: string;
   appId: string;
   companyId: string;

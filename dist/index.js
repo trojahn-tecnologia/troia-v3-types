@@ -60,6 +60,7 @@ __exportStar(require("./tickets"), exports);
 __exportStar(require("./conversations"), exports);
 __exportStar(require("./conversation-messages"), exports);
 __exportStar(require("./activities"), exports);
+__exportStar(require("./notifications"), exports);
 // Calendar & Scheduling
 __exportStar(require("./calendar"), exports);
 // Group conversation support
