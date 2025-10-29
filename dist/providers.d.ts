@@ -27,6 +27,7 @@ export interface TelegramConfig {
     webhookUrl?: string;
 }
 export interface TwilioSmsConfig {
+    accountSid: string;
     authToken: string;
     fromNumber: string;
 }
@@ -69,7 +70,18 @@ export interface GoogleCalendarConfig {
     clientSecret: string;
     redirectUri?: string;
 }
-export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig;
+export interface FirebaseConfig {
+    projectId: string;
+    privateKey: string;
+    clientEmail: string;
+    databaseUrl?: string;
+}
+export interface OneSignalConfig {
+    appId: string;
+    apiKey: string;
+    userAuthKey?: string;
+}
+export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig | FirebaseConfig | OneSignalConfig;
 export interface ProviderCredentials {
     accessToken?: string;
     refreshToken?: string;
@@ -90,6 +102,8 @@ export declare enum ProviderId {
     INSTAGRAM_DIRECT = "instagram-direct",
     TELEGRAM_BOT = "telegram-bot",
     SMS_TWILIO = "sms-twilio",
+    PUSH_FIREBASE = "push-firebase",
+    PUSH_ONESIGNAL = "push-onesignal",
     GATEWAY_WHATSAPP = "gateway-whatsapp",
     INSTAGRAM_MESSAGING = "instagram-messaging",
     LINKEDIN_MESSAGING = "linkedin-messaging",
@@ -120,6 +134,8 @@ export declare enum ProviderCapability {
     SEND_REACTION = "send_reaction",
     SEND_ATTACHMENT = "send_attachment",
     RECEIVE_ATTACHMENT = "receive_attachment",
+    SEND_SMS = "send_sms",
+    SEND_PUSH = "send_push",
     CREATE_POST = "create_post",
     CREATE_STORY = "create_story",
     CREATE_CAMPAIGN = "create_campaign",

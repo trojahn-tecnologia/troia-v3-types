@@ -96,6 +96,7 @@ export interface Channel {
   providerId?: string;        // Provider ID for conditional UI rendering
   instanceKey?: string;       // For Gateway providers
   instanceToken?: string;     // For Gateway providers
+  identifyUser?: boolean;     // If true, operator name is added to outgoing messages
   assignmentConfig: ChannelAssignmentConfig;
   companyId: ObjectId;
   appId: ObjectId;
@@ -164,6 +165,7 @@ export interface UpdateChannelRequest {
   name?: string;
   identifier?: string;
   assignmentConfig?: ChannelAssignmentConfig;
+  identifyUser?: boolean;
   status?: ExtendedStatus;
 }
 

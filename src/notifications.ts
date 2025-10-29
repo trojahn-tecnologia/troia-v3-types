@@ -161,7 +161,7 @@ export interface CreateNotificationRequest {
 /**
  * Response de notificação (API)
  */
-export interface NotificationResponse extends Omit<Notification, '_id' | 'appId' | 'companyId'> {
+export interface NotificationResponse extends Omit<Notification, '_id' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'readAt' | 'archivedAt' | 'expiresAt'> {
   id: string;
   appId: string;
   companyId: string;

@@ -17,6 +17,8 @@ var ProviderId;
     ProviderId["INSTAGRAM_DIRECT"] = "instagram-direct";
     ProviderId["TELEGRAM_BOT"] = "telegram-bot";
     ProviderId["SMS_TWILIO"] = "sms-twilio";
+    ProviderId["PUSH_FIREBASE"] = "push-firebase";
+    ProviderId["PUSH_ONESIGNAL"] = "push-onesignal";
     ProviderId["GATEWAY_WHATSAPP"] = "gateway-whatsapp";
     // Social Media Providers
     ProviderId["INSTAGRAM_MESSAGING"] = "instagram-messaging";
@@ -58,6 +60,9 @@ var ProviderCapability;
     ProviderCapability["SEND_REACTION"] = "send_reaction";
     ProviderCapability["SEND_ATTACHMENT"] = "send_attachment";
     ProviderCapability["RECEIVE_ATTACHMENT"] = "receive_attachment";
+    // Notification capabilities
+    ProviderCapability["SEND_SMS"] = "send_sms";
+    ProviderCapability["SEND_PUSH"] = "send_push";
     // Social media capabilities
     ProviderCapability["CREATE_POST"] = "create_post";
     ProviderCapability["CREATE_STORY"] = "create_story";

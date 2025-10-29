@@ -62,7 +62,7 @@ export interface Lead {
 }
 
 export interface CreateLeadRequest {
-  contactId: string;
+  contactId?: string;  // ✅ OPTIONAL: will be created from name/emails/phones if not provided
   score?: number;
   segment: string;
   description?: string;
@@ -76,6 +76,13 @@ export interface CreateLeadRequest {
   assigneeId?: string;
   teamId?: string;
   budget?: number;
+
+  // ✅ NEW: Contact data for automatic contact creation (if contactId not provided)
+  name?: string;
+  company?: string;
+  position?: string;
+  emails?: string[];
+  phones?: string[];
 }
 
 export interface UpdateLeadRequest {
