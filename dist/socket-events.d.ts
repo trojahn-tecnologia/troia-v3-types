@@ -29,6 +29,8 @@ export declare const SOCKET_EVENTS: {
     readonly INTEGRATION_SYNC_PROGRESS: "integration:sync-progress";
     readonly INTEGRATION_SYNC_COMPLETED: "integration:sync-completed";
     readonly INTEGRATION_SYNC_FAILED: "integration:sync-failed";
+    readonly NOTIFICATION_NEW: "notification:new";
+    readonly NOTIFICATION_READ: "notification:read";
 };
 export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 /**

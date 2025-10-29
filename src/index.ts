@@ -54,6 +54,7 @@ export * from './tickets';
 export * from './conversations';
 export * from './conversation-messages';
 export * from './activities';
+export * from './notifications';
 
 // Calendar & Scheduling
 export * from './calendar';

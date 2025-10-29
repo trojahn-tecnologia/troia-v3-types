@@ -201,7 +201,7 @@ export interface NotificationQuery {
 /**
  * Request para marcar notificação como lida
  */
-export interface MarkAsReadRequest {
+export interface MarkNotificationsAsReadRequest {
   notificationIds: string[];                // Array de IDs para bulk update
 }
 
