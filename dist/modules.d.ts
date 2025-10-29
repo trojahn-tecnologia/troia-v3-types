@@ -12,7 +12,7 @@ export type PermissionScope = 'all' | 'own' | 'team';
  *
  * Adding a new module? Update this list first!
  */
-export type ValidModuleId = 'app' | 'users' | 'user-permissions' | 'companies' | 'levels' | 'plans' | 'channels' | 'integrations' | 'company-integrations' | 'payments' | 'crm' | 'chat' | 'leads' | 'customers' | 'activities' | 'conversations' | 'conversation-messages' | 'tickets' | 'assignments' | 'contacts' | 'groups' | 'group-participants' | 'funnels' | 'funnel-steps' | 'products' | 'orders' | 'campaigns' | 'calendar' | 'calls' | 'reports' | 'knowledge' | 'company' | 'teams' | 'skills' | 'shifts' | 'services' | 'email-templates' | 'saved-cards';
+export type ValidModuleId = 'app' | 'users' | 'user-permissions' | 'companies' | 'levels' | 'plans' | 'channels' | 'integrations' | 'company-integrations' | 'payments' | 'crm' | 'chat' | 'leads' | 'customers' | 'activities' | 'conversations' | 'conversation-messages' | 'tickets' | 'assignments' | 'contacts' | 'groups' | 'group-participants' | 'funnels' | 'funnel-steps' | 'products' | 'orders' | 'campaigns' | 'templates' | 'calendar' | 'calls' | 'reports' | 'knowledge' | 'company' | 'teams' | 'skills' | 'shifts' | 'services' | 'email-templates' | 'saved-cards';
 export interface Module extends AppAwareDocument {
     name: string;
     displayName: string;

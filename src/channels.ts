@@ -93,6 +93,7 @@ export interface Channel {
   name: string;
   integrationId: ObjectId;    // Reference to the automatically created integration
   identifier: string;
+  providerId?: string;        // Provider ID for conditional UI rendering
   instanceKey?: string;       // For Gateway providers
   instanceToken?: string;     // For Gateway providers
   assignmentConfig: ChannelAssignmentConfig;
@@ -117,10 +118,19 @@ export interface ChannelQuery extends PaginationQuery {
 
 // Response Types
 export type ChannelProviderResponse = Omit<ChannelProvider, never>;
-export type ChannelResponse = Omit<Channel, '_id'> & {
+export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 'integrationId' | 'companyId' | 'appId'> & {
   id: string;
+  integrationId: string;     // ObjectId → string
+  companyId: string;          // ObjectId → string
+  appId: string;              // ObjectId → string
+  createdAt: string;          // Date → ISO string
+  updatedAt: string;          // Date → ISO string
   members?: Array<{ id: string; name: string; avatar?: string }>;
+  config?: Record<string, any>;  // Widget configuration (optional, for website-widget provider)
+  qrCode?: string;            // QR Code for gateway providers
+  qrCodeExpires?: string;     // QR Code expiration
 };
+
 
 // List Response Types
 export interface ChannelProviderListResponse extends ListResponse<ChannelProviderResponse> {}
@@ -133,28 +143,23 @@ export interface ChannelQueryOptions extends GenericQueryOptions<ChannelQuery> {
 // SPECIFIC REQUEST TYPES
 // ============================================================================
 
-// Channel Requests (CompanyIntegration requests defined in company-integrations.ts)
 export interface CreateChannelRequest {
   name: string;
   identifier: string;
   assignmentConfig: ChannelAssignmentConfig;
-
-  // Provider integration fields - will create integration automatically
   providerId: string;
   config: Record<string, any>;
   credentials: Record<string, any>;
-  integrationName?: string;    // Optional name for the integration (defaults to channel name)
+  integrationName?: string;
   integrationDescription?: string;
 }
 
-// Internal type for repository that expects integrationId
 export interface CreateChannelRepositoryRequest {
   name: string;
   identifier: string;
   assignmentConfig: ChannelAssignmentConfig;
   integrationId: string;
 }
-
 export interface UpdateChannelRequest {
   name?: string;
   identifier?: string;

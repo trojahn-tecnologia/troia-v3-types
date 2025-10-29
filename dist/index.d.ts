@@ -37,3 +37,5 @@ export * from './calendar';
 export * from './groups';
 export * from './group-participants';
 export * from './message-chunks';
+export * from './templates';
+export * from './campaigns';

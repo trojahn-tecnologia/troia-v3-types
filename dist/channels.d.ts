@@ -67,6 +67,7 @@ export interface Channel {
     name: string;
     integrationId: ObjectId;
     identifier: string;
+    providerId?: string;
     instanceKey?: string;
     instanceToken?: string;
     assignmentConfig: ChannelAssignmentConfig;
@@ -82,13 +83,21 @@ export interface ChannelQuery extends PaginationQuery {
     status?: ExtendedStatus;
 }
 export type ChannelProviderResponse = Omit<ChannelProvider, never>;
-export type ChannelResponse = Omit<Channel, '_id'> & {
+export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 'integrationId' | 'companyId' | 'appId'> & {
     id: string;
+    integrationId: string;
+    companyId: string;
+    appId: string;
+    createdAt: string;
+    updatedAt: string;
     members?: Array<{
         id: string;
         name: string;
         avatar?: string;
     }>;
+    config?: Record<string, any>;
+    qrCode?: string;
+    qrCodeExpires?: string;
 };
 export interface ChannelProviderListResponse extends ListResponse<ChannelProviderResponse> {
 }

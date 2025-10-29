@@ -67,3 +67,6 @@ __exportStar(require("./groups"), exports);
 __exportStar(require("./group-participants"), exports);
 // RAG/Vector Search support
 __exportStar(require("./message-chunks"), exports);
+// Marketing modules
+__exportStar(require("./templates"), exports);
+__exportStar(require("./campaigns"), exports);

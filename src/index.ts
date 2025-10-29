@@ -64,3 +64,7 @@ export * from './group-participants';
 
 // RAG/Vector Search support
 export * from './message-chunks';
+
+// Marketing modules
+export * from './templates';
+export * from './campaigns';
