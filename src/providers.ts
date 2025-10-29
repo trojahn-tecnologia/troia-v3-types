@@ -265,7 +265,10 @@ export enum ProviderCapability {
   MANAGE_ACCOUNT = 'manage_account',
 
   // AI Capabilities
-  GENERATE_EMBEDDING = 'generate_embedding'
+  GENERATE_EMBEDDING = 'generate_embedding',
+
+  // Template Management
+  TEMPLATE_MANAGEMENT = 'template_management'  // Submit, approve, manage templates
 }
 
 // ============================================================================

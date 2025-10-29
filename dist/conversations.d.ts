@@ -12,6 +12,7 @@ export interface Conversation {
     providerConversationId?: string;
     source: string;
     customerId?: string;
+    userId?: string;
     contactId?: string;
     groupId?: string;
     contact?: {
@@ -65,6 +66,7 @@ export interface Conversation {
     };
     startedAt: string;
     endedAt?: string;
+    closedAt?: string;
     createdAt: string;
     updatedAt: string;
 }

@@ -17,6 +17,8 @@ export interface Customer {
     type: 'PF' | 'PJ';
     picture?: string;
     tags: string[];
+    email?: string;
+    phone?: string;
     domains: string[];
     segment: string;
     contacts: string[];

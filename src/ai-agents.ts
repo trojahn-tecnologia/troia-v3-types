@@ -7,6 +7,7 @@ export interface AIAgent {
   name: string;
   description?: string;
   systemPrompt: string;
+  instructions?: string;                    // Custom instructions for agent behavior
   model: string;
   temperature: number;
   maxTokens: number;
@@ -23,6 +24,10 @@ export interface AIAgent {
     fallback: number;
   };
   enabledCapabilities: AIAgentCapability[];
+  responseStyle?: string;                   // Agent response style (professional, casual, etc.)
+  tone?: string;                            // Agent tone (helpful, formal, friendly, etc.)
+  language?: string;                        // Preferred language for responses
+  fallbackResponse?: string;                // Default response when confidence is low
   appId: ObjectId | string;
   companyId: ObjectId | string;
   status: ActiveStatus;

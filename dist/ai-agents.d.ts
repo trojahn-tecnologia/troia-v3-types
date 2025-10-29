@@ -6,6 +6,7 @@ export interface AIAgent {
     name: string;
     description?: string;
     systemPrompt: string;
+    instructions?: string;
     model: string;
     temperature: number;
     maxTokens: number;
@@ -22,6 +23,10 @@ export interface AIAgent {
         fallback: number;
     };
     enabledCapabilities: AIAgentCapability[];
+    responseStyle?: string;
+    tone?: string;
+    language?: string;
+    fallbackResponse?: string;
     appId: ObjectId | string;
     companyId: ObjectId | string;
     status: ActiveStatus;

@@ -22,6 +22,10 @@ export interface Customer {
   picture?: string;
   tags: string[];
 
+  // Contact information
+  email?: string;
+  phone?: string;
+
   // Auto-association (multiple domains)
   domains: string[];
   segment: string;

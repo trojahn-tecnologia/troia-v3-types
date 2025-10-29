@@ -21,6 +21,7 @@ export interface Conversation {
 
   // Participants
   customerId?: string;
+  userId?: string;      // User associated with conversation (for AI agent context)
 
   // ✅ Relationship fields (ObjectIds - stored in database)
   contactId?: string;  // Contact relationship (ObjectId)
@@ -100,6 +101,7 @@ export interface Conversation {
   // Dates
   startedAt: string;
   endedAt?: string;
+  closedAt?: string;    // Timestamp when conversation was closed
   createdAt: string;
   updatedAt: string;
 }
