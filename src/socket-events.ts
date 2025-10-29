@@ -47,6 +47,10 @@ export const SOCKET_EVENTS = {
   INTEGRATION_SYNC_PROGRESS: 'integration:sync-progress',
   INTEGRATION_SYNC_COMPLETED: 'integration:sync-completed',
   INTEGRATION_SYNC_FAILED: 'integration:sync-failed',
+
+  // Notification Events
+  NOTIFICATION_NEW: 'notification:new',
+  NOTIFICATION_READ: 'notification:read',
 } as const;
 
 // Type for event names

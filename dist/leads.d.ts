@@ -34,7 +34,7 @@ export interface Lead {
     updatedAt: string;
 }
 export interface CreateLeadRequest {
-    contactId: string;
+    contactId?: string;
     score?: number;
     segment: string;
     description?: string;
@@ -48,6 +48,11 @@ export interface CreateLeadRequest {
     assigneeId?: string;
     teamId?: string;
     budget?: number;
+    name?: string;
+    company?: string;
+    position?: string;
+    emails?: string[];
+    phones?: string[];
 }
 export interface UpdateLeadRequest {
     contactId?: string;

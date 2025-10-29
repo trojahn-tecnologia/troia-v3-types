@@ -70,6 +70,7 @@ export interface Channel {
     providerId?: string;
     instanceKey?: string;
     instanceToken?: string;
+    identifyUser?: boolean;
     assignmentConfig: ChannelAssignmentConfig;
     companyId: ObjectId;
     appId: ObjectId;
@@ -125,6 +126,7 @@ export interface UpdateChannelRequest {
     name?: string;
     identifier?: string;
     assignmentConfig?: ChannelAssignmentConfig;
+    identifyUser?: boolean;
     status?: ExtendedStatus;
 }
 export interface ChannelAssignmentResult {
