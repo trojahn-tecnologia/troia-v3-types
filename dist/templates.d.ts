@@ -171,6 +171,7 @@ export interface Template {
     description?: string;
     status: TemplateStatus;
     providerId: ObjectId;
+    channelId: ObjectId;
     providerConfig: TemplateProviderConfig;
     variables: TemplateVariable[];
     usageCount: number;
@@ -183,11 +184,12 @@ export interface Template {
 /**
  * API Response Type (no ObjectId exposure)
  */
-export interface TemplateResponse extends Omit<Template, '_id' | 'appId' | 'companyId' | 'providerId' | 'createdBy'> {
+export interface TemplateResponse extends Omit<Template, '_id' | 'appId' | 'companyId' | 'providerId' | 'channelId' | 'createdBy'> {
     id: string;
     appId: string;
     companyId: string;
     providerId: string;
+    channelId: string;
     createdBy: string;
 }
 /**
@@ -197,6 +199,7 @@ export interface CreateTemplateRequest {
     name: string;
     description?: string;
     providerId: string;
+    channelId: string;
     providerConfig: TemplateProviderConfig;
     variables: TemplateVariable[];
 }
