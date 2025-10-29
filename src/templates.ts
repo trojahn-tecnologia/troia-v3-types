@@ -226,6 +226,7 @@ export interface Template {
 
   // Provider Configuration
   providerId: ObjectId;                 // Which provider this template is for
+  channelId: ObjectId;                  // Which channel this template is for (Channel → Integration)
   providerConfig: TemplateProviderConfig; // Provider-specific config
 
   // Variables (numeric format: {{1}}, {{2}}, {{3}}...)
@@ -245,11 +246,12 @@ export interface Template {
 /**
  * API Response Type (no ObjectId exposure)
  */
-export interface TemplateResponse extends Omit<Template, '_id' | 'appId' | 'companyId' | 'providerId' | 'createdBy'> {
+export interface TemplateResponse extends Omit<Template, '_id' | 'appId' | 'companyId' | 'providerId' | 'channelId' | 'createdBy'> {
   id: string;
   appId: string;
   companyId: string;
   providerId: string;
+  channelId: string;
   createdBy: string;
 }
 
@@ -260,6 +262,7 @@ export interface CreateTemplateRequest {
   name: string;
   description?: string;
   providerId: string;
+  channelId: string;        // ✅ NOVO: Vínculo com Channel (Channel → Integration → Credentials)
   providerConfig: TemplateProviderConfig;
   variables: TemplateVariable[];
 }

@@ -14,6 +14,13 @@ export interface CohereConfig {
     model?: string;
 }
 /**
+ * Anthropic Provider Config
+ * For Claude models (Claude 3, Claude 3.5, etc.)
+ */
+export interface AnthropicConfig {
+    apiKey: string;
+}
+/**
  * HuggingFace Provider Config
  * Future AI provider for embeddings
  */
@@ -24,4 +31,4 @@ export interface HuggingFaceConfig {
 /**
  * Union type for all AI Provider Configs
  */
-export type AIProviderConfig = OpenAIConfig | CohereConfig | HuggingFaceConfig;
+export type AIProviderConfig = OpenAIConfig | AnthropicConfig | CohereConfig | HuggingFaceConfig;

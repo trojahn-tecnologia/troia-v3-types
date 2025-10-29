@@ -172,7 +172,8 @@ export enum ProviderId {
   API_WEBHOOK = 'api-webhook',
 
   // AI Providers
-  AI_OPENAI = 'ai-openai'
+  AI_OPENAI = 'ai-openai',
+  AI_ANTHROPIC = 'ai-anthropic'
 }
 
 // ============================================================================
@@ -266,6 +267,8 @@ export enum ProviderCapability {
 
   // AI Capabilities
   GENERATE_EMBEDDING = 'generate_embedding',
+  AI_TEXT_GENERATION = 'ai_text_generation',  // LLM text generation (GPT, Claude, etc.)
+  AI_CHAT_COMPLETION = 'ai_chat_completion',  // Chat completion with conversation history
 
   // Template Management
   TEMPLATE_MANAGEMENT = 'template_management'  // Submit, approve, manage templates

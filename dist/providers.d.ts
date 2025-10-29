@@ -105,7 +105,8 @@ export declare enum ProviderId {
     WEBSITE_CHAT = "website-chat",
     WEBSITE_WIDGET = "website-widget",
     API_WEBHOOK = "api-webhook",
-    AI_OPENAI = "ai-openai"
+    AI_OPENAI = "ai-openai",
+    AI_ANTHROPIC = "ai-anthropic"
 }
 export declare enum ProviderCapability {
     SEND_EMAIL = "send_email",
@@ -160,7 +161,10 @@ export declare enum ProviderCapability {
     CREATE_BOT = "create_bot",
     MANAGE_PAGE = "manage_page",
     MANAGE_ACCOUNT = "manage_account",
-    GENERATE_EMBEDDING = "generate_embedding"
+    GENERATE_EMBEDDING = "generate_embedding",
+    AI_TEXT_GENERATION = "ai_text_generation",// LLM text generation (GPT, Claude, etc.)
+    AI_CHAT_COMPLETION = "ai_chat_completion",// Chat completion with conversation history
+    TEMPLATE_MANAGEMENT = "template_management"
 }
 export interface BaseIntegrationRequest {
     name: string;

@@ -38,6 +38,7 @@ var ProviderId;
     ProviderId["API_WEBHOOK"] = "api-webhook";
     // AI Providers
     ProviderId["AI_OPENAI"] = "ai-openai";
+    ProviderId["AI_ANTHROPIC"] = "ai-anthropic";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
 // PROVIDER CAPABILITIES (Centralized)
@@ -114,4 +115,8 @@ var ProviderCapability;
     ProviderCapability["MANAGE_ACCOUNT"] = "manage_account";
     // AI Capabilities
     ProviderCapability["GENERATE_EMBEDDING"] = "generate_embedding";
+    ProviderCapability["AI_TEXT_GENERATION"] = "ai_text_generation";
+    ProviderCapability["AI_CHAT_COMPLETION"] = "ai_chat_completion";
+    // Template Management
+    ProviderCapability["TEMPLATE_MANAGEMENT"] = "template_management"; // Submit, approve, manage templates
 })(ProviderCapability || (exports.ProviderCapability = ProviderCapability = {}));

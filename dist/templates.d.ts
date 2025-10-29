@@ -131,6 +131,36 @@ export interface InstagramTemplateConfig {
  */
 export type TemplateProviderConfig = WhatsAppOfficialTemplateConfig | GatewayTemplateConfig | EmailTemplateConfig | InstagramTemplateConfig;
 /**
+ * Template Submission Request (para envio ao provider)
+ */
+export interface TemplateSubmissionRequest {
+    name: string;
+    category: TemplateCategory;
+    language: string;
+    components: WhatsAppTemplateComponent[];
+}
+/**
+ * Template Submission Response (retorno do provider)
+ */
+export interface TemplateSubmissionResponse {
+    success: boolean;
+    providerTemplateId?: string;
+    status: 'PENDING' | 'APPROVED' | 'REJECTED';
+    submittedAt: string;
+    message?: string;
+    error?: string;
+}
+/**
+ * Template Status Update (webhook do WhatsApp)
+ */
+export interface TemplateStatusUpdate {
+    providerTemplateId: string;
+    status: 'APPROVED' | 'REJECTED';
+    reason?: string;
+    approvedAt?: string;
+    rejectedAt?: string;
+}
+/**
  * Main Template Document
  */
 export interface Template {
