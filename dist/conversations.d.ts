@@ -26,6 +26,12 @@ export interface Conversation {
         name: string;
         picture?: string;
     };
+    members?: Array<{
+        id: string;
+        name: string;
+        picture?: string;
+        phone?: string;
+    }>;
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;
