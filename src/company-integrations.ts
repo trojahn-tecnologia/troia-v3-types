@@ -32,6 +32,8 @@ export interface CompanyIntegration {
   status: ExtendedStatus;
   lastSyncAt?: Date;
   syncInterval?: number;          // ✅ Override sync interval (in minutes)
+  authFailedAt?: Date;            // ✅ Timestamp when authentication failed
+  failedAttempts?: number;        // ✅ Counter for failed attempts
   createdAt: Date;
   updatedAt: Date;
 }
@@ -72,6 +74,8 @@ export interface CompanyIntegrationResponse {
   lastSyncAt?: string;
   syncInterval?: number;    // ✅ Override sync interval (in minutes)
   lastError?: string;
+  authFailedAt?: string;    // ✅ Timestamp when authentication failed
+  failedAttempts?: number;  // ✅ Counter for failed attempts
 
   // Instance management fields (for providers like Gateway)
   instanceKey?: string;      // Key da instância no provider
