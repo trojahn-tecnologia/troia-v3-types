@@ -110,6 +110,7 @@ export interface ConversationMessage {
     sentAt: string;
     createdAt: string;
     updatedAt: string;
+    wasExisting?: boolean;
 }
 export interface MessageReaction {
     emoji: string;
