@@ -34,6 +34,16 @@ export interface Conversation {
         role: 'admin' | 'member';
         joinedAt: string;
     }>;
+    files?: Array<{
+        type: 'image' | 'video' | 'audio' | 'document';
+        url: string;
+        caption?: string;
+        filename?: string;
+        thumbnailUrl?: string;
+        size?: number;
+        mimeType?: string;
+        sentAt: string;
+    }>;
     leadId?: string;
     ticketId?: string;
     assigneeId?: string;
