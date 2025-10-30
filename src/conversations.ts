@@ -48,6 +48,8 @@ export interface Conversation {
     name: string;       // Contact name
     picture?: string;   // Contact avatar URL
     phone?: string;     // Contact primary phone
+    role: 'admin' | 'member';  // ✅ Participant role
+    joinedAt: string;   // ✅ When participant joined
   }>;
 
   // Lead/Ticket integration
