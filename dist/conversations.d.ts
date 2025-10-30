@@ -31,6 +31,8 @@ export interface Conversation {
         name: string;
         picture?: string;
         phone?: string;
+        role: 'admin' | 'member';
+        joinedAt: string;
     }>;
     leadId?: string;
     ticketId?: string;
