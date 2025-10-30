@@ -24,7 +24,6 @@ export interface Lead {
     wonDate?: string;
     activityStatus?: 'no_activities' | 'overdue' | 'up_to_date';
     customerId?: string;
-    convertedAt?: string;
     lostDate?: string;
     lastInteractionAt?: string;
     lastFollowUpAt?: string;

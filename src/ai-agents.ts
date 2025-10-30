@@ -1,6 +1,23 @@
 import { ObjectId } from 'mongodb';
 import { ActiveStatus, PaginationQuery } from './common';
 
+/**
+ * Keyword matching modes for message_received trigger
+ */
+export type KeywordMatchMode =
+  | 'any_message'        // Trigger on any message (no keyword filtering)
+  | 'contains'           // Message contains any of the keywords
+  | 'starts_with'        // Message starts with any of the keywords
+  | 'ends_with'          // Message ends with any of the keywords
+  | 'exact_match';       // Message exactly matches any of the keywords
+
+/**
+ * Keyword matching logic (when multiple keywords are provided)
+ */
+export type KeywordMatchLogic =
+  | 'OR'   // Match if ANY keyword matches (default)
+  | 'AND'; // Match if ALL keywords match
+
 export interface AIAgent {
   _id?: ObjectId;
   id?: string;
@@ -40,9 +57,11 @@ export interface AIAgentTriggers {
   message_received: {
     enabled: boolean;
     conditions?: {
-      channelTypes?: string[];
-      keywords?: string[];
-      customerSegments?: string[];
+      matchMode?: KeywordMatchMode;          // How to match keywords (default: 'any_message')
+      keywords?: string[];                   // Keywords to match
+      keywordLogic?: KeywordMatchLogic;      // AND/OR logic for multiple keywords (default: 'OR')
+      channelTypes?: string[];               // Filter by channel types
+      customerSegments?: string[];           // Filter by customer segments
       timeWindow?: {
         start: string;
         end: string;
