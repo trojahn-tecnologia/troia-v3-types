@@ -42,6 +42,14 @@ export interface Conversation {
     picture?: string;   // Group avatar URL
   };
 
+  // ✅ Group members (populated via aggregation, only for group conversations)
+  members?: Array<{
+    id: string;         // Contact ID
+    name: string;       // Contact name
+    picture?: string;   // Contact avatar URL
+    phone?: string;     // Contact primary phone
+  }>;
+
   // Lead/Ticket integration
   leadId?: string;            // Associated lead
   ticketId?: string;          // Associated ticket
