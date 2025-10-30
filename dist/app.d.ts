@@ -6,6 +6,7 @@ export interface App extends FullBaseDocument {
     themes: AppTheme[];
     domains: string[];
     modules: string[];
+    backendUrl: string;
 }
 export interface AppTheme {
     name: string;
@@ -20,6 +21,7 @@ export interface CreateAppRequest {
     themes: AppTheme[];
     domains: string[];
     modules: string[];
+    backendUrl: string;
 }
 export interface UpdateAppRequest {
     name?: string;
@@ -28,6 +30,7 @@ export interface UpdateAppRequest {
     themes?: AppTheme[];
     domains?: string[];
     modules?: string[];
+    backendUrl?: string;
 }
 export type AppStatus = ActiveStatus;
 export interface AppQuery extends PaginationQuery {
@@ -43,6 +46,7 @@ export interface AppResponse {
     themes: AppTheme[];
     domains: string[];
     modules: string[];
+    backendUrl: string;
     createdAt: string;
     updatedAt: string;
 }
