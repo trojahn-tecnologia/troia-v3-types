@@ -52,6 +52,18 @@ export interface Conversation {
     joinedAt: string;   // ✅ When participant joined
   }>;
 
+  // ✅ Conversation files (populated via aggregation, any conversation type)
+  files?: Array<{
+    type: 'image' | 'video' | 'audio' | 'document';  // Media type
+    url: string;                 // File URL
+    caption?: string;            // Optional caption
+    filename?: string;           // Original filename
+    thumbnailUrl?: string;       // Thumbnail for videos/documents
+    size?: number;               // File size in bytes
+    mimeType?: string;           // MIME type
+    sentAt: string;              // When file was sent
+  }>;
+
   // Lead/Ticket integration
   leadId?: string;            // Associated lead
   ticketId?: string;          // Associated ticket
