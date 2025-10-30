@@ -1,5 +1,13 @@
 import { ObjectId } from 'mongodb';
 import { ActiveStatus, PaginationQuery } from './common';
+/**
+ * Keyword matching modes for message_received trigger
+ */
+export type KeywordMatchMode = 'any_message' | 'contains' | 'starts_with' | 'ends_with' | 'exact_match';
+/**
+ * Keyword matching logic (when multiple keywords are provided)
+ */
+export type KeywordMatchLogic = 'OR' | 'AND';
 export interface AIAgent {
     _id?: ObjectId;
     id?: string;
@@ -35,11 +43,13 @@ export interface AIAgent {
     deletedAt?: Date | string;
 }
 export interface AIAgentTriggers {
-    message_received: {
+    message_received?: {
         enabled: boolean;
         conditions?: {
-            channelTypes?: string[];
+            matchMode?: KeywordMatchMode;
             keywords?: string[];
+            keywordLogic?: KeywordMatchLogic;
+            channelIds?: string[];
             customerSegments?: string[];
             timeWindow?: {
                 start: string;
@@ -47,15 +57,15 @@ export interface AIAgentTriggers {
             };
         };
     };
-    lead_stage_change: {
+    lead_stage_change?: {
         enabled: boolean;
         stages?: string[];
     };
-    lead_created: {
+    lead_created?: {
         enabled: boolean;
         sources?: string[];
     };
-    webhook_event: {
+    webhook_event?: {
         enabled: boolean;
         eventTypes?: string[];
     };

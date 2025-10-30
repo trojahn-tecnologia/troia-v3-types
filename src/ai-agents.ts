@@ -54,13 +54,13 @@ export interface AIAgent {
 }
 
 export interface AIAgentTriggers {
-  message_received: {
+  message_received?: {
     enabled: boolean;
     conditions?: {
       matchMode?: KeywordMatchMode;          // How to match keywords (default: 'any_message')
       keywords?: string[];                   // Keywords to match
       keywordLogic?: KeywordMatchLogic;      // AND/OR logic for multiple keywords (default: 'OR')
-      channelTypes?: string[];               // Filter by channel types
+      channelIds?: string[];                 // Filter by specific channel IDs - trigger only fires if message channel is in this list
       customerSegments?: string[];           // Filter by customer segments
       timeWindow?: {
         start: string;
@@ -68,15 +68,15 @@ export interface AIAgentTriggers {
       };
     };
   };
-  lead_stage_change: {
+  lead_stage_change?: {
     enabled: boolean;
     stages?: string[];
   };
-  lead_created: {
+  lead_created?: {
     enabled: boolean;
     sources?: string[];
   };
-  webhook_event: {
+  webhook_event?: {
     enabled: boolean;
     eventTypes?: string[];
   };

@@ -105,6 +105,8 @@ export interface UpdateConversationRequest {
     ticketId?: string;
     assigneeId?: string;
     teamId?: string;
+    agentId?: string;
+    agentStatus?: 'active' | 'inactive' | 'paused';
     tags?: string[];
     category?: string;
     metadata?: Record<string, any>;

@@ -151,6 +151,11 @@ export interface UpdateConversationRequest {
   ticketId?: string;
   assigneeId?: string;
   teamId?: string;
+
+  // ✅ AI Agent integration
+  agentId?: string;           // AI Agent ID (ObjectId)
+  agentStatus?: 'active' | 'inactive' | 'paused'; // AI Agent status
+
   tags?: string[];
   category?: string;
   metadata?: Record<string, any>;
