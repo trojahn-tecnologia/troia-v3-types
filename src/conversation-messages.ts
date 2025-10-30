@@ -159,6 +159,9 @@ export interface ConversationMessage {
   sentAt: string;
   createdAt: string;
   updatedAt: string;
+
+  // ✅ Duplicate detection flag (Arch 3.5 - Message Loop Fix)
+  wasExisting?: boolean; // True when message already existed (duplicate detection)
 }
 
 export interface MessageReaction {
