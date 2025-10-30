@@ -48,7 +48,6 @@ export interface Lead {
 
   // Control dates
   customerId?: string;        // Renamed from convertedToCustomerId
-  convertedAt?: string;
   lostDate?: string;
   lastInteractionAt?: string;
   lastFollowUpAt?: string;
