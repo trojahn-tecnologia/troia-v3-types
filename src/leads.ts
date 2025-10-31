@@ -110,7 +110,42 @@ export interface UpdateLeadRequest {
   lastStepAt?: string;
 }
 
-export type LeadResponse = Lead;
+export interface LeadResponse extends Lead {
+  // Populated relationships (from aggregation lookups)
+  contact?: {
+    id: string;
+    name: string;
+    identifiers?: {
+      email?: string[];
+      phone?: string[];
+      whatsapp?: string[];
+      instagram?: string[];
+      facebook?: string[];
+      telegram?: string[];
+    };
+  };
+  assignee?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  customer?: {
+    id: string;
+    name: string;
+  };
+  channel?: {
+    id: string;
+    name: string;
+  };
+  step?: {
+    id: string;
+    name: string;
+  };
+  funnel?: {
+    id: string;
+    name: string;
+  };
+}
 
 export interface LeadQuery extends PaginationQuery {
   filters?: {

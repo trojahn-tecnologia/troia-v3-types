@@ -45,6 +45,8 @@ exports.SOCKET_EVENTS = {
     // Notification Events
     NOTIFICATION_NEW: 'notification:new',
     NOTIFICATION_READ: 'notification:read',
+    // Template Events
+    TEMPLATE_STATUS_UPDATED: 'template:status-updated',
 };
 // ============================================================================
 // ROOM PATTERNS

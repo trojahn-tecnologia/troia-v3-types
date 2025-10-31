@@ -31,6 +31,7 @@ export declare const SOCKET_EVENTS: {
     readonly INTEGRATION_SYNC_FAILED: "integration:sync-failed";
     readonly NOTIFICATION_NEW: "notification:new";
     readonly NOTIFICATION_READ: "notification:read";
+    readonly TEMPLATE_STATUS_UPDATED: "template:status-updated";
 };
 export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 /**
@@ -262,6 +263,18 @@ export interface IntegrationSyncFailedEvent {
     itemsProcessed: number;
     timestamp: string;
 }
+/**
+ * Template Status Updated Event
+ * Server-to-Client: Template approval status changed (APPROVED/REJECTED)
+ */
+export interface TemplateStatusUpdatedEvent {
+    templateId: string;
+    name: string;
+    status: 'draft' | 'pending_approval' | 'approved' | 'rejected' | 'archived';
+    previousStatus?: string;
+    reason?: string;
+    timestamp: string;
+}
 export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_MESSAGE]: ConversationMessageEvent;
     [SOCKET_EVENTS.CONVERSATION_UPDATED]: ConversationUpdatedEvent;
@@ -283,6 +296,7 @@ export interface SocketEventMap {
     [SOCKET_EVENTS.INTEGRATION_SYNC_PROGRESS]: IntegrationSyncProgressEvent;
     [SOCKET_EVENTS.INTEGRATION_SYNC_COMPLETED]: IntegrationSyncCompletedEvent;
     [SOCKET_EVENTS.INTEGRATION_SYNC_FAILED]: IntegrationSyncFailedEvent;
+    [SOCKET_EVENTS.TEMPLATE_STATUS_UPDATED]: TemplateStatusUpdatedEvent;
 }
 export declare const SOCKET_ROOMS: {
     /**
