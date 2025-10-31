@@ -12,6 +12,8 @@ export interface CompanyIntegration {
     status: ExtendedStatus;
     lastSyncAt?: Date;
     syncInterval?: number;
+    authFailedAt?: Date;
+    failedAttempts?: number;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -41,6 +43,8 @@ export interface CompanyIntegrationResponse {
     lastSyncAt?: string;
     syncInterval?: number;
     lastError?: string;
+    authFailedAt?: string;
+    failedAttempts?: number;
     instanceKey?: string;
     instanceToken?: string;
     instanceData?: any;

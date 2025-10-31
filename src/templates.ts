@@ -262,7 +262,7 @@ export interface CreateTemplateRequest {
   name: string;
   description?: string;
   channelId: string;        // Channel → Integration → providerId (derived)
-  providerConfig: TemplateProviderConfig;
+  providerConfig?: TemplateProviderConfig;  // ✅ Optional - backend will construct default if not provided
   variables: TemplateVariable[];
 }
 
