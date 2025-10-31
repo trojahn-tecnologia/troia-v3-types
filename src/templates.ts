@@ -205,6 +205,7 @@ export interface TemplateSubmissionResponse {
  */
 export interface TemplateStatusUpdate {
   providerTemplateId: string;                // ID do template no WhatsApp
+  templateId?: string;                       // Our template _id in database (message_template_name)
   status: 'APPROVED' | 'REJECTED';
   reason?: string;                           // Rejection reason (se rejeitado)
   approvedAt?: string;

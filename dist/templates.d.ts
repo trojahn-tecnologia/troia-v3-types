@@ -199,7 +199,7 @@ export interface CreateTemplateRequest {
     name: string;
     description?: string;
     channelId: string;
-    providerConfig: TemplateProviderConfig;
+    providerConfig?: TemplateProviderConfig;
     variables: TemplateVariable[];
 }
 /**
