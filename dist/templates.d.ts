@@ -155,6 +155,7 @@ export interface TemplateSubmissionResponse {
  */
 export interface TemplateStatusUpdate {
     providerTemplateId: string;
+    templateId?: string;
     status: 'APPROVED' | 'REJECTED';
     reason?: string;
     approvedAt?: string;
