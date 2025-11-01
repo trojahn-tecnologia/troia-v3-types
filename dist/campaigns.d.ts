@@ -95,10 +95,17 @@ export interface CampaignStats {
     completedAt?: string;
 }
 /**
- * Campaign Response - Response type sem _id
+ * Campaign Response - Response type sem _id com stats no top level
  */
-export interface CampaignResponse extends Omit<Campaign, '_id'> {
+export interface CampaignResponse extends Omit<Campaign, '_id' | 'stats'> {
     id: string;
+    totalRecipients: number;
+    messagesSent: number;
+    messagesDelivered: number;
+    messagesFailed: number;
+    messagesRead: number;
+    startedAt?: string;
+    completedAt?: string;
 }
 /**
  * Campaign List Response

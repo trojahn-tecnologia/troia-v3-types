@@ -105,18 +105,17 @@ export interface CampaignStats {
 }
 
 /**
- * Campaign Response - Response type sem _id com stats no top level
+ * Campaign Response - Response type sem _id
  */
-export interface CampaignResponse extends Omit<Campaign, '_id' | 'stats'> {
+export interface CampaignResponse extends Omit<Campaign, '_id'> {
   id: string;
-  // Stats fields no top level para compatibilidade com frontend
-  totalRecipients: number;
-  messagesSent: number;
-  messagesDelivered: number;
-  messagesFailed: number;
-  messagesRead: number;
-  startedAt?: string;
-  completedAt?: string;
+
+  // Compatibility fields for frontend migration
+  /** @deprecated Use channelId instead */
+  channel?: string;
+  /** @deprecated Use scheduledFor instead */
+  scheduledAt?: string;
+  sentAt?: string;  // TODO: Add to backend if needed
 }
 
 /**
