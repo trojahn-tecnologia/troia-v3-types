@@ -109,13 +109,6 @@ export interface CampaignStats {
  */
 export interface CampaignResponse extends Omit<Campaign, '_id'> {
   id: string;
-
-  // Compatibility fields for frontend migration
-  /** @deprecated Use channelId instead */
-  channel?: string;
-  /** @deprecated Use scheduledFor instead */
-  scheduledAt?: string;
-  sentAt?: string;  // TODO: Add to backend if needed
 }
 
 /**
