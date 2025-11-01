@@ -6,6 +6,7 @@ import { TenantAwareDocument, PaginationQuery, ListResponse } from './common';
 export interface Campaign extends TenantAwareDocument {
   name: string;
   description: string;
+  channelId: string;               // Channel de comunicação
   templateId: string;              // Template vinculado
   audienceType: AudienceType;      // leads, customers, groups, manual
   audienceFilter?: AudienceFilter; // Filtros de seleção
@@ -104,10 +105,18 @@ export interface CampaignStats {
 }
 
 /**
- * Campaign Response - Response type sem _id
+ * Campaign Response - Response type sem _id com stats no top level
  */
-export interface CampaignResponse extends Omit<Campaign, '_id'> {
+export interface CampaignResponse extends Omit<Campaign, '_id' | 'stats'> {
   id: string;
+  // Stats fields no top level para compatibilidade com frontend
+  totalRecipients: number;
+  messagesSent: number;
+  messagesDelivered: number;
+  messagesFailed: number;
+  messagesRead: number;
+  startedAt?: string;
+  completedAt?: string;
 }
 
 /**
@@ -121,6 +130,7 @@ export interface CampaignListResponse extends ListResponse<CampaignResponse> {}
 export interface CreateCampaignRequest {
   name: string;
   description: string;
+  channelId: string;
   templateId: string;
   audienceType: AudienceType;
   audienceFilter?: AudienceFilter;
@@ -137,6 +147,7 @@ export interface CreateCampaignRequest {
 export interface UpdateCampaignRequest {
   name?: string;
   description?: string;
+  channelId?: string;
   templateId?: string;
   audienceType?: AudienceType;
   audienceFilter?: AudienceFilter;

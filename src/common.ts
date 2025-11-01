@@ -195,6 +195,8 @@ export interface ListResponse<T> {
   page: number;
   limit: number;
   totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
 }
 
 export type MongoFilter<T = Record<string, any>> = Record<string, any>;

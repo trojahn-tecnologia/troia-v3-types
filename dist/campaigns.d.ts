@@ -5,6 +5,7 @@ import { TenantAwareDocument, PaginationQuery, ListResponse } from './common';
 export interface Campaign extends TenantAwareDocument {
     name: string;
     description: string;
+    channelId: string;
     templateId: string;
     audienceType: AudienceType;
     audienceFilter?: AudienceFilter;
@@ -110,6 +111,7 @@ export interface CampaignListResponse extends ListResponse<CampaignResponse> {
 export interface CreateCampaignRequest {
     name: string;
     description: string;
+    channelId: string;
     templateId: string;
     audienceType: AudienceType;
     audienceFilter?: AudienceFilter;
@@ -125,6 +127,7 @@ export interface CreateCampaignRequest {
 export interface UpdateCampaignRequest {
     name?: string;
     description?: string;
+    channelId?: string;
     templateId?: string;
     audienceType?: AudienceType;
     audienceFilter?: AudienceFilter;
