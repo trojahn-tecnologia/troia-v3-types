@@ -12,14 +12,16 @@ export interface Lead {
   segment: string;
   description?: string;
 
-  // Universal source + channel
-  source?: string;
+  // Universal source + channel + origin
+  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+  origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
   channelId?: string;
 
   // Status and temperature
   status: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
   priority: 'low' | 'medium' | 'high' | 'urgent';
   temperature: 'cold' | 'warm' | 'hot';
+  qualifyStatus: 'pending' | 'qualified' | 'disqualified';
 
   // Sales funnel
   funnelId?: string;
@@ -65,11 +67,13 @@ export interface CreateLeadRequest {
   score?: number;
   segment: string;
   description?: string;
-  source?: string;
+  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+  origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
   channelId?: string;
   status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
   priority?: 'low' | 'medium' | 'high' | 'urgent';
   temperature?: 'cold' | 'warm' | 'hot';
+  qualifyStatus?: 'pending' | 'qualified' | 'disqualified';
   funnelId?: string;
   stepId?: string;
   assigneeId?: string;
@@ -89,11 +93,13 @@ export interface UpdateLeadRequest {
   score?: number;
   segment?: string;
   description?: string;
-  source?: string;
+  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+  origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
   channelId?: string;
   status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
   priority?: 'low' | 'medium' | 'high' | 'urgent';
   temperature?: 'cold' | 'warm' | 'hot';
+  qualifyStatus?: 'pending' | 'qualified' | 'disqualified';
   funnelId?: string;
   stepId?: string;
   assigneeId?: string;
@@ -151,11 +157,14 @@ export interface LeadQuery extends PaginationQuery {
   filters?: {
     contactId?: string;
     segment?: string;
-    source?: string;
+    source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+    origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
     channelId?: string;
     status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
     priority?: 'low' | 'medium' | 'high' | 'urgent';
     temperature?: 'cold' | 'warm' | 'hot';
+    qualifyStatus?: 'pending' | 'qualified' | 'disqualified';
+    businessStatus?: 'pending' | 'won' | 'lost';
     funnelId?: string;
     stepId?: string;
     assigneeId?: string;
@@ -165,6 +174,8 @@ export interface LeadQuery extends PaginationQuery {
     scoreMax?: number;
     budgetMin?: number;
     budgetMax?: number;
+    dateFrom?: string;
+    dateTo?: string;
   };
 }
 

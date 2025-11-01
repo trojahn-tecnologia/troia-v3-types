@@ -93,6 +93,7 @@ export type AIAgentCapability =
 
 export interface AIAgentResponse extends Omit<AIAgent, '_id'> {
   id: string;
+  totalInteractions?: number;
 }
 
 export interface CreateAIAgentRequest {

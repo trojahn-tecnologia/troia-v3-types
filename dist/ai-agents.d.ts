@@ -73,6 +73,7 @@ export interface AIAgentTriggers {
 export type AIAgentCapability = 'text_generation' | 'sentiment_analysis' | 'intent_recognition' | 'entity_extraction' | 'language_translation' | 'conversation_summarization' | 'voice_interaction';
 export interface AIAgentResponse extends Omit<AIAgent, '_id'> {
     id: string;
+    totalInteractions?: number;
 }
 export interface CreateAIAgentRequest {
     name: string;
