@@ -126,6 +126,7 @@ export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 
   appId: string;              // ObjectId → string
   createdAt: string;          // Date → ISO string
   updatedAt: string;          // Date → ISO string
+  capabilities?: string[];    // Provider capabilities from aggregation
   members?: Array<{ id: string; name: string; avatar?: string }>;
   config?: Record<string, any>;  // Widget configuration (optional, for website-widget provider)
   qrCode?: string;            // QR Code for gateway providers

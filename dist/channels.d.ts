@@ -91,6 +91,7 @@ export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 
     appId: string;
     createdAt: string;
     updatedAt: string;
+    capabilities?: string[];
     members?: Array<{
         id: string;
         name: string;
