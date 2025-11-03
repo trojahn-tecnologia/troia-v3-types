@@ -120,7 +120,11 @@ export declare enum ProviderId {
     WEBSITE_WIDGET = "website-widget",
     API_WEBHOOK = "api-webhook",
     AI_OPENAI = "ai-openai",
-    AI_ANTHROPIC = "ai-anthropic"
+    AI_ANTHROPIC = "ai-anthropic",
+    AI_XAI = "ai-xai",
+    AI_GOOGLE = "ai-google",
+    AI_MISTRAL = "ai-mistral",
+    AI_DEEPSEEK = "ai-deepseek"
 }
 export declare enum ProviderCapability {
     SEND_EMAIL = "send_email",

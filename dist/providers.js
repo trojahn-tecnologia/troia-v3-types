@@ -41,6 +41,10 @@ var ProviderId;
     // AI Providers
     ProviderId["AI_OPENAI"] = "ai-openai";
     ProviderId["AI_ANTHROPIC"] = "ai-anthropic";
+    ProviderId["AI_XAI"] = "ai-xai";
+    ProviderId["AI_GOOGLE"] = "ai-google";
+    ProviderId["AI_MISTRAL"] = "ai-mistral";
+    ProviderId["AI_DEEPSEEK"] = "ai-deepseek";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
 // PROVIDER CAPABILITIES (Centralized)
