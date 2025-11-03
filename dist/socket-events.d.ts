@@ -32,6 +32,7 @@ export declare const SOCKET_EVENTS: {
     readonly NOTIFICATION_NEW: "notification:new";
     readonly NOTIFICATION_READ: "notification:read";
     readonly TEMPLATE_STATUS_UPDATED: "template:status-updated";
+    readonly AI_AGENT_EXECUTED: "ai:agent:executed";
 };
 export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 /**
@@ -275,6 +276,20 @@ export interface TemplateStatusUpdatedEvent {
     reason?: string;
     timestamp: string;
 }
+/**
+ * AI Agent Executed Event
+ * Emitted when an AI agent finishes executing in a conversation
+ */
+export interface AIAgentExecutedEvent {
+    conversationId: string;
+    agentId: string;
+    agentName: string;
+    success: boolean;
+    response: string;
+    toolCallsExecuted: number;
+    iterations: number;
+    timestamp: string;
+}
 export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_MESSAGE]: ConversationMessageEvent;
     [SOCKET_EVENTS.CONVERSATION_UPDATED]: ConversationUpdatedEvent;
@@ -297,6 +312,7 @@ export interface SocketEventMap {
     [SOCKET_EVENTS.INTEGRATION_SYNC_COMPLETED]: IntegrationSyncCompletedEvent;
     [SOCKET_EVENTS.INTEGRATION_SYNC_FAILED]: IntegrationSyncFailedEvent;
     [SOCKET_EVENTS.TEMPLATE_STATUS_UPDATED]: TemplateStatusUpdatedEvent;
+    [SOCKET_EVENTS.AI_AGENT_EXECUTED]: AIAgentExecutedEvent;
 }
 export declare const SOCKET_ROOMS: {
     /**

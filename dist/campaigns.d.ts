@@ -99,11 +99,6 @@ export interface CampaignStats {
  */
 export interface CampaignResponse extends Omit<Campaign, '_id'> {
     id: string;
-    /** @deprecated Use channelId instead */
-    channel?: string;
-    /** @deprecated Use scheduledFor instead */
-    scheduledAt?: string;
-    sentAt?: string;
 }
 /**
  * Campaign List Response

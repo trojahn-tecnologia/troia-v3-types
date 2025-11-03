@@ -105,6 +105,16 @@ export interface ConversationMessage {
     deletedAt?: string;
     deletedBy?: string;
     reactions: MessageReaction[];
+    toolCalls?: Array<{
+        id: string;
+        name: string;
+        arguments: Record<string, any>;
+    }>;
+    toolResults?: Array<{
+        tool_call_id: string;
+        tool_name: string;
+        output: any;
+    }>;
     internalNote?: string;
     isInternal: boolean;
     sentAt: string;
@@ -135,6 +145,16 @@ export interface CreateConversationMessageRequest {
     internalNote?: string;
     isInternal?: boolean;
     sentAt?: string;
+    toolCalls?: Array<{
+        id: string;
+        name: string;
+        arguments: Record<string, any>;
+    }>;
+    toolResults?: Array<{
+        tool_call_id: string;
+        tool_name: string;
+        output: any;
+    }>;
 }
 export interface UpdateConversationMessageRequest {
     content?: MessageContent[];

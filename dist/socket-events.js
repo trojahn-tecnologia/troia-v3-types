@@ -47,6 +47,8 @@ exports.SOCKET_EVENTS = {
     NOTIFICATION_READ: 'notification:read',
     // Template Events
     TEMPLATE_STATUS_UPDATED: 'template:status-updated',
+    // AI Agent Events
+    AI_AGENT_EXECUTED: 'ai:agent:executed',
 };
 // ============================================================================
 // ROOM PATTERNS

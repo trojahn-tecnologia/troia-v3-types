@@ -151,6 +151,20 @@ export interface ConversationMessage {
   // Reactions and interactions
   reactions: MessageReaction[];
 
+  // ✅ AI Agent Tool Calls (for messages array format)
+  toolCalls?: Array<{
+    id: string;
+    name: string;
+    arguments: Record<string, any>;
+  }>;
+
+  // ✅ AI Agent Tool Results (for messages array format)
+  toolResults?: Array<{
+    tool_call_id: string;
+    tool_name: string;
+    output: any;
+  }>;
+
   // Internal notes (agent-only)
   internalNote?: string;
   isInternal: boolean; // True for agent-only messages
@@ -188,6 +202,17 @@ export interface CreateConversationMessageRequest {
   internalNote?: string;
   isInternal?: boolean;
   sentAt?: string;
+  // ✅ AI Agent Tool Calls and Results (for message history reconstruction)
+  toolCalls?: Array<{
+    id: string;
+    name: string;
+    arguments: Record<string, any>;
+  }>;
+  toolResults?: Array<{
+    tool_call_id: string;
+    tool_name: string;
+    output: any;
+  }>;
 }
 
 export interface UpdateConversationMessageRequest {

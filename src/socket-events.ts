@@ -54,6 +54,9 @@ export const SOCKET_EVENTS = {
 
   // Template Events
   TEMPLATE_STATUS_UPDATED: 'template:status-updated',
+
+  // AI Agent Events
+  AI_AGENT_EXECUTED: 'ai:agent:executed',
 } as const;
 
 // Type for event names
@@ -333,6 +336,21 @@ export interface TemplateStatusUpdatedEvent {
   timestamp: string;
 }
 
+/**
+ * AI Agent Executed Event
+ * Emitted when an AI agent finishes executing in a conversation
+ */
+export interface AIAgentExecutedEvent {
+  conversationId: string;
+  agentId: string;
+  agentName: string;
+  success: boolean;
+  response: string;
+  toolCallsExecuted: number;
+  iterations: number;
+  timestamp: string;
+}
+
 // ============================================================================
 // SOCKET EVENT MAP (For Type-Safe Emit/On)
 // ============================================================================
@@ -374,6 +392,9 @@ export interface SocketEventMap {
 
   // Template Events
   [SOCKET_EVENTS.TEMPLATE_STATUS_UPDATED]: TemplateStatusUpdatedEvent;
+
+  // AI Agent Events
+  [SOCKET_EVENTS.AI_AGENT_EXECUTED]: AIAgentExecutedEvent;
 }
 
 // ============================================================================
