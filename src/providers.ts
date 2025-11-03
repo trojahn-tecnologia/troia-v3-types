@@ -191,7 +191,11 @@ export enum ProviderId {
 
   // AI Providers
   AI_OPENAI = 'ai-openai',
-  AI_ANTHROPIC = 'ai-anthropic'
+  AI_ANTHROPIC = 'ai-anthropic',
+  AI_XAI = 'ai-xai',
+  AI_GOOGLE = 'ai-google',
+  AI_MISTRAL = 'ai-mistral',
+  AI_DEEPSEEK = 'ai-deepseek'
 }
 
 // ============================================================================
