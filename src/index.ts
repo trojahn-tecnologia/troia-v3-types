@@ -20,6 +20,7 @@ export * from './company-integrations';
 export * from './assignment';
 export * from './app-integrations';
 export * from './user-integrations';
+export * from './api-keys';
 export * from './email-templates';
 
 // Provider system (shared between app & company integrations)
