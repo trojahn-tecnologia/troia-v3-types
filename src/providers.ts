@@ -102,6 +102,12 @@ export interface OneSignalConfig {
   userAuthKey?: string;
 }
 
+export interface ElevenLabsConfig {
+  apiKey: string;
+  defaultVoiceId?: string;  // Ex: 'pNInz6obpgDQGcFmaJgB' (Adam voice)
+  modelId?: string;         // Ex: 'eleven_multilingual_v2'
+}
+
 
 // ============================================================================
 // UNION TYPE FOR ALL PROVIDER CONFIGS
@@ -122,7 +128,8 @@ export type ProviderConfig =
   | GatewayConfig
   | GoogleCalendarConfig
   | FirebaseConfig
-  | OneSignalConfig;
+  | OneSignalConfig
+  | ElevenLabsConfig;
 
 // ============================================================================
 // PROVIDER CREDENTIALS (OAuth tokens, etc.)
@@ -195,7 +202,8 @@ export enum ProviderId {
   AI_XAI = 'ai-xai',
   AI_GOOGLE = 'ai-google',
   AI_MISTRAL = 'ai-mistral',
-  AI_DEEPSEEK = 'ai-deepseek'
+  AI_DEEPSEEK = 'ai-deepseek',
+  AI_ELEVENLABS = 'ai-elevenlabs'
 }
 
 // ============================================================================
@@ -295,6 +303,8 @@ export enum ProviderCapability {
   GENERATE_EMBEDDING = 'generate_embedding',
   AI_TEXT_GENERATION = 'ai_text_generation',  // LLM text generation (GPT, Claude, etc.)
   AI_CHAT_COMPLETION = 'ai_chat_completion',  // Chat completion with conversation history
+  TEXT_TO_SPEECH = 'text_to_speech',          // Convert text to audio (TTS)
+  SPEECH_TO_TEXT = 'speech_to_text',          // Convert audio to text (STT/Whisper)
 
   // Template Management
   TEMPLATE_MANAGEMENT = 'template_management'  // Submit, approve, manage templates
