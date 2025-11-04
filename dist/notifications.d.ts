@@ -20,6 +20,8 @@ export declare enum NotificationType {
     TICKET_COMMENT_ADDED = "ticket_comment_added",
     CONVERSATION_ASSIGNED = "conversation_assigned",
     CONVERSATION_MESSAGE_RECEIVED = "conversation_message_received",
+    LEAD_ASSIGNED = "lead_assigned",
+    LEAD_STATUS_CHANGED = "lead_status_changed",
     ESCALATION_TRIGGERED = "escalation_triggered",
     ESCALATION_REASSIGNED = "escalation_reassigned",
     PAYMENT_RECEIVED = "payment_received",
@@ -50,6 +52,7 @@ export declare enum NotificationCategory {
     INTEGRATION = "integration",
     TICKETS = "tickets",
     CONVERSATIONS = "conversations",
+    LEADS = "leads",
     PAYMENT = "payment",
     TEAM = "team",
     CUSTOM = "custom"

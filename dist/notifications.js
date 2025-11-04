@@ -30,6 +30,9 @@ var NotificationType;
     NotificationType["TICKET_COMMENT_ADDED"] = "ticket_comment_added";
     NotificationType["CONVERSATION_ASSIGNED"] = "conversation_assigned";
     NotificationType["CONVERSATION_MESSAGE_RECEIVED"] = "conversation_message_received";
+    // Lead events
+    NotificationType["LEAD_ASSIGNED"] = "lead_assigned";
+    NotificationType["LEAD_STATUS_CHANGED"] = "lead_status_changed";
     // Escalation events
     NotificationType["ESCALATION_TRIGGERED"] = "escalation_triggered";
     NotificationType["ESCALATION_REASSIGNED"] = "escalation_reassigned";
@@ -66,6 +69,7 @@ var NotificationCategory;
     NotificationCategory["INTEGRATION"] = "integration";
     NotificationCategory["TICKETS"] = "tickets";
     NotificationCategory["CONVERSATIONS"] = "conversations";
+    NotificationCategory["LEADS"] = "leads";
     NotificationCategory["PAYMENT"] = "payment";
     NotificationCategory["TEAM"] = "team";
     NotificationCategory["CUSTOM"] = "custom";

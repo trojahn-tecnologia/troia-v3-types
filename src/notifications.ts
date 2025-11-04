@@ -33,6 +33,11 @@ export enum NotificationType {
   CONVERSATION_ASSIGNED = 'conversation_assigned',
   CONVERSATION_MESSAGE_RECEIVED = 'conversation_message_received',
 
+  // Lead events
+  LEAD_ASSIGNED = 'lead_assigned',
+  LEAD_STATUS_CHANGED = 'lead_status_changed',
+  LEAD_ACTIVITY_ASSIGNED = 'lead_activity_assigned',
+
   // Escalation events
   ESCALATION_TRIGGERED = 'escalation_triggered',
   ESCALATION_REASSIGNED = 'escalation_reassigned',
@@ -72,6 +77,7 @@ export enum NotificationCategory {
   INTEGRATION = 'integration',
   TICKETS = 'tickets',
   CONVERSATIONS = 'conversations',
+  LEADS = 'leads',
   PAYMENT = 'payment',
   TEAM = 'team',
   CUSTOM = 'custom',
