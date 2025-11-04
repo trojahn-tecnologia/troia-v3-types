@@ -151,14 +151,36 @@ export interface ConversationMessage {
   // Reactions and interactions
   reactions: MessageReaction[];
 
-  // ✅ AI Agent Tool Calls (for messages array format)
+  // ✅ AI Agent Tool Call/Result (UNIFIED - Recommended)
+  // For messaging tools (send_text_message, send_audio_message, send_media_message):
+  //   - Message content already represents the tool execution
+  //   - toolCall + toolResult track what AI did
+  //
+  // For system tools (check_availability, create_lead, etc):
+  //   - messageType: 'system' with plainText describing action
+  //   - toolCall + toolResult for OpenAI context reconstruction
+  toolCall?: {
+    id: string;              // Tool call ID for OpenAI context
+    name: string;            // Tool name (e.g., 'send_text_message')
+    arguments: Record<string, any>;  // Tool arguments
+  };
+
+  toolResult?: {
+    tool_call_id: string;    // Matches toolCall.id
+    tool_name: string;       // Matches toolCall.name
+    output: string;          // Tool execution result
+  };
+
+  // @deprecated Legacy format (use toolCall/toolResult instead)
+  // Will be removed in future version
   toolCalls?: Array<{
     id: string;
     name: string;
     arguments: Record<string, any>;
   }>;
 
-  // ✅ AI Agent Tool Results (for messages array format)
+  // @deprecated Legacy format (use toolCall/toolResult instead)
+  // Will be removed in future version
   toolResults?: Array<{
     tool_call_id: string;
     tool_name: string;
@@ -202,7 +224,20 @@ export interface CreateConversationMessageRequest {
   internalNote?: string;
   isInternal?: boolean;
   sentAt?: string;
-  // ✅ AI Agent Tool Calls and Results (for message history reconstruction)
+
+  // ✅ NEW: Unified tool call/result (recommended)
+  toolCall?: {
+    id: string;
+    name: string;
+    arguments: Record<string, any>;
+  };
+  toolResult?: {
+    tool_call_id: string;
+    tool_name: string;
+    output: string;
+  };
+
+  // @deprecated Legacy format (use toolCall/toolResult instead)
   toolCalls?: Array<{
     id: string;
     name: string;
