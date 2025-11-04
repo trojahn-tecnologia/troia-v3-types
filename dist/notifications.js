@@ -33,6 +33,7 @@ var NotificationType;
     // Lead events
     NotificationType["LEAD_ASSIGNED"] = "lead_assigned";
     NotificationType["LEAD_STATUS_CHANGED"] = "lead_status_changed";
+    NotificationType["LEAD_ACTIVITY_ASSIGNED"] = "lead_activity_assigned";
     // Escalation events
     NotificationType["ESCALATION_TRIGGERED"] = "escalation_triggered";
     NotificationType["ESCALATION_REASSIGNED"] = "escalation_reassigned";

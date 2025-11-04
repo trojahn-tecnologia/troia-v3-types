@@ -22,6 +22,7 @@ export declare enum NotificationType {
     CONVERSATION_MESSAGE_RECEIVED = "conversation_message_received",
     LEAD_ASSIGNED = "lead_assigned",
     LEAD_STATUS_CHANGED = "lead_status_changed",
+    LEAD_ACTIVITY_ASSIGNED = "lead_activity_assigned",
     ESCALATION_TRIGGERED = "escalation_triggered",
     ESCALATION_REASSIGNED = "escalation_reassigned",
     PAYMENT_RECEIVED = "payment_received",

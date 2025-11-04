@@ -60,6 +60,7 @@ export type ValidModuleId =
   | 'services'
   | 'email-templates'
   | 'saved-cards'
+  | 'api-keys'
   | 'agents';
 
 export interface Module extends AppAwareDocument {
