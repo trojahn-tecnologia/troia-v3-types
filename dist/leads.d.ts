@@ -6,7 +6,7 @@ export interface Lead {
     score: number;
     segment: string;
     description?: string;
-    source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+    source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
     origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
     channelId?: string;
     status: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';

@@ -67,7 +67,7 @@ export interface CreateLeadRequest {
   score?: number;
   segment: string;
   description?: string;
-  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
   origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
   channelId?: string;
   status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
@@ -93,7 +93,7 @@ export interface UpdateLeadRequest {
   score?: number;
   segment?: string;
   description?: string;
-  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
   origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
   channelId?: string;
   status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
@@ -157,7 +157,7 @@ export interface LeadQuery extends PaginationQuery {
   filters?: {
     contactId?: string;
     segment?: string;
-    source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+    source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
     origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
     channelId?: string;
     status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
