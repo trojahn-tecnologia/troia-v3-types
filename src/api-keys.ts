@@ -1,18 +1,19 @@
 import { PaginationQuery, ListResponse, GenericQueryOptions } from './common';
 
 /**
- * API Keys Types
- * Used for external API access with key-based authentication
+ * External API Keys Types
+ * Used for external API access with key-based authentication (not user JWT tokens)
+ * These keys allow external platforms to integrate with the system
  */
 
 // Generic Query Pattern
-export interface ApiKeyQuery extends PaginationQuery {
+export interface ExternalApiKeyQuery extends PaginationQuery {
   status?: 'active' | 'inactive' | 'expired';
   name?: string;
 }
 
 // Response Types
-export interface ApiKeyResponse {
+export interface ExternalApiKeyResponse {
   id: string;
   appId: string;
   companyId: string;
@@ -28,18 +29,18 @@ export interface ApiKeyResponse {
   updatedAt: string;
 }
 
-export interface ApiKeyListResponse extends ListResponse<ApiKeyResponse> {}
-export interface ApiKeyQueryOptions extends GenericQueryOptions<ApiKeyQuery> {}
+export interface ExternalApiKeyListResponse extends ListResponse<ExternalApiKeyResponse> {}
+export interface ExternalApiKeyQueryOptions extends GenericQueryOptions<ExternalApiKeyQuery> {}
 
 // Create Request
-export interface CreateApiKeyRequest {
+export interface CreateExternalApiKeyRequest {
   name: string;                       // Friendly name (e.g., "Integração RD Station")
   permissions?: string[];             // Optional permissions (e.g., ["leads:write"])
   expiresAt?: string;                 // Optional expiration (ISO 8601)
 }
 
 // Update Request
-export interface UpdateApiKeyRequest {
+export interface UpdateExternalApiKeyRequest {
   name?: string;
   permissions?: string[];
   status?: 'active' | 'inactive';
@@ -47,6 +48,6 @@ export interface UpdateApiKeyRequest {
 }
 
 // Create Response (includes full key only on creation)
-export interface CreateApiKeyResponse extends ApiKeyResponse {
+export interface CreateExternalApiKeyResponse extends ExternalApiKeyResponse {
   fullKey: string;                    // Full unhashed key (only returned once!)
 }

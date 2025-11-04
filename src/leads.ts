@@ -13,7 +13,7 @@ export interface Lead {
   description?: string;
 
   // Universal source + channel + origin
-  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual';
+  source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
   origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
   channelId?: string;
 
