@@ -45,6 +45,7 @@ var ProviderId;
     ProviderId["AI_GOOGLE"] = "ai-google";
     ProviderId["AI_MISTRAL"] = "ai-mistral";
     ProviderId["AI_DEEPSEEK"] = "ai-deepseek";
+    ProviderId["AI_ELEVENLABS"] = "ai-elevenlabs";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
 // PROVIDER CAPABILITIES (Centralized)
@@ -126,6 +127,8 @@ var ProviderCapability;
     ProviderCapability["GENERATE_EMBEDDING"] = "generate_embedding";
     ProviderCapability["AI_TEXT_GENERATION"] = "ai_text_generation";
     ProviderCapability["AI_CHAT_COMPLETION"] = "ai_chat_completion";
+    ProviderCapability["TEXT_TO_SPEECH"] = "text_to_speech";
+    ProviderCapability["SPEECH_TO_TEXT"] = "speech_to_text";
     // Template Management
     ProviderCapability["TEMPLATE_MANAGEMENT"] = "template_management"; // Submit, approve, manage templates
 })(ProviderCapability || (exports.ProviderCapability = ProviderCapability = {}));

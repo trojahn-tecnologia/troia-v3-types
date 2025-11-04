@@ -34,6 +34,7 @@ export interface AIAgent {
   voiceEnabled: boolean;
   voiceConfig?: {
     aiProviderId: string;
+    voiceId?: string;  // ✅ ID da voz específica (ex: 'alloy', 'nova', 'shimmer' para OpenAI, ou voice ID do ElevenLabs)
   };
   confidenceThresholds: {
     autoResponse: number;
@@ -109,6 +110,7 @@ export interface CreateAIAgentRequest {
   voiceEnabled?: boolean;
   voiceConfig?: {
     aiProviderId: string;
+    voiceId?: string;
   };
   confidenceThresholds?: {
     autoResponse: number;
@@ -131,6 +133,7 @@ export interface UpdateAIAgentRequest {
   voiceEnabled?: boolean;
   voiceConfig?: {
     aiProviderId: string;
+    voiceId?: string;
   };
   confidenceThresholds?: {
     autoResponse: number;

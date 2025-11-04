@@ -81,7 +81,12 @@ export interface OneSignalConfig {
     apiKey: string;
     userAuthKey?: string;
 }
-export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig | FirebaseConfig | OneSignalConfig;
+export interface ElevenLabsConfig {
+    apiKey: string;
+    defaultVoiceId?: string;
+    modelId?: string;
+}
+export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig | FirebaseConfig | OneSignalConfig | ElevenLabsConfig;
 export interface ProviderCredentials {
     accessToken?: string;
     refreshToken?: string;
@@ -124,7 +129,8 @@ export declare enum ProviderId {
     AI_XAI = "ai-xai",
     AI_GOOGLE = "ai-google",
     AI_MISTRAL = "ai-mistral",
-    AI_DEEPSEEK = "ai-deepseek"
+    AI_DEEPSEEK = "ai-deepseek",
+    AI_ELEVENLABS = "ai-elevenlabs"
 }
 export declare enum ProviderCapability {
     SEND_EMAIL = "send_email",
@@ -184,6 +190,8 @@ export declare enum ProviderCapability {
     GENERATE_EMBEDDING = "generate_embedding",
     AI_TEXT_GENERATION = "ai_text_generation",// LLM text generation (GPT, Claude, etc.)
     AI_CHAT_COMPLETION = "ai_chat_completion",// Chat completion with conversation history
+    TEXT_TO_SPEECH = "text_to_speech",// Convert text to audio (TTS)
+    SPEECH_TO_TEXT = "speech_to_text",// Convert audio to text (STT/Whisper)
     TEMPLATE_MANAGEMENT = "template_management"
 }
 export interface BaseIntegrationRequest {
