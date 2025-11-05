@@ -160,7 +160,7 @@ export interface UpdateConversationRequest {
   subject?: string;
   status?: 'waiting' | 'active' | 'closed';
   priority?: 'low' | 'normal' | 'high' | 'urgent';
-  conversationType?: 'individual' | 'group' | 'ai';  // ✅ Conversation type classification
+  conversationType?: 'individual' | 'group';  // ✅ Conversation type classification (structure)
   closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
   closeNotes?: string;
   customerId?: string;
@@ -192,7 +192,7 @@ export interface ConversationQuery extends PaginationQuery {
     priority?: 'low' | 'normal' | 'high' | 'urgent';
     channelId?: string;
     channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
-    conversationType?: 'individual' | 'group' | 'ai';  // ✅ Infinite scroll: filter by conversation type
+    conversationType?: 'individual' | 'group' | 'ai';  // ✅ Virtual filter: 'ai' = agentId EXISTS AND agentStatus='active'
     providerId?: string;  // ✅ Filter by provider (via channel → integration → provider)
     source?: string;
     customerId?: string;

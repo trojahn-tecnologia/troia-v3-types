@@ -113,7 +113,6 @@ export interface AIAgentCapabilityConfig {
       start: string;  // "09:00"
       end: string;    // "18:00"
     };
-    requireApproval?: boolean;           // Requer aprovação antes de agendar
 
     // Lead Management
     allowedLeadStages?: string[];        // Etapas de funil permitidas

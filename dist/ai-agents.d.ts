@@ -32,6 +32,7 @@ export interface AIAgent {
         fallback: number;
     };
     enabledCapabilities: AIAgentCapability[];
+    capabilityConfigs?: AIAgentCapabilityConfig[];
     responseStyle?: string;
     tone?: string;
     language?: string;
@@ -71,7 +72,29 @@ export interface AIAgentTriggers {
         eventTypes?: string[];
     };
 }
-export type AIAgentCapability = 'text_generation' | 'sentiment_analysis' | 'intent_recognition' | 'entity_extraction' | 'language_translation' | 'conversation_summarization' | 'voice_interaction';
+export type AIAgentCapability = 'text_generation' | 'sentiment_analysis' | 'intent_recognition' | 'entity_extraction' | 'language_translation' | 'conversation_summarization' | 'voice_interaction' | 'calendar_management' | 'lead_management' | 'conversation_transfer' | 'media_messaging';
+/**
+ * Agent Capability Configuration
+ * Configurações específicas para cada capability habilitada
+ */
+export interface AIAgentCapabilityConfig {
+    capability: AIAgentCapability;
+    enabled: boolean;
+    config?: {
+        allowedUserIds?: string[];
+        defaultDuration?: number;
+        allowedTimeSlots?: {
+            start: string;
+            end: string;
+        };
+        requireApproval?: boolean;
+        allowedLeadStages?: string[];
+        autoAssign?: boolean;
+        allowedTransferUserIds?: string[];
+        transferMessage?: string;
+        [key: string]: any;
+    };
+}
 export interface AIAgentResponse extends Omit<AIAgent, '_id'> {
     id: string;
     totalInteractions?: number;

@@ -8,7 +8,7 @@ export interface Conversation {
     closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
     closeNotes?: string;
     channelId: string;
-    conversationType?: 'individual' | 'group' | 'ai';
+    conversationType?: 'individual' | 'group';
     providerConversationId?: string;
     source: string;
     customerId?: string;
@@ -93,7 +93,7 @@ export interface CreateConversationRequest {
     priority?: 'low' | 'normal' | 'high' | 'urgent';
     status?: 'waiting' | 'active' | 'closed';
     channelId: string;
-    conversationType?: 'individual' | 'group' | 'ai';
+    conversationType?: 'individual' | 'group';
     providerConversationId?: string;
     source: string;
     customerId?: string;
@@ -113,7 +113,7 @@ export interface UpdateConversationRequest {
     subject?: string;
     status?: 'waiting' | 'active' | 'closed';
     priority?: 'low' | 'normal' | 'high' | 'urgent';
-    conversationType?: 'individual' | 'group' | 'ai';
+    conversationType?: 'individual' | 'group';
     closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
     closeNotes?: string;
     customerId?: string;
