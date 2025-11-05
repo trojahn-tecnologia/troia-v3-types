@@ -41,8 +41,7 @@ export interface AIAgent {
     escalation: number;
     fallback: number;
   };
-  enabledCapabilities: AIAgentCapability[];
-  capabilityConfigs?: AIAgentCapabilityConfig[];  // Configurações detalhadas de capabilities
+  enabledCapabilities: AIAgentCapabilityConfig[];  // ✅ UNIFIED: Capabilities + Configurations
   responseStyle?: string;                   // Agent response style (professional, casual, etc.)
   tone?: string;                            // Agent tone (helpful, formal, friendly, etc.)
   language?: string;                        // Preferred language for responses
@@ -152,7 +151,7 @@ export interface CreateAIAgentRequest {
     escalation: number;
     fallback: number;
   };
-  enabledCapabilities?: AIAgentCapability[];
+  enabledCapabilities?: AIAgentCapabilityConfig[];  // ✅ UNIFIED: Capabilities + Configurations
 }
 
 export interface UpdateAIAgentRequest {
@@ -175,7 +174,7 @@ export interface UpdateAIAgentRequest {
     escalation: number;
     fallback: number;
   };
-  enabledCapabilities?: AIAgentCapability[];
+  enabledCapabilities?: AIAgentCapabilityConfig[];  // ✅ UNIFIED: Capabilities + Configurations
 }
 
 export interface AIAgentQuery extends PaginationQuery {
