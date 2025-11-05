@@ -42,6 +42,7 @@ export interface AIAgent {
     fallback: number;
   };
   enabledCapabilities: AIAgentCapability[];
+  capabilityConfigs?: AIAgentCapabilityConfig[];  // Configurações detalhadas de capabilities
   responseStyle?: string;                   // Agent response style (professional, casual, etc.)
   tone?: string;                            // Agent tone (helpful, formal, friendly, etc.)
   language?: string;                        // Preferred language for responses
@@ -90,7 +91,42 @@ export type AIAgentCapability =
   | 'entity_extraction'
   | 'language_translation'
   | 'conversation_summarization'
-  | 'voice_interaction';
+  | 'voice_interaction'
+  // Tool-based capabilities
+  | 'calendar_management'
+  | 'lead_management'
+  | 'conversation_transfer'
+  | 'media_messaging';
+
+/**
+ * Agent Capability Configuration
+ * Configurações específicas para cada capability habilitada
+ */
+export interface AIAgentCapabilityConfig {
+  capability: AIAgentCapability;
+  enabled: boolean;
+  config?: {
+    // Calendar Management
+    allowedUserIds?: string[];           // IDs de usuários permitidos para agendamento
+    defaultDuration?: number;            // Duração padrão de reunião (minutos)
+    allowedTimeSlots?: {
+      start: string;  // "09:00"
+      end: string;    // "18:00"
+    };
+    requireApproval?: boolean;           // Requer aprovação antes de agendar
+
+    // Lead Management
+    allowedLeadStages?: string[];        // Etapas de funil permitidas
+    autoAssign?: boolean;                // Auto-atribuir leads criados
+
+    // Conversation Transfer
+    allowedTransferUserIds?: string[];   // Usuários para os quais pode transferir
+    transferMessage?: string;            // Mensagem padrão ao transferir
+
+    // Generic config for future capabilities
+    [key: string]: any;
+  };
+}
 
 export interface AIAgentResponse extends Omit<AIAgent, '_id'> {
   id: string;

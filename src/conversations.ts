@@ -13,7 +13,7 @@ export interface Conversation {
 
   // Multi-channel support
   channelId: string;          // Channel where conversation happens
-  conversationType?: 'individual' | 'group' | 'ai';  // ✅ Conversation type classification
+  conversationType?: 'individual' | 'group';  // ✅ Conversation type classification (structure)
 
   // External provider integration
   providerConversationId?: string; // External conversation ID
@@ -133,7 +133,7 @@ export interface CreateConversationRequest {
   priority?: 'low' | 'normal' | 'high' | 'urgent';
   status?: 'waiting' | 'active' | 'closed';
   channelId: string;
-  conversationType?: 'individual' | 'group' | 'ai';  // ✅ Conversation type classification
+  conversationType?: 'individual' | 'group';  // ✅ Conversation type classification (structure)
   providerConversationId?: string;
   source: string;
   customerId?: string;
