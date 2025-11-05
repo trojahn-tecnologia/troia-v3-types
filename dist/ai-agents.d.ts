@@ -87,7 +87,6 @@ export interface AIAgentCapabilityConfig {
             start: string;
             end: string;
         };
-        requireApproval?: boolean;
         allowedLeadStages?: string[];
         autoAssign?: boolean;
         allowedTransferUserIds?: string[];
