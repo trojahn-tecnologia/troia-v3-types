@@ -121,19 +121,19 @@ export interface LeadResponse extends Lead {
 export interface LeadQuery extends PaginationQuery {
     filters?: {
         contactId?: string;
-        segment?: string;
-        source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
-        origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
-        channelId?: string;
-        status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
-        priority?: 'low' | 'medium' | 'high' | 'urgent';
-        temperature?: 'cold' | 'warm' | 'hot';
-        qualifyStatus?: 'pending' | 'qualified' | 'disqualified';
-        businessStatus?: 'pending' | 'won' | 'lost';
-        funnelId?: string;
-        stepId?: string;
-        assigneeId?: string;
-        teamId?: string;
+        segment?: string | string[];
+        source?: ('webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api') | ('webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api')[];
+        origin?: ('Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other') | ('Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other')[];
+        channelId?: string | string[];
+        status?: ('new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost') | ('new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost')[];
+        priority?: ('low' | 'medium' | 'high' | 'urgent') | ('low' | 'medium' | 'high' | 'urgent')[];
+        temperature?: ('cold' | 'warm' | 'hot') | ('cold' | 'warm' | 'hot')[];
+        qualifyStatus?: ('pending' | 'qualified' | 'disqualified') | ('pending' | 'qualified' | 'disqualified')[];
+        businessStatus?: ('pending' | 'won' | 'lost') | ('pending' | 'won' | 'lost')[];
+        funnelId?: string | string[];
+        stepId?: string | string[];
+        assigneeId?: string | string[];
+        teamId?: string | string[];
         customerId?: string;
         scoreMin?: number;
         scoreMax?: number;

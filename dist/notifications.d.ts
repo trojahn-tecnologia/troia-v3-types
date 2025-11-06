@@ -61,7 +61,7 @@ export declare enum NotificationCategory {
 /**
  * Canais de entrega disponíveis
  */
-export type NotificationChannel = 'email' | 'sms' | 'push' | 'inApp';
+export type NotificationChannel = 'email' | 'whatsapp' | 'push' | 'inApp';
 /**
  * Status de entrega por canal
  */

@@ -156,19 +156,19 @@ export interface LeadResponse extends Lead {
 export interface LeadQuery extends PaginationQuery {
   filters?: {
     contactId?: string;
-    segment?: string;
-    source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
-    origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
-    channelId?: string;
-    status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
-    priority?: 'low' | 'medium' | 'high' | 'urgent';
-    temperature?: 'cold' | 'warm' | 'hot';
-    qualifyStatus?: 'pending' | 'qualified' | 'disqualified';
-    businessStatus?: 'pending' | 'won' | 'lost';
-    funnelId?: string;
-    stepId?: string;
-    assigneeId?: string;
-    teamId?: string;
+    segment?: string | string[];                                                                                                    // Multiple selection
+    source?: ('webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api') | ('webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api')[];
+    origin?: ('Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other') | ('Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other')[];
+    channelId?: string | string[];                                                                                                  // Multiple selection
+    status?: ('new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost') | ('new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost')[];
+    priority?: ('low' | 'medium' | 'high' | 'urgent') | ('low' | 'medium' | 'high' | 'urgent')[];
+    temperature?: ('cold' | 'warm' | 'hot') | ('cold' | 'warm' | 'hot')[];
+    qualifyStatus?: ('pending' | 'qualified' | 'disqualified') | ('pending' | 'qualified' | 'disqualified')[];                    // Default: ['pending', 'qualified']
+    businessStatus?: ('pending' | 'won' | 'lost') | ('pending' | 'won' | 'lost')[];                                               // Default: ['pending', 'won']
+    funnelId?: string | string[];                                                                                                   // Multiple selection
+    stepId?: string | string[];                                                                                                     // Multiple selection
+    assigneeId?: string | string[];                                                                                                 // Multiple selection
+    teamId?: string | string[];                                                                                                     // Multiple selection
     customerId?: string;
     scoreMin?: number;
     scoreMax?: number;
