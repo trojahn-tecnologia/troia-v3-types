@@ -31,8 +31,7 @@ export interface AIAgent {
         escalation: number;
         fallback: number;
     };
-    enabledCapabilities: AIAgentCapability[];
-    capabilityConfigs?: AIAgentCapabilityConfig[];
+    enabledCapabilities: AIAgentCapabilityConfig[];
     responseStyle?: string;
     tone?: string;
     language?: string;
@@ -118,7 +117,7 @@ export interface CreateAIAgentRequest {
         escalation: number;
         fallback: number;
     };
-    enabledCapabilities?: AIAgentCapability[];
+    enabledCapabilities?: AIAgentCapabilityConfig[];
 }
 export interface UpdateAIAgentRequest {
     name?: string;
@@ -140,7 +139,7 @@ export interface UpdateAIAgentRequest {
         escalation: number;
         fallback: number;
     };
-    enabledCapabilities?: AIAgentCapability[];
+    enabledCapabilities?: AIAgentCapabilityConfig[];
 }
 export interface AIAgentQuery extends PaginationQuery {
     status?: ActiveStatus;

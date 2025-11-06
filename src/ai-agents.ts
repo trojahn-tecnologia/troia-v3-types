@@ -114,8 +114,7 @@ export interface AIAgentCapabilityConfig {
     };
 
     // Lead Management
-    allowedLeadStages?: string[];        // Etapas de funil permitidas
-    autoAssign?: boolean;                // Auto-atribuir leads criados
+    funnelId?: string;                   // Funil selecionado para criar leads
 
     // Conversation Transfer
     allowedTransferUserIds?: string[];   // Usuários para os quais pode transferir

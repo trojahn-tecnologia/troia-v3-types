@@ -1,4 +1,5 @@
 import { PaginationQuery, ListResponse, AppAwareDocument, ActiveStatus } from './common';
+import { AssignmentConfig } from './assignment';
 
 /**
  * Funnel - Sales funnel structure
@@ -10,6 +11,7 @@ export interface Funnel extends AppAwareDocument {
   color: string;              // Hex color (e.g., "#8b5cf6")
   order: number;              // Display order (customizable)
   status: ActiveStatus;
+  assignmentConfig?: AssignmentConfig;  // Assignment rules (like channels)
 }
 
 export interface CreateFunnelRequest {
