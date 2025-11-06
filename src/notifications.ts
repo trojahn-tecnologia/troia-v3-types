@@ -86,7 +86,7 @@ export enum NotificationCategory {
 /**
  * Canais de entrega disponíveis
  */
-export type NotificationChannel = 'email' | 'sms' | 'push' | 'inApp';
+export type NotificationChannel = 'email' | 'whatsapp' | 'push' | 'inApp';
 
 /**
  * Status de entrega por canal
@@ -98,7 +98,7 @@ export interface ChannelDeliveryStatus {
   deliveredAt?: Date;
   readAt?: Date;
   error?: string;
-  providerId?: string;        // ID do provider usado (ex: 'email-smtp', 'sms-twilio')
+  providerId?: string;        // ID do provider usado (ex: 'email-smtp', 'whatsapp-gateway')
   providerResponse?: any;     // Resposta do provider (MessageID, etc.)
 }
 

@@ -35,7 +35,7 @@ export interface UserNotificationPreferences {
     frequency: 'immediate' | 'daily' | 'weekly' | 'monthly';
     types: string[];
   };
-  sms: {
+  whatsapp: {
     enabled: boolean;
     types: string[];
   };

@@ -86,8 +86,7 @@ export interface AIAgentCapabilityConfig {
             start: string;
             end: string;
         };
-        allowedLeadStages?: string[];
-        autoAssign?: boolean;
+        funnelId?: string;
         allowedTransferUserIds?: string[];
         transferMessage?: string;
         [key: string]: any;

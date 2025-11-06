@@ -1,4 +1,5 @@
 import { PaginationQuery, ListResponse, AppAwareDocument, ActiveStatus } from './common';
+import { AssignmentConfig } from './assignment';
 /**
  * Funnel - Sales funnel structure
  * Each funnel has its own independent steps
@@ -9,6 +10,7 @@ export interface Funnel extends AppAwareDocument {
     color: string;
     order: number;
     status: ActiveStatus;
+    assignmentConfig?: AssignmentConfig;
 }
 export interface CreateFunnelRequest {
     name: string;
