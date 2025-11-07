@@ -14,7 +14,7 @@ export interface Lead {
 
   // Universal source + channel + origin
   source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
-  origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
+  origin?: 'whatsapp' | 'instagram' | 'facebook' | 'telegram' | 'email' | 'website' | 'phone' | 'referral' | 'other';
   channelId?: string;
 
   // Status and temperature
@@ -68,7 +68,7 @@ export interface CreateLeadRequest {
   segment: string;
   description?: string;
   source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
-  origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
+  origin?: 'whatsapp' | 'instagram' | 'facebook' | 'telegram' | 'email' | 'website' | 'phone' | 'referral' | 'other';
   channelId?: string;
   status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
   priority?: 'low' | 'medium' | 'high' | 'urgent';
@@ -94,7 +94,7 @@ export interface UpdateLeadRequest {
   segment?: string;
   description?: string;
   source?: 'webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api';
-  origin?: 'Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other';
+  origin?: 'whatsapp' | 'instagram' | 'facebook' | 'telegram' | 'email' | 'website' | 'phone' | 'referral' | 'other';
   channelId?: string;
   status?: 'new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost';
   priority?: 'low' | 'medium' | 'high' | 'urgent';
@@ -158,7 +158,7 @@ export interface LeadQuery extends PaginationQuery {
     contactId?: string;
     segment?: string | string[];                                                                                                    // Multiple selection
     source?: ('webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api') | ('webhook' | 'conversation' | 'ai-conversation' | 'manual' | 'api')[];
-    origin?: ('Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other') | ('Facebook' | 'Instagram' | 'Google' | 'Youtube' | 'LinkedIn' | 'Twitter' | 'TikTok' | 'Website' | 'Email' | 'Phone' | 'Referral' | 'Other')[];
+    origin?: ('whatsapp' | 'instagram' | 'facebook' | 'telegram' | 'email' | 'website' | 'phone' | 'referral' | 'other') | ('whatsapp' | 'instagram' | 'facebook' | 'telegram' | 'email' | 'website' | 'phone' | 'referral' | 'other')[];
     channelId?: string | string[];                                                                                                  // Multiple selection
     status?: ('new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost') | ('new' | 'contacted' | 'qualified' | 'disqualified' | 'converted' | 'lost')[];
     priority?: ('low' | 'medium' | 'high' | 'urgent') | ('low' | 'medium' | 'high' | 'urgent')[];
