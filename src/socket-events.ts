@@ -16,6 +16,7 @@ export const SOCKET_EVENTS = {
   CONVERSATION_OPEN: 'conversation:open',               // ✅ Arch 3.4: User opens conversation
   CONVERSATION_UNREAD_RESET: 'conversation:unread-reset', // ✅ Arch 3.4: Unread counter reset
   CONVERSATION_ERROR: 'conversation:error',             // ✅ Arch 3.4: Error in conversation operations
+  UNREAD_COUNT_UPDATE: 'unread-count:update',         // ✅ Optimization: Backend sends updated counters
 
   // Message Events
   MESSAGE_STATUS: 'message:status',                 // ✅ Generic status update (sent, delivered, read, failed)
@@ -244,6 +245,22 @@ export interface ConversationUnreadResetEvent {
 }
 
 /**
+ * Unread Count Update Event
+ * Server-to-Client: Updated unread counters (total + by type)
+ * Optimization: Sent after message creation to avoid frontend HTTP requests
+ */
+export interface UnreadCountUpdateEvent {
+  userId: string;              // User ID who will receive this update
+  totalUnread: number;         // Total unread messages across all conversations
+  byType: {                    // Unread count by conversation type
+    ai: number;                // AI agent conversations (agentId + agentStatus: 'active')
+    individual: number;        // Individual chats (contactId + no groupId + no active agent)
+    group: number;             // Group conversations (groupId)
+  };
+  timestamp: string;           // ISO timestamp of update
+}
+
+/**
  * Conversation Error Event (Arch 3.4)
  * Server-to-Client: Error during conversation operations
  */
@@ -363,6 +380,7 @@ export interface SocketEventMap {
   [SOCKET_EVENTS.CONVERSATION_OPEN]: ConversationOpenEvent;               // ✅ Arch 3.4
   [SOCKET_EVENTS.CONVERSATION_UNREAD_RESET]: ConversationUnreadResetEvent; // ✅ Arch 3.4
   [SOCKET_EVENTS.CONVERSATION_ERROR]: ConversationErrorEvent;             // ✅ Arch 3.4
+  [SOCKET_EVENTS.UNREAD_COUNT_UPDATE]: UnreadCountUpdateEvent;            // ✅ Optimization
 
   // Message Events
   [SOCKET_EVENTS.MESSAGE_STATUS]: MessageStatusEvent;           // ✅ Generic status event
