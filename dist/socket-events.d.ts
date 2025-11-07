@@ -10,6 +10,7 @@ export declare const SOCKET_EVENTS: {
     readonly CONVERSATION_OPEN: "conversation:open";
     readonly CONVERSATION_UNREAD_RESET: "conversation:unread-reset";
     readonly CONVERSATION_ERROR: "conversation:error";
+    readonly UNREAD_COUNT_UPDATE: "unread-count:update";
     readonly MESSAGE_STATUS: "message:status";
     readonly MESSAGE_DELIVERED: "message:delivered";
     readonly MESSAGE_READ: "message:read";
@@ -192,6 +193,21 @@ export interface ConversationUnreadResetEvent {
     unreadCount: number;
 }
 /**
+ * Unread Count Update Event
+ * Server-to-Client: Updated unread counters (total + by type)
+ * Optimization: Sent after message creation to avoid frontend HTTP requests
+ */
+export interface UnreadCountUpdateEvent {
+    userId: string;
+    totalUnread: number;
+    byType: {
+        ai: number;
+        individual: number;
+        group: number;
+    };
+    timestamp: string;
+}
+/**
  * Conversation Error Event (Arch 3.4)
  * Server-to-Client: Error during conversation operations
  */
@@ -297,6 +313,7 @@ export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_OPEN]: ConversationOpenEvent;
     [SOCKET_EVENTS.CONVERSATION_UNREAD_RESET]: ConversationUnreadResetEvent;
     [SOCKET_EVENTS.CONVERSATION_ERROR]: ConversationErrorEvent;
+    [SOCKET_EVENTS.UNREAD_COUNT_UPDATE]: UnreadCountUpdateEvent;
     [SOCKET_EVENTS.MESSAGE_STATUS]: MessageStatusEvent;
     [SOCKET_EVENTS.MESSAGE_DELIVERED]: MessageDeliveredEvent;
     [SOCKET_EVENTS.MESSAGE_READ]: MessageReadEvent;

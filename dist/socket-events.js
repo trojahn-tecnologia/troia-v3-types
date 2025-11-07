@@ -17,6 +17,7 @@ exports.SOCKET_EVENTS = {
     CONVERSATION_OPEN: 'conversation:open', // ✅ Arch 3.4: User opens conversation
     CONVERSATION_UNREAD_RESET: 'conversation:unread-reset', // ✅ Arch 3.4: Unread counter reset
     CONVERSATION_ERROR: 'conversation:error', // ✅ Arch 3.4: Error in conversation operations
+    UNREAD_COUNT_UPDATE: 'unread-count:update', // ✅ Optimization: Backend sends updated counters
     // Message Events
     MESSAGE_STATUS: 'message:status', // ✅ Generic status update (sent, delivered, read, failed)
     MESSAGE_DELIVERED: 'message:delivered',
