@@ -142,6 +142,7 @@ export interface UpdateUserRequest {
   status?: ActiveStatus;
   levelId?: string; // ID do nível (será convertido para ObjectId no backend)
   preferences?: Partial<UserPreferences>;
+  password?: string; // Senha opcional - será hasheada no backend se fornecida
 }
 
 export interface CreateUserInvitationRequest {
