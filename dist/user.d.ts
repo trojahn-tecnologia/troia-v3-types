@@ -124,6 +124,7 @@ export interface UpdateUserRequest {
     status?: ActiveStatus;
     levelId?: string;
     preferences?: Partial<UserPreferences>;
+    password?: string;
 }
 export interface CreateUserInvitationRequest {
     email: string;
