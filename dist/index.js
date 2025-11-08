@@ -72,6 +72,8 @@ __exportStar(require("./message-chunks"), exports);
 // Marketing modules
 __exportStar(require("./templates"), exports);
 __exportStar(require("./campaigns"), exports);
+// Databases module (multi-purpose data segregation)
+__exportStar(require("./databases"), exports);
 // AI Agents modules (Phase 1)
 __exportStar(require("./ai-agents"), exports);
 __exportStar(require("./escalation-rules"), exports);

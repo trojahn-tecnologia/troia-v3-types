@@ -71,6 +71,9 @@ export * from './message-chunks';
 export * from './templates';
 export * from './campaigns';
 
+// Databases module (multi-purpose data segregation)
+export * from './databases';
+
 // AI Agents modules (Phase 1)
 export * from './ai-agents';
 export * from './escalation-rules';

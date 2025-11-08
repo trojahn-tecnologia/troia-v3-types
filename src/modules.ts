@@ -61,7 +61,8 @@ export type ValidModuleId =
   | 'email-templates'
   | 'saved-cards'
   | 'api-keys'
-  | 'agents';
+  | 'agents'
+  | 'databases';
 
 export interface Module extends AppAwareDocument {
   name: string; // "users", "crm", "teams", "chat", "reports"

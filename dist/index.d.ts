@@ -41,6 +41,7 @@ export * from './group-participants';
 export * from './message-chunks';
 export * from './templates';
 export * from './campaigns';
+export * from './databases';
 export * from './ai-agents';
 export * from './escalation-rules';
 export * from './custom-actions';

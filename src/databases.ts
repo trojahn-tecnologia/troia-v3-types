@@ -1,0 +1,837 @@
+/**
+ * 🗄️ DATABASES MODULE - Type Definitions
+ *
+ * Purpose: Segregate content types/sources for manipulation by other modules
+ * and use as knowledge base for AI agents
+ *
+ * Architecture:
+ * - Single collection 'databases-documents' with polymorphic data based on 'type'
+ * - Relationship: databases ↔ databases-documents via databaseId
+ * - Multi-opportunity business model: Items can have multiple simultaneous business opportunities
+ */
+
+import { PaginationQuery, PaginatedResponse } from './common';
+
+// ============================================================================
+// BUSINESS OPPORTUNITY TYPES (Core Reusable Types)
+// ============================================================================
+
+export enum BusinessOpportunityType {
+  SALE = 'sale',
+  RENT = 'rent',
+  SEASONAL_RENT = 'seasonal_rent',
+  DAILY_RENT = 'daily_rent',
+  LEASE = 'lease',
+  EXCHANGE = 'exchange',
+  DONATION = 'donation',
+  AUCTION = 'auction'
+}
+
+export enum OpportunityStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  RESERVED = 'reserved',
+  IN_NEGOTIATION = 'in_negotiation',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled'
+}
+
+/**
+ * Business Opportunity - Reusable across all database types
+ *
+ * Enables items to have multiple simultaneous business opportunities
+ * Example: Property available for sale (R$850k) + rent (R$3.5k/month) + seasonal_rent (R$500/day)
+ */
+export interface BusinessOpportunity {
+  /** Unique identifier for this opportunity */
+  id: string;
+
+  /** Type of business opportunity */
+  type: BusinessOpportunityType;
+
+  /** Current status of this opportunity (independent from item status) */
+  status: OpportunityStatus;
+
+  /** Pricing configuration */
+  pricing: {
+    /** Amount in currency unit */
+    amount: number;
+
+    /** Currency code (default: BRL) */
+    currency: string;
+
+    /** Billing period for recurring opportunities */
+    period?: 'day' | 'month' | 'year';
+
+    /** How price is calculated */
+    unitType?: 'total' | 'per_sqm' | 'per_unit';
+  };
+
+  /** Business conditions and terms */
+  conditions?: {
+    /** Price is negotiable */
+    negotiable?: boolean;
+
+    /** Accepts exchange/trade */
+    acceptsExchange?: boolean;
+
+    /** Details about what can be exchanged */
+    exchangeDetails?: string;
+
+    /** Minimum rental/lease period (in days) */
+    minPeriod?: number;
+
+    /** Maximum rental/lease period (in days) */
+    maxPeriod?: number;
+
+    /** Security deposit amount */
+    deposit?: number;
+
+    /** Advance payment (months) */
+    advance?: number;
+
+    /** Down payment for sales */
+    downPayment?: number;
+
+    /** Installment options */
+    installments?: {
+      available: boolean;
+      maxInstallments?: number;
+      interestRate?: number;
+    };
+
+    /** Discount configuration */
+    discount?: {
+      type: 'percentage' | 'fixed';
+      value: number;
+      conditions?: string;
+    };
+  };
+
+  /** Temporal availability */
+  availability?: {
+    /** Available from date */
+    from?: string;
+
+    /** Available until date */
+    to?: string;
+
+    /** Specific available dates (for seasonal) */
+    specificDates?: string[];
+
+    /** Immediately available */
+    immediateAvailability?: boolean;
+  };
+
+  /** Additional costs (IPTU, condo fees, insurance, etc.) */
+  additionalCosts?: Array<{
+    name: string;
+    amount: number;
+    frequency?: 'monthly' | 'yearly' | 'one_time';
+    includedInPrice?: boolean;
+  }>;
+
+  /** Private notes (internal use) */
+  notes?: string;
+
+  /** Public notes (shown to customers) */
+  publicNotes?: string;
+
+  /** Opportunity creation timestamp */
+  createdAt: string;
+
+  /** Last update timestamp */
+  updatedAt: string;
+
+  /** Completion timestamp (when status became 'completed') */
+  completedAt?: string;
+}
+
+// ============================================================================
+// DATABASE TYPES
+// ============================================================================
+
+export enum DatabaseType {
+  PROPERTIES = 'properties',
+  VEHICLES = 'vehicles',
+  PRODUCTS = 'products',
+  SERVICES = 'services',
+  DOCUMENTS = 'documents'
+}
+
+export enum DatabaseStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  ARCHIVED = 'archived'
+}
+
+// ============================================================================
+// PROPERTY DATABASE TYPE
+// ============================================================================
+
+export enum PropertyType {
+  HOUSE = 'house',
+  APARTMENT = 'apartment',
+  COMMERCIAL = 'commercial',
+  LAND = 'land',
+  FARM = 'farm',
+  WAREHOUSE = 'warehouse',
+  OFFICE = 'office',
+  STUDIO = 'studio',
+  PENTHOUSE = 'penthouse',
+  TOWNHOUSE = 'townhouse'
+}
+
+export enum PropertyItemStatus {
+  AVAILABLE = 'available',
+  UNAVAILABLE = 'unavailable',
+  UNDER_CONSTRUCTION = 'under_construction',
+  RESERVED = 'reserved',
+  ARCHIVED = 'archived'
+}
+
+export interface PropertyAddress {
+  street: string;
+  number?: string;
+  complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export interface DatabasePropertyData {
+  /** Property title */
+  title: string;
+
+  /** Detailed description */
+  description: string;
+
+  /** Internal reference code */
+  reference?: string;
+
+  /** Type of property */
+  propertyType: PropertyType;
+
+  /** Full address */
+  address: PropertyAddress;
+
+  /** Property features */
+  features: {
+    bedrooms?: number;
+    bathrooms?: number;
+    suites?: number;
+    parkingSpaces?: number;
+    totalArea?: number;
+    builtArea?: number;
+    privateArea?: number;
+    floors?: number;
+    units?: number;
+  };
+
+  /** Amenities and characteristics */
+  amenities?: string[];
+
+  /** Construction details */
+  construction?: {
+    year?: number;
+    style?: string;
+    condition?: 'new' | 'excellent' | 'good' | 'needs_renovation' | 'under_renovation';
+  };
+
+  /** 🔑 MULTI-OPPORTUNITY MODEL */
+  opportunities: BusinessOpportunity[];
+
+  /** Overall item status (independent from opportunity status) */
+  itemStatus: PropertyItemStatus;
+
+  /** Media files */
+  media?: {
+    photos?: string[];
+    videos?: string[];
+    virtualTour?: string;
+    floorPlan?: string[];
+  };
+
+  /** External system ID (for integration sync) */
+  externalId?: string;
+
+  /** External system metadata */
+  externalMetadata?: Record<string, any>;
+
+  /** Tags for categorization */
+  tags?: string[];
+
+  /** Custom fields */
+  customFields?: Record<string, any>;
+}
+
+// ============================================================================
+// VEHICLE DATABASE TYPE
+// ============================================================================
+
+export enum VehicleType {
+  CAR = 'car',
+  MOTORCYCLE = 'motorcycle',
+  TRUCK = 'truck',
+  SUV = 'suv',
+  VAN = 'van',
+  BUS = 'bus',
+  BOAT = 'boat',
+  JET_SKI = 'jet_ski',
+  BICYCLE = 'bicycle'
+}
+
+export enum FuelType {
+  GASOLINE = 'gasoline',
+  ETHANOL = 'ethanol',
+  DIESEL = 'diesel',
+  ELECTRIC = 'electric',
+  HYBRID = 'hybrid',
+  FLEX = 'flex'
+}
+
+export enum TransmissionType {
+  MANUAL = 'manual',
+  AUTOMATIC = 'automatic',
+  SEMI_AUTOMATIC = 'semi_automatic',
+  CVT = 'cvt'
+}
+
+export enum VehicleCondition {
+  NEW = 'new',
+  USED = 'used',
+  CERTIFIED = 'certified'
+}
+
+export enum VehicleItemStatus {
+  AVAILABLE = 'available',
+  UNAVAILABLE = 'unavailable',
+  IN_MAINTENANCE = 'in_maintenance',
+  RESERVED = 'reserved',
+  ARCHIVED = 'archived'
+}
+
+export interface DatabaseVehicleData {
+  /** Vehicle brand */
+  brand: string;
+
+  /** Vehicle model */
+  model: string;
+
+  /** Manufacturing year */
+  year: number;
+
+  /** Model year (can be different from manufacturing year) */
+  modelYear?: number;
+
+  /** Type of vehicle */
+  vehicleType: VehicleType;
+
+  /** Engine specifications */
+  engine: {
+    fuelType: FuelType;
+    transmission: TransmissionType;
+    engineSize?: string;
+    power?: number;
+    cylinders?: number;
+  };
+
+  /** Mileage in kilometers */
+  mileage?: number;
+
+  /** Vehicle condition */
+  condition: VehicleCondition;
+
+  /** Color */
+  color?: string;
+
+  /** License plate */
+  licensePlate?: string;
+
+  /** Chassis number (VIN) */
+  chassisNumber?: string;
+
+  /** Features and accessories */
+  features?: string[];
+
+  /** 🔑 MULTI-OPPORTUNITY MODEL */
+  opportunities: BusinessOpportunity[];
+
+  /** Overall item status */
+  itemStatus: VehicleItemStatus;
+
+  /** Media files */
+  media?: {
+    photos?: string[];
+    videos?: string[];
+  };
+
+  /** External system ID */
+  externalId?: string;
+
+  /** External system metadata */
+  externalMetadata?: Record<string, any>;
+
+  /** Tags */
+  tags?: string[];
+
+  /** Custom fields */
+  customFields?: Record<string, any>;
+}
+
+// ============================================================================
+// PRODUCT DATABASE TYPE
+// ============================================================================
+
+export enum ProductCategory {
+  ELECTRONICS = 'electronics',
+  FURNITURE = 'furniture',
+  CLOTHING = 'clothing',
+  FOOD = 'food',
+  BOOKS = 'books',
+  TOYS = 'toys',
+  SPORTS = 'sports',
+  BEAUTY = 'beauty',
+  AUTOMOTIVE = 'automotive',
+  HOME_GARDEN = 'home_garden',
+  OTHER = 'other'
+}
+
+export enum ProductItemStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  OUT_OF_STOCK = 'outofstock',
+  DISCONTINUED = 'discontinued',
+  ARCHIVED = 'archived'
+}
+
+export interface DatabaseProductData {
+  /** Product name */
+  name: string;
+
+  /** Detailed description */
+  description: string;
+
+  /** SKU (Stock Keeping Unit) */
+  sku?: string;
+
+  /** Category */
+  category: ProductCategory;
+
+  /** Brand/Manufacturer */
+  brand?: string;
+
+  /** Inventory management */
+  inventory: {
+    stock: number;
+    stockUnit: 'unit' | 'kg' | 'liter' | 'meter' | 'box' | 'pack';
+    lowStockThreshold?: number;
+    trackInventory: boolean;
+  };
+
+  /** Physical dimensions */
+  dimensions?: {
+    weight?: number;
+    width?: number;
+    height?: number;
+    depth?: number;
+    unit: 'cm' | 'inch' | 'kg' | 'lb';
+  };
+
+  /** 🔑 MULTI-OPPORTUNITY MODEL */
+  opportunities: BusinessOpportunity[];
+
+  /** Product variations (colors, sizes, etc.) */
+  variations?: Array<{
+    id: string;
+    name: string;
+    attributes: Record<string, string>;
+    sku?: string;
+    stock?: number;
+    /** Variations can override base opportunities with their own pricing */
+    opportunities?: BusinessOpportunity[];
+  }>;
+
+  /** Overall item status */
+  itemStatus: ProductItemStatus;
+
+  /** Media files */
+  media?: {
+    photos?: string[];
+    videos?: string[];
+  };
+
+  /** External system ID */
+  externalId?: string;
+
+  /** External system metadata */
+  externalMetadata?: Record<string, any>;
+
+  /** Tags */
+  tags?: string[];
+
+  /** Custom fields */
+  customFields?: Record<string, any>;
+}
+
+// ============================================================================
+// SERVICE DATABASE TYPE
+// ============================================================================
+
+export enum ServiceType {
+  CONSULTING = 'consulting',
+  MAINTENANCE = 'maintenance',
+  INSTALLATION = 'installation',
+  REPAIR = 'repair',
+  CLEANING = 'cleaning',
+  DESIGN = 'design',
+  DEVELOPMENT = 'development',
+  MARKETING = 'marketing',
+  EDUCATION = 'education',
+  HEALTH = 'health',
+  LEGAL = 'legal',
+  FINANCIAL = 'financial',
+  OTHER = 'other'
+}
+
+export enum ServiceDeliveryMethod {
+  IN_PERSON = 'in-person',
+  REMOTE = 'remote',
+  HYBRID = 'hybrid'
+}
+
+export enum ServiceItemStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  SUSPENDED = 'suspended',
+  ARCHIVED = 'archived'
+}
+
+export interface DatabaseServiceData {
+  /** Service name */
+  name: string;
+
+  /** Detailed description */
+  description: string;
+
+  /** Type of service */
+  serviceType: ServiceType;
+
+  /** How service is delivered */
+  deliveryMethod: ServiceDeliveryMethod;
+
+  /** Estimated duration */
+  duration?: {
+    value: number;
+    unit: 'hour' | 'day' | 'week' | 'month';
+  };
+
+  /** Service area (cities, regions) */
+  serviceArea?: string[];
+
+  /** 🔑 MULTI-OPPORTUNITY MODEL */
+  opportunities: BusinessOpportunity[];
+
+  /** Requirements from customer */
+  requirements?: string[];
+
+  /** Deliverables included */
+  deliverables?: string[];
+
+  /** Overall item status */
+  itemStatus: ServiceItemStatus;
+
+  /** Media files */
+  media?: {
+    photos?: string[];
+    videos?: string[];
+    portfolio?: string[];
+  };
+
+  /** External system ID */
+  externalId?: string;
+
+  /** External system metadata */
+  externalMetadata?: Record<string, any>;
+
+  /** Tags */
+  tags?: string[];
+
+  /** Custom fields */
+  customFields?: Record<string, any>;
+}
+
+// ============================================================================
+// DOCUMENT DATABASE TYPE (Knowledge Base for AI Agents)
+// ============================================================================
+
+export enum DocumentCategory {
+  ARTICLE = 'article',
+  MANUAL = 'manual',
+  FAQ = 'faq',
+  POLICY = 'policy',
+  GUIDE = 'guide',
+  TUTORIAL = 'tutorial',
+  REPORT = 'report',
+  WHITEPAPER = 'whitepaper',
+  CASE_STUDY = 'case_study',
+  OTHER = 'other'
+}
+
+export enum DocumentItemStatus {
+  PUBLISHED = 'published',
+  DRAFT = 'draft',
+  ARCHIVED = 'archived'
+}
+
+export interface DatabaseDocumentData {
+  /** Document title */
+  title: string;
+
+  /** Full content (markdown supported) */
+  content: string;
+
+  /** Short summary/excerpt */
+  summary?: string;
+
+  /** Document category */
+  category: DocumentCategory;
+
+  /** Author */
+  author?: string;
+
+  /** Keywords for search */
+  keywords?: string[];
+
+  /** Language code (e.g., 'pt-BR', 'en-US') */
+  language?: string;
+
+  /** Vector embeddings for AI semantic search */
+  embeddings?: number[];
+
+  /** Related document IDs */
+  relatedDocuments?: string[];
+
+  /** Overall item status */
+  itemStatus: DocumentItemStatus;
+
+  /** Attachments */
+  attachments?: Array<{
+    name: string;
+    url: string;
+    type: string;
+    size: number;
+  }>;
+
+  /** External system ID */
+  externalId?: string;
+
+  /** External system metadata */
+  externalMetadata?: Record<string, any>;
+
+  /** Tags */
+  tags?: string[];
+
+  /** Custom fields */
+  customFields?: Record<string, any>;
+}
+
+// ============================================================================
+// DATABASE CONFIGURATION
+// ============================================================================
+
+/**
+ * Sync configuration for database integration
+ */
+export interface DatabaseSyncConfig {
+  /** Enable/disable sync */
+  enabled: boolean;
+
+  /** Sync direction */
+  direction: 'pull' | 'push' | 'bidirectional';
+
+  /** Sync frequency in minutes */
+  frequency: number;
+
+  /** Last sync timestamp */
+  lastSyncAt?: string;
+
+  /** Next scheduled sync */
+  nextSyncAt?: string;
+
+  /** Conflict resolution strategy */
+  conflictResolution?: 'external_wins' | 'local_wins' | 'manual_review';
+
+  /** Auto-sync on create/update */
+  autoSync?: boolean;
+}
+
+/**
+ * Database configuration document
+ */
+export interface Database {
+  _id: string;
+  appId: string;
+  companyId: string;
+
+  /** Database name (user-defined) */
+  name: string;
+
+  /** Database type */
+  type: DatabaseType;
+
+  /** Description */
+  description?: string;
+
+  /** Database status */
+  status: DatabaseStatus;
+
+  /** Integration ID (if using external system) */
+  integrationId?: string;
+
+  /** Sync configuration (if integration enabled) */
+  syncConfig?: DatabaseSyncConfig;
+
+  /** Total documents count (cached) */
+  totalDocuments?: number;
+
+  /** Tags */
+  tags?: string[];
+
+  /** Custom settings */
+  settings?: Record<string, any>;
+
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date;
+}
+
+export interface DatabaseResponse extends Omit<Database, '_id' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'deletedAt'> {
+  id: string;
+  appId: string;
+  companyId: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
+}
+
+// ============================================================================
+// DATABASE DOCUMENT (Polymorphic Data Container)
+// ============================================================================
+
+/**
+ * Polymorphic document - data structure varies based on 'type' field
+ */
+export interface DatabaseDocument<T = any> {
+  _id: string;
+  appId: string;
+  companyId: string;
+
+  /** Parent database ID */
+  databaseId: string;
+
+  /** Document type (determines data structure) */
+  type: DatabaseType;
+
+  /** Polymorphic data (validated based on type) */
+  data: T;
+
+  /** Document metadata */
+  metadata?: {
+    createdBy?: string;
+    updatedBy?: string;
+    source?: 'manual' | 'integration' | 'import' | 'api';
+    lastSyncedAt?: Date;
+  };
+
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date;
+}
+
+export interface DatabaseDocumentResponse<T = any> extends Omit<DatabaseDocument<T>, '_id' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'deletedAt'> {
+  id: string;
+  appId: string;
+  companyId: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
+}
+
+// ============================================================================
+// REQUEST/RESPONSE TYPES
+// ============================================================================
+
+export interface CreateDatabaseRequest {
+  name: string;
+  type: DatabaseType;
+  description?: string;
+  tags?: string[];
+  settings?: Record<string, any>;
+
+  /** Optional integration setup */
+  useIntegration?: boolean;
+  providerId?: string;
+  integrationConfig?: Record<string, any>;
+  integrationCredentials?: Record<string, any>;
+
+  /** Sync configuration */
+  syncConfig?: Omit<DatabaseSyncConfig, 'lastSyncAt' | 'nextSyncAt'>;
+}
+
+export interface UpdateDatabaseRequest {
+  name?: string;
+  description?: string;
+  status?: DatabaseStatus;
+  tags?: string[];
+  settings?: Record<string, any>;
+  syncConfig?: Partial<DatabaseSyncConfig>;
+}
+
+export interface CreateDatabaseDocumentRequest<T = any> {
+  databaseId: string;
+  type: DatabaseType;
+  data: T;
+  metadata?: {
+    source?: 'manual' | 'integration' | 'import' | 'api';
+  };
+}
+
+export interface UpdateDatabaseDocumentRequest<T = any> {
+  data?: Partial<T>;
+  metadata?: {
+    source?: 'manual' | 'integration' | 'import' | 'api';
+  };
+}
+
+export interface DatabaseQuery extends PaginationQuery {
+  filters?: {
+    type?: DatabaseType;
+    status?: DatabaseStatus;
+    integrationId?: string;
+    tags?: string[];
+  };
+}
+
+export interface DatabaseDocumentQuery extends PaginationQuery {
+  filters?: {
+    databaseId?: string;
+    type?: DatabaseType;
+    itemStatus?: string;
+    opportunityType?: BusinessOpportunityType;
+    opportunityStatus?: OpportunityStatus;
+    minPrice?: number;
+    maxPrice?: number;
+    tags?: string[];
+    externalId?: string;
+  };
+}
+
+export interface DatabaseListResponse extends PaginatedResponse<DatabaseResponse> {}
+export interface DatabaseDocumentListResponse<T = any> extends PaginatedResponse<DatabaseDocumentResponse<T>> {}
