@@ -18,7 +18,7 @@ export interface Team {
 export interface TeamUser {
   teamId: ObjectId;
   userId: ObjectId;
-  role: 'member' | 'leader' | 'manager';
+  role: 'member' | 'leader' | 'manager' | 'supervisor';
   priority: number; // 1=highest priority for assignments
   companyId: ObjectId;
   appId: ObjectId;
@@ -50,7 +50,7 @@ export interface TeamQuery extends PaginationQuery {
 export interface TeamUserQuery extends PaginationQuery {
   teamId?: string;
   userId?: string;
-  role?: 'member' | 'leader' | 'manager';
+  role?: 'member' | 'leader' | 'manager' | 'supervisor';
   status?: ActiveStatus;
 }
 

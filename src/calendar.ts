@@ -91,6 +91,7 @@ export interface CalendarEventResponse extends Omit<CalendarEvent, '_id'> {
  * Create Calendar Event Request
  */
 export interface CreateCalendarEventRequest {
+  userId?: string;                     // Event owner (optional - defaults to authenticated user)
   summary: string;
   description?: string;
   location?: string;

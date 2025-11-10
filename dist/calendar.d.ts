@@ -68,6 +68,7 @@ export interface CalendarEventResponse extends Omit<CalendarEvent, '_id'> {
  * Create Calendar Event Request
  */
 export interface CreateCalendarEventRequest {
+    userId?: string;
     summary: string;
     description?: string;
     location?: string;
