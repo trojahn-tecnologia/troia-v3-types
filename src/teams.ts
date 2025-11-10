@@ -7,7 +7,7 @@ import { PaginationQuery, ListResponse, GenericQueryOptions, ActiveStatus } from
 
 export interface Team {
   name: string;
-  description: string;
+  description?: string;
   companyId: ObjectId;
   appId: ObjectId;
   status: ActiveStatus;
@@ -92,7 +92,7 @@ export interface TeamResourceQueryOptions extends GenericQueryOptions<TeamResour
 // Team Requests
 export interface CreateTeamRequest {
   name: string;
-  description: string;
+  description?: string;
 }
 
 export interface UpdateTeamRequest {

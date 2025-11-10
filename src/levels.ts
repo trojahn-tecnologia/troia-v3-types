@@ -4,7 +4,7 @@ import { ModulePermission } from './modules';
 
 export interface Level extends FullTenantDocument {
   name: string; // "Administrador", "Gerente", "Operador"
-  description: string;
+  description?: string;
   permissions: Record<string, ModulePermission>; // moduleId -> permissions
   status: ActiveStatus;
 }
@@ -18,7 +18,7 @@ export interface LevelQuery extends PaginationQuery {
 export interface LevelResponse {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   permissions: Record<string, ModulePermission>;
   companyId: string;
   appId: string;
@@ -32,7 +32,7 @@ export interface LevelQueryOptions extends GenericQueryOptions<LevelQuery> {}
 // Request types
 export interface CreateLevelRequest {
   name: string;
-  description: string;
+  description?: string;
   permissions: Record<string, ModulePermission>;
 }
 
