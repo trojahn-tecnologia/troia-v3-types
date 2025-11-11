@@ -27,6 +27,7 @@ export interface UserPreferences {
   dateFormat: string;
   timeFormat: '12h' | '24h';
   notifications: UserNotificationPreferences;
+  calendar: UserCalendarPreferences;
 }
 
 export interface UserNotificationPreferences {
@@ -47,6 +48,111 @@ export interface UserNotificationPreferences {
     enabled: boolean;
     types: string[];
   };
+}
+
+/**
+ * User Calendar Preferences
+ *
+ * Configurações personalizadas de disponibilidade de agenda para cada usuário.
+ * Permite definir horários de trabalho, pausas, datas bloqueadas, feriados, etc.
+ */
+export interface UserCalendarPreferences {
+  workingHours: {
+    monday: WorkingHoursConfig;
+    tuesday: WorkingHoursConfig;
+    wednesday: WorkingHoursConfig;
+    thursday: WorkingHoursConfig;
+    friday: WorkingHoursConfig;
+    saturday: WorkingHoursConfig;
+    sunday: WorkingHoursConfig;
+  };
+  breaks: BreakConfig[];
+  blockedDates: BlockedDateConfig[];
+  holidays: HolidaysConfig;
+  meetingBuffer: MeetingBufferConfig;
+  defaultMeetingDuration: number; // Duração padrão em minutos (ex: 60)
+  dailyMeetingLimit?: DailyMeetingLimitConfig;
+}
+
+/**
+ * Working Hours Configuration
+ *
+ * Define horário de trabalho para um dia específico
+ */
+export interface WorkingHoursConfig {
+  enabled: boolean;         // Se usuário trabalha neste dia
+  start: string;            // Formato HH:mm (ex: "08:00")
+  end: string;              // Formato HH:mm (ex: "18:00")
+}
+
+/**
+ * Break Configuration
+ *
+ * Pausas durante o dia (almoço, café, etc.)
+ */
+export interface BreakConfig {
+  name: string;             // Ex: "Almoço", "Café da tarde"
+  start: string;            // Formato HH:mm (ex: "12:00")
+  end: string;              // Formato HH:mm (ex: "13:00")
+  daysOfWeek: number[];     // 0-6 (0=Domingo, 1=Segunda, ..., 6=Sábado)
+  enabled: boolean;
+}
+
+/**
+ * Blocked Date Configuration
+ *
+ * Datas específicas bloqueadas (férias, eventos pessoais)
+ */
+export interface BlockedDateConfig {
+  startDate: string;        // ISO 8601 date (ex: "2025-12-20")
+  endDate: string;          // ISO 8601 date (ex: "2025-12-31")
+  reason?: string;          // Motivo (ex: "Férias", "Congresso")
+  allDay: boolean;          // Se bloqueia dia inteiro ou horário específico
+  startTime?: string;       // Se allDay=false, horário de início (HH:mm)
+  endTime?: string;         // Se allDay=false, horário de fim (HH:mm)
+}
+
+/**
+ * Holidays Configuration
+ *
+ * Configuração de feriados nacionais/regionais
+ */
+export interface HolidaysConfig {
+  enabled: boolean;         // Se deve bloquear feriados
+  country: string;          // Código ISO do país (ex: "BR", "US")
+  region?: string;          // Estado/região (ex: "SP", "RJ", "CA")
+  customHolidays: CustomHoliday[];
+}
+
+/**
+ * Custom Holiday
+ *
+ * Feriado customizado pelo usuário
+ */
+export interface CustomHoliday {
+  date: string;             // ISO 8601 date (ex: "2025-06-09")
+  name: string;             // Nome do feriado (ex: "Aniversário da empresa")
+  recurring: boolean;       // Se repete anualmente
+}
+
+/**
+ * Meeting Buffer Configuration
+ *
+ * Tempo de buffer entre reuniões (para preparação/deslocamento)
+ */
+export interface MeetingBufferConfig {
+  enabled: boolean;
+  minutes: number;          // Minutos de buffer (ex: 15)
+}
+
+/**
+ * Daily Meeting Limit Configuration
+ *
+ * Limite máximo de reuniões por dia
+ */
+export interface DailyMeetingLimitConfig {
+  enabled: boolean;
+  maxMeetings: number;      // Máximo de reuniões por dia (ex: 8)
 }
 
 

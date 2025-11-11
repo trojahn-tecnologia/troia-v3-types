@@ -107,11 +107,6 @@ export interface AIAgentCapabilityConfig {
   config?: {
     // Calendar Management
     allowedUserIds?: string[];           // IDs de usuários permitidos para agendamento
-    defaultDuration?: number;            // Duração padrão de reunião (minutos)
-    allowedTimeSlots?: {
-      start: string;  // "09:00"
-      end: string;    // "18:00"
-    };
 
     // Lead Management
     funnelId?: string;                   // Funil selecionado para criar leads

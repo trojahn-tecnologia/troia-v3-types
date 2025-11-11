@@ -81,11 +81,6 @@ export interface AIAgentCapabilityConfig {
     enabled: boolean;
     config?: {
         allowedUserIds?: string[];
-        defaultDuration?: number;
-        allowedTimeSlots?: {
-            start: string;
-            end: string;
-        };
         funnelId?: string;
         allowedTransferUserIds?: string[];
         transferMessage?: string;
