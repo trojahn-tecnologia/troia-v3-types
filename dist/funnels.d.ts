@@ -49,6 +49,7 @@ export interface CreateFunnelRequest {
     description?: string;
     color: string;
     order?: number;
+    assignmentConfig?: FunnelAssignmentConfig;
 }
 export interface UpdateFunnelRequest {
     name?: string;
