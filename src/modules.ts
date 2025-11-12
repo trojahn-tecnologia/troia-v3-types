@@ -62,6 +62,7 @@ export type ValidModuleId =
   | 'saved-cards'
   | 'api-keys'
   | 'agents'
+  | 'tools'
   | 'databases';
 
 export interface Module extends AppAwareDocument {

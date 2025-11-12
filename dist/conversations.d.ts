@@ -7,6 +7,7 @@ export interface Conversation {
     priority: 'low' | 'normal' | 'high' | 'urgent';
     closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
     closeNotes?: string;
+    isReturn?: boolean;
     channelId: string;
     conversationType?: 'individual' | 'group';
     providerConversationId?: string;
@@ -132,6 +133,7 @@ export interface UpdateConversationRequest {
 export type ConversationResponse = Conversation;
 export interface ConversationQuery extends PaginationQuery {
     filters?: {
+        search?: string;
         subject?: string;
         status?: 'waiting' | 'active' | 'closed' | Array<'waiting' | 'active' | 'closed'>;
         priority?: 'low' | 'normal' | 'high' | 'urgent';

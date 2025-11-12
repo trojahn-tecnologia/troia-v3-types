@@ -6,7 +6,7 @@ export interface CustomAction {
   id?: string;
   name: string;
   displayName: string;
-  description: string;
+  description?: string;
   parameters: {
     type: 'object';
     properties: Record<string, {
@@ -42,7 +42,7 @@ export interface CustomActionResponse extends Omit<CustomAction, '_id'> {
 export interface CreateCustomActionRequest {
   name: string;
   displayName: string;
-  description: string;
+  description?: string;
   parameters: {
     type: 'object';
     properties: Record<string, {
@@ -94,3 +94,24 @@ export interface UpdateCustomActionRequest {
 export interface CustomActionQuery extends PaginationQuery {
   status?: ActiveStatus;
 }
+
+// Additional type exports for frontend use
+export type CustomActionParameter = {
+  type: string;
+  description: string;
+};
+
+export type CustomActionEndpoint = {
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  url: string;
+  headers?: Record<string, string>;
+  body?: Record<string, any>;
+};
+
+export type CustomActionCredentials = Record<string, string>;
+
+export type CustomActionResponseMapping = {
+  successPath?: string;
+  errorPath?: string;
+  transform?: string;
+};

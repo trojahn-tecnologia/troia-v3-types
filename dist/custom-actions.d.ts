@@ -5,7 +5,7 @@ export interface CustomAction {
     id?: string;
     name: string;
     displayName: string;
-    description: string;
+    description?: string;
     parameters: {
         type: 'object';
         properties: Record<string, {
@@ -39,7 +39,7 @@ export interface CustomActionResponse extends Omit<CustomAction, '_id'> {
 export interface CreateCustomActionRequest {
     name: string;
     displayName: string;
-    description: string;
+    description?: string;
     parameters: {
         type: 'object';
         properties: Record<string, {

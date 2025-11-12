@@ -54,6 +54,7 @@ export * from './funnels';
 export * from './tickets';
 export * from './conversations';
 export * from './conversation-messages';
+export * from './chat-dashboard';
 export * from './activities';
 export * from './notifications';
 

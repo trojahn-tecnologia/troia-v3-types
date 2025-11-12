@@ -10,6 +10,7 @@ export interface Conversation {
   priority: 'low' | 'normal' | 'high' | 'urgent';
   closeReason?: 'resolved' | 'spam' | 'duplicate' | 'no_response' | 'transferred' | 'expired' | 'other';
   closeNotes?: string;
+  isReturn?: boolean;  // Flag para indicar se é um retorno/reengajamento
 
   // Multi-channel support
   channelId: string;          // Channel where conversation happens
@@ -187,6 +188,7 @@ export type ConversationResponse = Conversation;
 
 export interface ConversationQuery extends PaginationQuery {
   filters?: {
+    search?: string;    // ✅ Search filter (also accepted at root level)
     subject?: string;
     status?: 'waiting' | 'active' | 'closed' | Array<'waiting' | 'active' | 'closed'>;  // ✅ Aceita string ou array
     priority?: 'low' | 'normal' | 'high' | 'urgent';
