@@ -89,3 +89,19 @@ export interface UpdateCustomActionRequest {
 export interface CustomActionQuery extends PaginationQuery {
     status?: ActiveStatus;
 }
+export type CustomActionParameter = {
+    type: string;
+    description: string;
+};
+export type CustomActionEndpoint = {
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+    url: string;
+    headers?: Record<string, string>;
+    body?: Record<string, any>;
+};
+export type CustomActionCredentials = Record<string, string>;
+export type CustomActionResponseMapping = {
+    successPath?: string;
+    errorPath?: string;
+    transform?: string;
+};
