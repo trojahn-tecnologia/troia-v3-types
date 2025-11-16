@@ -281,6 +281,7 @@ export interface LoginResponse {
   refreshToken?: string;
   expiresAt: Date;
   requiresTwoFactor?: boolean;
+  companyName: string; // ✅ Nome da empresa do usuário
 }
 
 export interface ChangePasswordRequest {
