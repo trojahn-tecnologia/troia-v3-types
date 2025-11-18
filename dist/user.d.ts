@@ -251,6 +251,7 @@ export interface LoginResponse {
     refreshToken?: string;
     expiresAt: Date;
     requiresTwoFactor?: boolean;
+    companyName: string;
 }
 export interface ChangePasswordRequest {
     currentPassword: string;
