@@ -49,6 +49,7 @@ export type AssignmentStrategy =
   | 'least_busy'
   | 'priority_based'
   | 'random'
+  | 'lottery'
   | 'shift_lottery'
   | 'availability_based'
   | 'skill_based'
