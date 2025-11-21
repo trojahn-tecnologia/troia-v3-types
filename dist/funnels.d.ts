@@ -1,7 +1,7 @@
 import { PaginationQuery, ListResponse, AppAwareDocument, ActiveStatus } from './common';
 import { AssignmentConfig as CoreAssignmentConfig } from './assignment';
 export interface FunnelAssignmentConfig extends CoreAssignmentConfig {
-    strategy: 'manual' | 'rule' | 'lottery' | 'none';
+    strategy: 'manual' | 'rule' | 'lottery' | 'shift_lottery' | 'none';
     rules?: FunnelAssignmentRule[];
     lotteryConfig?: FunnelLotteryConfig;
 }

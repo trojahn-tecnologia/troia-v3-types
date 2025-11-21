@@ -7,7 +7,7 @@ import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryC
 
 // Funnel-specific assignment config extends core assignment config
 export interface FunnelAssignmentConfig extends CoreAssignmentConfig {
-  strategy: 'manual' | 'rule' | 'lottery' | 'none';
+  strategy: 'manual' | 'rule' | 'lottery' | 'shift_lottery' | 'none';
   rules?: FunnelAssignmentRule[];
   lotteryConfig?: FunnelLotteryConfig;
 }

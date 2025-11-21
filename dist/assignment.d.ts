@@ -36,7 +36,7 @@ export interface Assignment {
     updatedAt: Date;
 }
 export type AssignmentType = 'manual' | 'automatic' | 'lottery' | 'rule_based';
-export type AssignmentStrategy = 'round_robin' | 'least_busy' | 'priority_based' | 'random' | 'shift_lottery' | 'availability_based' | 'skill_based' | 'geographic' | 'manual_override';
+export type AssignmentStrategy = 'round_robin' | 'least_busy' | 'priority_based' | 'random' | 'lottery' | 'shift_lottery' | 'availability_based' | 'skill_based' | 'geographic' | 'manual_override';
 export type AssignmentStatus = 'pending' | 'assigned' | 'accepted' | 'rejected' | 'completed' | 'cancelled';
 export interface AssignmentConfig {
     enabled: boolean;
