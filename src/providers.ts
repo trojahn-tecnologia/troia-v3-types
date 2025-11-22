@@ -108,6 +108,11 @@ export interface ElevenLabsConfig {
   modelId?: string;         // Ex: 'eleven_multilingual_v2'
 }
 
+export interface JetimobConfig {
+  apiKey: string;            // Jetimob API Key
+  syncInterval?: number;     // Intervalo de sincronização em minutos (default: 60)
+}
+
 
 // ============================================================================
 // UNION TYPE FOR ALL PROVIDER CONFIGS
@@ -129,7 +134,8 @@ export type ProviderConfig =
   | GoogleCalendarConfig
   | FirebaseConfig
   | OneSignalConfig
-  | ElevenLabsConfig;
+  | ElevenLabsConfig
+  | JetimobConfig;
 
 // ============================================================================
 // PROVIDER CREDENTIALS (OAuth tokens, etc.)
@@ -203,7 +209,12 @@ export enum ProviderId {
   AI_GOOGLE = 'ai-google',
   AI_MISTRAL = 'ai-mistral',
   AI_DEEPSEEK = 'ai-deepseek',
-  AI_ELEVENLABS = 'ai-elevenlabs'
+  AI_ELEVENLABS = 'ai-elevenlabs',
+
+  // Database Providers (Properties, Real Estate, etc.)
+  DATABASE_JETIMOB = 'database-jetimob',
+  DATABASE_VISTA = 'database-vista',
+  DATABASE_ZAP = 'database-zap'
 }
 
 // ============================================================================
@@ -307,7 +318,14 @@ export enum ProviderCapability {
   SPEECH_TO_TEXT = 'speech_to_text',          // Convert audio to text (STT/Whisper)
 
   // Template Management
-  TEMPLATE_MANAGEMENT = 'template_management'  // Submit, approve, manage templates
+  TEMPLATE_MANAGEMENT = 'template_management',  // Submit, approve, manage templates
+
+  // Database Capabilities (Properties, Real Estate, etc.)
+  FETCH_PROPERTIES = 'fetch_properties',        // Fetch properties from external system
+  SYNC_PROPERTIES = 'sync_properties',          // Sync properties bidirectionally
+  CREATE_PROPERTY = 'create_property',          // Create property in external system
+  UPDATE_PROPERTY = 'update_property',          // Update property in external system
+  DELETE_PROPERTY = 'delete_property'           // Delete property from external system
 }
 
 // ============================================================================
