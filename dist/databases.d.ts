@@ -546,6 +546,26 @@ export interface DatabaseResponse extends Omit<Database, '_id' | 'appId' | 'comp
 /**
  * Polymorphic document - data structure varies based on 'type' field
  */
+/**
+ * Database Provider Sync Status
+ *
+ * Estados possíveis de sincronização com provider externo
+ */
+export type DatabaseProviderSyncStatus = 'pending' | 'synced' | 'failed';
+/**
+ * Database Provider Sync Entry
+ *
+ * Registro de sincronização com um provider específico
+ * Permite múltiplos providers sincronizando o mesmo documento
+ */
+export interface DatabaseProviderSyncEntry {
+    integrationId: string;
+    providerId: string;
+    providerDocumentId: string;
+    syncStatus: DatabaseProviderSyncStatus;
+    lastSyncAt: string;
+    syncError?: string;
+}
 export interface DatabaseDocument<T = any> {
     _id: string;
     appId: string;
@@ -563,6 +583,8 @@ export interface DatabaseDocument<T = any> {
         source?: 'manual' | 'integration' | 'import' | 'api';
         lastSyncedAt?: Date;
     };
+    /** Provider sync tracking (para multi-provider support) */
+    providerSync?: DatabaseProviderSyncEntry[];
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;
@@ -635,4 +657,23 @@ export interface DatabaseDocumentQuery extends PaginationQuery {
 export interface DatabaseListResponse extends PaginatedResponse<DatabaseResponse> {
 }
 export interface DatabaseDocumentListResponse<T = any> extends PaginatedResponse<DatabaseDocumentResponse<T>> {
+}
+/**
+ * Database Sync Result
+ *
+ * Resultado de operação de sincronização com provider
+ */
+export interface DatabaseSyncResult {
+    documentsCreated: number;
+    documentsUpdated: number;
+    documentsDeleted: number;
+    errors: Array<{
+        providerDocumentId: string;
+        error: string;
+    }>;
+    summary: {
+        totalProcessed: number;
+        successCount: number;
+        errorCount: number;
+    };
 }

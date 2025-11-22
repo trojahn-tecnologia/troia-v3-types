@@ -49,6 +49,12 @@ export const SOCKET_EVENTS = {
   INTEGRATION_SYNC_COMPLETED: 'integration:sync-completed',
   INTEGRATION_SYNC_FAILED: 'integration:sync-failed',
 
+  // Database Sync Events
+  DATABASE_SYNC_STARTED: 'database:sync-started',
+  DATABASE_SYNC_PROGRESS: 'database:sync-progress',
+  DATABASE_SYNC_COMPLETED: 'database:sync-completed',
+  DATABASE_SYNC_FAILED: 'database:sync-failed',
+
   // Notification Events
   NOTIFICATION_NEW: 'notification:new',
   NOTIFICATION_READ: 'notification:read',
@@ -341,6 +347,52 @@ export interface IntegrationSyncFailedEvent {
 }
 
 /**
+ * Database Sync Started Event
+ * Server-to-Client: Database sync process has started
+ */
+export interface DatabaseSyncStartedEvent {
+  integrationId: string;
+  providerId: string;
+  syncDirection: 'pull' | 'push';
+  timestamp: string;
+}
+
+/**
+ * Database Sync Progress Event
+ * Server-to-Client: Progress update during database sync
+ */
+export interface DatabaseSyncProgressEvent {
+  integrationId: string;
+  currentItem: number;
+  totalItems: number;
+  message?: string; // Optional progress message
+  timestamp: string;
+}
+
+/**
+ * Database Sync Completed Event
+ * Server-to-Client: Database sync completed successfully
+ */
+export interface DatabaseSyncCompletedEvent {
+  integrationId: string;
+  itemsSynced: number;
+  duration: number; // Duration in milliseconds
+  success: boolean;
+  timestamp: string;
+}
+
+/**
+ * Database Sync Failed Event
+ * Server-to-Client: Database sync failed with error
+ */
+export interface DatabaseSyncFailedEvent {
+  integrationId: string;
+  error: string;
+  itemsProcessed: number;
+  timestamp: string;
+}
+
+/**
  * Template Status Updated Event
  * Server-to-Client: Template approval status changed (APPROVED/REJECTED)
  */
@@ -407,6 +459,12 @@ export interface SocketEventMap {
   [SOCKET_EVENTS.INTEGRATION_SYNC_PROGRESS]: IntegrationSyncProgressEvent;
   [SOCKET_EVENTS.INTEGRATION_SYNC_COMPLETED]: IntegrationSyncCompletedEvent;
   [SOCKET_EVENTS.INTEGRATION_SYNC_FAILED]: IntegrationSyncFailedEvent;
+
+  // Database Sync Events
+  [SOCKET_EVENTS.DATABASE_SYNC_STARTED]: DatabaseSyncStartedEvent;
+  [SOCKET_EVENTS.DATABASE_SYNC_PROGRESS]: DatabaseSyncProgressEvent;
+  [SOCKET_EVENTS.DATABASE_SYNC_COMPLETED]: DatabaseSyncCompletedEvent;
+  [SOCKET_EVENTS.DATABASE_SYNC_FAILED]: DatabaseSyncFailedEvent;
 
   // Template Events
   [SOCKET_EVENTS.TEMPLATE_STATUS_UPDATED]: TemplateStatusUpdatedEvent;

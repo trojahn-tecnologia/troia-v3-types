@@ -728,6 +728,31 @@ export interface DatabaseResponse extends Omit<Database, '_id' | 'appId' | 'comp
 /**
  * Polymorphic document - data structure varies based on 'type' field
  */
+/**
+ * Database Provider Sync Status
+ *
+ * Estados possíveis de sincronização com provider externo
+ */
+export type DatabaseProviderSyncStatus =
+  | 'pending'   // Aguardando sincronização
+  | 'synced'    // Sincronizado com sucesso
+  | 'failed';   // Falha na sincronização
+
+/**
+ * Database Provider Sync Entry
+ *
+ * Registro de sincronização com um provider específico
+ * Permite múltiplos providers sincronizando o mesmo documento
+ */
+export interface DatabaseProviderSyncEntry {
+  integrationId: string;                  // ID da company-integration
+  providerId: string;                     // ID do provider (database-jetimob, database-vista, etc.)
+  providerDocumentId: string;             // ID do documento no sistema externo
+  syncStatus: DatabaseProviderSyncStatus;
+  lastSyncAt: string;                     // ISO date string
+  syncError?: string;                     // Mensagem de erro se syncStatus === 'failed'
+}
+
 export interface DatabaseDocument<T = any> {
   _id: string;
   appId: string;
@@ -749,6 +774,9 @@ export interface DatabaseDocument<T = any> {
     source?: 'manual' | 'integration' | 'import' | 'api';
     lastSyncedAt?: Date;
   };
+
+  /** Provider sync tracking (para multi-provider support) */
+  providerSync?: DatabaseProviderSyncEntry[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -835,3 +863,27 @@ export interface DatabaseDocumentQuery extends PaginationQuery {
 
 export interface DatabaseListResponse extends PaginatedResponse<DatabaseResponse> {}
 export interface DatabaseDocumentListResponse<T = any> extends PaginatedResponse<DatabaseDocumentResponse<T>> {}
+
+// ============================================================================
+// SYNC RESULT TYPES
+// ============================================================================
+
+/**
+ * Database Sync Result
+ *
+ * Resultado de operação de sincronização com provider
+ */
+export interface DatabaseSyncResult {
+  documentsCreated: number;
+  documentsUpdated: number;
+  documentsDeleted: number;
+  errors: Array<{
+    providerDocumentId: string;
+    error: string;
+  }>;
+  summary: {
+    totalProcessed: number;
+    successCount: number;
+    errorCount: number;
+  };
+}
