@@ -212,9 +212,7 @@ export enum ProviderId {
   AI_ELEVENLABS = 'ai-elevenlabs',
 
   // Database Providers (Properties, Real Estate, etc.)
-  DATABASE_JETIMOB = 'database-jetimob',
-  DATABASE_VISTA = 'database-vista',
-  DATABASE_ZAP = 'database-zap'
+  DATABASE_JETIMOB = 'database-jetimob'
 }
 
 // ============================================================================

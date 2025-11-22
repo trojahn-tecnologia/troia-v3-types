@@ -46,6 +46,10 @@ var ProviderId;
     ProviderId["AI_MISTRAL"] = "ai-mistral";
     ProviderId["AI_DEEPSEEK"] = "ai-deepseek";
     ProviderId["AI_ELEVENLABS"] = "ai-elevenlabs";
+    // Database Providers (Properties, Real Estate, etc.)
+    ProviderId["DATABASE_JETIMOB"] = "database-jetimob";
+    ProviderId["DATABASE_VISTA"] = "database-vista";
+    ProviderId["DATABASE_ZAP"] = "database-zap";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
 // PROVIDER CAPABILITIES (Centralized)
@@ -130,5 +134,11 @@ var ProviderCapability;
     ProviderCapability["TEXT_TO_SPEECH"] = "text_to_speech";
     ProviderCapability["SPEECH_TO_TEXT"] = "speech_to_text";
     // Template Management
-    ProviderCapability["TEMPLATE_MANAGEMENT"] = "template_management"; // Submit, approve, manage templates
+    ProviderCapability["TEMPLATE_MANAGEMENT"] = "template_management";
+    // Database Capabilities (Properties, Real Estate, etc.)
+    ProviderCapability["FETCH_PROPERTIES"] = "fetch_properties";
+    ProviderCapability["SYNC_PROPERTIES"] = "sync_properties";
+    ProviderCapability["CREATE_PROPERTY"] = "create_property";
+    ProviderCapability["UPDATE_PROPERTY"] = "update_property";
+    ProviderCapability["DELETE_PROPERTY"] = "delete_property"; // Delete property from external system
 })(ProviderCapability || (exports.ProviderCapability = ProviderCapability = {}));
