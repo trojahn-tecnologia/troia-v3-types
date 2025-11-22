@@ -48,8 +48,6 @@ var ProviderId;
     ProviderId["AI_ELEVENLABS"] = "ai-elevenlabs";
     // Database Providers (Properties, Real Estate, etc.)
     ProviderId["DATABASE_JETIMOB"] = "database-jetimob";
-    ProviderId["DATABASE_VISTA"] = "database-vista";
-    ProviderId["DATABASE_ZAP"] = "database-zap";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
 // PROVIDER CAPABILITIES (Centralized)

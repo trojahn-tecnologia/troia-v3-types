@@ -135,9 +135,7 @@ export declare enum ProviderId {
     AI_MISTRAL = "ai-mistral",
     AI_DEEPSEEK = "ai-deepseek",
     AI_ELEVENLABS = "ai-elevenlabs",
-    DATABASE_JETIMOB = "database-jetimob",
-    DATABASE_VISTA = "database-vista",
-    DATABASE_ZAP = "database-zap"
+    DATABASE_JETIMOB = "database-jetimob"
 }
 export declare enum ProviderCapability {
     SEND_EMAIL = "send_email",

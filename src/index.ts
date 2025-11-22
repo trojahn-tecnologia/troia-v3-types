@@ -74,6 +74,7 @@ export * from './campaigns';
 
 // Databases module (multi-purpose data segregation)
 export * from './databases';
+export * from './database-documents';
 
 // AI Agents modules (Phase 1)
 export * from './ai-agents';
