@@ -43,6 +43,11 @@ exports.SOCKET_EVENTS = {
     INTEGRATION_SYNC_PROGRESS: 'integration:sync-progress',
     INTEGRATION_SYNC_COMPLETED: 'integration:sync-completed',
     INTEGRATION_SYNC_FAILED: 'integration:sync-failed',
+    // Database Sync Events
+    DATABASE_SYNC_STARTED: 'database:sync-started',
+    DATABASE_SYNC_PROGRESS: 'database:sync-progress',
+    DATABASE_SYNC_COMPLETED: 'database:sync-completed',
+    DATABASE_SYNC_FAILED: 'database:sync-failed',
     // Notification Events
     NOTIFICATION_NEW: 'notification:new',
     NOTIFICATION_READ: 'notification:read',

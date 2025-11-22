@@ -74,7 +74,6 @@ export interface Conversation {
   assignee?: {                // ✅ Populated assignee data (via aggregation, not stored)
     id: string;
     name: string;
-    email: string;
     picture?: string;
   };
   teamId?: string;           // Team responsible

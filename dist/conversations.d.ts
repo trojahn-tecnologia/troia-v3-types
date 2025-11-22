@@ -51,7 +51,6 @@ export interface Conversation {
     assignee?: {
         id: string;
         name: string;
-        email: string;
         picture?: string;
     };
     teamId?: string;
