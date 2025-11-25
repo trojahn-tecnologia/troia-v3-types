@@ -9,7 +9,7 @@
  * - Relationship: databases ↔ databases-documents via databaseId
  * - Multi-opportunity business model: Items can have multiple simultaneous business opportunities
  */
-import { PaginationQuery, PaginatedResponse } from './common';
+import { PaginationQuery, ListResponse } from './common';
 export declare enum BusinessOpportunityType {
     SALE = "sale",
     RENT = "rent",
@@ -654,9 +654,9 @@ export interface DatabaseDocumentQuery extends PaginationQuery {
         externalId?: string;
     };
 }
-export interface DatabaseListResponse extends PaginatedResponse<DatabaseResponse> {
+export interface DatabaseListResponse extends ListResponse<DatabaseResponse> {
 }
-export interface DatabaseDocumentListResponse<T = any> extends PaginatedResponse<DatabaseDocumentResponse<T>> {
+export interface DatabaseDocumentListResponse<T = any> extends ListResponse<DatabaseDocumentResponse<T>> {
 }
 /**
  * Database Sync Result

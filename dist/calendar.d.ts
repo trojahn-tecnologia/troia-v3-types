@@ -2,6 +2,11 @@ import { ObjectId } from 'mongodb';
 import { FullBaseDocument } from './common';
 import { PaginationQuery, ListResponse } from './common';
 /**
+ * Calendar Event Type
+ * Defines the type of calendar event
+ */
+export type CalendarEventType = 'meeting' | 'task' | 'reminder' | 'other' | 'follow_up';
+/**
  * Calendar Event - Complete structure compatible with Google Calendar
  * Supports multi-provider sync and activities integration
  */
@@ -9,6 +14,8 @@ export interface CalendarEvent extends FullBaseDocument {
     userId: string;
     companyId: ObjectId;
     appId: ObjectId;
+    eventType: CalendarEventType;
+    contactId?: string;
     activityId?: string;
     summary: string;
     description?: string;
@@ -69,6 +76,8 @@ export interface CalendarEventResponse extends Omit<CalendarEvent, '_id'> {
  */
 export interface CreateCalendarEventRequest {
     userId?: string;
+    eventType?: CalendarEventType;
+    contactId?: string;
     summary: string;
     description?: string;
     location?: string;
@@ -120,11 +129,28 @@ export interface UpdateCalendarEventRequest extends Omit<Partial<CreateCalendarE
     status?: 'confirmed' | 'tentative' | 'cancelled';
 }
 /**
+ * Create Follow-Up Request
+ * Simplified interface for creating follow-up events linked to contacts
+ */
+export interface CreateFollowUpRequest {
+    contactId: string;
+    summary: string;
+    description?: string;
+    startTime: string;
+    endTime: string;
+    timeZone?: string;
+    allDay?: boolean;
+    recurrence?: string[];
+    colorId?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';
+}
+/**
  * Calendar Event Query Filters
  */
 export interface CalendarEventQuery extends PaginationQuery {
     filters?: {
         userId?: string;
+        eventType?: CalendarEventType;
+        contactId?: string;
         startTimeFrom?: string;
         startTimeTo?: string;
         status?: 'confirmed' | 'tentative' | 'cancelled';

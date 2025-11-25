@@ -30,16 +30,11 @@ export interface AIAgent {
   maxTokens: number;
   triggers: AIAgentTriggers;
   customActionIds: string[];
-  escalationRuleIds: string[];
+  databases?: string[];                     // Database IDs that the agent can access
   voiceEnabled: boolean;
   voiceConfig?: {
     aiProviderId: string;
     voiceId?: string;  // ✅ ID da voz específica (ex: 'alloy', 'nova', 'shimmer' para OpenAI, ou voice ID do ElevenLabs)
-  };
-  confidenceThresholds: {
-    autoResponse: number;
-    escalation: number;
-    fallback: number;
   };
   enabledCapabilities: AIAgentCapabilityConfig[];  // ✅ UNIFIED: Capabilities + Configurations
   responseStyle?: string;                   // Agent response style (professional, casual, etc.)
@@ -134,16 +129,11 @@ export interface CreateAIAgentRequest {
   maxTokens: number;
   triggers: AIAgentTriggers;
   customActionIds?: string[];
-  escalationRuleIds?: string[];
+  databases?: string[];                     // Database IDs that the agent can access
   voiceEnabled?: boolean;
   voiceConfig?: {
     aiProviderId: string;
     voiceId?: string;
-  };
-  confidenceThresholds?: {
-    autoResponse: number;
-    escalation: number;
-    fallback: number;
   };
   enabledCapabilities?: AIAgentCapabilityConfig[];  // ✅ UNIFIED: Capabilities + Configurations
 }
@@ -157,16 +147,11 @@ export interface UpdateAIAgentRequest {
   maxTokens?: number;
   triggers?: AIAgentTriggers;
   customActionIds?: string[];
-  escalationRuleIds?: string[];
+  databases?: string[];                     // Database IDs that the agent can access
   voiceEnabled?: boolean;
   voiceConfig?: {
     aiProviderId: string;
     voiceId?: string;
-  };
-  confidenceThresholds?: {
-    autoResponse: number;
-    escalation: number;
-    fallback: number;
   };
   enabledCapabilities?: AIAgentCapabilityConfig[];  // ✅ UNIFIED: Capabilities + Configurations
 }

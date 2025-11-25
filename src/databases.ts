@@ -10,7 +10,7 @@
  * - Multi-opportunity business model: Items can have multiple simultaneous business opportunities
  */
 
-import { PaginationQuery, PaginatedResponse } from './common';
+import { PaginationQuery, ListResponse } from './common';
 
 // ============================================================================
 // BUSINESS OPPORTUNITY TYPES (Core Reusable Types)
@@ -861,8 +861,8 @@ export interface DatabaseDocumentQuery extends PaginationQuery {
   };
 }
 
-export interface DatabaseListResponse extends PaginatedResponse<DatabaseResponse> {}
-export interface DatabaseDocumentListResponse<T = any> extends PaginatedResponse<DatabaseDocumentResponse<T>> {}
+export interface DatabaseListResponse extends ListResponse<DatabaseResponse> {}
+export interface DatabaseDocumentListResponse<T = any> extends ListResponse<DatabaseDocumentResponse<T>> {}
 
 // ============================================================================
 // SYNC RESULT TYPES

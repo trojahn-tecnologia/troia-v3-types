@@ -20,16 +20,11 @@ export interface AIAgent {
     maxTokens: number;
     triggers: AIAgentTriggers;
     customActionIds: string[];
-    escalationRuleIds: string[];
+    databases?: string[];
     voiceEnabled: boolean;
     voiceConfig?: {
         aiProviderId: string;
         voiceId?: string;
-    };
-    confidenceThresholds: {
-        autoResponse: number;
-        escalation: number;
-        fallback: number;
     };
     enabledCapabilities: AIAgentCapabilityConfig[];
     responseStyle?: string;
@@ -100,16 +95,11 @@ export interface CreateAIAgentRequest {
     maxTokens: number;
     triggers: AIAgentTriggers;
     customActionIds?: string[];
-    escalationRuleIds?: string[];
+    databases?: string[];
     voiceEnabled?: boolean;
     voiceConfig?: {
         aiProviderId: string;
         voiceId?: string;
-    };
-    confidenceThresholds?: {
-        autoResponse: number;
-        escalation: number;
-        fallback: number;
     };
     enabledCapabilities?: AIAgentCapabilityConfig[];
 }
@@ -122,16 +112,11 @@ export interface UpdateAIAgentRequest {
     maxTokens?: number;
     triggers?: AIAgentTriggers;
     customActionIds?: string[];
-    escalationRuleIds?: string[];
+    databases?: string[];
     voiceEnabled?: boolean;
     voiceConfig?: {
         aiProviderId: string;
         voiceId?: string;
-    };
-    confidenceThresholds?: {
-        autoResponse: number;
-        escalation: number;
-        fallback: number;
     };
     enabledCapabilities?: AIAgentCapabilityConfig[];
 }

@@ -3,6 +3,12 @@ import { FullBaseDocument } from './common';
 import { PaginationQuery, ListResponse } from './common';
 
 /**
+ * Calendar Event Type
+ * Defines the type of calendar event
+ */
+export type CalendarEventType = 'meeting' | 'task' | 'reminder' | 'other' | 'follow_up';
+
+/**
  * Calendar Event - Complete structure compatible with Google Calendar
  * Supports multi-provider sync and activities integration
  */
@@ -10,6 +16,12 @@ export interface CalendarEvent extends FullBaseDocument {
   userId: string;                    // Event owner
   companyId: ObjectId;
   appId: ObjectId;
+
+  // Event Type
+  eventType: CalendarEventType;      // Type of event (meeting | task | reminder | other | follow_up)
+
+  // Contact relationship (for follow_up events)
+  contactId?: string;                // Contact ID (optional - used with follow_up type)
 
   // Activity relationship (optional)
   activityId?: string;               // Generated activity when event created/modified
@@ -92,6 +104,8 @@ export interface CalendarEventResponse extends Omit<CalendarEvent, '_id'> {
  */
 export interface CreateCalendarEventRequest {
   userId?: string;                     // Event owner (optional - defaults to authenticated user)
+  eventType?: CalendarEventType;       // Event type (optional - defaults to 'meeting')
+  contactId?: string;                  // Contact ID (optional - used with follow_up type)
   summary: string;
   description?: string;
   location?: string;
@@ -154,11 +168,29 @@ export interface UpdateCalendarEventRequest extends Omit<Partial<CreateCalendarE
 }
 
 /**
+ * Create Follow-Up Request
+ * Simplified interface for creating follow-up events linked to contacts
+ */
+export interface CreateFollowUpRequest {
+  contactId: string;                   // Contact ID (required)
+  summary: string;                     // Event title
+  description?: string;                // Event description
+  startTime: string;                   // ISO 8601 dateTime OR date (YYYY-MM-DD)
+  endTime: string;                     // ISO 8601 dateTime OR date
+  timeZone?: string;                   // IANA timezone (defaults to America/Sao_Paulo)
+  allDay?: boolean;                    // All-day event flag (default: false)
+  recurrence?: string[];               // RRULE format (e.g., ["RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR"])
+  colorId?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';  // Google Calendar color ID
+}
+
+/**
  * Calendar Event Query Filters
  */
 export interface CalendarEventQuery extends PaginationQuery {
   filters?: {
     userId?: string;
+    eventType?: CalendarEventType;   // Filter by event type
+    contactId?: string;              // Filter by contact ID (for follow_up events)
     startTimeFrom?: string;
     startTimeTo?: string;
     status?: 'confirmed' | 'tentative' | 'cancelled';
