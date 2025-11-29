@@ -73,7 +73,7 @@ export interface Sender {
     id: string;
     name: string;
     picture?: string;
-    type: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+    type: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
 }
 export interface ConversationMessage {
     id: string;
@@ -83,11 +83,11 @@ export interface ConversationMessage {
     content: MessageContent[];
     plainText?: string;
     direction: 'inbound' | 'outbound';
-    messageType: 'user' | 'system' | 'bot' | 'ai';
+    messageType: 'user' | 'system' | 'ai' | 'automation';
     sender?: Sender;
     senderId?: string;
     senderName?: string;
-    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+    senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -143,10 +143,10 @@ export interface CreateConversationMessageRequest {
     content: MessageContent[];
     plainText?: string;
     direction: 'inbound' | 'outbound';
-    messageType: 'user' | 'system' | 'bot' | 'ai';
+    messageType: 'user' | 'system' | 'ai' | 'automation';
     senderId?: string;
     senderName?: string;
-    senderType: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+    senderType: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
     providerMessageId?: string;
     providerData?: Record<string, any>;
     replyToMessageId?: string;
@@ -190,8 +190,8 @@ export interface ConversationMessageQuery extends PaginationQuery {
     conversationId?: string;
     filters?: {
         direction?: 'inbound' | 'outbound';
-        messageType?: 'user' | 'system' | 'bot' | 'ai';
-        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+        messageType?: 'user' | 'system' | 'ai' | 'automation';
+        senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
         senderId?: string;
         status?: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';
         contentType?: 'text' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'link' | 'reaction' | 'system';
@@ -215,6 +215,10 @@ export interface SendMessageRequest {
     replyToMessageId?: string;
     internalNote?: string;
     isInternal?: boolean;
+    senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
+    senderId?: string;
+    senderName?: string;
+    messageType?: 'user' | 'system' | 'ai' | 'automation';
 }
 export interface EditMessageRequest {
     content: MessageContent[];
@@ -246,8 +250,8 @@ export interface MessageSearchRequest {
     conversationId?: string;
     filters?: {
         direction?: 'inbound' | 'outbound';
-        messageType?: 'user' | 'system' | 'bot' | 'ai';
-        senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+        messageType?: 'user' | 'system' | 'ai' | 'automation';
+        senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
         contentType?: string[];
         dateFrom?: string;
         dateTo?: string;

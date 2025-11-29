@@ -98,7 +98,7 @@ export interface Sender {
   id: string;
   name: string;
   picture?: string;
-  type: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+  type: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
 }
 
 // Main ConversationMessage interface
@@ -114,7 +114,7 @@ export interface ConversationMessage {
 
   // Message metadata
   direction: 'inbound' | 'outbound';
-  messageType: 'user' | 'system' | 'bot' | 'ai';
+  messageType: 'user' | 'system' | 'ai' | 'automation';
 
   // ✅ NEW: Unified sender object (populated via aggregation)
   sender?: Sender;
@@ -122,7 +122,7 @@ export interface ConversationMessage {
   // DEPRECATED: Legacy fields (kept for backward compatibility, will be removed in future)
   senderId?: string; // @deprecated Use sender.id instead
   senderName?: string; // @deprecated Use sender.name instead
-  senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai'; // @deprecated Use sender.type instead
+  senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow'; // @deprecated Use sender.type instead
 
   // External provider integration
   providerMessageId?: string; // External message ID
@@ -212,10 +212,10 @@ export interface CreateConversationMessageRequest {
   content: MessageContent[];
   plainText?: string;
   direction: 'inbound' | 'outbound';
-  messageType: 'user' | 'system' | 'bot' | 'ai';
+  messageType: 'user' | 'system' | 'ai' | 'automation';
   senderId?: string; // Will be used to build sender object
   senderName?: string;
-  senderType: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+  senderType: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
   providerMessageId?: string;
   providerData?: Record<string, any>;
   replyToMessageId?: string;
@@ -266,8 +266,8 @@ export interface ConversationMessageQuery extends PaginationQuery {
   conversationId?: string;
   filters?: {
     direction?: 'inbound' | 'outbound';
-    messageType?: 'user' | 'system' | 'bot' | 'ai';
-    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+    messageType?: 'user' | 'system' | 'ai' | 'automation';
+    senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
     senderId?: string;
     status?: 'sent' | 'delivered' | 'read' | 'failed' | 'pending';
     contentType?: 'text' | 'image' | 'video' | 'audio' | 'document' | 'location' | 'contact' | 'link' | 'reaction' | 'system';
@@ -293,6 +293,12 @@ export interface SendMessageRequest {
   replyToMessageId?: string;
   internalNote?: string;
   isInternal?: boolean;
+
+  // ✅ Optional fields for automation/system messages
+  senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
+  senderId?: string;
+  senderName?: string;
+  messageType?: 'user' | 'system' | 'ai' | 'automation';
 }
 
 export interface EditMessageRequest {
@@ -332,8 +338,8 @@ export interface MessageSearchRequest {
   conversationId?: string;
   filters?: {
     direction?: 'inbound' | 'outbound';
-    messageType?: 'user' | 'system' | 'bot' | 'ai';
-    senderType?: 'contact' | 'user' | 'system' | 'bot' | 'ai';
+    messageType?: 'user' | 'system' | 'ai' | 'automation';
+    senderType?: 'contact' | 'user' | 'system' | 'ai' | 'automation' | 'automation-follow';
     contentType?: string[];
     dateFrom?: string;
     dateTo?: string;

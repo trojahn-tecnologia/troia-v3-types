@@ -247,3 +247,126 @@ export interface CalendarEventStats {
     pendingSyncEvents: number;
     failedSyncEvents: number;
 }
+/**
+ * Tipos de condição para execução de follow-ups
+ */
+export type FollowUpConditionType = 'no_response' | 'time_elapsed' | 'tag_added';
+/**
+ * Tipos de ação a executar quando condição é satisfeita
+ */
+export type FollowUpActionType = 'send_message' | 'send_notification' | 'assign_user' | 'assign_ai_agent' | 'add_tag' | 'webhook';
+/**
+ * Configuração de condição para follow-up
+ */
+export interface FollowUpCondition {
+    type: FollowUpConditionType;
+    config: {
+        hours?: number;
+        tagId?: string;
+    };
+}
+/**
+ * Configuração de ação para follow-up
+ */
+export interface FollowUpAction {
+    type: FollowUpActionType;
+    config: {
+        message?: string;
+        notificationTitle?: string;
+        notificationBody?: string;
+        notifyUserIds?: string[];
+        userId?: string;
+        aiAgentId?: string;
+        tagId?: string;
+        webhookUrl?: string;
+        webhookPayload?: Record<string, any>;
+        webhookHeaders?: Record<string, string>;
+    };
+}
+/**
+ * Tipo de intervalo de recorrência para follow-ups
+ */
+export type FollowUpRecurrenceInterval = 'once' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'minutes';
+/**
+ * Configuração completa de automação de follow-up
+ */
+export interface FollowUpAutomation {
+    condition?: FollowUpCondition;
+    actions?: FollowUpAction[];
+    maxExecutions?: number;
+    executionCount?: number;
+    lastExecutedAt?: string;
+    nextExecutionAt?: string;
+    recurrenceInterval?: FollowUpRecurrenceInterval;
+    customIntervalMinutes?: number;
+    status: 'active' | 'paused' | 'completed';
+}
+/**
+ * Extensão do CalendarEvent para follow-ups com automação
+ */
+export interface FollowUpEvent extends CalendarEvent {
+    eventType: 'follow_up';
+    contactId: string;
+    automation?: FollowUpAutomation;
+}
+/**
+ * Follow-Up Event Response Type
+ * Extends CalendarEventResponse (which has id: string) with follow-up specific fields
+ */
+export interface FollowUpEventResponse extends CalendarEventResponse {
+    eventType: 'follow_up';
+    contactId: string;
+    automation?: FollowUpAutomation;
+}
+/**
+ * Request para criar follow-up com automação
+ */
+export interface CreateFollowUpWithAutomationRequest extends CreateFollowUpRequest {
+    automation?: {
+        condition: FollowUpCondition;
+        actions: FollowUpAction[];
+        maxExecutions?: number;
+    };
+}
+/**
+ * Job data para queue de execução de follow-ups
+ */
+export interface FollowUpExecutionJobData {
+    followUpId: string;
+    contactId: string;
+    appId: string;
+    companyId: string;
+    automation: FollowUpAutomation;
+    scheduledFor: string;
+}
+/**
+ * Resultado de avaliação de condição
+ */
+export interface ConditionEvaluationResult {
+    shouldExecute: boolean;
+    reason: string;
+    metadata?: Record<string, any>;
+}
+/**
+ * Resultado de execução de ação
+ */
+export interface ActionExecutionResult {
+    success: boolean;
+    actionType: FollowUpActionType;
+    message: string;
+    error?: string;
+    metadata?: Record<string, any>;
+}
+/**
+ * Resultado completo de execução de follow-up
+ */
+export interface FollowUpExecutionResult {
+    followUpId: string;
+    contactId: string;
+    conditionResult: ConditionEvaluationResult;
+    actionResults: ActionExecutionResult[];
+    executedAt: string;
+    success: boolean;
+    totalActionsExecuted: number;
+    totalActionsFailed: number;
+}

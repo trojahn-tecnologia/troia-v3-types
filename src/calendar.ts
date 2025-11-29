@@ -292,3 +292,182 @@ export interface CalendarEventStats {
   pendingSyncEvents: number;
   failedSyncEvents: number;
 }
+
+// ============================================================================
+// FOLLOW-UP AUTOMATION TYPES
+// ============================================================================
+
+/**
+ * Tipos de condição para execução de follow-ups
+ */
+export type FollowUpConditionType =
+  | 'no_response'    // Contato não respondeu em X horas
+  | 'time_elapsed'   // X horas se passaram desde última interação
+  | 'tag_added';     // Tag específica foi adicionada ao contato
+
+/**
+ * Tipos de ação a executar quando condição é satisfeita
+ */
+export type FollowUpActionType =
+  | 'send_message'       // Enviar mensagem via WhatsApp
+  | 'send_notification'  // Enviar notificação para usuários
+  | 'assign_user'        // Atribuir conversa a usuário específico
+  | 'assign_ai_agent'    // Atribuir conversa a agente de IA
+  | 'add_tag'            // Adicionar tag ao contato
+  | 'webhook';           // Chamar webhook externo
+
+/**
+ * Configuração de condição para follow-up
+ */
+export interface FollowUpCondition {
+  type: FollowUpConditionType;
+  config: {
+    // no_response: horas sem resposta do contato
+    hours?: number;
+
+    // tag_added: ID da tag que deve existir
+    tagId?: string;
+  };
+}
+
+/**
+ * Configuração de ação para follow-up
+ */
+export interface FollowUpAction {
+  type: FollowUpActionType;
+  config: {
+    // send_message: conteúdo da mensagem
+    message?: string;
+
+    // send_notification: configuração de notificação
+    notificationTitle?: string;
+    notificationBody?: string;
+    notifyUserIds?: string[];  // IDs dos usuários a notificar
+
+    // assign_user: ID do usuário para atribuição
+    userId?: string;
+
+    // assign_ai_agent: ID do agente de IA
+    aiAgentId?: string;
+
+    // add_tag: ID da tag a adicionar
+    tagId?: string;
+
+    // webhook: URL e payload
+    webhookUrl?: string;
+    webhookPayload?: Record<string, any>;
+    webhookHeaders?: Record<string, string>;
+  };
+}
+
+/**
+ * Tipo de intervalo de recorrência para follow-ups
+ */
+export type FollowUpRecurrenceInterval =
+  | 'once'           // Executar apenas uma vez
+  | 'hourly'         // A cada hora
+  | 'daily'          // Diariamente
+  | 'weekly'         // Semanalmente
+  | 'monthly'        // Mensalmente
+  | 'minutes';       // Intervalo customizado em minutos
+
+/**
+ * Configuração completa de automação de follow-up
+ */
+export interface FollowUpAutomation {
+  condition?: FollowUpCondition;   // Opcional - follow-ups podem não ter condição
+  actions?: FollowUpAction[];      // Opcional - follow-ups podem não ter ações
+
+  // Controle de execução
+  maxExecutions?: number;          // Máximo de execuções (undefined = infinito)
+  executionCount?: number;         // Contador de execuções realizadas
+  lastExecutedAt?: string;         // ISO 8601 - última execução
+  nextExecutionAt?: string;        // ISO 8601 - próxima execução calculada
+
+  // Configuração de recorrência
+  recurrenceInterval?: FollowUpRecurrenceInterval;  // Tipo de intervalo
+  customIntervalMinutes?: number;  // Minutos para intervalo customizado
+
+  // Status
+  status: 'active' | 'paused' | 'completed';  // completed quando maxExecutions atingido
+}
+
+/**
+ * Extensão do CalendarEvent para follow-ups com automação
+ */
+export interface FollowUpEvent extends CalendarEvent {
+  eventType: 'follow_up';
+  contactId: string;             // Obrigatório para follow-ups
+
+  // Automação (opcional - follow-ups podem ser apenas lembretes manuais)
+  automation?: FollowUpAutomation;
+}
+
+/**
+ * Follow-Up Event Response Type
+ * Extends CalendarEventResponse (which has id: string) with follow-up specific fields
+ */
+export interface FollowUpEventResponse extends CalendarEventResponse {
+  eventType: 'follow_up';
+  contactId: string;             // Obrigatório para follow-ups
+
+  // Automação (opcional - follow-ups podem ser apenas lembretes manuais)
+  automation?: FollowUpAutomation;
+}
+
+/**
+ * Request para criar follow-up com automação
+ */
+export interface CreateFollowUpWithAutomationRequest extends CreateFollowUpRequest {
+  automation?: {
+    condition: FollowUpCondition;
+    actions: FollowUpAction[];
+    maxExecutions?: number;
+  };
+}
+
+/**
+ * Job data para queue de execução de follow-ups
+ */
+export interface FollowUpExecutionJobData {
+  followUpId: string;            // ID do evento de follow-up
+  contactId: string;             // ID do contato
+  appId: string;                 // Multi-tenant: App ID
+  companyId: string;             // Multi-tenant: Company ID
+  automation: FollowUpAutomation;
+  scheduledFor: string;          // ISO 8601 - quando deveria executar
+}
+
+/**
+ * Resultado de avaliação de condição
+ */
+export interface ConditionEvaluationResult {
+  shouldExecute: boolean;
+  reason: string;
+  metadata?: Record<string, any>;
+}
+
+/**
+ * Resultado de execução de ação
+ */
+export interface ActionExecutionResult {
+  success: boolean;
+  actionType: FollowUpActionType;
+  message: string;
+  error?: string;
+  metadata?: Record<string, any>;
+}
+
+/**
+ * Resultado completo de execução de follow-up
+ */
+export interface FollowUpExecutionResult {
+  followUpId: string;
+  contactId: string;
+  conditionResult: ConditionEvaluationResult;
+  actionResults: ActionExecutionResult[];
+  executedAt: string;            // ISO 8601
+  success: boolean;
+  totalActionsExecuted: number;
+  totalActionsFailed: number;
+}
