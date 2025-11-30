@@ -301,9 +301,10 @@ export interface CalendarEventStats {
  * Tipos de condição para execução de follow-ups
  */
 export type FollowUpConditionType =
-  | 'no_response'    // Contato não respondeu em X horas
-  | 'time_elapsed'   // X horas se passaram desde última interação
-  | 'tag_added';     // Tag específica foi adicionada ao contato
+  | 'no_response'           // Contato não respondeu em X horas
+  | 'time_elapsed'          // X horas se passaram desde última interação
+  | 'tag_added'             // Tag específica foi adicionada ao contato
+  | 'no_event_scheduled';   // Não existe evento agendado para o contato
 
 /**
  * Tipos de ação a executar quando condição é satisfeita

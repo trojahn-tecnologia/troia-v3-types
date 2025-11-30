@@ -90,7 +90,8 @@ export type AIAgentCapability =
   | 'calendar_management'
   | 'lead_management'
   | 'conversation_transfer'
-  | 'media_messaging';
+  | 'media_messaging'
+  | 'follow_up_management';  // Follow-up/retorno management tools
 
 /**
  * Agent Capability Configuration

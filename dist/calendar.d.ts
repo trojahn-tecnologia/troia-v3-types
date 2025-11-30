@@ -250,7 +250,7 @@ export interface CalendarEventStats {
 /**
  * Tipos de condição para execução de follow-ups
  */
-export type FollowUpConditionType = 'no_response' | 'time_elapsed' | 'tag_added';
+export type FollowUpConditionType = 'no_response' | 'time_elapsed' | 'tag_added' | 'no_event_scheduled';
 /**
  * Tipos de ação a executar quando condição é satisfeita
  */
