@@ -60,3 +60,48 @@ export interface WebhookData {
     body: any;
     timeout?: number;
 }
+/**
+ * Template Message Data
+ * Used for sending template messages in campaigns
+ * Supports both WhatsApp Business API (requires approval) and Gateway (no approval needed)
+ */
+export interface TemplateMessageData {
+    recipientPhone: string;
+    recipientName?: string;
+    templateName: string;
+    language?: string;
+    variables: Record<string, string>;
+    components?: Array<{
+        type: 'header' | 'body' | 'footer' | 'button';
+        parameters?: Array<{
+            type: 'text' | 'image' | 'video' | 'document';
+            text?: string;
+            image?: {
+                link: string;
+            };
+            video?: {
+                link: string;
+            };
+            document?: {
+                link: string;
+                filename?: string;
+            };
+        }>;
+        sub_type?: 'url' | 'quick_reply';
+        index?: number;
+    }>;
+    renderedContent?: string;
+    headerMedia?: {
+        type: 'image' | 'video' | 'document';
+        url: string;
+        filename?: string;
+    };
+}
+/**
+ * Result of sending a template message
+ */
+export interface SendTemplateResult {
+    success: boolean;
+    providerMessageId?: string;
+    error?: string;
+}

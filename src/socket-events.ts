@@ -64,6 +64,11 @@ export const SOCKET_EVENTS = {
 
   // AI Agent Events
   AI_AGENT_EXECUTED: 'ai:agent:executed',
+
+  // Campaign Events
+  CAMPAIGN_MESSAGE_STATUS: 'campaign:message-status',   // Individual message status update
+  CAMPAIGN_PROGRESS: 'campaign:progress',               // Overall campaign progress
+  CAMPAIGN_COMPLETED: 'campaign:completed',             // Campaign finished
 } as const;
 
 // Type for event names
@@ -420,6 +425,61 @@ export interface AIAgentExecutedEvent {
   timestamp: string;
 }
 
+/**
+ * Campaign Message Status Event
+ * Server-to-Client: Individual campaign message status update
+ */
+export interface CampaignMessageStatusEvent {
+  campaignId: string;
+  messageId: string;               // MongoDB campaign-message ID
+  providerMessageId?: string;      // WhatsApp provider message ID
+  recipientPhone: string;
+  recipientName?: string;
+  status: 'sent' | 'delivered' | 'read' | 'failed';
+  previousStatus?: string;
+  timestamp: string;
+  failureReason?: string;          // Only for failed status
+}
+
+/**
+ * Campaign Progress Event
+ * Server-to-Client: Overall campaign progress update
+ */
+export interface CampaignProgressEvent {
+  campaignId: string;
+  campaignName: string;
+  stats: {
+    totalMessages: number;
+    messagesSent: number;
+    messagesDelivered: number;
+    messagesRead: number;
+    messagesFailed: number;
+    messagesProcessing: number;    // pending + queued + sending
+  };
+  percentComplete: number;         // 0-100
+  timestamp: string;
+}
+
+/**
+ * Campaign Completed Event
+ * Server-to-Client: Campaign finished (all messages processed)
+ */
+export interface CampaignCompletedEvent {
+  campaignId: string;
+  campaignName: string;
+  finalStatus: 'completed' | 'failed' | 'cancelled';
+  stats: {
+    totalMessages: number;
+    messagesSent: number;
+    messagesDelivered: number;
+    messagesRead: number;
+    messagesFailed: number;
+  };
+  duration: number;                // Total duration in milliseconds
+  startedAt: string;
+  completedAt: string;
+}
+
 // ============================================================================
 // SOCKET EVENT MAP (For Type-Safe Emit/On)
 // ============================================================================
@@ -471,6 +531,11 @@ export interface SocketEventMap {
 
   // AI Agent Events
   [SOCKET_EVENTS.AI_AGENT_EXECUTED]: AIAgentExecutedEvent;
+
+  // Campaign Events
+  [SOCKET_EVENTS.CAMPAIGN_MESSAGE_STATUS]: CampaignMessageStatusEvent;
+  [SOCKET_EVENTS.CAMPAIGN_PROGRESS]: CampaignProgressEvent;
+  [SOCKET_EVENTS.CAMPAIGN_COMPLETED]: CampaignCompletedEvent;
 }
 
 // ============================================================================

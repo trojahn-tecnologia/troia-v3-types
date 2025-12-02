@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SchedulingType = exports.AudienceType = exports.CampaignStatus = void 0;
+exports.CampaignMessageStatus = exports.SchedulingType = exports.AudienceType = exports.CampaignStatus = void 0;
 /**
  * Campaign Status
  */
@@ -20,8 +20,7 @@ var CampaignStatus;
 var AudienceType;
 (function (AudienceType) {
     AudienceType["LEADS"] = "leads";
-    AudienceType["CUSTOMERS"] = "customers";
-    AudienceType["GROUPS"] = "groups";
+    AudienceType["CONTACTS"] = "contacts";
     AudienceType["MANUAL"] = "manual"; // Lista manual de IDs
 })(AudienceType || (exports.AudienceType = AudienceType = {}));
 /**
@@ -33,3 +32,20 @@ var SchedulingType;
     SchedulingType["SCHEDULED"] = "scheduled";
     SchedulingType["RECURRING"] = "recurring"; // Enviar periodicamente
 })(SchedulingType || (exports.SchedulingType = SchedulingType = {}));
+// ============================================================
+// CAMPAIGN MESSAGES - Tracking de mensagens individuais
+// ============================================================
+/**
+ * Campaign Message Status - Status de cada mensagem individual
+ */
+var CampaignMessageStatus;
+(function (CampaignMessageStatus) {
+    CampaignMessageStatus["PENDING"] = "pending";
+    CampaignMessageStatus["QUEUED"] = "queued";
+    CampaignMessageStatus["SENDING"] = "sending";
+    CampaignMessageStatus["SENT"] = "sent";
+    CampaignMessageStatus["DELIVERED"] = "delivered";
+    CampaignMessageStatus["READ"] = "read";
+    CampaignMessageStatus["FAILED"] = "failed";
+    CampaignMessageStatus["CANCELLED"] = "cancelled"; // Cancelado (campanha pausada/cancelada)
+})(CampaignMessageStatus || (exports.CampaignMessageStatus = CampaignMessageStatus = {}));

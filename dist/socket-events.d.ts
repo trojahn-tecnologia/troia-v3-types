@@ -38,6 +38,9 @@ export declare const SOCKET_EVENTS: {
     readonly NOTIFICATION_READ: "notification:read";
     readonly TEMPLATE_STATUS_UPDATED: "template:status-updated";
     readonly AI_AGENT_EXECUTED: "ai:agent:executed";
+    readonly CAMPAIGN_MESSAGE_STATUS: "campaign:message-status";
+    readonly CAMPAIGN_PROGRESS: "campaign:progress";
+    readonly CAMPAIGN_COMPLETED: "campaign:completed";
 };
 export type SocketEventName = typeof SOCKET_EVENTS[keyof typeof SOCKET_EVENTS];
 /**
@@ -352,6 +355,58 @@ export interface AIAgentExecutedEvent {
     iterations: number;
     timestamp: string;
 }
+/**
+ * Campaign Message Status Event
+ * Server-to-Client: Individual campaign message status update
+ */
+export interface CampaignMessageStatusEvent {
+    campaignId: string;
+    messageId: string;
+    providerMessageId?: string;
+    recipientPhone: string;
+    recipientName?: string;
+    status: 'sent' | 'delivered' | 'read' | 'failed';
+    previousStatus?: string;
+    timestamp: string;
+    failureReason?: string;
+}
+/**
+ * Campaign Progress Event
+ * Server-to-Client: Overall campaign progress update
+ */
+export interface CampaignProgressEvent {
+    campaignId: string;
+    campaignName: string;
+    stats: {
+        totalMessages: number;
+        messagesSent: number;
+        messagesDelivered: number;
+        messagesRead: number;
+        messagesFailed: number;
+        messagesProcessing: number;
+    };
+    percentComplete: number;
+    timestamp: string;
+}
+/**
+ * Campaign Completed Event
+ * Server-to-Client: Campaign finished (all messages processed)
+ */
+export interface CampaignCompletedEvent {
+    campaignId: string;
+    campaignName: string;
+    finalStatus: 'completed' | 'failed' | 'cancelled';
+    stats: {
+        totalMessages: number;
+        messagesSent: number;
+        messagesDelivered: number;
+        messagesRead: number;
+        messagesFailed: number;
+    };
+    duration: number;
+    startedAt: string;
+    completedAt: string;
+}
 export interface SocketEventMap {
     [SOCKET_EVENTS.CONVERSATION_MESSAGE]: ConversationMessageEvent;
     [SOCKET_EVENTS.CONVERSATION_UPDATED]: ConversationUpdatedEvent;
@@ -380,6 +435,9 @@ export interface SocketEventMap {
     [SOCKET_EVENTS.DATABASE_SYNC_FAILED]: DatabaseSyncFailedEvent;
     [SOCKET_EVENTS.TEMPLATE_STATUS_UPDATED]: TemplateStatusUpdatedEvent;
     [SOCKET_EVENTS.AI_AGENT_EXECUTED]: AIAgentExecutedEvent;
+    [SOCKET_EVENTS.CAMPAIGN_MESSAGE_STATUS]: CampaignMessageStatusEvent;
+    [SOCKET_EVENTS.CAMPAIGN_PROGRESS]: CampaignProgressEvent;
+    [SOCKET_EVENTS.CAMPAIGN_COMPLETED]: CampaignCompletedEvent;
 }
 export declare const SOCKET_ROOMS: {
     /**

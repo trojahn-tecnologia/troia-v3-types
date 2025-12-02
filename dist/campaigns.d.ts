@@ -33,9 +33,8 @@ export declare enum CampaignStatus {
  * Audience Type - Tipo de audiência da campanha
  */
 export declare enum AudienceType {
-    LEADS = "leads",// Leads collection
-    CUSTOMERS = "customers",// Customers collection
-    GROUPS = "groups",// Groups collection
+    LEADS = "leads",// Leads collection (via contactId)
+    CONTACTS = "contacts",// Contacts collection
     MANUAL = "manual"
 }
 /**
@@ -118,7 +117,7 @@ export interface CreateCampaignRequest {
     recipientIds?: string[];
     variableMapping: VariableMapping;
     schedulingType: SchedulingType;
-    scheduledFor?: string;
+    scheduledFor?: string | null;
     recurringConfig?: RecurringConfig;
 }
 /**
@@ -134,7 +133,7 @@ export interface UpdateCampaignRequest {
     recipientIds?: string[];
     variableMapping?: VariableMapping;
     schedulingType?: SchedulingType;
-    scheduledFor?: string;
+    scheduledFor?: string | null;
     recurringConfig?: RecurringConfig;
     status?: CampaignStatus;
 }
@@ -170,4 +169,76 @@ export interface CampaignStatsResponse {
 export interface TestCampaignRequest {
     testRecipients: string[];
     variableMapping: VariableMapping;
+}
+/**
+ * Campaign Message Status - Status de cada mensagem individual
+ */
+export declare enum CampaignMessageStatus {
+    PENDING = "pending",// Aguardando envio
+    QUEUED = "queued",// Na fila do BullMQ
+    SENDING = "sending",// Em processo de envio
+    SENT = "sent",// Enviado ao provider
+    DELIVERED = "delivered",// Entregue ao destinatário
+    READ = "read",// Lido pelo destinatário
+    FAILED = "failed",// Falhou no envio
+    CANCELLED = "cancelled"
+}
+/**
+ * Campaign Message - Documento de tracking por destinatário
+ */
+export interface CampaignMessage extends TenantAwareDocument {
+    campaignId: string;
+    recipientId: string;
+    recipientPhone: string;
+    recipientName?: string;
+    recipientData?: Record<string, unknown>;
+    status: CampaignMessageStatus;
+    providerMessageId?: string;
+    sentAt?: string;
+    deliveredAt?: string;
+    readAt?: string;
+    failedAt?: string;
+    failureReason?: string;
+    retryCount: number;
+}
+/**
+ * Campaign Message Response - Response type sem _id
+ */
+export interface CampaignMessageResponse extends Omit<CampaignMessage, '_id'> {
+    id: string;
+}
+/**
+ * Campaign Message List Response
+ */
+export interface CampaignMessageListResponse extends ListResponse<CampaignMessageResponse> {
+}
+/**
+ * Campaign Message Query
+ */
+export interface CampaignMessageQuery extends PaginationQuery {
+    campaignId?: string;
+    status?: CampaignMessageStatus | CampaignMessageStatus[];
+    recipientPhone?: string;
+    search?: string;
+}
+/**
+ * Campaign Message Job Data - Dados do job na queue BullMQ
+ */
+export interface CampaignMessageJobData {
+    campaignMessageId: string;
+    campaignId: string;
+    channelId: string;
+    templateId: string;
+    recipientPhone: string;
+    recipientName?: string;
+    variables: Record<string, string>;
+    appId: string;
+    companyId: string;
+}
+/**
+ * Campaign Message Stats By Status - Agregação por status
+ */
+export interface CampaignMessageStatsByStatus {
+    status: CampaignMessageStatus;
+    count: number;
 }

@@ -55,6 +55,10 @@ exports.SOCKET_EVENTS = {
     TEMPLATE_STATUS_UPDATED: 'template:status-updated',
     // AI Agent Events
     AI_AGENT_EXECUTED: 'ai:agent:executed',
+    // Campaign Events
+    CAMPAIGN_MESSAGE_STATUS: 'campaign:message-status', // Individual message status update
+    CAMPAIGN_PROGRESS: 'campaign:progress', // Overall campaign progress
+    CAMPAIGN_COMPLETED: 'campaign:completed', // Campaign finished
 };
 // ============================================================================
 // ROOM PATTERNS
