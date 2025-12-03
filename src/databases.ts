@@ -858,6 +858,18 @@ export interface DatabaseDocumentQuery extends PaginationQuery {
     maxPrice?: number;
     tags?: string[];
     externalId?: string;
+    // Property-specific filters
+    propertyType?: PropertyType[];
+    minBedrooms?: number;
+    maxBedrooms?: number;
+    minBathrooms?: number;
+    maxBathrooms?: number;
+    minParkingSpaces?: number;
+    maxParkingSpaces?: number;
+    minArea?: number;
+    maxArea?: number;
+    city?: string;
+    neighborhood?: string;
   };
 }
 

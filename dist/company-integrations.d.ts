@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, ExtendedStatus } from './common';
-import { ProviderCredentials, CreateProviderIntegrationRequest } from './providers';
+import { ProviderCredentials, CreateProviderIntegrationRequest, ProviderRateLimits, QualityRating } from './providers';
 export interface CompanyIntegration {
     companyId: ObjectId;
     appId: ObjectId;
@@ -14,6 +14,9 @@ export interface CompanyIntegration {
     syncInterval?: number;
     authFailedAt?: Date;
     failedAttempts?: number;
+    rateLimits?: ProviderRateLimits;
+    qualityRating?: QualityRating;
+    qualityRatingUpdatedAt?: Date;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -45,6 +48,9 @@ export interface CompanyIntegrationResponse {
     lastError?: string;
     authFailedAt?: string;
     failedAttempts?: number;
+    rateLimits?: ProviderRateLimits;
+    qualityRating?: QualityRating;
+    qualityRatingUpdatedAt?: string;
     instanceKey?: string;
     instanceToken?: string;
     instanceData?: any;
@@ -72,6 +78,9 @@ export interface UpdateCompanyIntegrationRequest {
     resourceType?: string;
     resourceId?: string;
     lastError?: string;
+    rateLimits?: Partial<ProviderRateLimits>;
+    qualityRating?: QualityRating;
+    qualityRatingUpdatedAt?: string;
     instanceKey?: string;
     instanceToken?: string;
     instanceData?: any;

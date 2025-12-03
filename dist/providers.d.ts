@@ -101,6 +101,55 @@ export interface ProviderCredentials {
     password?: string;
     customAuth?: Record<string, any>;
 }
+/**
+ * Rate limit source - where the limit came from
+ */
+export type RateLimitSource = 'default' | 'webhook' | 'manual' | 'api';
+/**
+ * WhatsApp Business API messaging tiers
+ */
+export type WhatsAppTier = 'tier_0' | 'tier_1' | 'tier_2' | 'tier_3' | 'tier_4';
+/**
+ * WhatsApp quality rating levels
+ */
+export type QualityRating = 'green' | 'yellow' | 'red';
+/**
+ * Provider rate limits configuration
+ * Used to control message sending rates per provider/integration
+ */
+export interface ProviderRateLimits {
+    messagesPerSecond: number;
+    messagesPerMinute: number;
+    messagesPerHour: number;
+    messagesPerDay: number;
+    tier?: WhatsAppTier;
+    qualityRating?: QualityRating;
+    source: RateLimitSource;
+    lastUpdated?: Date;
+    errorCount?: number;
+    lastErrorAt?: Date;
+}
+/**
+ * Rate limit usage tracking (stored in Redis)
+ */
+export interface RateLimitUsage {
+    integrationId: string;
+    sentToday: number;
+    sentThisHour: number;
+    sentThisMinute: number;
+    dailyLimit: number;
+    remainingToday: number;
+    resetAt: Date;
+}
+/**
+ * Rate limit check result
+ */
+export interface RateLimitCheckResult {
+    allowed: boolean;
+    waitMs?: number;
+    reason?: 'daily_limit_reached' | 'hourly_limit_reached' | 'minute_limit_reached' | 'second_limit_reached' | 'quality_rating_flagged';
+    currentUsage?: RateLimitUsage;
+}
 export declare enum ProviderId {
     EMAIL_SMTP = "email-smtp",
     EMAIL_SENDGRID = "email-sendgrid",

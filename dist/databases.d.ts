@@ -652,6 +652,17 @@ export interface DatabaseDocumentQuery extends PaginationQuery {
         maxPrice?: number;
         tags?: string[];
         externalId?: string;
+        propertyType?: PropertyType[];
+        minBedrooms?: number;
+        maxBedrooms?: number;
+        minBathrooms?: number;
+        maxBathrooms?: number;
+        minParkingSpaces?: number;
+        maxParkingSpaces?: number;
+        minArea?: number;
+        maxArea?: number;
+        city?: string;
+        neighborhood?: string;
     };
 }
 export interface DatabaseListResponse extends ListResponse<DatabaseResponse> {

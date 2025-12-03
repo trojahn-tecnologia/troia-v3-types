@@ -160,6 +160,72 @@ export interface ProviderCredentials {
 }
 
 // ============================================================================
+// RATE LIMITING TYPES
+// ============================================================================
+
+/**
+ * Rate limit source - where the limit came from
+ */
+export type RateLimitSource = 'default' | 'webhook' | 'manual' | 'api';
+
+/**
+ * WhatsApp Business API messaging tiers
+ */
+export type WhatsAppTier = 'tier_0' | 'tier_1' | 'tier_2' | 'tier_3' | 'tier_4';
+
+/**
+ * WhatsApp quality rating levels
+ */
+export type QualityRating = 'green' | 'yellow' | 'red';
+
+/**
+ * Provider rate limits configuration
+ * Used to control message sending rates per provider/integration
+ */
+export interface ProviderRateLimits {
+  // Throughput limits (messages per period)
+  messagesPerSecond: number;        // Ex: 80 for WhatsApp Business
+  messagesPerMinute: number;        // Ex: 4800
+  messagesPerHour: number;          // Ex: 288000
+  messagesPerDay: number;           // Ex: 1000 for tier_1
+
+  // WhatsApp-specific fields
+  tier?: WhatsAppTier;              // WhatsApp messaging tier
+  qualityRating?: QualityRating;    // Quality rating (green, yellow, red)
+
+  // Metadata
+  source: RateLimitSource;          // Where these limits came from
+  lastUpdated?: Date;               // When limits were last updated
+
+  // Error handling
+  errorCount?: number;              // Count of rate limit errors (130429)
+  lastErrorAt?: Date;               // Last rate limit error timestamp
+}
+
+/**
+ * Rate limit usage tracking (stored in Redis)
+ */
+export interface RateLimitUsage {
+  integrationId: string;
+  sentToday: number;
+  sentThisHour: number;
+  sentThisMinute: number;
+  dailyLimit: number;
+  remainingToday: number;
+  resetAt: Date;                    // When daily counter resets
+}
+
+/**
+ * Rate limit check result
+ */
+export interface RateLimitCheckResult {
+  allowed: boolean;
+  waitMs?: number;                  // Milliseconds to wait before retry
+  reason?: 'daily_limit_reached' | 'hourly_limit_reached' | 'minute_limit_reached' | 'second_limit_reached' | 'quality_rating_flagged';
+  currentUsage?: RateLimitUsage;
+}
+
+// ============================================================================
 // PROVIDER ENUM (Centralized)
 // ============================================================================
 

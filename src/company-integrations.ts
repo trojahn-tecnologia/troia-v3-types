@@ -17,7 +17,9 @@ import {
   CreateFacebookMessengerIntegrationRequest,
   CreateTelegramIntegrationRequest,
   CreateWebhookIntegrationRequest,
-  CreateProviderIntegrationRequest
+  CreateProviderIntegrationRequest,
+  ProviderRateLimits,
+  QualityRating
 } from './providers';
 
 // Base CompanyIntegration interface
@@ -34,6 +36,12 @@ export interface CompanyIntegration {
   syncInterval?: number;          // ✅ Override sync interval (in minutes)
   authFailedAt?: Date;            // ✅ Timestamp when authentication failed
   failedAttempts?: number;        // ✅ Counter for failed attempts
+
+  // Rate limiting configuration (overrides provider defaults)
+  rateLimits?: ProviderRateLimits;  // Custom rate limits for this integration
+  qualityRating?: QualityRating;    // WhatsApp quality rating (green, yellow, red)
+  qualityRatingUpdatedAt?: Date;    // When quality rating was last updated
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -77,6 +85,11 @@ export interface CompanyIntegrationResponse {
   authFailedAt?: string;    // ✅ Timestamp when authentication failed
   failedAttempts?: number;  // ✅ Counter for failed attempts
 
+  // Rate limiting configuration
+  rateLimits?: ProviderRateLimits;  // Custom rate limits for this integration
+  qualityRating?: QualityRating;    // WhatsApp quality rating (green, yellow, red)
+  qualityRatingUpdatedAt?: string;  // When quality rating was last updated (ISO string)
+
   // Instance management fields (for providers like Gateway)
   instanceKey?: string;      // Key da instância no provider
   instanceToken?: string;    // Token da instância no provider
@@ -118,6 +131,11 @@ export interface UpdateCompanyIntegrationRequest {
   resourceType?: string;      // Resource type ('channel', 'service', etc.)
   resourceId?: string;        // Resource ID (channel ID, service ID, etc.)
   lastError?: string;
+
+  // Rate limiting configuration
+  rateLimits?: Partial<ProviderRateLimits>;  // Update rate limits
+  qualityRating?: QualityRating;              // Update quality rating
+  qualityRatingUpdatedAt?: string;            // ISO 8601 timestamp
 
   // Instance management fields (for providers like Gateway)
   instanceKey?: string;      // Key da instância no provider
