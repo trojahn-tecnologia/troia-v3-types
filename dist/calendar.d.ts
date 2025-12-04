@@ -254,7 +254,7 @@ export type FollowUpConditionType = 'no_response' | 'time_elapsed' | 'tag_added'
 /**
  * Tipos de ação a executar quando condição é satisfeita
  */
-export type FollowUpActionType = 'send_message' | 'send_notification' | 'assign_user' | 'assign_ai_agent' | 'add_tag' | 'webhook';
+export type FollowUpActionType = 'send_message' | 'send_notification' | 'assign_user' | 'assign_ai_agent' | 'add_tag' | 'webhook' | 'move_to_step';
 /**
  * Configuração de condição para follow-up
  */
@@ -281,6 +281,8 @@ export interface FollowUpAction {
         webhookUrl?: string;
         webhookPayload?: Record<string, any>;
         webhookHeaders?: Record<string, string>;
+        funnelId?: string;
+        stepId?: string;
     };
 }
 /**

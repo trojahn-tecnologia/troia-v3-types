@@ -315,7 +315,8 @@ export type FollowUpActionType =
   | 'assign_user'        // Atribuir conversa a usuário específico
   | 'assign_ai_agent'    // Atribuir conversa a agente de IA
   | 'add_tag'            // Adicionar tag ao contato
-  | 'webhook';           // Chamar webhook externo
+  | 'webhook'            // Chamar webhook externo
+  | 'move_to_step';      // Mover lead para outra etapa do funil
 
 /**
  * Configuração de condição para follow-up
@@ -358,6 +359,10 @@ export interface FollowUpAction {
     webhookUrl?: string;
     webhookPayload?: Record<string, any>;
     webhookHeaders?: Record<string, string>;
+
+    // move_to_step: ID do funil e da etapa destino
+    funnelId?: string;
+    stepId?: string;
   };
 }
 
