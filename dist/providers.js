@@ -48,6 +48,8 @@ var ProviderId;
     ProviderId["AI_ELEVENLABS"] = "ai-elevenlabs";
     // Database Providers (Properties, Real Estate, etc.)
     ProviderId["DATABASE_JETIMOB"] = "database-jetimob";
+    // Meta Platform (Unified Meta services)
+    ProviderId["META"] = "meta";
 })(ProviderId || (exports.ProviderId = ProviderId = {}));
 // ============================================================================
 // PROVIDER CAPABILITIES (Centralized)
@@ -138,5 +140,8 @@ var ProviderCapability;
     ProviderCapability["SYNC_PROPERTIES"] = "sync_properties";
     ProviderCapability["CREATE_PROPERTY"] = "create_property";
     ProviderCapability["UPDATE_PROPERTY"] = "update_property";
-    ProviderCapability["DELETE_PROPERTY"] = "delete_property"; // Delete property from external system
+    ProviderCapability["DELETE_PROPERTY"] = "delete_property";
+    // Meta Platform Capabilities
+    ProviderCapability["SOCIAL_LOGIN"] = "social_login";
+    ProviderCapability["WHATSAPP_EMBEDDED_SIGNUP"] = "whatsapp_embedded_signup"; // WhatsApp Business Embedded Signup flow
 })(ProviderCapability || (exports.ProviderCapability = ProviderCapability = {}));

@@ -90,7 +90,13 @@ export interface JetimobConfig {
     apiKey: string;
     syncInterval?: number;
 }
-export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig | FirebaseConfig | OneSignalConfig | ElevenLabsConfig | JetimobConfig;
+export interface MetaConfig {
+    appId: string;
+    appSecret: string;
+    configId?: string;
+    graphApiVersion: string;
+}
+export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig | FirebaseConfig | OneSignalConfig | ElevenLabsConfig | JetimobConfig | MetaConfig;
 export interface ProviderCredentials {
     accessToken?: string;
     refreshToken?: string;
@@ -184,7 +190,8 @@ export declare enum ProviderId {
     AI_MISTRAL = "ai-mistral",
     AI_DEEPSEEK = "ai-deepseek",
     AI_ELEVENLABS = "ai-elevenlabs",
-    DATABASE_JETIMOB = "database-jetimob"
+    DATABASE_JETIMOB = "database-jetimob",
+    META = "meta"
 }
 export declare enum ProviderCapability {
     SEND_EMAIL = "send_email",
@@ -251,7 +258,9 @@ export declare enum ProviderCapability {
     SYNC_PROPERTIES = "sync_properties",// Sync properties bidirectionally
     CREATE_PROPERTY = "create_property",// Create property in external system
     UPDATE_PROPERTY = "update_property",// Update property in external system
-    DELETE_PROPERTY = "delete_property"
+    DELETE_PROPERTY = "delete_property",// Delete property from external system
+    SOCIAL_LOGIN = "social_login",// OAuth social login (Facebook, Instagram)
+    WHATSAPP_EMBEDDED_SIGNUP = "whatsapp_embedded_signup"
 }
 export interface BaseIntegrationRequest {
     name: string;
@@ -297,7 +306,12 @@ export interface CreateGoogleCalendarIntegrationRequest extends BaseIntegrationR
     config: GoogleCalendarConfig;
     credentials?: ProviderCredentials;
 }
-export type CreateProviderIntegrationRequest = CreateSmtpIntegrationRequest | CreateSendGridIntegrationRequest | CreateWhatsAppIntegrationRequest | CreateFacebookMessengerIntegrationRequest | CreateTelegramIntegrationRequest | CreateWebhookIntegrationRequest | CreateGatewayIntegrationRequest | CreateGoogleCalendarIntegrationRequest;
+export interface CreateMetaIntegrationRequest extends BaseIntegrationRequest {
+    providerId: ProviderId.META;
+    config: MetaConfig;
+    credentials?: ProviderCredentials;
+}
+export type CreateProviderIntegrationRequest = CreateSmtpIntegrationRequest | CreateSendGridIntegrationRequest | CreateWhatsAppIntegrationRequest | CreateFacebookMessengerIntegrationRequest | CreateTelegramIntegrationRequest | CreateWebhookIntegrationRequest | CreateGatewayIntegrationRequest | CreateGoogleCalendarIntegrationRequest | CreateMetaIntegrationRequest;
 export interface Provider {
     _id?: ObjectId;
     name: string;

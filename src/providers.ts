@@ -113,6 +113,12 @@ export interface JetimobConfig {
   syncInterval?: number;     // Intervalo de sincronização em minutos (default: 60)
 }
 
+export interface MetaConfig {
+  appId: string;             // Meta App ID
+  appSecret: string;         // Meta App Secret
+  configId?: string;         // WhatsApp Embedded Signup Config ID (optional, for WABA signup)
+  graphApiVersion: string;   // Graph API version (e.g., 'v21.0')
+}
 
 // ============================================================================
 // UNION TYPE FOR ALL PROVIDER CONFIGS
@@ -135,7 +141,8 @@ export type ProviderConfig =
   | FirebaseConfig
   | OneSignalConfig
   | ElevenLabsConfig
-  | JetimobConfig;
+  | JetimobConfig
+  | MetaConfig;
 
 // ============================================================================
 // PROVIDER CREDENTIALS (OAuth tokens, etc.)
@@ -278,7 +285,10 @@ export enum ProviderId {
   AI_ELEVENLABS = 'ai-elevenlabs',
 
   // Database Providers (Properties, Real Estate, etc.)
-  DATABASE_JETIMOB = 'database-jetimob'
+  DATABASE_JETIMOB = 'database-jetimob',
+
+  // Meta Platform (Unified Meta services)
+  META = 'meta'
 }
 
 // ============================================================================
@@ -389,7 +399,11 @@ export enum ProviderCapability {
   SYNC_PROPERTIES = 'sync_properties',          // Sync properties bidirectionally
   CREATE_PROPERTY = 'create_property',          // Create property in external system
   UPDATE_PROPERTY = 'update_property',          // Update property in external system
-  DELETE_PROPERTY = 'delete_property'           // Delete property from external system
+  DELETE_PROPERTY = 'delete_property',          // Delete property from external system
+
+  // Meta Platform Capabilities
+  SOCIAL_LOGIN = 'social_login',                        // OAuth social login (Facebook, Instagram)
+  WHATSAPP_EMBEDDED_SIGNUP = 'whatsapp_embedded_signup' // WhatsApp Business Embedded Signup flow
 }
 
 // ============================================================================
@@ -449,6 +463,12 @@ export interface CreateGoogleCalendarIntegrationRequest extends BaseIntegrationR
   credentials?: ProviderCredentials;
 }
 
+export interface CreateMetaIntegrationRequest extends BaseIntegrationRequest {
+  providerId: ProviderId.META;
+  config: MetaConfig;
+  credentials?: ProviderCredentials;
+}
+
 // ============================================================================
 // UNION TYPE FOR TYPED INTEGRATION REQUESTS
 // ============================================================================
@@ -461,7 +481,8 @@ export type CreateProviderIntegrationRequest =
   | CreateTelegramIntegrationRequest
   | CreateWebhookIntegrationRequest
   | CreateGatewayIntegrationRequest
-  | CreateGoogleCalendarIntegrationRequest;
+  | CreateGoogleCalendarIntegrationRequest
+  | CreateMetaIntegrationRequest;
 
 // ============================================================================
 // PROVIDER ENTITY (Database schema)
