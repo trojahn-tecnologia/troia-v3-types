@@ -531,6 +531,8 @@ export interface Database {
     tags?: string[];
     /** Custom settings */
     settings?: Record<string, any>;
+    /** Domains associated with this database */
+    domains?: string[];
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;
@@ -618,6 +620,7 @@ export interface UpdateDatabaseRequest {
     tags?: string[];
     settings?: Record<string, any>;
     syncConfig?: Partial<DatabaseSyncConfig>;
+    domains?: string[];
 }
 export interface CreateDatabaseDocumentRequest<T = any> {
     databaseId: string;

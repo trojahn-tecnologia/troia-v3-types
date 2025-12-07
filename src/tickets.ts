@@ -8,7 +8,7 @@ export interface Ticket {
   ticketNumber: string;  // Auto-generated: TCK-YYYY-NNNNNN
   title: string;
   description?: string;
-  status: 'open' | 'pending' | 'resolved' | 'closed' | 'canceled';
+  status: 'open' | 'pending' | 'paused' | 'resolved' | 'closed' | 'canceled';
   priority: 'low' | 'medium' | 'high' | 'urgent';
   category: string;
   tags: string[];
@@ -75,7 +75,7 @@ export interface CreateTicketRequest {
 export interface UpdateTicketRequest {
   title?: string;
   description?: string;
-  status?: 'open' | 'pending' | 'resolved' | 'closed' | 'canceled';
+  status?: 'open' | 'pending' | 'paused' | 'resolved' | 'closed' | 'canceled';
   statusReason?: string;
   resolution?: string;
   priority?: 'low' | 'medium' | 'high' | 'urgent';
@@ -97,7 +97,7 @@ export type TicketResponse = Ticket;
 export interface TicketQuery extends PaginationQuery {
   filters?: {
     title?: string;
-    status?: 'open' | 'pending' | 'resolved' | 'closed' | 'canceled';
+    status?: 'open' | 'pending' | 'paused' | 'resolved' | 'closed' | 'canceled';
     priority?: 'low' | 'medium' | 'high' | 'urgent';
     category?: string;
     tags?: string[];
