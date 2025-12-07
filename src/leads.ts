@@ -108,6 +108,7 @@ export interface UpdateLeadRequest {
   wonValue?: number;
   businessStatus?: 'pending' | 'won' | 'lost';
   wonDate?: string;
+  lostDate?: string;
   // activityStatus is calculated automatically by backend - not updatable
   customerId?: string;
   lostReason?: string;

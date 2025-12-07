@@ -77,6 +77,7 @@ export interface UpdateLeadRequest {
     wonValue?: number;
     businessStatus?: 'pending' | 'won' | 'lost';
     wonDate?: string;
+    lostDate?: string;
     customerId?: string;
     lostReason?: string;
     lastInteractionAt?: string;
