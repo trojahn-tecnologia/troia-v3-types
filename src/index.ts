@@ -79,3 +79,7 @@ export * from './databases';
 export * from './ai-agents';
 export * from './escalation-rules';
 export * from './custom-actions';
+
+// Workflows/Automation module
+export * from './workflows';
+export * from './workflow-node-schemas';

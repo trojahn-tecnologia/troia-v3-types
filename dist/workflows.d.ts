@@ -1,0 +1,596 @@
+import { ObjectId } from 'mongodb';
+/**
+ * Node Types - All supported node types for workflows
+ */
+export type WorkflowNodeType = 'trigger_webhook' | 'trigger_schedule' | 'trigger_event' | 'trigger_manual' | 'trigger_date_field' | 'trigger_inactivity' | 'action_send_message' | 'action_send_email' | 'action_http_request' | 'action_query_database' | 'action_create_lead' | 'action_update_contact' | 'action_assign' | 'action_set_variable' | 'control_if' | 'control_switch' | 'control_delay' | 'control_loop' | 'ai_agent';
+/**
+ * Workflow Status
+ */
+export type WorkflowStatus = 'active' | 'inactive' | 'draft' | 'archived';
+/**
+ * Execution Status
+ */
+export type WorkflowExecutionStatus = 'pending' | 'running' | 'completed' | 'failed' | 'cancelled';
+/**
+ * Node Execution Status
+ */
+export type NodeExecutionStatus = 'pending' | 'running' | 'completed' | 'failed' | 'skipped';
+/**
+ * Webhook Trigger Configuration
+ */
+export interface WebhookTriggerConfig {
+    webhookId?: string;
+    secret?: string;
+    validatePayload?: boolean;
+}
+/**
+ * Schedule Trigger Configuration (Cron)
+ */
+export interface ScheduleTriggerConfig {
+    cronExpression: string;
+    timezone?: string;
+}
+/**
+ * Event Trigger Configuration
+ */
+export interface EventTriggerConfig {
+    eventType: WorkflowEventType;
+    conditions?: Record<string, any>;
+}
+/**
+ * Date Field Trigger Configuration
+ */
+export interface DateFieldTriggerConfig {
+    entityType: 'contact' | 'lead' | 'ticket' | 'conversation';
+    dateField: string;
+    offsetDays: number;
+    offsetDirection: 'before' | 'after';
+    conditions?: Record<string, any>;
+}
+/**
+ * Inactivity Trigger Configuration
+ */
+export interface InactivityTriggerConfig {
+    entityType: 'conversation' | 'contact' | 'lead';
+    inactivityPeriod: number;
+    inactivityField: string;
+    conditions?: Record<string, any>;
+    maxTriggersPerEntity?: number;
+    resetOnActivity?: boolean;
+}
+/**
+ * Send Message Action Configuration
+ */
+export interface SendMessageActionConfig {
+    conversationId?: string;
+    contactId?: string;
+    channelId?: string;
+    message: string;
+    messageType?: 'text' | 'template';
+    templateId?: string;
+    templateVariables?: Record<string, string>;
+}
+/**
+ * Send Email Action Configuration
+ */
+export interface SendEmailActionConfig {
+    to: string;
+    subject: string;
+    body: string;
+    templateId?: string;
+    templateVariables?: Record<string, string>;
+}
+/**
+ * HTTP Request Action Configuration
+ */
+export interface HttpRequestActionConfig {
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+    url: string;
+    headers?: Record<string, string>;
+    body?: string | Record<string, any>;
+    timeout?: number;
+    retryAttempts?: number;
+}
+/**
+ * Query Database Action Configuration
+ */
+export interface QueryDatabaseActionConfig {
+    collection: string;
+    operation: 'find' | 'findOne' | 'count' | 'aggregate';
+    query: Record<string, any>;
+    outputVariable?: string;
+}
+/**
+ * Create Lead Action Configuration
+ */
+export interface CreateLeadActionConfig {
+    contactId?: string;
+    funnelId?: string;
+    step?: string;
+    description?: string;
+    value?: number;
+    assignToUserId?: string;
+}
+/**
+ * Update Contact Action Configuration
+ */
+export interface UpdateContactActionConfig {
+    contactId?: string;
+    addTags?: string[];
+    removeTags?: string[];
+    customFields?: Record<string, any>;
+}
+/**
+ * Assign Action Configuration
+ */
+export interface AssignActionConfig {
+    resourceType: 'ticket' | 'conversation' | 'lead';
+    resourceId?: string;
+    userId?: string;
+    teamId?: string;
+    strategy?: 'round_robin' | 'least_busy' | 'random' | 'specific_user';
+}
+/**
+ * Set Variable Action Configuration
+ */
+export interface SetVariableActionConfig {
+    variable: string;
+    value: any;
+    expression?: string;
+}
+/**
+ * IF Control Configuration
+ */
+export interface IfControlConfig {
+    condition: string;
+    operator?: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'greater_than' | 'less_than' | 'is_empty' | 'is_not_empty';
+    value?: any;
+}
+/**
+ * Switch Control Configuration
+ */
+export interface SwitchControlConfig {
+    field: string;
+    cases: Array<{
+        value: any;
+        label?: string;
+    }>;
+    defaultCase?: boolean;
+}
+/**
+ * Delay Control Configuration
+ */
+export interface DelayControlConfig {
+    duration: number;
+    unit: 'seconds' | 'minutes' | 'hours' | 'days';
+}
+/**
+ * Loop Control Configuration
+ */
+export interface LoopControlConfig {
+    items?: string;
+    maxIterations?: number;
+    condition?: string;
+}
+/**
+ * AI Agent Node Configuration
+ */
+export interface AIAgentNodeConfig {
+    agentId: string;
+    contextType: 'conversation' | 'contact' | 'lead';
+    contextId?: string;
+    customPrompt?: string;
+    waitForResponse?: boolean;
+}
+/**
+ * Node Configuration - Union of all config types
+ */
+export type NodeConfig = WebhookTriggerConfig | ScheduleTriggerConfig | EventTriggerConfig | DateFieldTriggerConfig | InactivityTriggerConfig | SendMessageActionConfig | SendEmailActionConfig | HttpRequestActionConfig | QueryDatabaseActionConfig | CreateLeadActionConfig | UpdateContactActionConfig | AssignActionConfig | SetVariableActionConfig | IfControlConfig | SwitchControlConfig | DelayControlConfig | LoopControlConfig | AIAgentNodeConfig | Record<string, any>;
+/**
+ * Workflow Node Position
+ */
+export interface NodePosition {
+    x: number;
+    y: number;
+}
+/**
+ * Workflow Node Data
+ */
+export interface WorkflowNodeData {
+    label: string;
+    description?: string;
+    config: NodeConfig;
+}
+/**
+ * Workflow Node
+ */
+export interface WorkflowNode {
+    id: string;
+    type: WorkflowNodeType;
+    position: NodePosition;
+    data: WorkflowNodeData;
+}
+/**
+ * Workflow Edge
+ */
+export interface WorkflowEdge {
+    id: string;
+    source: string;
+    target: string;
+    sourceHandle?: string;
+    targetHandle?: string;
+    label?: string;
+    condition?: string;
+}
+/**
+ * Workflow Definition
+ */
+/**
+ * Viewport configuration for React Flow
+ */
+export interface WorkflowViewport {
+    x: number;
+    y: number;
+    zoom: number;
+}
+export interface WorkflowDefinition {
+    nodes: WorkflowNode[];
+    edges: WorkflowEdge[];
+    variables?: Record<string, any>;
+    version?: number;
+    viewport?: WorkflowViewport;
+}
+/**
+ * Workflow Folder Entity (Database Document)
+ */
+export interface WorkflowFolder {
+    _id?: ObjectId;
+    name: string;
+    description?: string;
+    color?: string;
+    icon?: string;
+    parentId?: ObjectId;
+    order?: number;
+    appId: ObjectId;
+    companyId: ObjectId;
+    createdBy?: string;
+    updatedBy?: string;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt?: Date;
+}
+/**
+ * Workflow Folder Response (API Response)
+ */
+export interface WorkflowFolderResponse extends Omit<WorkflowFolder, '_id' | 'parentId' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'deletedAt'> {
+    id: string;
+    parentId?: string;
+    appId: string;
+    companyId: string;
+    workflowCount?: number;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt?: string;
+}
+/**
+ * Create Workflow Folder Request
+ */
+export interface CreateWorkflowFolderRequest {
+    name: string;
+    description?: string;
+    color?: string;
+    icon?: string;
+    parentId?: string;
+    order?: number;
+}
+/**
+ * Update Workflow Folder Request
+ */
+export interface UpdateWorkflowFolderRequest {
+    name?: string;
+    description?: string | null;
+    color?: string | null;
+    icon?: string | null;
+    parentId?: string | null;
+    order?: number;
+}
+/**
+ * Workflow Folder Query Parameters
+ */
+export interface WorkflowFolderQuery {
+    page?: number;
+    limit?: number;
+    search?: string;
+    parentId?: string | null;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+}
+/**
+ * Workflow Folder List Response (Paginated)
+ */
+export interface WorkflowFolderListResponse {
+    items: WorkflowFolderResponse[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+}
+/**
+ * Workflow Entity (Database Document)
+ */
+export interface Workflow {
+    _id?: ObjectId;
+    name: string;
+    description?: string;
+    status: WorkflowStatus;
+    definition: WorkflowDefinition;
+    folderId?: ObjectId;
+    appId: ObjectId;
+    companyId: ObjectId;
+    createdBy?: string;
+    updatedBy?: string;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt?: Date;
+}
+/**
+ * Workflow Response (API Response)
+ */
+export interface WorkflowResponse extends Omit<Workflow, '_id' | 'folderId' | 'appId' | 'companyId' | 'createdAt' | 'updatedAt' | 'deletedAt'> {
+    id: string;
+    folderId?: string;
+    appId: string;
+    companyId: string;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt?: string;
+}
+/**
+ * Node Execution Record
+ */
+export interface NodeExecution {
+    nodeId: string;
+    nodeType: WorkflowNodeType;
+    status: NodeExecutionStatus;
+    startedAt: Date;
+    completedAt?: Date;
+    input?: Record<string, any>;
+    output?: Record<string, any>;
+    error?: string;
+    duration?: number;
+}
+/**
+ * Workflow Execution Entity (Database Document)
+ */
+export interface WorkflowExecution {
+    _id?: ObjectId;
+    workflowId: ObjectId;
+    workflowName?: string;
+    status: WorkflowExecutionStatus;
+    triggerType: WorkflowNodeType;
+    triggerData?: Record<string, any>;
+    context: Record<string, any>;
+    variables: Record<string, any>;
+    nodeExecutions: NodeExecution[];
+    currentNodeId?: string;
+    startedAt: Date;
+    completedAt?: Date;
+    error?: string;
+    duration?: number;
+    appId: ObjectId;
+    companyId: ObjectId;
+}
+/**
+ * Workflow Execution Response (API Response)
+ */
+export interface WorkflowExecutionResponse extends Omit<WorkflowExecution, '_id' | 'workflowId' | 'appId' | 'companyId' | 'nodeExecutions' | 'startedAt' | 'completedAt'> {
+    id: string;
+    workflowId: string;
+    appId: string;
+    companyId: string;
+    nodeExecutions: Array<Omit<NodeExecution, 'startedAt' | 'completedAt'> & {
+        startedAt: string;
+        completedAt?: string;
+    }>;
+    startedAt: string;
+    completedAt?: string;
+}
+/**
+ * Workflow Trigger Count (for inactivity triggers)
+ */
+export interface WorkflowTriggerCount {
+    _id?: ObjectId;
+    workflowId: ObjectId;
+    entityType: 'conversation' | 'contact' | 'lead';
+    entityId: string;
+    triggerCount: number;
+    lastTriggeredAt: Date;
+    resetAt?: Date;
+    appId: ObjectId;
+    companyId: ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
+}
+/**
+ * Workflow Trigger Count Response
+ */
+export interface WorkflowTriggerCountResponse extends Omit<WorkflowTriggerCount, '_id' | 'workflowId' | 'appId' | 'companyId' | 'lastTriggeredAt' | 'resetAt' | 'createdAt' | 'updatedAt'> {
+    id: string;
+    workflowId: string;
+    appId: string;
+    companyId: string;
+    lastTriggeredAt: string;
+    resetAt?: string;
+    createdAt: string;
+    updatedAt: string;
+}
+/**
+ * Workflow Event Types
+ */
+export type WorkflowEventType = 'message.received' | 'message.sent' | 'message.delivered' | 'message.read' | 'conversation.created' | 'conversation.updated' | 'conversation.closed' | 'conversation.reopened' | 'conversation.assigned' | 'conversation.inactive' | 'contact.created' | 'contact.updated' | 'contact.deleted' | 'contact.tag_added' | 'contact.tag_removed' | 'contact.birthday' | 'contact.inactive' | 'lead.created' | 'lead.updated' | 'lead.stage_changed' | 'lead.won' | 'lead.lost' | 'lead.inactive' | 'ticket.created' | 'ticket.updated' | 'ticket.status_changed' | 'ticket.assigned' | 'ticket.resolved' | 'ticket.closed' | 'webhook.received' | 'custom.event';
+/**
+ * Workflow Event
+ */
+export interface WorkflowEvent {
+    type: WorkflowEventType;
+    data: Record<string, any>;
+    metadata?: Record<string, any>;
+    appId: string;
+    companyId: string;
+    workflowId?: string;
+    executionId?: string;
+    timestamp: Date;
+}
+/**
+ * Create Workflow Request
+ */
+export interface CreateWorkflowRequest {
+    name: string;
+    description?: string;
+    status?: WorkflowStatus;
+    definition: WorkflowDefinition;
+    folderId?: string;
+}
+/**
+ * Update Workflow Request
+ */
+export interface UpdateWorkflowRequest {
+    name?: string;
+    description?: string;
+    status?: WorkflowStatus;
+    definition?: WorkflowDefinition;
+    folderId?: string | null;
+}
+/**
+ * Workflow Query Parameters
+ */
+export interface WorkflowQuery {
+    page?: number;
+    limit?: number;
+    search?: string;
+    status?: WorkflowStatus;
+    folderId?: string | null;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+}
+/**
+ * Workflow Execution Query Parameters
+ */
+export interface WorkflowExecutionQuery {
+    page?: number;
+    limit?: number;
+    workflowId?: string;
+    status?: WorkflowExecutionStatus;
+    triggerType?: WorkflowNodeType;
+    startDate?: string;
+    endDate?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+}
+/**
+ * Trigger Workflow Request
+ */
+export interface TriggerWorkflowRequest {
+    workflowId: string;
+    triggerData?: Record<string, any>;
+    variables?: Record<string, any>;
+}
+/**
+ * Execution Context - Available to all nodes during execution
+ */
+export interface WorkflowExecutionContext {
+    workflowId: string;
+    executionId: string;
+    appId: string;
+    companyId: string;
+    triggerType: WorkflowNodeType;
+    triggerData: Record<string, any>;
+    variables: Record<string, any>;
+    metadata: Record<string, any>;
+    conversation?: {
+        id: string;
+        contactId?: string;
+        channelId?: string;
+        agentId?: string;
+        status?: string;
+    };
+    contact?: {
+        id: string;
+        name?: string;
+        email?: string;
+        phone?: string;
+        tags?: string[];
+    };
+    lead?: {
+        id: string;
+        contactId?: string;
+        funnelId?: string;
+        step?: string;
+        value?: number;
+    };
+    ticket?: {
+        id: string;
+        subject?: string;
+        status?: string;
+        priority?: string;
+        assigneeId?: string;
+    };
+}
+/**
+ * Node Handler Result
+ */
+export interface NodeHandlerResult {
+    success: boolean;
+    output?: Record<string, any>;
+    error?: string;
+    nextNodes?: string[];
+    skipRemaining?: boolean;
+}
+/**
+ * Node Handler Interface
+ */
+export interface INodeHandler {
+    nodeType: WorkflowNodeType;
+    execute(node: WorkflowNode, context: WorkflowExecutionContext): Promise<NodeHandlerResult>;
+    validate?(node: WorkflowNode): boolean | string;
+}
+/**
+ * Node Category
+ */
+export type NodeCategory = 'triggers' | 'actions' | 'controls' | 'ai';
+/**
+ * Node Palette Item
+ */
+export interface NodePaletteItem {
+    type: WorkflowNodeType;
+    category: NodeCategory;
+    label: string;
+    description: string;
+    icon: string;
+    color: string;
+    defaultConfig: Partial<NodeConfig>;
+}
+/**
+ * Workflow Builder State
+ */
+export interface WorkflowBuilderState {
+    nodes: WorkflowNode[];
+    edges: WorkflowEdge[];
+    selectedNodeId: string | null;
+    selectedEdgeId: string | null;
+    isDirty: boolean;
+    isValid: boolean;
+    validationErrors: string[];
+}
+/**
+ * Workflow Validation Result
+ */
+export interface WorkflowValidationResult {
+    isValid: boolean;
+    errors: Array<{
+        nodeId?: string;
+        edgeId?: string;
+        message: string;
+        severity: 'error' | 'warning';
+    }>;
+}

@@ -63,7 +63,8 @@ export type ValidModuleId =
   | 'api-keys'
   | 'agents'
   | 'tools'
-  | 'databases';
+  | 'databases'
+  | 'workflows';
 
 export interface Module extends AppAwareDocument {
   name: string; // "users", "crm", "teams", "chat", "reports"
