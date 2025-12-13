@@ -16,6 +16,18 @@ export type WorkflowExecutionStatus = 'pending' | 'running' | 'completed' | 'fai
  */
 export type NodeExecutionStatus = 'pending' | 'running' | 'completed' | 'failed' | 'skipped';
 /**
+ * Filter Condition - Standard format for workflow filters
+ * Used by triggers and conditions to filter entities
+ */
+export interface FilterCondition {
+    /** Field path to evaluate (e.g., "status", "lead.step", "{{contact.tags}}") */
+    field: string;
+    /** Comparison operator */
+    operator: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'greater_than' | 'less_than' | 'in' | 'not_in' | 'is_empty' | 'is_not_empty';
+    /** Value to compare against */
+    value: any;
+}
+/**
  * Webhook Trigger Configuration
  */
 export interface WebhookTriggerConfig {
@@ -35,7 +47,7 @@ export interface ScheduleTriggerConfig {
  */
 export interface EventTriggerConfig {
     eventType: WorkflowEventType;
-    conditions?: Record<string, any>;
+    filters?: FilterCondition[];
 }
 /**
  * Date Field Trigger Configuration
@@ -45,7 +57,7 @@ export interface DateFieldTriggerConfig {
     dateField: string;
     offsetDays: number;
     offsetDirection: 'before' | 'after';
-    conditions?: Record<string, any>;
+    filters?: FilterCondition[];
 }
 /**
  * Inactivity Trigger Configuration
@@ -54,7 +66,7 @@ export interface InactivityTriggerConfig {
     entityType: 'conversation' | 'contact' | 'lead';
     inactivityPeriod: number;
     inactivityField: string;
-    conditions?: Record<string, any>;
+    filters?: FilterCondition[];
     maxTriggersPerEntity?: number;
     resetOnActivity?: boolean;
 }
@@ -377,6 +389,8 @@ export interface WorkflowExecution {
     completedAt?: Date;
     error?: string;
     duration?: number;
+    /** Indicates if this execution was triggered via test mode (for tracking/audit purposes only) */
+    isTest?: boolean;
     appId: ObjectId;
     companyId: ObjectId;
 }
