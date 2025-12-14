@@ -23,6 +23,8 @@ export interface AvailableContext {
     lead: boolean;
     /** Ticket disponível no contexto */
     ticket: boolean;
+    /** AI Processor output disponível no contexto ({{ai.message}}, etc.) */
+    ai?: boolean;
 }
 /**
  * Schema de output de um node

@@ -38,6 +38,9 @@ export interface Contact {
   assigneeId?: string;
   teamId?: string;
 
+  // Interaction tracking
+  lastInteractionAt?: string;  // Updated when client SENDS a message
+
   createdAt: string;
   updatedAt: string;
 }

@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 /**
  * Node Types - All supported node types for workflows
  */
-export type WorkflowNodeType = 'trigger_webhook' | 'trigger_schedule' | 'trigger_event' | 'trigger_manual' | 'trigger_date_field' | 'trigger_inactivity' | 'action_send_message' | 'action_send_email' | 'action_http_request' | 'action_query_database' | 'action_create_lead' | 'action_update_contact' | 'action_assign' | 'action_set_variable' | 'control_if' | 'control_switch' | 'control_delay' | 'control_loop' | 'ai_agent';
+export type WorkflowNodeType = 'trigger_webhook' | 'trigger_schedule' | 'trigger_event' | 'trigger_manual' | 'trigger_date_field' | 'trigger_inactivity' | 'action_send_message' | 'action_send_email' | 'action_http_request' | 'action_query_database' | 'action_create_lead' | 'action_update_contact' | 'action_assign' | 'action_set_variable' | 'control_if' | 'control_switch' | 'control_delay' | 'control_loop' | 'ai_agent' | 'ai_processor';
 /**
  * Workflow Status
  */
@@ -65,6 +65,7 @@ export interface DateFieldTriggerConfig {
 export interface InactivityTriggerConfig {
     entityType: 'conversation' | 'contact' | 'lead';
     inactivityPeriod: number;
+    periodUnit?: 'seconds' | 'minutes' | 'hours' | 'days';
     inactivityField: string;
     filters?: FilterCondition[];
     maxTriggersPerEntity?: number;
@@ -186,18 +187,59 @@ export interface LoopControlConfig {
 }
 /**
  * AI Agent Node Configuration
+ *
+ * Executes an existing AI Agent with its own configured tools.
+ * The agent uses its own capabilities, customActionIds, and databases.
  */
 export interface AIAgentNodeConfig {
+    /** ID of the AI Agent to execute */
     agentId: string;
-    contextType: 'conversation' | 'contact' | 'lead';
+    /** Context type - defaults to 'conversation' for workflow usage */
+    contextType?: 'conversation' | 'contact' | 'lead';
+    /** Optional context entity ID (usually derived from workflow context) */
     contextId?: string;
+    /** Optional custom prompt to override agent's default */
     customPrompt?: string;
+    /** Whether to wait for agent response before continuing workflow */
     waitForResponse?: boolean;
+}
+/**
+ * AI Processor Node Configuration
+ *
+ * A standalone AI processor that receives tools from connected workflow nodes.
+ * Unlike AI Agent, this node doesn't reference an existing agent - it defines
+ * its own prompt, model, and receives tools via the 'tools' targetHandle.
+ *
+ * Use this when you want the AI to have access to specific workflow actions
+ * without creating a full AI Agent entity.
+ */
+export interface AIProcessorNodeConfig {
+    /** System prompt defining the AI's behavior */
+    systemPrompt: string;
+    /** Model to use (defaults to configured provider's default) */
+    model?: string;
+    /** Temperature for response generation (0-2, default: 0.7) */
+    temperature?: number;
+    /** Maximum tokens for response */
+    maxTokens?: number;
+    /** Context type - defaults to 'conversation' */
+    contextType?: 'conversation' | 'contact' | 'lead';
+    /** Optional context entity ID */
+    contextId?: string;
+    /** Whether to wait for AI response before continuing workflow */
+    waitForResponse?: boolean;
+    /**
+     * IDs of workflow nodes connected as tools (via 'tools' targetHandle).
+     * These are automatically populated by the WorkflowExecutor when
+     * processing edges with targetHandle='tools'.
+     * Action nodes connected here become available tools for the AI processor.
+     */
+    toolNodeIds?: string[];
 }
 /**
  * Node Configuration - Union of all config types
  */
-export type NodeConfig = WebhookTriggerConfig | ScheduleTriggerConfig | EventTriggerConfig | DateFieldTriggerConfig | InactivityTriggerConfig | SendMessageActionConfig | SendEmailActionConfig | HttpRequestActionConfig | QueryDatabaseActionConfig | CreateLeadActionConfig | UpdateContactActionConfig | AssignActionConfig | SetVariableActionConfig | IfControlConfig | SwitchControlConfig | DelayControlConfig | LoopControlConfig | AIAgentNodeConfig | Record<string, any>;
+export type NodeConfig = WebhookTriggerConfig | ScheduleTriggerConfig | EventTriggerConfig | DateFieldTriggerConfig | InactivityTriggerConfig | SendMessageActionConfig | SendEmailActionConfig | HttpRequestActionConfig | QueryDatabaseActionConfig | CreateLeadActionConfig | UpdateContactActionConfig | AssignActionConfig | SetVariableActionConfig | IfControlConfig | SwitchControlConfig | DelayControlConfig | LoopControlConfig | AIAgentNodeConfig | AIProcessorNodeConfig | Record<string, any>;
 /**
  * Workflow Node Position
  */
@@ -441,7 +483,7 @@ export interface WorkflowTriggerCountResponse extends Omit<WorkflowTriggerCount,
 /**
  * Workflow Event Types
  */
-export type WorkflowEventType = 'message.received' | 'message.sent' | 'message.delivered' | 'message.read' | 'conversation.created' | 'conversation.updated' | 'conversation.closed' | 'conversation.reopened' | 'conversation.assigned' | 'conversation.inactive' | 'contact.created' | 'contact.updated' | 'contact.deleted' | 'contact.tag_added' | 'contact.tag_removed' | 'contact.birthday' | 'contact.inactive' | 'lead.created' | 'lead.updated' | 'lead.stage_changed' | 'lead.won' | 'lead.lost' | 'lead.inactive' | 'ticket.created' | 'ticket.updated' | 'ticket.status_changed' | 'ticket.assigned' | 'ticket.resolved' | 'ticket.closed' | 'webhook.received' | 'custom.event';
+export type WorkflowEventType = 'message.received' | 'message.sent' | 'message.delivered' | 'message.read' | 'conversation.created' | 'conversation.updated' | 'conversation.closed' | 'conversation.reopened' | 'conversation.assigned' | 'conversation.inactive' | 'contact.created' | 'contact.updated' | 'contact.deleted' | 'contact.tag_added' | 'contact.tag_removed' | 'contact.birthday' | 'contact.inactive' | 'lead.created' | 'lead.updated' | 'lead.stage_changed' | 'lead.won' | 'lead.lost' | 'lead.inactive' | 'ticket.created' | 'ticket.updated' | 'ticket.status_changed' | 'ticket.assigned' | 'ticket.resolved' | 'ticket.closed' | 'calendar_event.created' | 'calendar_event.updated' | 'calendar_event.cancelled' | 'webhook.received' | 'custom.event';
 /**
  * Workflow Event
  */

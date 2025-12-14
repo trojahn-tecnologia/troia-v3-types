@@ -17,6 +17,7 @@ export interface Contact {
     customerId?: string;
     assigneeId?: string;
     teamId?: string;
+    lastInteractionAt?: string;
     createdAt: string;
     updatedAt: string;
 }

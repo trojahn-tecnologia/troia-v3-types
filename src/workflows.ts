@@ -30,7 +30,8 @@ export type WorkflowNodeType =
   | 'control_delay'
   | 'control_loop'
   // AI
-  | 'ai_agent';
+  | 'ai_agent'
+  | 'ai_processor';
 
 /**
  * Workflow Status
@@ -105,7 +106,8 @@ export interface DateFieldTriggerConfig {
  */
 export interface InactivityTriggerConfig {
   entityType: 'conversation' | 'contact' | 'lead';
-  inactivityPeriod: number; // seconds
+  inactivityPeriod: number; // The numeric value (interpreted based on periodUnit)
+  periodUnit?: 'seconds' | 'minutes' | 'hours' | 'days'; // default: 'seconds' for backward compatibility
   inactivityField: string; // e.g., 'lastMessageAt', 'updatedAt'
   filters?: FilterCondition[];
   maxTriggersPerEntity?: number; // default: 1
@@ -240,13 +242,55 @@ export interface LoopControlConfig {
 
 /**
  * AI Agent Node Configuration
+ *
+ * Executes an existing AI Agent with its own configured tools.
+ * The agent uses its own capabilities, customActionIds, and databases.
  */
 export interface AIAgentNodeConfig {
+  /** ID of the AI Agent to execute */
   agentId: string;
-  contextType: 'conversation' | 'contact' | 'lead';
+  /** Context type - defaults to 'conversation' for workflow usage */
+  contextType?: 'conversation' | 'contact' | 'lead';
+  /** Optional context entity ID (usually derived from workflow context) */
   contextId?: string;
+  /** Optional custom prompt to override agent's default */
   customPrompt?: string;
+  /** Whether to wait for agent response before continuing workflow */
   waitForResponse?: boolean;
+}
+
+/**
+ * AI Processor Node Configuration
+ *
+ * A standalone AI processor that receives tools from connected workflow nodes.
+ * Unlike AI Agent, this node doesn't reference an existing agent - it defines
+ * its own prompt, model, and receives tools via the 'tools' targetHandle.
+ *
+ * Use this when you want the AI to have access to specific workflow actions
+ * without creating a full AI Agent entity.
+ */
+export interface AIProcessorNodeConfig {
+  /** System prompt defining the AI's behavior */
+  systemPrompt: string;
+  /** Model to use (defaults to configured provider's default) */
+  model?: string;
+  /** Temperature for response generation (0-2, default: 0.7) */
+  temperature?: number;
+  /** Maximum tokens for response */
+  maxTokens?: number;
+  /** Context type - defaults to 'conversation' */
+  contextType?: 'conversation' | 'contact' | 'lead';
+  /** Optional context entity ID */
+  contextId?: string;
+  /** Whether to wait for AI response before continuing workflow */
+  waitForResponse?: boolean;
+  /**
+   * IDs of workflow nodes connected as tools (via 'tools' targetHandle).
+   * These are automatically populated by the WorkflowExecutor when
+   * processing edges with targetHandle='tools'.
+   * Action nodes connected here become available tools for the AI processor.
+   */
+  toolNodeIds?: string[];
 }
 
 /**
@@ -271,6 +315,7 @@ export type NodeConfig =
   | DelayControlConfig
   | LoopControlConfig
   | AIAgentNodeConfig
+  | AIProcessorNodeConfig
   | Record<string, any>;
 
 // ============================================================
@@ -594,6 +639,10 @@ export type WorkflowEventType =
   | 'ticket.assigned'
   | 'ticket.resolved'
   | 'ticket.closed'
+  // Calendar Events
+  | 'calendar_event.created'
+  | 'calendar_event.updated'
+  | 'calendar_event.cancelled'
   // Webhooks
   | 'webhook.received'
   // Custom
