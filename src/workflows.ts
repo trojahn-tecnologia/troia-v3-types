@@ -94,9 +94,12 @@ export interface EventTriggerConfig {
  * Date Field Trigger Configuration
  */
 export interface DateFieldTriggerConfig {
-  entityType: 'contact' | 'lead' | 'ticket' | 'conversation';
+  entityType: 'contact' | 'lead' | 'ticket' | 'conversation' | 'event';
   dateField: string;
-  offsetDays: number;
+  /** Numeric value for the offset (0 or greater) */
+  offsetValue: number;
+  /** Unit for the offset */
+  offsetUnit: 'minutes' | 'hours' | 'days';
   offsetDirection: 'before' | 'after';
   filters?: FilterCondition[];
 }
@@ -769,6 +772,15 @@ export interface WorkflowExecutionContext {
     status?: string;
     priority?: string;
     assigneeId?: string;
+  };
+  event?: {
+    id: string;
+    title?: string;
+    description?: string;
+    startDate?: string;
+    endDate?: string;
+    location?: string;
+    attendees?: string[];
   };
 }
 
