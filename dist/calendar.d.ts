@@ -151,6 +151,7 @@ export interface CalendarEventQuery extends PaginationQuery {
         userId?: string;
         eventType?: CalendarEventType;
         contactId?: string;
+        hasContactId?: boolean;
         startTimeFrom?: string;
         startTimeTo?: string;
         status?: 'confirmed' | 'tentative' | 'cancelled';

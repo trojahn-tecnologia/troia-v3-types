@@ -24,6 +24,7 @@ export type WorkflowNodeType =
   | 'action_update_contact'
   | 'action_assign'
   | 'action_set_variable'
+  | 'action_create_conversation'
   // Controls
   | 'control_if'
   | 'control_switch'
@@ -203,6 +204,47 @@ export interface SetVariableActionConfig {
   variable: string;
   value: any;
   expression?: string;
+}
+
+/**
+ * Create Conversation Action Configuration
+ *
+ * Creates a new conversation or returns an existing active/waiting conversation
+ * for the specified contact. This action is essential for workflows that start
+ * from non-conversation triggers (e.g., date field triggers on calendar events)
+ * and need to establish a conversation context for AI Agents or messaging actions.
+ *
+ * The conversation is automatically added to the workflow context after creation,
+ * making it available for subsequent nodes that require a conversation.
+ */
+export interface CreateConversationActionConfig {
+  /**
+   * Source type for the contact ID.
+   * - 'context': Extract from workflow context (contact, event, lead)
+   * - 'specific': Use a specific contact ID configured in the node
+   * @default 'context'
+   */
+  contactSourceType?: 'context' | 'specific';
+
+  /**
+   * Contact ID to create conversation for.
+   * Required when contactSourceType is 'specific'.
+   */
+  contactId?: string;
+
+  /**
+   * Optional channel ID to use for the conversation.
+   * If not provided, the system will use the default channel for the contact.
+   * Can be a context reference like {{event.channelId}}.
+   */
+  channelId?: string;
+
+  /**
+   * Optional variable name to store the created conversation.
+   * If provided, the conversation will be stored in context.variables[outputVariable].
+   * The conversation is always added to context.conversation regardless of this setting.
+   */
+  outputVariable?: string;
 }
 
 /**
@@ -484,6 +526,8 @@ export interface Workflow {
   status: WorkflowStatus;
   definition: WorkflowDefinition;
   folderId?: ObjectId;
+  /** Environment where this workflow was created (development, production, etc.) */
+  environment?: string;
   appId: ObjectId;
   companyId: ObjectId;
   createdBy?: string;
@@ -678,6 +722,8 @@ export interface CreateWorkflowRequest {
   status?: WorkflowStatus;
   definition: WorkflowDefinition;
   folderId?: string;
+  /** Environment where this workflow is being created (auto-set by backend if not provided) */
+  environment?: string;
 }
 
 /**
@@ -700,6 +746,8 @@ export interface WorkflowQuery {
   search?: string;
   status?: WorkflowStatus;
   folderId?: string | null;
+  /** Filter workflows by environment */
+  environment?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
 }

@@ -191,6 +191,7 @@ export interface CalendarEventQuery extends PaginationQuery {
     userId?: string;
     eventType?: CalendarEventType;   // Filter by event type
     contactId?: string;              // Filter by contact ID (for follow_up events)
+    hasContactId?: boolean;          // Filter events that have any contactId (true) or no contactId (false)
     startTimeFrom?: string;
     startTimeTo?: string;
     status?: 'confirmed' | 'tentative' | 'cancelled';
