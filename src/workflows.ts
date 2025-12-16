@@ -92,11 +92,55 @@ export interface EventTriggerConfig {
 }
 
 /**
- * Date Field Trigger Configuration
+ * Date Field Entity Types - All supported entity types for date field triggers
  */
-export interface DateFieldTriggerConfig {
-  entityType: 'contact' | 'lead' | 'ticket' | 'conversation' | 'event';
-  dateField: string;
+export type DateFieldEntityType = 'contact' | 'lead' | 'ticket' | 'conversation' | 'event';
+
+/**
+ * Date Fields Map - Maps each entity type to its valid date fields
+ * This ensures type-safety when configuring date field triggers
+ *
+ * IMPORTANT: When adding new date fields to entities, update this map!
+ */
+export interface DateFieldsMap {
+  contact: 'createdAt' | 'updatedAt' | 'lastInteractionAt' | 'birthDate' | 'lastContactedAt';
+  lead: 'createdAt' | 'updatedAt' | 'assignedAt' | 'wonDate' | 'lostDate' | 'lastInteractionAt' | 'lastFollowUpAt' | 'lastStepAt' | 'expectedCloseDate' | 'lastActivityAt';
+  ticket: 'createdAt' | 'updatedAt' | 'assignedAt' | 'dueDate' | 'firstResponseAt' | 'lastResponseAt' | 'resolvedAt' | 'closedAt' | 'slaBreachTime';
+  conversation: 'createdAt' | 'updatedAt' | 'startedAt' | 'closedAt' | 'lastMessageAt' | 'lastMessageFromCustomer' | 'lastMessageFromAgent' | 'assignedAt';
+  event: 'startTime' | 'endTime' | 'createdAt' | 'updatedAt';
+}
+
+/**
+ * Helper type to extract valid date fields for a specific entity type
+ */
+export type ValidDateFieldsFor<T extends DateFieldEntityType> = DateFieldsMap[T];
+
+/**
+ * Date Field Trigger Configuration (Type-Safe with Generics)
+ *
+ * Uses generics to ensure type-safety between entityType and dateField.
+ * TypeScript will enforce that dateField is a valid date field for the specified entity.
+ *
+ * @example
+ * // Type-safe configuration:
+ * const config: DateFieldTriggerConfig<'event'> = {
+ *   entityType: 'event',
+ *   dateField: 'startTime', // ✅ Valid - only 'startTime' | 'endTime' | 'createdAt' | 'updatedAt' allowed
+ *   offsetValue: 1,
+ *   offsetUnit: 'hours',
+ *   offsetDirection: 'before'
+ * };
+ *
+ * // This would cause a TypeScript error:
+ * const badConfig: DateFieldTriggerConfig<'event'> = {
+ *   entityType: 'event',
+ *   dateField: 'startDate', // ❌ Error: 'startDate' is not assignable to 'startTime' | 'endTime' | ...
+ *   ...
+ * };
+ */
+export interface DateFieldTriggerConfig<T extends DateFieldEntityType> {
+  entityType: T;
+  dateField: ValidDateFieldsFor<T>;
   /** Numeric value for the offset (0 or greater) */
   offsetValue: number;
   /** Unit for the offset */
@@ -104,6 +148,17 @@ export interface DateFieldTriggerConfig {
   offsetDirection: 'before' | 'after';
   filters?: FilterCondition[];
 }
+
+/**
+ * Union type of all valid date field trigger configs
+ * Use this when you need to accept any valid configuration without specifying entity type
+ */
+export type AnyDateFieldTriggerConfig =
+  | DateFieldTriggerConfig<'contact'>
+  | DateFieldTriggerConfig<'lead'>
+  | DateFieldTriggerConfig<'ticket'>
+  | DateFieldTriggerConfig<'conversation'>
+  | DateFieldTriggerConfig<'event'>;
 
 /**
  * Inactivity Trigger Configuration
@@ -345,7 +400,7 @@ export type NodeConfig =
   | WebhookTriggerConfig
   | ScheduleTriggerConfig
   | EventTriggerConfig
-  | DateFieldTriggerConfig
+  | AnyDateFieldTriggerConfig
   | InactivityTriggerConfig
   | SendMessageActionConfig
   | SendEmailActionConfig
