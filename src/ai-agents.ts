@@ -89,9 +89,9 @@ export type AIAgentCapability =
   // Tool-based capabilities
   | 'calendar_management'
   | 'lead_management'
-  | 'conversation_transfer'
+  | 'conversation_transfer'   // Transfer conversation to user or team
   | 'media_messaging'
-  | 'follow_up_management';  // Follow-up/retorno management tools
+  | 'contact_tag_management'; // Add/remove tags from contacts
 
 /**
  * Agent Capability Configuration
@@ -107,8 +107,9 @@ export interface AIAgentCapabilityConfig {
     // Lead Management
     funnelId?: string;                   // Funil selecionado para criar leads
 
-    // Conversation Transfer
+    // Conversation Transfer (for user and team transfers)
     allowedTransferUserIds?: string[];   // Usuários para os quais pode transferir
+    allowedTeamIds?: string[];           // Equipes para as quais pode transferir
     transferMessage?: string;            // Mensagem padrão ao transferir
 
     // Generic config for future capabilities

@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/Users/henri/Desktop/TroiaFly/**)",
+      "Read(//c/Users/henri/Desktop/TROIA-V3/**)",
       "Bash(npm install:*)",
       "Bash(npm run build:*)"
     ],

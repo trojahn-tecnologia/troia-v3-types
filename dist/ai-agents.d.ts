@@ -66,7 +66,7 @@ export interface AIAgentTriggers {
         eventTypes?: string[];
     };
 }
-export type AIAgentCapability = 'text_generation' | 'sentiment_analysis' | 'intent_recognition' | 'entity_extraction' | 'language_translation' | 'conversation_summarization' | 'voice_interaction' | 'calendar_management' | 'lead_management' | 'conversation_transfer' | 'media_messaging' | 'follow_up_management';
+export type AIAgentCapability = 'text_generation' | 'sentiment_analysis' | 'intent_recognition' | 'entity_extraction' | 'language_translation' | 'conversation_summarization' | 'voice_interaction' | 'calendar_management' | 'lead_management' | 'conversation_transfer' | 'media_messaging' | 'contact_tag_management';
 /**
  * Agent Capability Configuration
  * Configurações específicas para cada capability habilitada
@@ -78,6 +78,7 @@ export interface AIAgentCapabilityConfig {
         allowedUserIds?: string[];
         funnelId?: string;
         allowedTransferUserIds?: string[];
+        allowedTeamIds?: string[];
         transferMessage?: string;
         [key: string]: any;
     };
