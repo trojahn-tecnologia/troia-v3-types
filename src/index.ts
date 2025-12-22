@@ -83,3 +83,6 @@ export * from './custom-actions';
 // Workflows/Automation module
 export * from './workflows';
 export * from './workflow-node-schemas';
+
+// CRM Reports module
+export * from './crm-reports';

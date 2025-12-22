@@ -82,3 +82,5 @@ __exportStar(require("./custom-actions"), exports);
 // Workflows/Automation module
 __exportStar(require("./workflows"), exports);
 __exportStar(require("./workflow-node-schemas"), exports);
+// CRM Reports module
+__exportStar(require("./crm-reports"), exports);

@@ -27,6 +27,7 @@ export interface Activity {
     status: 'completed' | 'in_progress' | 'failed' | 'cancelled' | 'pending';
     isVisible: boolean;
     isInternal: boolean;
+    dueDate?: string;
     occurredAt: string;
     createdAt: string;
     updatedAt: string;
@@ -61,6 +62,7 @@ export interface CreateActivityRequest {
     isVisible?: boolean;
     isInternal?: boolean;
     occurredAt?: string;
+    dueDate?: string;
 }
 export interface UpdateActivityRequest {
     title?: string;
@@ -71,6 +73,7 @@ export interface UpdateActivityRequest {
     metadata?: Record<string, any>;
     isVisible?: boolean;
     isInternal?: boolean;
+    dueDate?: string;
 }
 export type ActivityResponse = Activity;
 export interface ActivityQuery extends PaginationQuery {
@@ -89,6 +92,9 @@ export interface ActivityQuery extends PaginationQuery {
         occurredTo?: string;
         createdFrom?: string;
         createdTo?: string;
+        dueFrom?: string;
+        dueTo?: string;
+        isOverdue?: boolean;
     };
 }
 export interface ActivityListResponse extends ListResponse<ActivityResponse> {

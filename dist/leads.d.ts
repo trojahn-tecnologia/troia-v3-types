@@ -1,3 +1,14 @@
+export interface StepHistoryEntry {
+    stepId: string;
+    stepName?: string;
+    funnelId?: string;
+    funnelName?: string;
+    enteredAt: string;
+    exitedAt?: string;
+    movedBy?: string;
+    movedByName?: string;
+    duration?: number;
+}
 export interface Lead {
     id: string;
     appId: string;
@@ -15,6 +26,7 @@ export interface Lead {
     qualifyStatus: 'pending' | 'qualified' | 'disqualified';
     funnelId?: string;
     stepId?: string;
+    stepsHistory?: StepHistoryEntry[];
     assigneeId?: string;
     teamId?: string;
     assignmentType?: string;
@@ -71,6 +83,10 @@ export interface UpdateLeadRequest {
     qualifyStatus?: 'pending' | 'qualified' | 'disqualified';
     funnelId?: string;
     stepId?: string;
+    stepName?: string;
+    funnelName?: string;
+    movedBy?: string;
+    movedByName?: string;
     assigneeId?: string;
     teamId?: string;
     budget?: number;

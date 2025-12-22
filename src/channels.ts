@@ -2,16 +2,32 @@ import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
 
 // Import assignment types from dedicated assignment module
-import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryConfig } from './assignment';
+import {
+  AssignmentConfig as BaseAssignmentConfig,
+  CoreLotteryConfig,
+  LotteryType,
+  FixedOperatorConfig,
+  ShiftLotteryConfig,
+  AvailabilityLotteryConfig,
+  LastInteractionLotteryConfig
+} from './assignment';
 
 // ============================================================================
 // CHANNEL-SPECIFIC ASSIGNMENT TYPES
 // ============================================================================
 
-// Channel-specific assignment config extends core assignment config
-export interface ChannelAssignmentConfig extends CoreAssignmentConfig {
+/**
+ * Channel assignment config extends base assignment config.
+ * Usado para configurar como conversas são atribuídas automaticamente.
+ */
+export interface ChannelAssignmentConfig extends BaseAssignmentConfig {
+  /** Estratégia de assignment: manual, rule-based, lottery, ou none */
   strategy: 'manual' | 'rule' | 'lottery' | 'none';
+
+  /** Regras de assignment condicional */
   rules?: AssignmentRule[];
+
+  /** Configuração de lottery (se strategy='lottery') */
   lotteryConfig?: ChannelLotteryConfig;
 }
 
@@ -34,46 +50,15 @@ export interface RuleAction {
   userId?: string;
 }
 
-// Channel-specific lottery config extends core lottery config
+/**
+ * Channel lottery config extends CoreLotteryConfig.
+ * Adiciona campos específicos de channel.
+ *
+ * @see CoreLotteryConfig - Tipos base unificados
+ */
 export interface ChannelLotteryConfig extends CoreLotteryConfig {
-  type: 'random' | 'availability' | 'workload' | 'last_interaction' | 'fixed_operator' | 'shift' | 'none';
-  scope: 'team' | 'user' | 'both';
-  eligibleTeams?: string[];
-  eligibleUsers?: string[];
-
-  // Shift-specific config:
-  shiftConfig?: {
-    shiftId: string;
-    fallbackToAvailable: boolean;
-    considerWorkload: boolean;
-    onlyPrimary: boolean;
-  };
-
-  // Workload-specific config:
-  workloadConfig?: {
-    resourceType: 'lead' | 'customer' | 'ticket';
-    maxAssignments: number;
-    timeWindow: number; // Hours
-  };
-
-  // Availability-specific config:
-  availabilityConfig?: {
-    considerWorkingHours: boolean;
-    considerStatus: boolean;
-    workingHours: { start: string; end: string; };
-  };
-
-  // Fixed operator config:
-  fixedOperatorConfig?: {
-    userId: string;
-    fallbackToRandom: boolean;
-  };
-
-  // Last interaction config:
-  lastInteractionConfig?: {
-    resourceType: 'lead' | 'customer';
-    fallbackToRandom: boolean;
-  };
+  /** Escopo do lottery: apenas usuários, apenas equipes, ou ambos */
+  scope?: 'team' | 'user' | 'both';
 }
 
 // ============================================================================

@@ -1,14 +1,28 @@
 import { PaginationQuery, ListResponse, AppAwareDocument, ActiveStatus } from './common';
-import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryConfig } from './assignment';
+import {
+  AssignmentConfig as BaseAssignmentConfig,
+  CoreLotteryConfig,
+  LotteryType,
+  FixedOperatorConfig,
+  ShiftLotteryConfig
+} from './assignment';
 
 // ============================================================================
 // FUNNEL-SPECIFIC ASSIGNMENT TYPES
 // ============================================================================
 
-// Funnel-specific assignment config extends core assignment config
-export interface FunnelAssignmentConfig extends CoreAssignmentConfig {
+/**
+ * Funnel assignment config extends base assignment config.
+ * Usado para configurar como leads são atribuídos automaticamente.
+ */
+export interface FunnelAssignmentConfig extends BaseAssignmentConfig {
+  /** Estratégia de assignment: manual, rule-based, lottery, shift_lottery, ou none */
   strategy: 'manual' | 'rule' | 'lottery' | 'shift_lottery' | 'none';
+
+  /** Regras de assignment condicional */
   rules?: FunnelAssignmentRule[];
+
+  /** Configuração de lottery (se strategy='lottery' ou 'shift_lottery') */
   lotteryConfig?: FunnelLotteryConfig;
 }
 
@@ -32,18 +46,15 @@ export interface FunnelRuleAction {
   lotteryConfig?: FunnelLotteryConfig;
 }
 
-export interface FunnelLotteryConfig {
-  // Core lottery config fields
-  enabled: boolean;
-  algorithm: 'random' | 'weighted' | 'priority_based';
-
-  // Funnel-specific lottery fields
-  type: 'random' | 'workload' | 'availability' | 'last_interaction' | 'fixed_operator' | 'shift' | 'none';
-  eligibleUsers?: string[];
-  fixedOperatorConfig?: {
-    userId: string;
-    fallbackToRandom: boolean;
-  };
+/**
+ * Funnel lottery config extends CoreLotteryConfig.
+ * Usa a mesma estrutura unificada de channels.
+ *
+ * @see CoreLotteryConfig - Tipos base unificados
+ */
+export interface FunnelLotteryConfig extends CoreLotteryConfig {
+  /** Escopo do lottery: apenas usuários, apenas equipes, ou ambos */
+  scope?: 'team' | 'user' | 'both';
 }
 
 /**

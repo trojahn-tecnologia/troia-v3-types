@@ -1,8 +1,15 @@
 import { PaginationQuery, ListResponse, AppAwareDocument, ActiveStatus } from './common';
-import { AssignmentConfig as CoreAssignmentConfig } from './assignment';
-export interface FunnelAssignmentConfig extends CoreAssignmentConfig {
+import { AssignmentConfig as BaseAssignmentConfig, CoreLotteryConfig } from './assignment';
+/**
+ * Funnel assignment config extends base assignment config.
+ * Usado para configurar como leads são atribuídos automaticamente.
+ */
+export interface FunnelAssignmentConfig extends BaseAssignmentConfig {
+    /** Estratégia de assignment: manual, rule-based, lottery, shift_lottery, ou none */
     strategy: 'manual' | 'rule' | 'lottery' | 'shift_lottery' | 'none';
+    /** Regras de assignment condicional */
     rules?: FunnelAssignmentRule[];
+    /** Configuração de lottery (se strategy='lottery' ou 'shift_lottery') */
     lotteryConfig?: FunnelLotteryConfig;
 }
 export interface FunnelAssignmentRule {
@@ -22,15 +29,15 @@ export interface FunnelRuleAction {
     teamId?: string;
     lotteryConfig?: FunnelLotteryConfig;
 }
-export interface FunnelLotteryConfig {
-    enabled: boolean;
-    algorithm: 'random' | 'weighted' | 'priority_based';
-    type: 'random' | 'workload' | 'availability' | 'last_interaction' | 'fixed_operator' | 'shift' | 'none';
-    eligibleUsers?: string[];
-    fixedOperatorConfig?: {
-        userId: string;
-        fallbackToRandom: boolean;
-    };
+/**
+ * Funnel lottery config extends CoreLotteryConfig.
+ * Usa a mesma estrutura unificada de channels.
+ *
+ * @see CoreLotteryConfig - Tipos base unificados
+ */
+export interface FunnelLotteryConfig extends CoreLotteryConfig {
+    /** Escopo do lottery: apenas usuários, apenas equipes, ou ambos */
+    scope?: 'team' | 'user' | 'both';
 }
 /**
  * Funnel - Sales funnel structure

@@ -48,3 +48,4 @@ export * from './escalation-rules';
 export * from './custom-actions';
 export * from './workflows';
 export * from './workflow-node-schemas';
+export * from './crm-reports';

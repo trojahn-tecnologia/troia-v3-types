@@ -44,6 +44,9 @@ export interface Activity {
   isVisible: boolean; // Show in activity feeds
   isInternal: boolean; // Internal activity (not visible to customers)
 
+  // Scheduling
+  dueDate?: string; // When the activity should be completed (for scheduled activities)
+
   // Timestamps
   occurredAt: string;
   createdAt: string;
@@ -128,6 +131,7 @@ export interface CreateActivityRequest {
   isVisible?: boolean;
   isInternal?: boolean;
   occurredAt?: string;
+  dueDate?: string; // When the activity should be completed
 }
 
 export interface UpdateActivityRequest {
@@ -139,6 +143,7 @@ export interface UpdateActivityRequest {
   metadata?: Record<string, any>;
   isVisible?: boolean;
   isInternal?: boolean;
+  dueDate?: string; // When the activity should be completed
 }
 
 export type ActivityResponse = Activity;
@@ -159,6 +164,9 @@ export interface ActivityQuery extends PaginationQuery {
     occurredTo?: string;
     createdFrom?: string;
     createdTo?: string;
+    dueFrom?: string;    // Filter by dueDate start
+    dueTo?: string;      // Filter by dueDate end
+    isOverdue?: boolean; // Filter activities where dueDate < now AND status != completed
   };
 }
 

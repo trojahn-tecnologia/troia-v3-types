@@ -1,9 +1,16 @@
 import { ObjectId } from 'mongodb';
 import { PaginationQuery, ListResponse, GenericQueryOptions, ExtendedStatus } from './common';
-import { AssignmentConfig as CoreAssignmentConfig, LotteryConfig as CoreLotteryConfig } from './assignment';
-export interface ChannelAssignmentConfig extends CoreAssignmentConfig {
+import { AssignmentConfig as BaseAssignmentConfig, CoreLotteryConfig } from './assignment';
+/**
+ * Channel assignment config extends base assignment config.
+ * Usado para configurar como conversas são atribuídas automaticamente.
+ */
+export interface ChannelAssignmentConfig extends BaseAssignmentConfig {
+    /** Estratégia de assignment: manual, rule-based, lottery, ou none */
     strategy: 'manual' | 'rule' | 'lottery' | 'none';
+    /** Regras de assignment condicional */
     rules?: AssignmentRule[];
+    /** Configuração de lottery (se strategy='lottery') */
     lotteryConfig?: ChannelLotteryConfig;
 }
 export interface AssignmentRule {
@@ -22,38 +29,15 @@ export interface RuleAction {
     teamId?: string;
     userId?: string;
 }
+/**
+ * Channel lottery config extends CoreLotteryConfig.
+ * Adiciona campos específicos de channel.
+ *
+ * @see CoreLotteryConfig - Tipos base unificados
+ */
 export interface ChannelLotteryConfig extends CoreLotteryConfig {
-    type: 'random' | 'availability' | 'workload' | 'last_interaction' | 'fixed_operator' | 'shift' | 'none';
-    scope: 'team' | 'user' | 'both';
-    eligibleTeams?: string[];
-    eligibleUsers?: string[];
-    shiftConfig?: {
-        shiftId: string;
-        fallbackToAvailable: boolean;
-        considerWorkload: boolean;
-        onlyPrimary: boolean;
-    };
-    workloadConfig?: {
-        resourceType: 'lead' | 'customer' | 'ticket';
-        maxAssignments: number;
-        timeWindow: number;
-    };
-    availabilityConfig?: {
-        considerWorkingHours: boolean;
-        considerStatus: boolean;
-        workingHours: {
-            start: string;
-            end: string;
-        };
-    };
-    fixedOperatorConfig?: {
-        userId: string;
-        fallbackToRandom: boolean;
-    };
-    lastInteractionConfig?: {
-        resourceType: 'lead' | 'customer';
-        fallbackToRandom: boolean;
-    };
+    /** Escopo do lottery: apenas usuários, apenas equipes, ou ambos */
+    scope?: 'team' | 'user' | 'both';
 }
 export interface ChannelProvider {
     name: string;

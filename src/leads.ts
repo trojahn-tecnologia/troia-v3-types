@@ -1,4 +1,18 @@
 // Lead Types - Sales system with universal source
+
+// Step history entry for tracking funnel movement
+export interface StepHistoryEntry {
+  stepId: string;
+  stepName?: string;     // Denormalized for display without lookup
+  funnelId?: string;     // Optional - lead might be moved without explicit funnel
+  funnelName?: string;   // Denormalized for display without lookup
+  enteredAt: string;     // When the lead entered this step
+  exitedAt?: string;     // When the lead exited (null if current step)
+  movedBy?: string;      // userId who moved the lead (for audit)
+  movedByName?: string;  // User name who moved the lead (for display)
+  duration?: number;     // Time spent in this step (milliseconds) - calculated when exitedAt is set
+}
+
 export interface Lead {
   id: string;
   appId: string;
@@ -26,6 +40,7 @@ export interface Lead {
   // Sales funnel
   funnelId?: string;
   stepId?: string;
+  stepsHistory?: StepHistoryEntry[]; // History of all step changes for funnel analytics
 
   // Assignment (standard assignments pattern)
   assigneeId?: string;
@@ -102,6 +117,11 @@ export interface UpdateLeadRequest {
   qualifyStatus?: 'pending' | 'qualified' | 'disqualified';
   funnelId?: string;
   stepId?: string;
+  // Optional fields for step history tracking (denormalized data)
+  stepName?: string;          // Denormalized step name for stepsHistory
+  funnelName?: string;        // Denormalized funnel name for stepsHistory
+  movedBy?: string;           // User ID who moved the lead (for audit)
+  movedByName?: string;       // User name who moved the lead (for display)
   assigneeId?: string;
   teamId?: string;
   budget?: number;
