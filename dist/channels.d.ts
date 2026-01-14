@@ -59,6 +59,8 @@ export interface Channel {
     companyId: ObjectId;
     appId: ObjectId;
     status: ExtendedStatus;
+    /** Round-robin tracking: ID do último usuário que recebeu atribuição neste channel */
+    lastAssignedUserId?: string;
     createdAt: Date;
     updatedAt: Date;
 }

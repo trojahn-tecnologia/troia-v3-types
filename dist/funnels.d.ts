@@ -50,6 +50,8 @@ export interface Funnel extends AppAwareDocument {
     order: number;
     status: ActiveStatus;
     assignmentConfig?: FunnelAssignmentConfig;
+    /** Round-robin tracking: ID do último usuário que recebeu atribuição neste funnel */
+    lastAssignedUserId?: string;
 }
 export interface CreateFunnelRequest {
     name: string;
