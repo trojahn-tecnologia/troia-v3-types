@@ -47,6 +47,18 @@ export interface ChannelProvider {
     createdAt: Date;
     updatedAt: Date;
 }
+/**
+ * Configuração de expiração de atendimento para canais.
+ * Permite finalizar automaticamente conversas inativas após um período.
+ */
+export interface ChannelExpirationConfig {
+    /** Se a expiração de atendimento está habilitada */
+    enabled: boolean;
+    /** Tempo em minutos para considerar um atendimento expirado */
+    expirationMinutes: number;
+    /** Mensagem opcional a ser enviada quando o atendimento expirar */
+    expirationMessage?: string;
+}
 export interface Channel {
     name: string;
     integrationId: ObjectId;
@@ -55,6 +67,8 @@ export interface Channel {
     instanceKey?: string;
     instanceToken?: string;
     identifyUser?: boolean;
+    /** Configuração de expiração automática de atendimentos */
+    expirationConfig?: ChannelExpirationConfig;
     assignmentConfig: ChannelAssignmentConfig;
     companyId: ObjectId;
     appId: ObjectId;
@@ -114,6 +128,8 @@ export interface UpdateChannelRequest {
     identifier?: string;
     assignmentConfig?: ChannelAssignmentConfig;
     identifyUser?: boolean;
+    /** Configuração de expiração automática de atendimentos */
+    expirationConfig?: ChannelExpirationConfig;
     status?: ExtendedStatus;
 }
 export interface ChannelAssignmentResult {
