@@ -8,6 +8,7 @@ export interface Activity {
     entityType: EntityType;
     entityId: string;
     entityName?: string;
+    entityPicture?: string;
     actorType: ActorType;
     actorId?: string;
     actor?: {
@@ -49,6 +50,7 @@ export interface CreateActivityRequest {
     entityType: EntityType;
     entityId: string;
     entityName?: string;
+    entityPicture?: string;
     actorType: ActorType;
     actorId?: string;
     title: string;

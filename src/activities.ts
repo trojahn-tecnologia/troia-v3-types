@@ -14,6 +14,7 @@ export interface Activity {
   entityType: EntityType;
   entityId: string;
   entityName?: string; // For display purposes
+  entityPicture?: string; // Picture/avatar of the entity (e.g., contact picture for leads)
 
   // Actor (who performed the action)
   actorType: ActorType;
@@ -118,6 +119,7 @@ export interface CreateActivityRequest {
   entityType: EntityType;
   entityId: string;
   entityName?: string;
+  entityPicture?: string;
   actorType: ActorType;
   actorId?: string;
   title: string;
