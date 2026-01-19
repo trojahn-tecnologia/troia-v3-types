@@ -26,6 +26,10 @@ export enum NotificationType {
   CALENDAR_SYNC_COMPLETE = 'calendar_sync_complete',
   CALENDAR_SYNC_FAILED = 'calendar_sync_failed',
 
+  // Channel events (System Alerts)
+  CHANNEL_DISCONNECTED = 'channel_disconnected',
+  CHANNEL_CONNECTED = 'channel_connected',
+
   // Ticket and conversation events
   TICKET_ASSIGNED = 'ticket_assigned',
   TICKET_STATUS_CHANGED = 'ticket_status_changed',
@@ -75,6 +79,7 @@ export enum NotificationCategory {
   SYSTEM = 'system',
   SECURITY = 'security',
   INTEGRATION = 'integration',
+  CHANNELS = 'channels',
   TICKETS = 'tickets',
   CONVERSATIONS = 'conversations',
   LEADS = 'leads',
