@@ -24,6 +24,9 @@ var NotificationType;
     NotificationType["INTEGRATION_ERROR"] = "integration_error";
     NotificationType["CALENDAR_SYNC_COMPLETE"] = "calendar_sync_complete";
     NotificationType["CALENDAR_SYNC_FAILED"] = "calendar_sync_failed";
+    // Channel events (System Alerts)
+    NotificationType["CHANNEL_DISCONNECTED"] = "channel_disconnected";
+    NotificationType["CHANNEL_CONNECTED"] = "channel_connected";
     // Ticket and conversation events
     NotificationType["TICKET_ASSIGNED"] = "ticket_assigned";
     NotificationType["TICKET_STATUS_CHANGED"] = "ticket_status_changed";
@@ -68,6 +71,7 @@ var NotificationCategory;
     NotificationCategory["SYSTEM"] = "system";
     NotificationCategory["SECURITY"] = "security";
     NotificationCategory["INTEGRATION"] = "integration";
+    NotificationCategory["CHANNELS"] = "channels";
     NotificationCategory["TICKETS"] = "tickets";
     NotificationCategory["CONVERSATIONS"] = "conversations";
     NotificationCategory["LEADS"] = "leads";
