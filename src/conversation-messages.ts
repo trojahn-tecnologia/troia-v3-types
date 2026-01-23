@@ -198,6 +198,9 @@ export interface ConversationMessage {
 
   // ✅ Duplicate detection flag (Arch 3.5 - Message Loop Fix)
   wasExisting?: boolean; // True when message already existed (duplicate detection)
+
+  // ✅ DeepSeek R1 reasoning content (required for multi-turn tool calls)
+  reasoningContent?: string;
 }
 
 export interface MessageReaction {
@@ -248,6 +251,9 @@ export interface CreateConversationMessageRequest {
     tool_name: string;
     output: any;
   }>;
+
+  // ✅ DeepSeek R1 reasoning content (required for multi-turn tool calls)
+  reasoningContent?: string;
 }
 
 export interface UpdateConversationMessageRequest {

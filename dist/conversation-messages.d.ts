@@ -131,6 +131,7 @@ export interface ConversationMessage {
     createdAt: string;
     updatedAt: string;
     wasExisting?: boolean;
+    reasoningContent?: string;
 }
 export interface MessageReaction {
     emoji: string;
@@ -175,6 +176,7 @@ export interface CreateConversationMessageRequest {
         tool_name: string;
         output: any;
     }>;
+    reasoningContent?: string;
 }
 export interface UpdateConversationMessageRequest {
     content?: MessageContent[];
