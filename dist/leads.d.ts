@@ -158,6 +158,9 @@ export interface LeadQuery extends PaginationQuery {
         budgetMax?: number;
         dateFrom?: string;
         dateTo?: string;
+        campaignName?: string | string[];
+        adsetName?: string | string[];
+        adName?: string | string[];
     };
 }
 export interface LeadListResponse extends ListResponse<LeadResponse> {
