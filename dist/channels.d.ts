@@ -100,6 +100,10 @@ export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 
     config?: Record<string, any>;
     qrCode?: string;
     qrCodeExpires?: number;
+    integration?: {
+        instanceKey: string | null;
+        instanceToken: string | null;
+    };
 };
 export interface ChannelProviderListResponse extends ListResponse<ChannelProviderResponse> {
 }

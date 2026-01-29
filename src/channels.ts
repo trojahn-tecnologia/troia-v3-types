@@ -141,6 +141,10 @@ export type ChannelResponse = Omit<Channel, '_id' | 'createdAt' | 'updatedAt' | 
   config?: Record<string, any>;  // Widget configuration (optional, for website-widget provider)
   qrCode?: string;            // QR Code for gateway providers
   qrCodeExpires?: number;     // QR Code expiration timestamp (Unix timestamp in seconds)
+  integration?: {             // Integration credentials from company-integrations
+    instanceKey: string | null;
+    instanceToken: string | null;
+  };
 };
 
 
