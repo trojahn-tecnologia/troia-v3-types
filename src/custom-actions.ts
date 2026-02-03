@@ -27,6 +27,18 @@ export interface CustomAction {
     errorPath?: string;
     transform?: string;
   };
+  aiProcessing?: {
+    enabled: boolean;
+    prompt: string;
+    parameters: {
+      type: 'object';
+      properties: Record<string, {
+        type: string;
+        description: string;
+      }>;
+      required?: string[];
+    };
+  };
   appId: ObjectId | string;
   companyId: ObjectId | string;
   status: ActiveStatus;
@@ -63,6 +75,18 @@ export interface CreateCustomActionRequest {
     errorPath?: string;
     transform?: string;
   };
+  aiProcessing?: {
+    enabled: boolean;
+    prompt: string;
+    parameters: {
+      type: 'object';
+      properties: Record<string, {
+        type: string;
+        description: string;
+      }>;
+      required?: string[];
+    };
+  };
 }
 
 export interface UpdateCustomActionRequest {
@@ -88,6 +112,18 @@ export interface UpdateCustomActionRequest {
     successPath?: string;
     errorPath?: string;
     transform?: string;
+  };
+  aiProcessing?: {
+    enabled: boolean;
+    prompt: string;
+    parameters: {
+      type: 'object';
+      properties: Record<string, {
+        type: string;
+        description: string;
+      }>;
+      required?: string[];
+    };
   };
 }
 

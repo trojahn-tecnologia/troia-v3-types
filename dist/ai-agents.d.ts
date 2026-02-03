@@ -18,6 +18,7 @@ export interface AIAgent {
     model: string;
     temperature: number;
     maxTokens: number;
+    version?: string;
     triggers: AIAgentTriggers;
     customActionIds: string[];
     databases?: string[];
@@ -124,4 +125,33 @@ export interface UpdateAIAgentRequest {
 export interface AIAgentQuery extends PaginationQuery {
     status?: ActiveStatus;
     voiceEnabled?: boolean;
+}
+/**
+ * Agent version change type
+ */
+export type AgentVersionChangeType = 'major' | 'minor' | 'patch' | 'initial';
+/**
+ * Agent Version - Snapshot of agent systemPrompt at a specific version
+ */
+export interface AgentVersion {
+    _id?: ObjectId;
+    agentId: ObjectId | string;
+    version: string;
+    systemPrompt: string;
+    changePercentage: number;
+    changeType: AgentVersionChangeType;
+    appId: ObjectId | string;
+    companyId: ObjectId | string;
+    createdAt: Date | string;
+}
+/**
+ * Agent Version API Response
+ */
+export interface AgentVersionResponse extends Omit<AgentVersion, '_id'> {
+    id: string;
+}
+/**
+ * Query parameters for agent versions
+ */
+export interface AgentVersionQuery extends PaginationQuery {
 }

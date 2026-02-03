@@ -9,6 +9,7 @@ export interface App extends FullBaseDocument {
   domains: string[];
   modules: string[];
   backendUrl: string;
+  websiteUrl?: string;
 }
 
 export interface AppTheme {
@@ -26,6 +27,7 @@ export interface CreateAppRequest {
   domains: string[];
   modules: string[];
   backendUrl: string;
+  websiteUrl?: string;
 }
 
 export interface UpdateAppRequest {
@@ -36,6 +38,7 @@ export interface UpdateAppRequest {
   domains?: string[];
   modules?: string[];
   backendUrl?: string;
+  websiteUrl?: string;
 }
 
 export type AppStatus = ActiveStatus;
@@ -60,6 +63,7 @@ export interface AppResponse {
   domains: string[];
   modules: string[];
   backendUrl: string;
+  websiteUrl?: string;
   createdAt: string;
   updatedAt: string;
 }
