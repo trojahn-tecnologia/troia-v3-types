@@ -10,6 +10,17 @@ export interface App extends FullBaseDocument {
   modules: string[];
   backendUrl: string;
   websiteUrl?: string;
+  widgetUrl?: string;
+  support?: AppSupport;
+}
+
+export interface AppSupportWidget {
+  channelId: string;
+  token: string;
+}
+
+export interface AppSupport {
+  widget?: AppSupportWidget;
 }
 
 export interface AppTheme {
@@ -28,6 +39,8 @@ export interface CreateAppRequest {
   modules: string[];
   backendUrl: string;
   websiteUrl?: string;
+  widgetUrl?: string;
+  support?: AppSupport;
 }
 
 export interface UpdateAppRequest {
@@ -39,6 +52,8 @@ export interface UpdateAppRequest {
   modules?: string[];
   backendUrl?: string;
   websiteUrl?: string;
+  widgetUrl?: string;
+  support?: AppSupport;
 }
 
 export type AppStatus = ActiveStatus;
@@ -64,6 +79,8 @@ export interface AppResponse {
   modules: string[];
   backendUrl: string;
   websiteUrl?: string;
+  widgetUrl?: string;
+  support?: AppSupport;
   createdAt: string;
   updatedAt: string;
 }

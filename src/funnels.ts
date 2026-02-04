@@ -70,6 +70,8 @@ export interface Funnel extends AppAwareDocument {
   assignmentConfig?: FunnelAssignmentConfig;  // Assignment rules for leads
   /** Round-robin tracking: ID do último usuário que recebeu atribuição neste funnel */
   lastAssignedUserId?: string;
+  /** Permite criar leads duplicados (mesmo contactId) neste funil. Leads em funis diferentes não são afetados. Default: true */
+  allowDuplicateContacts?: boolean;
 }
 
 export interface CreateFunnelRequest {
@@ -78,6 +80,8 @@ export interface CreateFunnelRequest {
   color: string;
   order?: number;
   assignmentConfig?: FunnelAssignmentConfig;
+  /** Permite criar leads duplicados (mesmo contactId) neste funil. Leads em funis diferentes não são afetados. Default: true */
+  allowDuplicateContacts?: boolean;
 }
 
 export interface UpdateFunnelRequest {
@@ -87,6 +91,8 @@ export interface UpdateFunnelRequest {
   order?: number;
   status?: ActiveStatus;
   assignmentConfig?: FunnelAssignmentConfig;
+  /** Permite criar leads duplicados (mesmo contactId) neste funil. Leads em funis diferentes não são afetados. Default: true */
+  allowDuplicateContacts?: boolean;
 }
 
 export type FunnelResponse = Omit<Funnel, '_id'> & { id: string };

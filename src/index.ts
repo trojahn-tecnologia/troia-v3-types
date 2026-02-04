@@ -80,6 +80,9 @@ export * from './ai-agents';
 export * from './escalation-rules';
 export * from './custom-actions';
 
+// Lead Routing Rules (automatic lead assignment by conditions)
+export * from './leads-routing-rules';
+
 // Workflows/Automation module
 export * from './workflows';
 export * from './workflow-node-schemas';

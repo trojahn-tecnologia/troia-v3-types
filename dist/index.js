@@ -79,6 +79,8 @@ __exportStar(require("./databases"), exports);
 __exportStar(require("./ai-agents"), exports);
 __exportStar(require("./escalation-rules"), exports);
 __exportStar(require("./custom-actions"), exports);
+// Lead Routing Rules (automatic lead assignment by conditions)
+__exportStar(require("./leads-routing-rules"), exports);
 // Workflows/Automation module
 __exportStar(require("./workflows"), exports);
 __exportStar(require("./workflow-node-schemas"), exports);
