@@ -1,3 +1,17 @@
+export interface ContactAddress {
+    street?: string;
+    number?: string;
+    complement?: string;
+    neighborhood?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+}
+export interface PersonalInfo {
+    birthDate?: string;
+    address?: ContactAddress;
+}
 export interface ContactIdentifiers {
     email: string[];
     phone: string[];
@@ -15,6 +29,7 @@ export interface Contact {
     tags: string[];
     identifiers: ContactIdentifiers;
     customerId?: string;
+    personalInfo?: PersonalInfo;
     assigneeId?: string;
     teamId?: string;
     lastInteractionAt?: string;
@@ -26,6 +41,7 @@ export interface CreateContactRequest {
     picture?: string;
     tags?: string[];
     identifiers: Partial<ContactIdentifiers>;
+    personalInfo?: PersonalInfo;
     customerId?: string;
     assigneeId?: string;
     teamId?: string;
@@ -35,6 +51,7 @@ export interface UpdateContactRequest {
     picture?: string;
     tags?: string[];
     identifiers?: Partial<ContactIdentifiers>;
+    personalInfo?: PersonalInfo;
     customerId?: string;
     assigneeId?: string;
     teamId?: string;

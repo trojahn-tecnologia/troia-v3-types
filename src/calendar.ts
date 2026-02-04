@@ -6,7 +6,7 @@ import { PaginationQuery, ListResponse } from './common';
  * Calendar Event Type
  * Defines the type of calendar event
  */
-export type CalendarEventType = 'meeting' | 'task' | 'reminder' | 'other' | 'follow_up';
+export type CalendarEventType = 'meeting' | 'task' | 'reminder' | 'other' | 'follow_up' | 'birthday';
 
 /**
  * Calendar Event - Complete structure compatible with Google Calendar
@@ -97,6 +97,7 @@ export interface CalendarEvent extends FullBaseDocument {
  */
 export interface CalendarEventResponse extends Omit<CalendarEvent, '_id'> {
   id: string;
+  source?: 'calendar' | 'contact';  // Origem do evento (default: 'calendar')
 }
 
 /**

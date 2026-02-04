@@ -1,3 +1,20 @@
+// Personal Info Types
+export interface ContactAddress {
+  street?: string;
+  number?: string;
+  complement?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  country?: string;
+}
+
+export interface PersonalInfo {
+  birthDate?: string;
+  address?: ContactAddress;
+}
+
 // Contact Types - Multi-channel identifier support
 export interface ContactIdentifiers {
   // Generic identifiers (fallback for all providers)
@@ -34,6 +51,9 @@ export interface Contact {
   // Relationships
   customerId?: string;
 
+  // Personal information
+  personalInfo?: PersonalInfo;
+
   // Assignment system integration
   assigneeId?: string;
   teamId?: string;
@@ -50,6 +70,7 @@ export interface CreateContactRequest {
   picture?: string;
   tags?: string[];
   identifiers: Partial<ContactIdentifiers>;
+  personalInfo?: PersonalInfo;
   customerId?: string;
   assigneeId?: string;
   teamId?: string;
@@ -60,6 +81,7 @@ export interface UpdateContactRequest {
   picture?: string;
   tags?: string[];
   identifiers?: Partial<ContactIdentifiers>;
+  personalInfo?: PersonalInfo;
   customerId?: string;
   assigneeId?: string;
   teamId?: string;
