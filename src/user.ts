@@ -14,6 +14,16 @@ export interface User extends FullTenantDocument {
   permissions: UserPermissions;
   lastLoginAt?: Date;
   lastActivityAt?: Date;
+  devices?: UserDevice[];
+}
+
+export interface UserDevice {
+  token: string;
+  platform: 'web' | 'android' | 'ios';
+  browser?: string;
+  deviceModel?: string;
+  lastActiveAt: string;
+  createdAt: string;
 }
 
 // UserRole removido - agora usamos apenas levelId + permissions individuais

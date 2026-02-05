@@ -146,7 +146,7 @@ export interface ConversationQuery extends PaginationQuery {
         leadId?: string;
         ticketId?: string;
         groupId?: string;
-        assigneeId?: string;
+        assigneeId?: string | string[];
         teamId?: string;
         category?: string;
         tags?: string[];
