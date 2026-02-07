@@ -14,7 +14,6 @@ var ProviderId;
     // Messaging Providers
     ProviderId["WHATSAPP_BUSINESS"] = "whatsapp-business";
     ProviderId["FACEBOOK_MESSENGER"] = "facebook-messenger";
-    ProviderId["INSTAGRAM_DIRECT"] = "instagram-direct";
     ProviderId["TELEGRAM_BOT"] = "telegram-bot";
     ProviderId["SMS_TWILIO"] = "sms-twilio";
     ProviderId["PUSH_FIREBASE"] = "push-firebase";

@@ -246,7 +246,6 @@ export enum ProviderId {
   // Messaging Providers
   WHATSAPP_BUSINESS = 'whatsapp-business',
   FACEBOOK_MESSENGER = 'facebook-messenger',
-  INSTAGRAM_DIRECT = 'instagram-direct',
   TELEGRAM_BOT = 'telegram-bot',
   SMS_TWILIO = 'sms-twilio',
   PUSH_FIREBASE = 'push-firebase',
