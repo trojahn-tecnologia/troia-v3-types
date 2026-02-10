@@ -118,6 +118,7 @@ export interface MetaConfig {
   appSecret: string;         // Meta App Secret
   configId?: string;         // WhatsApp Embedded Signup Config ID (optional, for WABA signup)
   graphApiVersion: string;   // Graph API version (e.g., 'v21.0')
+  systemUserAccessToken?: string; // SUAT - fallback token when code exchange token has insufficient scopes
 }
 
 // ============================================================================

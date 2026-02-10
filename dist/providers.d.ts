@@ -95,6 +95,7 @@ export interface MetaConfig {
     appSecret: string;
     configId?: string;
     graphApiVersion: string;
+    systemUserAccessToken?: string;
 }
 export type ProviderConfig = SmtpConfig | SendGridConfig | WhatsAppConfig | FacebookMessengerConfig | TelegramConfig | TwilioSmsConfig | WebhookConfig | InstagramConfig | LinkedInConfig | TikTokConfig | GmailConfig | GatewayConfig | GoogleCalendarConfig | FirebaseConfig | OneSignalConfig | ElevenLabsConfig | JetimobConfig | MetaConfig;
 export interface ProviderCredentials {
