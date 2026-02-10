@@ -46,6 +46,7 @@ export * from './databases';
 export * from './ai-agents';
 export * from './escalation-rules';
 export * from './custom-actions';
+export * from './custom-action-logs';
 export * from './leads-routing-rules';
 export * from './workflows';
 export * from './workflow-node-schemas';
