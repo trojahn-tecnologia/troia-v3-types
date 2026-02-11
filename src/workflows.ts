@@ -63,7 +63,7 @@ export interface FilterCondition {
   /** Comparison operator */
   operator: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'greater_than' | 'less_than' | 'in' | 'not_in' | 'is_empty' | 'is_not_empty';
   /** Value to compare against */
-  value: any;
+  value: string | number | boolean | null | string[] | number[];
 }
 
 /**
@@ -164,7 +164,7 @@ export type AnyDateFieldTriggerConfig =
  * Inactivity Trigger Configuration
  */
 export interface InactivityTriggerConfig {
-  entityType: 'conversation' | 'contact' | 'lead';
+  entityType: 'conversation' | 'contact' | 'lead' | 'ticket';
   inactivityPeriod: number; // The numeric value (interpreted based on periodUnit)
   periodUnit?: 'seconds' | 'minutes' | 'hours' | 'days'; // default: 'seconds' for backward compatibility
   inactivityField: string; // e.g., 'lastMessageAt', 'updatedAt'
@@ -179,11 +179,13 @@ export interface InactivityTriggerConfig {
 export interface SendMessageActionConfig {
   conversationId?: string;
   contactId?: string;
+  contactIds?: string[];
   channelId?: string;
   message: string;
   messageType?: 'text' | 'template';
   templateId?: string;
   templateVariables?: Record<string, string>;
+  targetType?: 'existing' | 'new_conversation';
 }
 
 /**
@@ -204,7 +206,7 @@ export interface HttpRequestActionConfig {
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   url: string;
   headers?: Record<string, string>;
-  body?: string | Record<string, any>;
+  body?: string | Record<string, unknown>;
   timeout?: number;
   retryAttempts?: number;
 }
@@ -215,7 +217,7 @@ export interface HttpRequestActionConfig {
 export interface QueryDatabaseActionConfig {
   collection: string;
   operation: 'find' | 'findOne' | 'count' | 'aggregate';
-  query: Record<string, any>;
+  query: Record<string, unknown>;
   outputVariable?: string;
 }
 
@@ -238,7 +240,7 @@ export interface UpdateContactActionConfig {
   contactId?: string;
   addTags?: string[];
   removeTags?: string[];
-  customFields?: Record<string, any>;
+  customFields?: Record<string, unknown>;
 }
 
 /**
@@ -257,7 +259,7 @@ export interface AssignActionConfig {
  */
 export interface SetVariableActionConfig {
   variable: string;
-  value: any;
+  value: string | number | boolean | null;
   expression?: string;
 }
 
@@ -308,7 +310,7 @@ export interface CreateConversationActionConfig {
 export interface IfControlConfig {
   condition: string;
   operator?: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'greater_than' | 'less_than' | 'is_empty' | 'is_not_empty';
-  value?: any;
+  value?: string | number | boolean | null;
 }
 
 /**
@@ -317,7 +319,7 @@ export interface IfControlConfig {
 export interface SwitchControlConfig {
   field: string;
   cases: Array<{
-    value: any;
+    value: string | number | boolean | null;
     label?: string;
   }>;
   defaultCase?: boolean;
@@ -357,6 +359,8 @@ export interface AIAgentNodeConfig {
   customPrompt?: string;
   /** Whether to wait for agent response before continuing workflow */
   waitForResponse?: boolean;
+  /** When true, if the conversation has no messages, fetches history from the last conversation of the same contact+channel */
+  includeHistory?: boolean;
 }
 
 /**
@@ -416,7 +420,27 @@ export type NodeConfig =
   | LoopControlConfig
   | AIAgentNodeConfig
   | AIProcessorNodeConfig
-  | Record<string, any>;
+  | Record<string, unknown>;
+
+// ============================================================
+// WORKFLOW VARIABLE TYPES
+// ============================================================
+
+/**
+ * Workflow Variable Value - Type-safe recursive value type for workflow variables
+ */
+export type WorkflowVariableValue =
+  | string
+  | number
+  | boolean
+  | null
+  | WorkflowVariableValue[]
+  | { [key: string]: WorkflowVariableValue };
+
+/**
+ * Workflow Variables Record
+ */
+export type WorkflowVariables = Record<string, WorkflowVariableValue>;
 
 // ============================================================
 // WORKFLOW DEFINITION
@@ -477,7 +501,7 @@ export interface WorkflowViewport {
 export interface WorkflowDefinition {
   nodes: WorkflowNode[];
   edges: WorkflowEdge[];
-  variables?: Record<string, any>;
+  variables?: WorkflowVariables;
   version?: number;
   viewport?: WorkflowViewport;
 }
@@ -618,8 +642,8 @@ export interface NodeExecution {
   status: NodeExecutionStatus;
   startedAt: Date;
   completedAt?: Date;
-  input?: Record<string, any>;
-  output?: Record<string, any>;
+  input?: Record<string, unknown>;
+  output?: Record<string, unknown>;
   error?: string;
   duration?: number;
 }
@@ -633,9 +657,9 @@ export interface WorkflowExecution {
   workflowName?: string;
   status: WorkflowExecutionStatus;
   triggerType: WorkflowNodeType;
-  triggerData?: Record<string, any>;
-  context: Record<string, any>;
-  variables: Record<string, any>;
+  triggerData?: Record<string, unknown>;
+  context: Record<string, unknown>;
+  variables: WorkflowVariables;
   nodeExecutions: NodeExecution[];
   currentNodeId?: string;
   startedAt: Date;
@@ -674,7 +698,7 @@ export interface WorkflowExecutionResponse extends Omit<WorkflowExecution, '_id'
 export interface WorkflowTriggerCount {
   _id?: ObjectId;
   workflowId: ObjectId;
-  entityType: 'conversation' | 'contact' | 'lead';
+  entityType: 'conversation' | 'contact' | 'lead' | 'ticket';
   entityId: string;
   triggerCount: number;
   lastTriggeredAt: Date;
@@ -755,8 +779,8 @@ export type WorkflowEventType =
  */
 export interface WorkflowEvent {
   type: WorkflowEventType;
-  data: Record<string, any>;
-  metadata?: Record<string, any>;
+  data: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
   appId: string;
   companyId: string;
   workflowId?: string;
@@ -827,8 +851,8 @@ export interface WorkflowExecutionQuery {
  */
 export interface TriggerWorkflowRequest {
   workflowId: string;
-  triggerData?: Record<string, any>;
-  variables?: Record<string, any>;
+  triggerData?: Record<string, unknown>;
+  variables?: Record<string, unknown>;
 }
 
 // ============================================================
@@ -844,9 +868,9 @@ export interface WorkflowExecutionContext {
   appId: string;
   companyId: string;
   triggerType: WorkflowNodeType;
-  triggerData: Record<string, any>;
-  variables: Record<string, any>;
-  metadata: Record<string, any>;
+  triggerData: Record<string, unknown>;
+  variables: Record<string, unknown>;
+  metadata: Record<string, unknown>;
   // Entity references
   conversation?: {
     id: string;
@@ -883,7 +907,9 @@ export interface WorkflowExecutionContext {
     startDate?: string;
     endDate?: string;
     location?: string;
-    attendees?: string[];
+    contactId?: string;
+    channelId?: string;
+    attendees?: Array<{ contactId?: string; email?: string; name?: string }>;
   };
 }
 
@@ -896,7 +922,7 @@ export interface WorkflowExecutionContext {
  */
 export interface NodeHandlerResult {
   success: boolean;
-  output?: Record<string, any>;
+  output?: Record<string, unknown>;
   error?: string;
   nextNodes?: string[];
   skipRemaining?: boolean;

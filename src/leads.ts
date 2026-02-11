@@ -69,6 +69,7 @@ export interface Lead {
   lastInteractionAt?: string;
   lastFollowUpAt?: string;
   lastStepAt?: string;
+  lastActivityAt?: string;
 
   // Loss/disqualification reasons
   lostReason?: string;

@@ -42,6 +42,7 @@ export interface Lead {
     lastInteractionAt?: string;
     lastFollowUpAt?: string;
     lastStepAt?: string;
+    lastActivityAt?: string;
     lostReason?: string;
     createdAt: string;
     updatedAt: string;
