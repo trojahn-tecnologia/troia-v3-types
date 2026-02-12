@@ -714,6 +714,40 @@ export interface WorkflowExecutionContext {
     };
 }
 /**
+ * Entity context for workflow execution.
+ * Contains ONLY entity references — no workflow metadata.
+ * Built by WorkflowContextBuilder.buildContextFromDoc().
+ *
+ * This type enforces separation between entity data and workflow execution fields
+ * (workflowId, executionId, triggerType, etc.), preventing accidental mixing.
+ */
+export interface WorkflowEntityContext {
+    conversation?: WorkflowExecutionContext['conversation'];
+    contact?: WorkflowExecutionContext['contact'];
+    lead?: WorkflowExecutionContext['lead'];
+    ticket?: WorkflowExecutionContext['ticket'];
+    event?: WorkflowExecutionContext['event'];
+}
+/**
+ * Standard parameters for triggering a workflow execution.
+ * ALL trigger services MUST use this interface — no exceptions.
+ *
+ * entityContext is REQUIRED — context must always be pre-built by
+ * WorkflowContextBuilder before calling WorkflowTriggerRunner.run().
+ */
+export interface TriggerWorkflowParams {
+    /** Raw MongoDB workflow document */
+    workflow: Record<string, unknown>;
+    /** Trigger node from workflow definition */
+    triggerNode: Record<string, unknown>;
+    /** ID of the entity being triggered */
+    entityId: string;
+    /** Pre-built entity context (REQUIRED — never optional) */
+    entityContext: WorkflowEntityContext;
+    /** Trigger-specific data (varies by trigger type) */
+    triggerData: Record<string, unknown>;
+}
+/**
  * Node Handler Result
  */
 export interface NodeHandlerResult {
