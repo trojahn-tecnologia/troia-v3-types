@@ -65,6 +65,15 @@ export interface AIAgentTriggers {
       };
     };
   };
+  message_sent?: {
+    enabled: boolean;
+    conditions?: {
+      matchMode?: KeywordMatchMode;          // How to match keywords (default: 'any_message')
+      keywords?: string[];                   // Keywords to match
+      keywordLogic?: KeywordMatchLogic;      // AND/OR logic for multiple keywords (default: 'OR')
+      channelIds?: string[];                 // Filter by specific channel IDs
+    };
+  };
   lead_stage_change?: {
     enabled: boolean;
     stages?: string[];
@@ -72,6 +81,9 @@ export interface AIAgentTriggers {
   lead_created?: {
     enabled: boolean;
     sources?: string[];
+    funnelIds?: string[];        // Filtrar por funis específicos (vazio = todos)
+    phoneChannelId?: string;     // Canal para leads COM telefone
+    emailChannelId?: string;     // Canal para leads COM email (sem telefone)
   };
   webhook_event?: {
     enabled: boolean;

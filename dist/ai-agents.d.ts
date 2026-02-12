@@ -54,6 +54,15 @@ export interface AIAgentTriggers {
             };
         };
     };
+    message_sent?: {
+        enabled: boolean;
+        conditions?: {
+            matchMode?: KeywordMatchMode;
+            keywords?: string[];
+            keywordLogic?: KeywordMatchLogic;
+            channelIds?: string[];
+        };
+    };
     lead_stage_change?: {
         enabled: boolean;
         stages?: string[];
@@ -61,6 +70,9 @@ export interface AIAgentTriggers {
     lead_created?: {
         enabled: boolean;
         sources?: string[];
+        funnelIds?: string[];
+        phoneChannelId?: string;
+        emailChannelId?: string;
     };
     webhook_event?: {
         enabled: boolean;
