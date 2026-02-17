@@ -143,6 +143,7 @@ export interface LeadResponse extends Lead {
   contact?: {
     id: string;
     name: string;
+    tags?: string[];
     identifiers?: {
       email?: string[];
       phone?: string[];
@@ -201,6 +202,7 @@ export interface LeadQuery extends PaginationQuery {
     campaignName?: string | string[];
     adsetName?: string | string[];
     adName?: string | string[];
+    tags?: string | string[];
   };
 }
 

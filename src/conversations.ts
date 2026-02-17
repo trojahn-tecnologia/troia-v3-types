@@ -191,8 +191,8 @@ export interface ConversationQuery extends PaginationQuery {
     subject?: string;
     status?: 'waiting' | 'active' | 'closed' | Array<'waiting' | 'active' | 'closed'>;  // ✅ Aceita string ou array
     priority?: 'low' | 'normal' | 'high' | 'urgent';
-    channelId?: string;
-    channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+    channelId?: string | string[];
+    channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook' | 'widget';
     conversationType?: 'individual' | 'group' | 'ai';  // ✅ Virtual filter: 'ai' = agentId EXISTS AND agentStatus='active'
     providerId?: string;  // ✅ Filter by provider (via channel → integration → provider)
     source?: string;

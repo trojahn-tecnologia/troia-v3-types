@@ -136,8 +136,8 @@ export interface ConversationQuery extends PaginationQuery {
         subject?: string;
         status?: 'waiting' | 'active' | 'closed' | Array<'waiting' | 'active' | 'closed'>;
         priority?: 'low' | 'normal' | 'high' | 'urgent';
-        channelId?: string;
-        channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook';
+        channelId?: string | string[];
+        channelType?: 'whatsapp' | 'instagram' | 'email' | 'chat' | 'sms' | 'telegram' | 'facebook' | 'widget';
         conversationType?: 'individual' | 'group' | 'ai';
         providerId?: string;
         source?: string;
