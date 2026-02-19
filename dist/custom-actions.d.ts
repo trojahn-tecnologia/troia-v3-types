@@ -1,5 +1,10 @@
 import { ObjectId } from 'mongodb';
 import { ActiveStatus, PaginationQuery } from './common';
+export interface ToolFilterCondition {
+    field: string;
+    operator: string;
+    value: string;
+}
 export interface CustomAction {
     _id?: ObjectId;
     id?: string;
@@ -38,6 +43,7 @@ export interface CustomAction {
             required?: string[];
         };
     };
+    filters?: ToolFilterCondition[];
     appId: ObjectId | string;
     companyId: ObjectId | string;
     status: ActiveStatus;
@@ -84,6 +90,7 @@ export interface CreateCustomActionRequest {
             required?: string[];
         };
     };
+    filters?: ToolFilterCondition[];
 }
 export interface UpdateCustomActionRequest {
     name?: string;
@@ -121,6 +128,7 @@ export interface UpdateCustomActionRequest {
             required?: string[];
         };
     };
+    filters?: ToolFilterCondition[];
 }
 export interface CustomActionQuery extends PaginationQuery {
     status?: ActiveStatus;
