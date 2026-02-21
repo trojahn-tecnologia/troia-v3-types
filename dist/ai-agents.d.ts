@@ -28,6 +28,7 @@ export interface AIAgent {
         voiceId?: string;
     };
     enabledCapabilities: AIAgentCapabilityConfig[];
+    webhooks?: AIAgentWebhook[];
     responseStyle?: string;
     tone?: string;
     language?: string;
@@ -96,6 +97,20 @@ export interface AIAgentCapabilityConfig {
         [key: string]: any;
     };
 }
+/**
+ * AI Agent Webhook Configuration
+ * Allows external systems to send data that will be processed by AI and injected into conversations
+ */
+export interface AIAgentWebhook {
+    id: string;
+    name: string;
+    description?: string;
+    method: 'POST' | 'PUT' | 'PATCH';
+    prompt: string;
+    status: 'active' | 'inactive';
+    createdAt: string;
+    updatedAt: string;
+}
 export interface AIAgentResponse extends Omit<AIAgent, '_id'> {
     id: string;
     totalInteractions?: number;
@@ -116,6 +131,7 @@ export interface CreateAIAgentRequest {
         voiceId?: string;
     };
     enabledCapabilities?: AIAgentCapabilityConfig[];
+    webhooks?: Omit<AIAgentWebhook, 'createdAt' | 'updatedAt'>[];
 }
 export interface UpdateAIAgentRequest {
     name?: string;
@@ -133,6 +149,7 @@ export interface UpdateAIAgentRequest {
         voiceId?: string;
     };
     enabledCapabilities?: AIAgentCapabilityConfig[];
+    webhooks?: Omit<AIAgentWebhook, 'createdAt' | 'updatedAt'>[];
 }
 export interface AIAgentQuery extends PaginationQuery {
     status?: ActiveStatus;

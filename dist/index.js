@@ -87,3 +87,5 @@ __exportStar(require("./workflows"), exports);
 __exportStar(require("./workflow-node-schemas"), exports);
 // CRM Reports module
 __exportStar(require("./crm-reports"), exports);
+// Websites module (website builder)
+__exportStar(require("./websites"), exports);

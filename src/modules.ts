@@ -64,7 +64,8 @@ export type ValidModuleId =
   | 'agents'
   | 'tools'
   | 'databases'
-  | 'workflows';
+  | 'workflows'
+  | 'websites';
 
 export interface Module extends AppAwareDocument {
   name: string; // "users", "crm", "teams", "chat", "reports"

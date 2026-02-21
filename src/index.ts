@@ -90,3 +90,6 @@ export * from './workflow-node-schemas';
 
 // CRM Reports module
 export * from './crm-reports';
+
+// Websites module (website builder)
+export * from './websites';
